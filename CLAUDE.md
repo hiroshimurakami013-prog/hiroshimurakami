@@ -25,3 +25,12 @@ UI and motion skills live in `.claude/skills/` (see its README). Use `impeccable
 ## Workflow
 - Build with `npm run build` before committing. Fix errors.
 - Commit and push to `main` to deploy. Do not store credentials in git config or remote URLs.
+
+## Design direction v2 (owner feedback, overrides the Brand section above for this website)
+The owner rejected the first redesign. The brand kit may be bent or broken on this site. Specifically:
+- No neumorphism or soft UI. No pebble shadows, no raised or inset cards.
+- Dark by default. Rich, deep, cinematic, not flat black and not white. A light theme is optional, only as a toggle, and the dark theme must be the hero experience.
+- Not Outfit. Choose a distinctive, characterful type pairing (display plus text) via next/font. Headings must be set in normal case, large and confident. Never small caps, never tiny letterspaced uppercase labels or eyebrows.
+- The page must feel alive: smooth scrolling, scroll-driven reveals, animated backgrounds, depth and parallax, magnetic or glowing interactions, cursor-aware effects, marquee or ticker elements, animated counters only if the numbers are not fabricated. Smooth, 60fps, GPU-friendly, respecting prefers-reduced-motion.
+- Colour is free. Ember #FF6B4A can stay as an accent but is no longer limited to one element. Add supporting hues if they look great.
+- Rules that still apply: "AI" always in capitals, no em dashes, no video, no invented clients, metrics or testimonials, no secrets in the repo, placeholder case studies stay labelled "Case study".

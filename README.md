@@ -6,14 +6,22 @@ Live: https://hiroshimurakami.vercel.app
 
 ## Stack
 
-- Next.js (App Router, TypeScript)
-- Tailwind CSS
-- Outfit via `next/font/google`
-- No other runtime dependencies
+- Next.js (App Router, TypeScript), Tailwind CSS v4
+- Bricolage Grotesque (display) and Geist (text) via `next/font/google`
+- `motion` for scroll-linked and spring motion, `lenis` for inertial scrolling, `@phosphor-icons/react` for icons
 
-## Brand
+## Design
 
-Follows the Hiroshi Murakami brand guidelines v1.0: Cloud and Mist surfaces, Ink text, soft UI shadows with light from the top left, a lowercase bold H1 with an ember full stop, and ember reserved for the primary call to action.
+Design direction v2 (see `CLAUDE.md`): dark and cinematic, with ember as the warm accent and tide, steel and mint as supporting light. No soft UI.
+
+- Hero: a WebGL aurora (`app/components/aurora.tsx`) that drifts slowly and blooms under the cursor, with scroll parallax.
+- A capabilities marquee that reacts to scroll speed and direction.
+- An About statement that lights up word by word as it is read.
+- A pinned scroll story of the AI accounting flow (`app/components/flow.tsx`): documents in, AI core, clean books out.
+- Services rows with a cursor light, case study cards with tilt and a spotlight border, and a process rail that draws itself.
+- A magnetic primary CTA.
+
+Motion respects `prefers-reduced-motion`. Smooth scrolling, parallax, the marquee, tilt and the pinned story all switch off, and the flow becomes a still diagram. Content is visible without JavaScript.
 
 ## Develop
 
@@ -31,9 +39,9 @@ Contact channels are the Instagram profile and Facebook page set at the top of `
 
 ## Assets
 
-- `public/logo-circle.png`: circular crop of the soft UI primary logo, used in the footer.
+- `public/symbol.png`: the H symbol, shown on a light tile in the header and footer.
 - `app/icon.png`, `app/apple-icon.png`: icons cropped from the symbol tile.
-- `public/og.jpg`: Open Graph image, 1200 by 630.
+- `public/og.png`: Open Graph image, 1200 by 630, in the dark design.
 
 ## Deploy
 
