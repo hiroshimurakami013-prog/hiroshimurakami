@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hiroshi Murakami: portfolio landing page
 
-## Getting Started
+A single page, CTA-focused landing page for Hiroshi Murakami, who helps businesses automate accounting (bookkeeping, invoices, receipts, reconciliation, reporting) with AI.
 
-First, run the development server:
+Live: https://hiroshimurakami.vercel.app
+
+## Stack
+
+- Next.js (App Router, TypeScript)
+- Tailwind CSS
+- Outfit via `next/font/google`
+- No other runtime dependencies
+
+## Brand
+
+Follows the Hiroshi Murakami brand guidelines v1.0: Cloud and Mist surfaces, Ink text, soft UI shadows with light from the top left, a lowercase bold H1 with an ember full stop, and ember reserved for the primary call to action.
+
+## Develop
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Placeholders to replace
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The projects grid in `app/page.tsx` (the `projects` array) contains generic placeholder case studies. They are labelled "Case study" and contain no client names and no metrics. Replace them with real projects when they are ready.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Contact channels are the Instagram profile and Facebook page set at the top of `app/page.tsx` (`INSTAGRAM`, `FACEBOOK`). There is no email address on the site.
 
-## Learn More
+## Assets
 
-To learn more about Next.js, take a look at the following resources:
+- `public/logo-circle.png`: circular crop of the soft UI primary logo, used in the footer.
+- `app/icon.png`, `app/apple-icon.png`: icons cropped from the symbol tile.
+- `public/og.jpg`: Open Graph image, 1200 by 630.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Hosted on Vercel. Pushes to `main` redeploy when the GitHub repository is connected to the Vercel project.
