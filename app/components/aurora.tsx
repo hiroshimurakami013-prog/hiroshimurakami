@@ -101,12 +101,21 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
 // upscale is invisible and the GPU cost stays small on phones.
 const RENDER_SCALE = 0.4;
 
+// The canvas is created inside the effect and removed in its cleanup. With
+// cacheComponents, Next keeps a page mounted but hidden (React Activity) when
+// you navigate away, runs effect cleanups, then re-runs the effects on the
+// same DOM when you come back. A canvas rendered by React would survive that
+// with its context already released, and a released context cannot draw
+// again. A fresh canvas per activation always gets a live context. Until it
+// has drawn, the dark CSS field on .hero-bg is what shows.
 export default function Aurora() {
-  const ref = useRef<HTMLCanvasElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
+    const layer = ref.current;
+    if (!layer) return;
+    const canvas = document.createElement("canvas");
+    canvas.className = "aurora-canvas";
     const gl = canvas.getContext("webgl", {
       antialias: false,
       alpha: false,
@@ -117,12 +126,20 @@ export default function Aurora() {
     const vs = compile(gl, gl.VERTEX_SHADER, VERTEX);
     const fs = compile(gl, gl.FRAGMENT_SHADER, FRAGMENT);
     const program = gl.createProgram();
-    if (!vs || !fs || !program) return;
+    const release = () => gl.getExtension("WEBGL_lose_context")?.loseContext();
+    if (!vs || !fs || !program) {
+      release();
+      return;
+    }
     gl.attachShader(program, vs);
     gl.attachShader(program, fs);
     gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      release();
+      return;
+    }
     gl.useProgram(program);
+    layer.appendChild(canvas);
 
     const buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -149,6 +166,8 @@ export default function Aurora() {
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
+      // Hidden (display: none) reports zero. Keep the last good size.
+      if (rect.width === 0 || rect.height === 0) return;
       const w = Math.max(1, Math.round(rect.width * RENDER_SCALE));
       const h = Math.max(1, Math.round(rect.height * RENDER_SCALE));
       if (canvas.width !== w || canvas.height !== h) {
@@ -163,12 +182,15 @@ export default function Aurora() {
     // that is still gathering itself.
     const T0 = 40;
     let raf = 0;
+    let reveal = 0;
     let visible = true;
     let running = false;
+    let lost = false;
     let last = performance.now();
     let time = T0;
 
     const draw = () => {
+      if (lost) return;
       eased.x += (target.x - eased.x) * 0.06;
       eased.y += (target.y - eased.y) * 0.06;
       eased.on += (target.on - eased.on) * 0.05;
@@ -186,7 +208,8 @@ export default function Aurora() {
     };
 
     const play = () => {
-      if (running || reduce.matches || !visible || document.hidden) return;
+      if (running || lost || reduce.matches || !visible || document.hidden)
+        return;
       running = true;
       last = performance.now();
       raf = requestAnimationFrame(frame);
@@ -198,8 +221,20 @@ export default function Aurora() {
 
     resize();
     draw();
-    canvas.dataset.ready = "true";
+    // Flip to ready on the next frame so the fade in actually transitions.
+    reveal = requestAnimationFrame(() => {
+      if (!lost) canvas.dataset.ready = "true";
+    });
     play();
+
+    // If the GPU drops the context, fade back to the CSS field rather than
+    // leaving a dead canvas on top of it.
+    const onLost = () => {
+      lost = true;
+      pause();
+      delete canvas.dataset.ready;
+    };
+    canvas.addEventListener("webglcontextlost", onLost);
 
     const ro = new ResizeObserver(() => {
       resize();
@@ -242,15 +277,18 @@ export default function Aurora() {
 
     return () => {
       pause();
+      cancelAnimationFrame(reveal);
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       reduce.removeEventListener("change", onMotionPref);
       host?.removeEventListener("pointermove", onMove);
       host?.removeEventListener("pointerleave", onLeave);
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      canvas.removeEventListener("webglcontextlost", onLost);
+      canvas.remove();
+      release();
     };
   }, []);
 
-  return <canvas ref={ref} className="aurora-canvas" aria-hidden="true" />;
+  return <div ref={ref} className="aurora" aria-hidden="true" />;
 }

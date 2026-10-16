@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   ArrowUpRight,
   ArrowsLeftRight,
@@ -22,10 +21,8 @@ import Marquee from "./components/marquee";
 import ProcessSteps from "./components/process-steps";
 import RevealObserver from "./components/reveal-observer";
 import ScrollWords from "./components/scroll-words";
+import SiteFooter, { FACEBOOK, INSTAGRAM } from "./components/site-footer";
 import TiltCard from "./components/tilt-card";
-
-const INSTAGRAM = "https://www.instagram.com/hiroshimurakami013";
-const FACEBOOK = "https://www.facebook.com/1252933767913035";
 
 const capabilities = [
   "Invoice capture",
@@ -480,65 +477,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="wrap flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-4">
-            <span className="symbol-tile" aria-hidden="true">
-              <Symbol size={22} />
-            </span>
-            <div className="leading-snug">
-              <p className="font-semibold">Hiroshi Murakami</p>
-              <p className="text-[0.92rem] text-text-2">
-                Practical AI for accountants and business owners.
-              </p>
-            </div>
-          </div>
-          <nav aria-label="Footer">
-            <ul className="footer-links">
-              <li>
-                <a
-                  href={INSTAGRAM}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-link"
-                >
-                  Instagram
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={FACEBOOK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-link"
-                >
-                  Facebook
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-link">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/data-deletion" className="text-link">
-                  Data deletion
-                </Link>
-              </li>
-              <li>
-                <a href="#main" className="text-link">
-                  Back to top
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <p className="wrap mt-10 text-[0.85rem] text-text-3">
-          &copy; 2026 Hiroshi Murakami. All rights reserved.
-        </p>
-      </footer>
+      <SiteFooter />
 
       <RevealObserver />
     </>

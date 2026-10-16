@@ -464,6 +464,10 @@ main:focus {
     opacity: 1 !important;
   }
 }
+.aurora {
+  position: absolute;
+  inset: 0;
+}
 .aurora-canvas {
   position: absolute;
   inset: 0;

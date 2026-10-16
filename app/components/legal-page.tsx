@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
+import SiteFooter from "./site-footer";
 
-export const INSTAGRAM = "https://www.instagram.com/hiroshimurakami013";
-export const FACEBOOK = "https://www.facebook.com/1252933767913035";
+export { FACEBOOK, INSTAGRAM } from "./site-footer";
 
 export function External({
   href,
@@ -22,7 +22,7 @@ export function External({
 }
 
 // Shared shell for the long-form legal pages: a quiet header with a way
-// home, a readable column, and a footer that links the legal pages together.
+// home, a readable column, and the shared site footer.
 export default function LegalPage({
   title,
   updated,
@@ -82,32 +82,7 @@ export default function LegalPage({
         </article>
       </main>
 
-      <footer className="site-footer">
-        <div className="wrap flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <p className="text-[0.85rem] text-text-3">
-            &copy; 2026 Hiroshi Murakami. All rights reserved.
-          </p>
-          <nav aria-label="Footer">
-            <ul className="footer-links">
-              <li>
-                <Link href="/" className="text-link">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-link">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/data-deletion" className="text-link">
-                  Data deletion
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
