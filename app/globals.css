@@ -1592,6 +1592,109 @@ main:focus {
   }
 }
 
+/* ---------- Legal pages ---------- */
+
+.legal-header {
+  position: relative;
+  z-index: var(--z-header);
+  padding-top: 0.9rem;
+}
+.legal-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgb(255 255 255 / 0.06);
+}
+.legal {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(4rem, 9vw, 7rem) clamp(3rem, 7vw, 5rem);
+}
+.legal-glow {
+  /* A still wash of the hero light, so the page belongs to the site. */
+  position: absolute;
+  inset: -6rem 0 auto;
+  z-index: -1;
+  height: 34rem;
+  background:
+    radial-gradient(45% 60% at 80% 20%, rgb(255 107 74 / 0.16), transparent 70%),
+    radial-gradient(40% 55% at 15% 40%, rgb(47 182 166 / 0.1), transparent 70%);
+  pointer-events: none;
+}
+.legal-column {
+  max-width: 46rem;
+}
+.legal-title {
+  font-size: clamp(2.6rem, 1.4rem + 5vw, 5.25rem);
+}
+.legal-updated {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-3);
+}
+.legal-intro {
+  margin-top: 1.75rem;
+}
+.legal-body {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  color: var(--text-2);
+}
+.legal-body section {
+  padding-top: 2.25rem;
+  margin-top: 2.25rem;
+  border-top: 1px solid var(--line);
+}
+.legal-body section:first-child {
+  margin-top: 0;
+}
+.legal-body h2 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text);
+  text-wrap: balance;
+}
+.legal-body p,
+.legal-body ul,
+.legal-body ol {
+  margin-top: 1rem;
+  text-wrap: pretty;
+}
+.legal-body ul,
+.legal-body ol {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.25rem;
+}
+.legal-body ul {
+  list-style: disc;
+}
+.legal-body ol {
+  list-style: decimal;
+}
+.legal-body li::marker {
+  color: var(--ember-soft);
+}
+.legal-body strong {
+  font-weight: 600;
+  color: var(--text);
+}
+.legal-body a,
+.legal-intro a {
+  color: var(--steel);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .legal-body a:hover {
+    color: var(--text);
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

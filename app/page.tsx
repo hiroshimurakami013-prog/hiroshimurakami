@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowUpRight,
   ArrowsLeftRight,
@@ -492,7 +493,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <nav aria-label="Contact channels">
+          <nav aria-label="Footer">
             <ul className="footer-links">
               <li>
                 <a
@@ -515,6 +516,16 @@ export default function Home() {
                   Facebook
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
+              </li>
+              <li>
+                <Link href="/privacy" className="text-link">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/data-deletion" className="text-link">
+                  Data deletion
+                </Link>
               </li>
               <li>
                 <a href="#main" className="text-link">
