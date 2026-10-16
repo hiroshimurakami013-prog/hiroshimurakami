@@ -64,6 +64,11 @@ export default function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/terms" className="text-link">
+                Terms of Service
+              </Link>
+            </li>
+            <li>
               <Link href="/data-deletion" className="text-link">
                 Data deletion
               </Link>

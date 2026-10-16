@@ -37,7 +37,8 @@ export default function PrivacyPage() {
           Hiroshi Murakami publishes on Instagram and Facebook. The short
           version: this website does not collect personal information, and the
           Meta app described below only publishes to Hiroshi&apos;s own
-          accounts.
+          accounts. The rules for using the site are in the{" "}
+          <Link href="/terms">Terms of Service</Link>.
         </p>
       }
     >
