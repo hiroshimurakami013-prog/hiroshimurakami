@@ -34,3 +34,6 @@ The owner rejected the first redesign. The brand kit may be bent or broken on th
 - The page must feel alive: smooth scrolling, scroll-driven reveals, animated backgrounds, depth and parallax, magnetic or glowing interactions, cursor-aware effects, marquee or ticker elements, animated counters only if the numbers are not fabricated. Smooth, 60fps, GPU-friendly, respecting prefers-reduced-motion.
 - Colour is free. Ember #FF6B4A can stay as an accent but is no longer limited to one element. Add supporting hues if they look great.
 - Rules that still apply: "AI" always in capitals, no em dashes, no video, no invented clients, metrics or testimonials, no secrets in the repo, placeholder case studies stay labelled "Case study".
+
+## Current build (v3)
+`docs/BUILD-PLAN.md` is the source of truth for the current growth build (AI automation plus AI accounting, services, use cases, Los Angeles area pages, SEO, performance, noindex switch). It overrides older sections of this file where they conflict. The site stays noindex until the owner sets a real domain (see the Go live notes in README.md).
