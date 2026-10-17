@@ -1,23 +1,33 @@
 import type { LocationSlug } from "./locations";
 import type { ServiceSlug } from "./services";
+import { AI_ACCOUNTING_DETAILS } from "./use-case-details/ai-accounting.ts";
+import { AI_AGENTS_DETAILS } from "./use-case-details/ai-agents.ts";
+import { AI_CUSTOMER_SUPPORT_DETAILS } from "./use-case-details/ai-customer-support.ts";
+import { AI_FOLLOW_UPS_DETAILS } from "./use-case-details/ai-follow-ups.ts";
+import { AI_LEAD_QUALIFICATION_DETAILS } from "./use-case-details/ai-lead-qualification.ts";
+import { AI_RECEPTIONIST_DETAILS } from "./use-case-details/ai-receptionist.ts";
+import { CUSTOM_CRM_AND_WORKFLOWS_DETAILS } from "./use-case-details/custom-crm-and-workflows.ts";
+import { CUSTOM_VOICE_AGENTS_DETAILS } from "./use-case-details/custom-voice-agents.ts";
 
 // Use cases are illustrative scenarios, never client case studies. Each one
 // is labelled "Use case" wherever it appears, with no client names and no
 // metrics.
 //
-// Three per service (docs/BUILD-PLAN.md section 6). The slugs become
-// /use-cases/<slug> in phase 3. Until then only `title` and `summary` are
-// rendered: on the service pages, and on the home page for the one marked
-// `highlight`. Phase 3 fills in `detail` for each page.
+// Three per service (docs/BUILD-PLAN.md section 6), each rendered at
+// /use-cases/<slug> by app/use-cases/[slug]/page.tsx. The cards below hold
+// what the hub, the service pages and the home page show. The long-form
+// page copy lives in content/use-case-details/, one file per service.
 
 export type UseCaseStep = { title: string; text: string };
 
-/** The long-form page content, written in phase 3. */
+/** The long-form page content. */
 export type UseCaseDetail = {
   /** Page title, 60 characters or fewer. */
   seoTitle: string;
   /** Meta description, 155 characters or fewer. */
   seoDescription: string;
+  /** The lead paragraph under the H1. */
+  lead: string;
   /** The problem in plain business terms. */
   problem: string[];
   /** Why the usual tools and workarounds fall short. */
@@ -47,11 +57,21 @@ export type UseCase = {
   locations: LocationSlug[];
   /** Shown on the home page, one per service. */
   highlight?: boolean;
-  /** Filled in phase 3. */
-  detail?: UseCaseDetail;
+  detail: UseCaseDetail;
 };
 
-export const USE_CASES: UseCase[] = [
+const DETAILS: Record<string, UseCaseDetail> = {
+  ...AI_ACCOUNTING_DETAILS,
+  ...AI_RECEPTIONIST_DETAILS,
+  ...CUSTOM_VOICE_AGENTS_DETAILS,
+  ...AI_AGENTS_DETAILS,
+  ...AI_FOLLOW_UPS_DETAILS,
+  ...AI_LEAD_QUALIFICATION_DETAILS,
+  ...CUSTOM_CRM_AND_WORKFLOWS_DETAILS,
+  ...AI_CUSTOMER_SUPPORT_DETAILS,
+};
+
+const CARDS: Omit<UseCase, "detail">[] = [
   // AI Accounting
   {
     slug: "invoice-and-receipt-capture",
@@ -293,8 +313,25 @@ export const USE_CASES: UseCase[] = [
   },
 ];
 
+// A missing detail fails the build rather than shipping a thin page.
+export const USE_CASES: UseCase[] = CARDS.map((card) => {
+  const detail = DETAILS[card.slug];
+  if (!detail) throw new Error(`No page copy for use case "${card.slug}"`);
+  return { ...card, detail };
+});
+
+export function getUseCase(slug: string): UseCase | undefined {
+  return USE_CASES.find((u) => u.slug === slug);
+}
+
 export function casesForService(service: ServiceSlug): UseCase[] {
   return USE_CASES.filter((u) => u.service === service);
+}
+
+/** The next use case of the same service, linked as a sibling. */
+export function siblingUseCase(useCase: UseCase): UseCase {
+  const own = casesForService(useCase.service);
+  return own[(own.indexOf(useCase) + 1) % own.length];
 }
 
 /** One headline use case per service, for the home page. */

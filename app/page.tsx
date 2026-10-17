@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Asterisk, CheckCircle } from "@phosphor-icons/react/dist/ssr";
-import { PROCESS_STEPS, SERVICES, serviceName } from "@/content/services";
+import { PROCESS_STEPS, SERVICES } from "@/content/services";
 import { USE_CASE_HIGHLIGHTS } from "@/content/use-cases";
 import { HOME_DESCRIPTION, homeJsonLd } from "@/lib/schema";
 import { CTA_LABEL, INSTAGRAM, pageMetadata } from "@/lib/site";
@@ -19,6 +19,7 @@ import RevealObserver from "./components/reveal-observer";
 import ScrollWords from "./components/scroll-words";
 import ServiceCard from "./components/service-card";
 import SiteFooter from "./components/site-footer";
+import UseCaseTile from "./components/use-case-tile";
 import Words, { order } from "./components/words";
 
 export const metadata: Metadata = pageMetadata({
@@ -257,21 +258,14 @@ export default function Home() {
             </p>
             <ul className="uc-grid mt-14 md:mt-20">
               {highlights.map((u, i) => (
-                <li
-                  key={u.slug}
-                  className="uc-tile"
-                  data-reveal
-                  style={order(i % 4)}
-                >
-                  <span className="uc-meta">
-                    <span className="case-label">Use case</span>
-                    <span className="uc-service">{serviceName(u.service)}</span>
-                  </span>
-                  <h3 className="uc-title">{u.title}</h3>
-                  <p className="uc-text">{u.summary}</p>
-                </li>
+                <UseCaseTile key={u.slug} useCase={u} index={i % 4} showService />
               ))}
             </ul>
+            <p className="mt-10" data-reveal>
+              <Link href="/use-cases" className="text-link font-medium">
+                See all 24 use cases, grouped by service
+              </Link>
+            </p>
           </div>
         </section>
 

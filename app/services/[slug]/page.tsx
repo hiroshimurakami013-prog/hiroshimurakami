@@ -20,6 +20,7 @@ import RevealObserver from "../../components/reveal-observer";
 import { SERVICE_ICONS } from "../../components/service-icons";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
+import UseCaseTile from "../../components/use-case-tile";
 import Words, { order } from "../../components/words";
 
 export function generateStaticParams() {
@@ -255,7 +256,7 @@ export default async function ServicePage({
           </div>
         </section>
 
-        {/* Use cases. Plain text until the use case pages exist. */}
+        {/* Use cases */}
         <section className="block" aria-labelledby="use-cases-title">
           <div className="wrap">
             <h2
@@ -267,24 +268,18 @@ export default async function ServicePage({
             </h2>
             <p className="lead mt-6 max-w-[54ch]" data-reveal="blur">
               Illustrative scenarios, not client case studies: common problems
-              and how {service.name} handles them.
+              and how {service.name} handles them, step by step.
             </p>
             <ul className="uc-grid" data-count="3">
               {useCases.map((u, i) => (
-                <li
-                  key={u.slug}
-                  className="uc-tile"
-                  data-reveal
-                  style={order(i)}
-                >
-                  <span className="uc-meta">
-                    <span className="case-label">Use case</span>
-                  </span>
-                  <h3 className="uc-title">{u.title}</h3>
-                  <p className="uc-text">{u.summary}</p>
-                </li>
+                <UseCaseTile key={u.slug} useCase={u} index={i} />
               ))}
             </ul>
+            <p className="mt-8">
+              <Link href="/use-cases" className="text-link font-medium">
+                See all use cases
+              </Link>
+            </p>
           </div>
         </section>
 

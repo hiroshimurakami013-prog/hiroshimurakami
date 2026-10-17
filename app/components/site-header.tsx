@@ -7,7 +7,7 @@ import { CTA_LABEL, INSTAGRAM } from "@/lib/site";
 // in-page section highlight.
 const links = [
   { href: "/services", label: "Services", show: undefined },
-  { href: "/#use-cases", label: "Use cases", show: "hidden min-[420px]:block" },
+  { href: "/use-cases", label: "Use cases", show: "hidden min-[420px]:block" },
 ];
 
 export default function SiteHeader({ current }: { current?: string }) {

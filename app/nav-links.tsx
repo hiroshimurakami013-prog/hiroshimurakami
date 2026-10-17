@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { onScrollFrame } from "./components/scroll-frame";
 
-// Services goes to its hub. The rest are in-page sections until their hubs
-// exist. Each link still tracks its section on the home page. Narrow
+// Services and Use cases go to their hubs, Process is an in-page section.
+// Each link still tracks its section on the home page. Narrow
 // screens keep fewer links, to leave room for the call to action.
 const links = [
   { id: "services", href: "/services", label: "Services", show: undefined },
   {
     id: "use-cases",
-    href: "#use-cases",
+    href: "/use-cases",
     label: "Use cases",
     show: "hidden min-[400px]:block",
   },

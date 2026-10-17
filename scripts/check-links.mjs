@@ -17,10 +17,15 @@
 // - a heading outline without skipped levels, and an Open Graph image
 // - unique titles and descriptions across pages
 // - the shared footer is identical on every page
-// - deep pages (/services and below) have a breadcrumb trail and
-//   BreadcrumbList JSON-LD, and each service page has Service JSON-LD with
-//   provider, serviceType and areaServed
-// - every service page is reachable from the home page within two clicks
+// - deep pages (/services, /use-cases and below) have a breadcrumb trail
+//   and BreadcrumbList JSON-LD, and each service page has Service JSON-LD
+//   with provider, serviceType and areaServed
+// - each use case page is labelled "Use case" with the illustrative
+//   scenario note, has at least 500 words of copy in its main content,
+//   links to its parent service, a sibling use case and its related service,
+//   and is linked from at least two other pages
+// - every service page is reachable from the home page within two clicks,
+//   and every use case page within three
 // It also checks robots.txt and the sitemap against the INDEXABLE switch,
 // and scans the source folders for em and en dashes.
 //
@@ -28,6 +33,7 @@
 
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
+import { USE_CASES, siblingUseCase } from "../content/use-cases.ts";
 import { ROUTES } from "../lib/routes.ts";
 import { INDEXABLE, SITE_URL } from "../lib/site.ts";
 
@@ -120,11 +126,14 @@ function jsonNodes(value) {
   return [];
 }
 
-const isDeep = (path) => path.startsWith("/services");
+const isDeep = (path) => path.startsWith("/services") || path.startsWith("/use-cases");
 const isServicePage = (path) => /^\/services\/[^/]+$/.test(path);
+const scenarioFor = (path) => USE_CASES.find((u) => path === `/use-cases/${u.slug}`);
+const maxDepth = (path) => (path.startsWith("/use-cases/") ? 3 : 2);
 
 const routePaths = new Set(ROUTES.map((r) => r.path));
 const inbound = new Map(ROUTES.map((r) => [r.path, 0]));
+const linkedFrom = new Map(ROUTES.map((r) => [r.path, new Set()]));
 const outbound = new Map();
 const titles = new Map();
 const descriptions = new Map();
@@ -239,6 +248,24 @@ for (const page of pages) {
         if (!service[key]) fail(where, `Service JSON-LD has no ${key}`);
   }
 
+  // Use case pages: the label, the scenario note, enough copy and links.
+  const useCase = scenarioFor(page.path);
+  if (useCase) {
+    const main = doc.match(/<main\b[\s\S]*?<\/main>/i)?.[0] ?? "";
+    const text = visibleText(main);
+    if (!/class="case-label"[^>]*>Use case</.test(main)) fail(where, 'missing the "Use case" label');
+    if (!/illustrative scenario/i.test(text)) fail(where, "missing the illustrative scenario note");
+    const words = text.split(" ").length;
+    if (words < 500) fail(where, `only ${words} words of copy (min 500)`);
+    const hrefs = new Set((main.match(/<a\b[^>]*>/gi) ?? []).map((t) => attr(t, "href")));
+    for (const [label, href] of [
+      ["parent service", `/services/${useCase.service}`],
+      ["sibling use case", `/use-cases/${siblingUseCase(useCase).slug}`],
+      ["related service", `/services/${useCase.relatedService}`],
+    ])
+      if (!hrefs.has(href)) fail(where, `no link to its ${label} ${href}`);
+  }
+
   // Copy and alt text.
   checkCopy(where, "page copy", visibleText(doc));
   for (const tag of doc.match(/<[a-z][^>]*\s(alt|aria-label|title)="[^"]*"[^>]*>/gi) ?? []) {
@@ -267,7 +294,10 @@ for (const page of pages) {
     if (path !== path.toLowerCase()) fail(where, `uppercase in ${href}`);
     if (routePaths.has(path)) {
       links.add(path);
-      if (!page.notFound && path !== page.path) inbound.set(path, inbound.get(path) + 1);
+      if (!page.notFound && path !== page.path) {
+        inbound.set(path, inbound.get(path) + 1);
+        linkedFrom.get(path).add(page.path);
+      }
       if (hash && path === page.path && !ids.has(hash)) fail(where, `anchor ${href} has no target`);
       continue;
     }
@@ -283,7 +313,15 @@ for (const [path, count] of inbound) {
   if (path !== "/" && count === 0) fail(path, "orphan page, no other page links to it");
 }
 
-// Click depth from the home page: every service within two clicks.
+// Use case pages need links from at least two other pages.
+for (const u of USE_CASES) {
+  const path = `/use-cases/${u.slug}`;
+  const from = linkedFrom.get(path)?.size ?? 0;
+  if (from < 2) fail(path, `linked from ${from} other page(s) (min 2)`);
+}
+
+// Click depth from the home page: services within two clicks, use cases
+// within three.
 const depth = new Map([["/", 0]]);
 for (let queue = ["/"]; queue.length; ) {
   const from = queue.shift();
@@ -295,8 +333,8 @@ for (let queue = ["/"]; queue.length; ) {
 }
 for (const r of ROUTES) {
   if (!depth.has(r.path)) fail(r.path, "not reachable from the home page");
-  else if (isDeep(r.path) && depth.get(r.path) > 2)
-    fail(r.path, `${depth.get(r.path)} clicks from the home page (max 2)`);
+  else if (isDeep(r.path) && depth.get(r.path) > maxDepth(r.path))
+    fail(r.path, `${depth.get(r.path)} clicks from the home page (max ${maxDepth(r.path)})`);
 }
 
 // robots.txt and sitemap against the switch.

@@ -34,6 +34,11 @@ export default function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/use-cases" className="text-link">
+                Use cases
+              </Link>
+            </li>
+            <li>
               <a
                 href={INSTAGRAM}
                 target="_blank"

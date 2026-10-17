@@ -1,5 +1,6 @@
 import { AREA_SERVED } from "@/content/locations";
 import { SERVICES, type Service } from "@/content/services";
+import { USE_CASES, type UseCase } from "@/content/use-cases";
 import { FACEBOOK, INSTAGRAM, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
 
 // Structured data builders. Honest by construction: no address, no
@@ -137,6 +138,70 @@ export function serviceJsonLd(service: Service, crumbs: BreadcrumbItem[]) {
           "@id": `${absoluteUrl("/services")}#page`,
           name: SERVICES_HUB_NAME,
           url: absoluteUrl("/services"),
+        },
+      },
+      breadcrumbJsonLd(crumbs),
+    ],
+  };
+}
+
+const USE_CASES_HUB_NAME = "AI use cases";
+
+/** The use cases hub: every use case as a list, and the breadcrumb. */
+export function scenarioHubJsonLd(
+  description: string,
+  crumbs: BreadcrumbItem[],
+) {
+  const url = absoluteUrl("/use-cases");
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${url}#page`,
+        url,
+        name: USE_CASES_HUB_NAME,
+        description,
+        inLanguage: "en-US",
+        isPartOf: { "@id": WEBSITE_ID },
+        mainEntity: {
+          "@type": "ItemList",
+          itemListElement: USE_CASES.map((u, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: u.title,
+            url: absoluteUrl(`/use-cases/${u.slug}`),
+          })),
+        },
+      },
+      breadcrumbJsonLd(crumbs),
+    ],
+  };
+}
+
+/**
+ * One use case page: a WebPage about its parent service, and the
+ * breadcrumb. No Article markup, since there is no author or date to show.
+ */
+export function scenarioJsonLd(useCase: UseCase, crumbs: BreadcrumbItem[]) {
+  const url = absoluteUrl(`/use-cases/${useCase.slug}`);
+  const service = SERVICES.find((s) => s.slug === useCase.service);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#page`,
+        url,
+        name: useCase.title,
+        description: useCase.detail.seoDescription,
+        inLanguage: "en-US",
+        isPartOf: { "@id": WEBSITE_ID },
+        about: {
+          "@type": "Service",
+          "@id": `${absoluteUrl(`/services/${useCase.service}`)}#service`,
+          name: service?.name ?? useCase.service,
+          url: absoluteUrl(`/services/${useCase.service}`),
         },
       },
       breadcrumbJsonLd(crumbs),
