@@ -9,10 +9,7 @@ export default function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="wrap flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
-        <HomeLink
-          className="flex items-center gap-4"
-          aria-label="Hiroshi Murakami, home"
-        >
+        <HomeLink className="flex items-center gap-4">
           <span className="symbol-tile" aria-hidden="true">
             <Image src="/symbol.png" alt="" width={22} height={21} />
           </span>

@@ -10,18 +10,15 @@ import { scrollToY } from "./smooth-scroll";
 export default function HomeLink({
   className,
   children,
-  "aria-label": ariaLabel,
 }: {
   className?: string;
   children: ReactNode;
-  "aria-label"?: string;
 }) {
   const pathname = usePathname();
   return (
     <Link
       href="/"
       className={className}
-      aria-label={ariaLabel}
       onClick={(e) => {
         if (pathname !== "/") return;
         e.preventDefault();

@@ -37,8 +37,15 @@
 //   about 180 KB or less
 // - every service page is reachable from the home page within two clicks,
 //   every location page within two, and every use case page within three
-// It also checks robots.txt and the sitemap against the INDEXABLE switch,
-// and scans the source folders for em and en dashes.
+// - lang, viewport, theme-color, og:url and og:image on SITE_URL, Twitter
+//   tags, header, main and footer landmarks and a skip link
+// - no third-party scripts or styles, iframes, embeds or video, and no
+//   leftover default host once SITE_URL points somewhere else
+// - every link has descriptive text (no "click here") and new tabs use
+//   rel="noopener"
+// It also checks robots.txt, the sitemap (with lastmod) and the X-Robots-Tag
+// header against the INDEXABLE switch, and scans the source folders for em
+// and en dashes, token shapes and hard-coded domains.
 //
 // Node 22.18+ strips the TypeScript types from the lib imports by itself.
 
@@ -54,7 +61,7 @@ import { LOCATIONS, cityCopy, servingLine } from "../content/locations.ts";
 import { SERVICES } from "../content/services.ts";
 import { USE_CASES, siblingUseCase } from "../content/use-cases.ts";
 import { ROUTES } from "../lib/routes.ts";
-import { INDEXABLE, SITE_URL } from "../lib/site.ts";
+import { INDEXABLE, SITE_HOST, SITE_URL } from "../lib/site.ts";
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const BUILD = join(ROOT, ".next/server/app");
@@ -78,6 +85,13 @@ function walkFiles(p) {
 
 const DASHES = new RegExp("[\\u2013\\u2014]");
 const BAD_AI = /\b(ai|Ai|aI)\b/;
+// Common token shapes: OpenAI, Anthropic, GitHub, AWS, Vercel, Slack, private keys.
+const SECRET = new RegExp(
+  ["sk-[A-Za-z0-9_-]{20,}", "gh[pousr]_[A-Za-z0-9]{30,}", "github_pat_[A-Za-z0-9_]{30,}", "AKIA[0-9A-Z]{16}", "xox[abprs]-[A-Za-z0-9-]{10,}", "-----BEGIN [A-Z ]*PRIVATE KEY-----"].join("|"),
+);
+const GENERIC_LINK = /^(click here|here|read more|learn more|more|link|this page)$/i;
+// The fallback host in lib/site.ts, the only file allowed to name it.
+const DEFAULT_HOST = "hiroshimurakami.vercel.app";
 
 const problems = [];
 const fail = (where, msg) => problems.push(`${where}: ${msg}`);
@@ -221,7 +235,30 @@ for (const page of pages) {
     const expected = page.path === "/" ? SITE_URL : `${SITE_URL}${page.path}`;
     if (!href) fail(where, "missing canonical");
     else if (href !== expected) fail(where, `canonical is ${href}, expected ${expected}`);
+    const ogUrl = meta("og:url") ? attr(meta("og:url"), "content") : null;
+    if (ogUrl !== expected) fail(where, `og:url is ${ogUrl}, expected ${expected}`);
+    const ogImage = meta("og:image") ? attr(meta("og:image"), "content") : "";
+    if (ogImage && !ogImage.startsWith(`${SITE_URL}/`)) fail(where, `og:image is not on SITE_URL: ${ogImage}`);
   }
+
+  // Document basics (section 4): lang, viewport, theme colour, social tags.
+  if (!/^<!DOCTYPE html><html\b[^>]*\slang="en"/i.test(doc)) fail(where, 'missing <html lang="en">');
+  for (const key of ["viewport", "theme-color", "og:title", "og:description", "twitter:card", "twitter:title", "twitter:description"])
+    if (!meta(key)) fail(where, `missing meta ${key}`);
+  for (const lm of ["header", "main", "footer"])
+    if (!new RegExp(`<${lm}\\b`, "i").test(doc)) fail(where, `missing <${lm}> landmark`);
+  if (!/<a\b[^>]*href="#main"/i.test(doc)) fail(where, "missing skip link to #main");
+
+  // No third-party scripts, frames, embeds or video (section 1).
+  for (const tag of doc.match(/<(script|link)\b[^>]*\s(src|href)="https?:\/\/[^"]*"[^>]*>/gi) ?? []) {
+    if (/^<link\b/i.test(tag) && !/rel="(stylesheet|preload|modulepreload|preconnect|dns-prefetch)"/i.test(tag)) continue;
+    fail(where, `third-party resource: ${tag.slice(0, 120)}`);
+  }
+  if (/<(iframe|video|embed|object)\b/i.test(raw)) fail(where, "has an iframe, video, embed or object");
+
+  // Absolute URLs to the site point at SITE_URL only, so a new domain
+  // leaves no trace of the old host.
+  if (SITE_HOST !== DEFAULT_HOST && raw.includes(DEFAULT_HOST)) fail(where, `still mentions ${DEFAULT_HOST}`);
 
   // Robots.
   const robots = metas
@@ -344,7 +381,14 @@ for (const page of pages) {
   const links = new Set();
   outbound.set(page.path, links);
   const ids = new Set([...doc.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
-  for (const tag of doc.match(/<a\b[^>]*>/gi) ?? []) {
+  for (const [whole, tag, inner] of doc.matchAll(/(<a\b[^>]*>)([\s\S]*?)<\/a>/gi)) {
+    // Descriptive link text: something to read, and never "click here".
+    const alts = [...inner.matchAll(/\salt="([^"]+)"/gi)].map((m) => m[1]);
+    const name = (attr(tag, "aria-label") ?? [visibleText(inner), ...alts].join(" ")).replace(/\s+/g, " ").trim();
+    if (!name) fail(where, `link without text: ${whole.slice(0, 120)}`);
+    else if (GENERIC_LINK.test(name)) fail(where, `generic link text "${name}"`);
+    if (attr(tag, "target") === "_blank" && !/noopener|noreferrer/.test(attr(tag, "rel") ?? ""))
+      fail(where, `target="_blank" without rel="noopener": ${tag}`);
     let href = attr(tag, "href");
     if (!href) {
       fail(where, `link without href: ${tag}`);
@@ -443,9 +487,19 @@ if (!INDEXABLE) {
   if (!robotsTxt.includes(`${SITE_URL}/sitemap.xml`)) fail("robots.txt", "missing sitemap URL");
   for (const r of ROUTES) {
     const loc = r.path === "/" ? SITE_URL : `${SITE_URL}${r.path}`;
-    if (!sitemap.includes(`<loc>${loc}</loc>`)) fail("sitemap.xml", `missing ${loc}`);
+    const entry = sitemap.match(new RegExp(`<url>\\s*<loc>${loc.replace(/[.?]/g, "\\$&")}</loc>[\\s\\S]*?</url>`))?.[0];
+    if (!entry) fail("sitemap.xml", `missing ${loc}`);
+    else if (!entry.includes(`<lastmod>${r.lastModified}`)) fail("sitemap.xml", `no lastmod ${r.lastModified} for ${loc}`);
   }
+  if (/<(changefreq|priority)>/.test(sitemap)) fail("sitemap.xml", "has changefreq or priority");
 }
+
+// The X-Robots-Tag header from next.config.ts, on every route.
+const manifest = JSON.parse(readFileSync(join(ROOT, ".next/routes-manifest.json"), "utf8"));
+const allRoutes = manifest.headers?.find((h) => h.source === "/:path*")?.headers ?? [];
+const xRobots = allRoutes.find((h) => h.key.toLowerCase() === "x-robots-tag")?.value ?? "";
+if (!INDEXABLE && !/noindex/.test(xRobots)) fail("next.config.ts", "no X-Robots-Tag noindex header while not indexable");
+if (INDEXABLE && /noindex/.test(xRobots)) fail("next.config.ts", "X-Robots-Tag noindex header although INDEXABLE is true");
 
 // Scene images: one per service and use case, every file present, no
 // unused or oversized files in public/images.
@@ -477,9 +531,13 @@ for (const file of walkFiles(join(PUBLIC, "images"))) {
 const SOURCE = ["app", "components", "content", "lib", "docs", "scripts", "README.md", "CLAUDE.md"];
 for (const file of SOURCE.flatMap((s) => walkFiles(join(ROOT, s)))) {
   if (!/\.(tsx?|mjs|js|css|md|txt)$/.test(file)) continue;
+  const rel = relative(ROOT, file);
   const lines = readFileSync(file, "utf8").split("\n");
   lines.forEach((line, i) => {
-    if (DASHES.test(line)) fail(`${relative(ROOT, file)}:${i + 1}`, "em or en dash");
+    if (DASHES.test(line)) fail(`${rel}:${i + 1}`, "em or en dash");
+    if (SECRET.test(line)) fail(`${rel}:${i + 1}`, "looks like a secret or token");
+    if (/^(app|components|content)\//.test(rel) && line.includes(DEFAULT_HOST))
+      fail(`${rel}:${i + 1}`, "hard-coded domain, use SITE_URL from lib/site.ts");
   });
 }
 

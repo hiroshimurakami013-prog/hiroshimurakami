@@ -69,14 +69,14 @@ export const SERVICES: Service[] = [
     name: "AI Receptionist",
     group: "automation",
     summary:
-      "Every call answered, day or night. Questions handled, bookings made and messages passed to the right person.",
+      "Calls picked up day or night, even when the front desk is busy. Questions handled, bookings made and messages passed to the right person.",
     serviceType: "AI receptionist and call answering",
     title: "AI Receptionist for Small Businesses | Hiroshi Murakami",
     description:
-      "An AI receptionist that answers every call, day or night, books appointments and passes clear messages to your team. Built for small businesses.",
-    headline: "An AI receptionist that picks up every call",
+      "An AI receptionist that answers calls day or night, books appointments and passes clear messages to your team. Built for small businesses.",
+    headline: "An AI receptionist that picks up when your team cannot",
     intro:
-      "Callers reach someone helpful on the first ring, whether your front desk is at lunch, on another line or closed for the night. The AI answers questions, books appointments and sends your team a clear summary of every call.",
+      "Callers reach someone helpful instead of voicemail, whether your front desk is at lunch, on another line or closed for the night. The AI answers questions, books appointments and sends your team a clear summary of every call.",
     whatItIs: [
       "An AI receptionist is a phone assistant with a natural voice that answers your business line. It knows your opening hours, services, prices you are happy to share, your booking rules and who handles what. It talks with callers the way a well briefed receptionist would.",
       "It can work as your main line, as overflow when your staff are busy, or only outside business hours. Every call ends with a short written summary sent to the right person, so nothing depends on someone remembering a voicemail.",
@@ -473,8 +473,8 @@ export const SERVICES: Service[] = [
     serviceType: "AI lead qualification and routing",
     title: "AI Lead Qualification and Routing | Hiroshi Murakami",
     description:
-      "AI lead qualification that replies to every new lead in minutes, asks the right questions and routes the best ones to your sales team first.",
-    headline: "AI lead qualification that answers every lead while it is warm",
+      "AI lead qualification that replies to new leads within minutes, asks the right questions and routes the best ones to your sales team first.",
+    headline: "AI lead qualification that replies to leads while they are warm",
     intro:
       "New enquiries arrive from your website, phone, email and social messages, often when nobody is free to reply. AI lead qualification responds quickly, asks a few useful questions and routes each lead to the right person, so your team spends its time on the conversations most likely to go somewhere.",
     whatItIs: [

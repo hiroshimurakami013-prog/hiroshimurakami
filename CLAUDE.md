@@ -1,39 +1,45 @@
-# Hiroshi Murakami portfolio site
+# Hiroshi Murakami website
 
-Next.js landing page and portfolio for Hiroshi Murakami, who helps businesses in the accounting field by using AI to automate accounting. Live at https://hiroshimurakami.vercel.app. Pushes to `main` redeploy on Vercel.
+Next.js site for Hiroshi Murakami, who builds AI for small and mid-size businesses in two fields: AI automation (receptionists, voice agents, agents, follow-ups, lead qualification, custom CRM and workflows, customer support assistants) and AI accounting (invoice capture, bookkeeping, bank reconciliation, reporting). Audience: owners and managers, especially in the Los Angeles area, plus accountants. Deployed at https://hiroshimurakami.vercel.app and kept noindex until the owner has a real domain.
 
-## Who it is for
-Business owners and accountants. The offer is practical AI-automated accounting: invoice capture, bank reconciliation, monthly reporting. Primary CTA: "Book a free AI accounting audit", linking to https://www.instagram.com/hiroshimurakami013. Secondary contact: https://www.facebook.com/1252933767913035.
+## Source of truth
+`docs/BUILD-PLAN.md` is the source of truth for strategy, routes, SEO, performance, images and the indexing switch. It overrides this file where they conflict. Its "Status" and "Open items" lists record what was done and what is left. `README.md` explains the structure, editing content, images and the Go live checklist.
+
+## Contact and call to action
+- Primary CTA everywhere: "Book a free AI audit" (`CTA_LABEL` in `lib/site.ts`), linking to https://www.instagram.com/hiroshimurakami013.
+- Secondary: the Facebook Page https://www.facebook.com/1252933767913035.
+- There is no email address, phone number or office address. Never invent contact details.
 
 ## Hard rules
-- Always write "AI" in capitals in every piece of copy.
-- Never use em dashes anywhere (copy, comments, docs). Use commas, periods or colons.
-- No video.
-- Do not invent clients, metrics or testimonials. Project cards are placeholders labelled "Case study" until the owner supplies real ones.
-- Never write tokens or secrets into the repo.
+- Always write "AI" in capitals in all copy, alt text and metadata.
+- Never use em dashes or en dashes anywhere (copy, comments, docs, alt text). Use commas, periods, colons or hyphens.
+- No video. No third-party scripts, analytics, cookies or embeds. If anything that collects data is ever added, update /privacy truthfully first.
+- Honest marketing: no invented clients, testimonials, reviews, ratings, awards, certifications or statistics, no income or results guarantees, no absolute promises such as "every call answered". Use cases are illustrative scenarios labelled "Use case", never client case studies. Compare named tools fairly (Salesforce is powerful, but built for generic workflows) and make no unverifiable claims about named companies.
+- City pages say "serving businesses in <city> and across Los Angeles County, remote-first" and never claim an office or in-person presence. They must stay genuinely distinct (no doorway pages).
+- /privacy, /terms and /data-deletion keep their URLs (a Meta app depends on them). The shared footer (`app/components/site-footer.tsx`) is identical on every page.
+- Never write tokens or secrets into the repo, git config or remote URLs.
+- All absolute URLs come from `SITE_URL` in `lib/site.ts`. No hard-coded domain anywhere else.
 
-## Brand (source of truth: /root/.openclaw/workspace/brand/BRAND.md, read it)
-- Colours: Cloud #E9EDF0 (page), Mist #E6E9EF (surfaces), Ember #FF6B4A (primary accent), Steel #4A86C5 (links, info), Mint #21A87D (success), Ink #1C1F26 (text, logo). Balance 85% soft neutrals, 8% ink, 5% ember, 2% support.
-- One ember element per view, reserved for the primary action.
-- Type: Outfit via next/font/google. Bold lowercase H1 with an ember full stop. H2 SemiBold with +12% tracking. Body 15px at 1.7 line height.
-- Soft UI (neumorphism): light from the top left. Raised: -20 -20 40 #FFFFFF and 20 20 40 #D3DBE6 on Mist. Inset for inputs and pressed states. Pebble-like radii.
-- Logo: /root/.openclaw/workspace/brand/logo/logo-primary-soft.jpg. Never stretch, rotate, recolour, add hard shadows or frames.
+## Content model
+Copy lives in typed modules under `content/`, rendered by shared templates. Edit copy there, not in the templates.
+- `content/services.ts`: the 8 services (`Service`), with all service page copy, FAQs, related services and process steps. Rendered by `app/services/[slug]/page.tsx`.
+- `content/use-cases.ts`: the 24 use case cards (3 per service, with parent service, related service and cities). Long-form copy per service in `content/use-case-details/<service>.ts`. Rendered by `app/use-cases/[slug]/page.tsx`.
+- `content/locations.ts`: the 10 Los Angeles area cities. Each city's copy, sections, FAQ, use cases and neighbours in `content/location-details/<city>.ts`. Rendered by `app/locations/[city]/page.tsx`.
+- `content/images.ts`: scene image paths, sizes and alt text.
+- `lib/routes.ts`: every public page and its last content date (feeds the sitemap and the checker). Add new pages here.
+- `lib/site.ts`: `SITE_URL`, `INDEXABLE`, contact links, `pageMetadata()`. `lib/schema.ts`: JSON-LD builders (no address, rating or review markup).
+
+## Design direction (owner feedback, still binding)
+The owner rejected an earlier soft UI redesign. Keep the look the owner now likes and extend it, do not redesign it:
+- Dark and cinematic by default, with a WebGL aurora, ember #FF6B4A as the warm accent and teal, steel and mint as supporting light. No neumorphism, no pebble shadows, no raised or inset cards.
+- Bricolage Grotesque (display) and Geist (text) via next/font. Headings in normal case, large and confident. Never small caps, never tiny letterspaced uppercase labels or eyebrows.
+- The page feels alive: smooth scrolling, scroll-driven reveals, parallax, magnetic and glowing interactions, marquee and ticker. Smooth, GPU-friendly and respecting `prefers-reduced-motion`. Animated counters only for real numbers.
+- The brand kit in /root/.openclaw/workspace/brand/BRAND.md still supplies the logo (never stretch, rotate, recolour or frame it) and the ember colour, but its soft UI, Outfit and light theme rules do not apply to this site.
 
 ## Design skills
-UI and motion skills live in `.claude/skills/` (see its README). Use `impeccable` as the main one, `redesign-existing-projects` for upgrades, and the animation skills for motion. The skills give general taste. This file says how it applies here. Respect `prefers-reduced-motion`.
+UI and motion skills live in `.claude/skills/` (see its README). Use `impeccable` as the main one, `redesign-existing-projects` for upgrades and the animation skills for motion. They give general taste; this file and the build plan say how it applies here.
 
 ## Workflow
-- Build with `npm run build` before committing. Fix errors.
-- Commit and push to `main` to deploy. Do not store credentials in git config or remote URLs.
-
-## Design direction v2 (owner feedback, overrides the Brand section above for this website)
-The owner rejected the first redesign. The brand kit may be bent or broken on this site. Specifically:
-- No neumorphism or soft UI. No pebble shadows, no raised or inset cards.
-- Dark by default. Rich, deep, cinematic, not flat black and not white. A light theme is optional, only as a toggle, and the dark theme must be the hero experience.
-- Not Outfit. Choose a distinctive, characterful type pairing (display plus text) via next/font. Headings must be set in normal case, large and confident. Never small caps, never tiny letterspaced uppercase labels or eyebrows.
-- The page must feel alive: smooth scrolling, scroll-driven reveals, animated backgrounds, depth and parallax, magnetic or glowing interactions, cursor-aware effects, marquee or ticker elements, animated counters only if the numbers are not fabricated. Smooth, 60fps, GPU-friendly, respecting prefers-reduced-motion.
-- Colour is free. Ember #FF6B4A can stay as an accent but is no longer limited to one element. Add supporting hues if they look great.
-- Rules that still apply: "AI" always in capitals, no em dashes, no video, no invented clients, metrics or testimonials, no secrets in the repo, placeholder case studies stay labelled "Case study".
-
-## Current build (v3)
-`docs/BUILD-PLAN.md` is the source of truth for the current growth build (AI automation plus AI accounting, services, use cases, Los Angeles area pages, SEO, performance, noindex switch). It overrides older sections of this file where they conflict. The site stays noindex until the owner sets a real domain (see the Go live notes in README.md).
+- `npm run build`, then `npm run lint` and `npm run check` (`scripts/check-links.mjs`: links, orphans, titles, descriptions, H1s, canonicals, noindex, dashes, "AI" casing, JSON-LD, footer, images, city distinctness and more). All must pass before committing.
+- Commit to `main`. Pushes to `main` redeploy on Vercel, which the owner's agent handles. Do not push or deploy unless asked.
+- Going live (domain, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_INDEXABLE=true`) is described in README.md under "Go live".

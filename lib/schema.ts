@@ -254,3 +254,44 @@ export function cityJsonLd(crumbs: BreadcrumbItem[]) {
     "@graph": [breadcrumbJsonLd(crumbs)],
   };
 }
+
+export type ArticleInput = {
+  /** Site path, for example "/blog/my-post". */
+  path: string;
+  headline: string;
+  description: string;
+  /** ISO dates (YYYY-MM-DD), the real publish and last edit dates. */
+  datePublished: string;
+  dateModified?: string;
+  /** Site path of an image shown on the page, if there is one. */
+  image?: string;
+};
+
+/**
+ * Ready for a future blog post: an Article by Hiroshi Murakami, and the
+ * breadcrumb. Not used yet. Only pass dates and an image the page shows.
+ */
+export function articleJsonLd(article: ArticleInput, crumbs: BreadcrumbItem[]) {
+  const url = absoluteUrl(article.path);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${url}#article`,
+        mainEntityOfPage: url,
+        url,
+        headline: article.headline,
+        description: article.description,
+        datePublished: article.datePublished,
+        dateModified: article.dateModified ?? article.datePublished,
+        inLanguage: "en-US",
+        ...(article.image ? { image: absoluteUrl(article.image) } : {}),
+        author: { "@type": "Person", name: SITE_NAME, url: SITE_URL },
+        publisher: { "@id": BUSINESS_ID },
+        isPartOf: { "@id": WEBSITE_ID },
+      },
+      breadcrumbJsonLd(crumbs),
+    ],
+  };
+}

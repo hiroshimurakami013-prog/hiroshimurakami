@@ -49,7 +49,7 @@ export const LONG_BEACH: LocationDetail = {
       kind: "prose",
       heading: "Beyond logistics",
       paragraphs: [
-        "Long Beach is also a city of healthcare providers, restaurants, hotels and neighbourhood service businesses. For them, the same principles apply on a smaller scale: answer every call, stop retyping data and keep the books current. The services below cover all of that, and the free audit is where we work out which one comes first.",
+        "Long Beach is also a city of healthcare providers, restaurants, hotels and neighbourhood service businesses. For them, the same principles apply on a smaller scale: answer calls promptly, stop retyping data and keep the books current. The services below cover all of that, and the free audit is where we work out which one comes first.",
       ],
     },
   ],

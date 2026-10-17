@@ -19,7 +19,7 @@ export const BURBANK: LocationDetail = {
       heading: "Project work breaks generic tools",
       paragraphs: [
         "Most off-the-shelf CRMs assume a steady sales pipeline: a lead becomes an opportunity becomes a customer. Production work does not look like that. A rental house might deal with the same production company on five shows at once, each with its own coordinator, purchase order and return dates. A post house tracks deliverables, revisions and approvals that change daily.",
-        "Large platforms such as Salesforce can be configured for this, and they are powerful, but the configuration takes time, the per-seat pricing adds up for freelancers and part-time crew and the result is often a process bent to fit the tool. A smaller custom system, built around jobs, deliverables and vendors, usually fits better and costs less to run.",
+        "Large platforms such as Salesforce can be configured for this, and they are powerful, but the configuration takes time, the per-seat pricing adds up for freelancers and part-time crew and the result is often a process bent to fit the tool. A smaller custom system, built around jobs, deliverables and vendors, can fit better, and for a team with many occasional users it may cost less to run.",
       ],
     },
     {

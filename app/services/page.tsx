@@ -144,8 +144,8 @@ export default function ServicesPage() {
               <Words text="AI automation" />
             </h2>
             <p className="lead mt-6 max-w-[54ch]" data-reveal="blur">
-              For the front office: every call answered, every lead replied to,
-              every follow-up sent and every tool connected.
+              For the front office: calls picked up, leads answered while they
+              are warm, follow-ups sent on time and tools that finally connect.
             </p>
             <ul className="svc-grid mt-12 md:mt-16">
               {automation.map((s, i) => (
