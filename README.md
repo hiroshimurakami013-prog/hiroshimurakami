@@ -30,16 +30,18 @@ Dark and cinematic (see `CLAUDE.md` and `docs/BUILD-PLAN.md`), with ember as the
 - A capabilities marquee that speeds up and reverses with the reader's scroll.
 - An About statement that lights up word by word as it is read.
 - A pinned scroll story of an AI workflow (`app/components/flow.tsx`): work comes in, AI does the first pass, work goes out done.
-- Eight service cards with a cursor light, use case highlights, a Los Angeles area band with a city ticker, and a process rail that draws itself.
+- Eight service cards with a cursor light and a scene image each, use case highlights with images, a Los Angeles area band with a city ticker, and a process rail that draws itself.
 - A magnetic primary CTA.
+- Service, use case and city pages end their hero with a wide scene image that drifts slowly as it scrolls (a CSS scroll-driven animation, no JavaScript).
 
-Motion respects `prefers-reduced-motion`: smooth scrolling, the aurora, parallax, the marquee and ticker and the pinned story switch off, and the flow becomes a still diagram. Content is visible without JavaScript.
+Motion respects `prefers-reduced-motion`: smooth scrolling, the aurora, parallax, the marquee and ticker, the scene drift and the pinned story switch off, and the flow becomes a still diagram. Content is visible without JavaScript.
 
 ## Performance
 
 - The aurora is skipped entirely on reduced motion, Save-Data, low device memory, fewer than 4 CPU cores and software GPU renderers. It renders at reduced resolution with a pixel cap, at 30 frames a second, pauses when off screen or in a hidden tab, and settles on a still frame if frames keep running late.
 - Lenis loads after idle and only runs a frame loop while a glide is in progress.
 - The hero lead paragraph is the LCP element and renders without animation.
+- Deep pages end their hero with one scene image, the only image with high fetch priority on the page. Card and tile images are lazy and decorative (`alt=""`, the card title already names them). `next/image` serves AVIF or WebP at the width the `sizes` attribute asks for.
 
 ## Develop
 
@@ -61,6 +63,7 @@ Use cases are illustrative scenarios, labelled "Use case". They are not client c
 - `public/symbol.png`: the H symbol, shown on a light tile in the header and footer.
 - `app/icon.png`, `app/apple-icon.png`: icons cropped from the symbol tile.
 - Open Graph images are generated at build time by the `opengraph-image.tsx` files.
+- `public/images/services/`, `public/images/use-cases/` and `public/images/shared/`: scene images, one per service and use case plus three shared scenes for the location pages. They were generated with the OpenAI image model (see `docs/BUILD-PLAN.md` section 7) and committed as 1536 by 1024 WebP files of under 180 KB each. Paths, dimensions and alt text live in `content/images.ts`, and `app/components/scene.tsx` renders them with `next/image` in a fixed aspect ratio frame. To replace an image, overwrite the WebP file (same name and size) or change its entry in `content/images.ts`; `npm run check` fails on a missing, unused, non-WebP or oversized file.
 
 ## Go live
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { LOCATIONS_HUB_IMAGE } from "@/content/images";
 import { LOCATIONS } from "@/content/locations";
 import { SERVICES } from "@/content/services";
 import { locationsHubJsonLd } from "@/lib/schema";
@@ -9,6 +10,7 @@ import Breadcrumbs, { type Crumb } from "../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../components/cta";
 import JsonLd from "../components/json-ld";
 import RevealObserver from "../components/reveal-observer";
+import Scene, { HERO_SIZES } from "../components/scene";
 import SiteFooter from "../components/site-footer";
 import SiteHeader from "../components/site-header";
 import Words, { order } from "../components/words";
@@ -86,6 +88,12 @@ export default function LocationsPage() {
                 How remote-first service works
               </a>
             </div>
+            <Scene
+              image={LOCATIONS_HUB_IMAGE}
+              sizes={HERO_SIZES}
+              className="page-hero-media"
+              hero
+            />
           </div>
         </section>
 

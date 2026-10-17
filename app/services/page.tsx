@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { SERVICE_IMAGES } from "@/content/images";
 import { PROCESS_STEPS, SERVICES } from "@/content/services";
 import { casesForService } from "@/content/use-cases";
 import { servicesHubJsonLd } from "@/lib/schema";
@@ -10,6 +11,7 @@ import { ClosingCta, PrimaryCta } from "../components/cta";
 import JsonLd from "../components/json-ld";
 import ProcessSteps from "../components/process-steps";
 import RevealObserver from "../components/reveal-observer";
+import Scene, { HERO_SIZES } from "../components/scene";
 import ServiceCard from "../components/service-card";
 import { SERVICE_ICONS } from "../components/service-icons";
 import SiteFooter from "../components/site-footer";
@@ -92,6 +94,12 @@ export default function ServicesPage() {
                   data-glow
                   data-reveal
                 >
+                  <Scene
+                    image={SERVICE_IMAGES[s.slug]}
+                    sizes={HERO_SIZES}
+                    className="feature-media"
+                    decorative
+                  />
                   <div>
                     <span className="service-icon" aria-hidden="true">
                       <Icon size={26} weight="light" />

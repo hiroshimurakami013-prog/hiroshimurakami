@@ -8,6 +8,7 @@ import {
   LockSimple,
   UserCheck,
 } from "@phosphor-icons/react/dist/ssr";
+import { imageForUseCase } from "@/content/images";
 import { getLocation } from "@/content/locations";
 import { getService } from "@/content/services";
 import { USE_CASES, getUseCase, siblingUseCase } from "@/content/use-cases";
@@ -18,6 +19,7 @@ import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../../components/cta";
 import JsonLd from "../../components/json-ld";
 import RevealObserver from "../../components/reveal-observer";
+import Scene, { HERO_SIZES } from "../../components/scene";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
 import Words, { order } from "../../components/words";
@@ -128,6 +130,12 @@ export default async function UseCasePage({
                 How the AI handles it
               </a>
             </div>
+            <Scene
+              image={imageForUseCase(useCase.slug)}
+              sizes={HERO_SIZES}
+              className="page-hero-media"
+              hero
+            />
           </div>
         </section>
 

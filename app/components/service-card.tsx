@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { SERVICE_IMAGES } from "@/content/images";
 import type { Service } from "@/content/services";
+import Scene, { CARD_SIZES } from "./scene";
 import { SERVICE_ICONS } from "./service-icons";
 import { order } from "./words";
 
@@ -17,6 +19,12 @@ export default function ServiceCard({
   const Icon = SERVICE_ICONS[service.slug];
   return (
     <li className="svc-card" data-glow data-reveal style={order(index % 4)}>
+      <Scene
+        image={SERVICE_IMAGES[service.slug]}
+        sizes={CARD_SIZES}
+        className="svc-media"
+        decorative
+      />
       <span className="service-icon" aria-hidden="true">
         <Icon size={24} weight="light" />
       </span>

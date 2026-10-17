@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { imageForUseCase } from "@/content/images";
 import { serviceName } from "@/content/services";
 import type { UseCase } from "@/content/use-cases";
+import Scene, { TILE_SIZES } from "./scene";
 import { order } from "./words";
 
 // A use case tile that is one big link, like the service cards: the real
@@ -20,6 +22,12 @@ export default function UseCaseTile({
 }) {
   return (
     <li className="uc-tile" data-reveal style={order(index)}>
+      <Scene
+        image={imageForUseCase(useCase.slug)}
+        sizes={TILE_SIZES}
+        className="uc-media"
+        decorative
+      />
       <span className="uc-meta">
         <span className="case-label">Use case</span>
         {showService ? (

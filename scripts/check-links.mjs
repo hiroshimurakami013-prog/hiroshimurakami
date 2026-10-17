@@ -29,6 +29,12 @@
 //   run of 12 words with another city, links to all eight services, its 3
 //   to 5 use cases, its neighbouring cities and the hub, and is linked from
 //   at least two other pages; each use case page links to its cities
+// - every <img> has alt, width and height and an existing file; pages with
+//   a hero scene (service, use case and city pages, and the locations hub)
+//   have exactly one high priority image, other pages none, and every other
+//   scene image is lazy; every service, use case and city has a scene image
+//   in content/images.ts, and public/images holds only used WebP files of
+//   about 180 KB or less
 // - every service page is reachable from the home page within two clicks,
 //   every location page within two, and every use case page within three
 // It also checks robots.txt and the sitemap against the INDEXABLE switch,
@@ -38,6 +44,12 @@
 
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
+import {
+  LOCATIONS_HUB_IMAGE,
+  LOCATION_IMAGES,
+  SERVICE_IMAGES,
+  USE_CASE_IMAGES,
+} from "../content/images.ts";
 import { LOCATIONS, cityCopy, servingLine } from "../content/locations.ts";
 import { SERVICES } from "../content/services.ts";
 import { USE_CASES, siblingUseCase } from "../content/use-cases.ts";
@@ -56,6 +68,13 @@ const METADATA_PATHS = new Set([
   "/apple-icon.png",
   "/opengraph-image",
 ]);
+
+// Every file under a folder or file path.
+function walkFiles(p) {
+  if (!existsSync(p)) return [];
+  if (statSync(p).isFile()) return [p];
+  return readdirSync(p).flatMap((name) => walkFiles(join(p, name)));
+}
 
 const DASHES = new RegExp("[\\u2013\\u2014]");
 const BAD_AI = /\b(ai|Ai|aI)\b/;
@@ -138,6 +157,11 @@ const cityFor = (path) => LOCATIONS.find((l) => path === `/locations/${l.slug}`)
 const isServicePage = (path) => /^\/services\/[^/]+$/.test(path);
 const scenarioFor = (path) => USE_CASES.find((u) => path === `/use-cases/${u.slug}`);
 const maxDepth = (path) => (path.startsWith("/use-cases/") ? 3 : 2);
+// Pages whose hero ends in a scene image, the one high priority image.
+const hasHeroScene = (path) => /^\/(services|use-cases|locations)\/[^/]+$/.test(path) || path === "/locations";
+// The public file behind an <img> src, also through the next/image loader.
+const imageFile = (src) =>
+  src.startsWith("/_next/image") ? new URLSearchParams(src.split("?")[1]).get("url") : src;
 
 const routePaths = new Set(ROUTES.map((r) => r.path));
 const inbound = new Map(ROUTES.map((r) => [r.path, 0]));
@@ -291,6 +315,25 @@ for (const page of pages) {
       if (!hrefs.has(href)) fail(where, `no link to ${label} ${href}`);
   }
 
+  // Images: alt and dimensions on every one, files that exist, and a single
+  // high priority image, only on pages with a hero scene.
+  const imgs = doc.match(/<img\b[^>]*>/gi) ?? [];
+  let eager = 0;
+  for (const tag of imgs) {
+    const short = tag.slice(0, 120);
+    if (attr(tag, "alt") === null) fail(where, `image without alt: ${short}`);
+    if (!attr(tag, "width") || !attr(tag, "height")) fail(where, `image without width and height: ${short}`);
+    const file = imageFile(attr(tag, "src") ?? "");
+    if (file?.startsWith("/") && !existsSync(join(PUBLIC, file))) fail(where, `image file missing: ${file}`);
+    if (attr(tag, "fetchpriority") === "high") {
+      eager++;
+      if (!attr(tag, "alt")) fail(where, "hero scene has no alt text");
+    } else if (file?.startsWith("/images/") && attr(tag, "loading") !== "lazy")
+      fail(where, `scene image below the hero is not lazy: ${short}`);
+  }
+  const heroes = hasHeroScene(page.path) ? 1 : 0;
+  if (eager !== heroes) fail(where, `${eager} high priority images (expected ${heroes})`);
+
   // Copy and alt text.
   checkCopy(where, "page copy", visibleText(doc));
   for (const tag of doc.match(/<[a-z][^>]*\s(alt|aria-label|title)="[^"]*"[^>]*>/gi) ?? []) {
@@ -404,14 +447,35 @@ if (!INDEXABLE) {
   }
 }
 
+// Scene images: one per service and use case, every file present, no
+// unused or oversized files in public/images.
+const sceneImages = [
+  ...SERVICES.map((s) => [`service ${s.slug}`, SERVICE_IMAGES[s.slug]]),
+  ...USE_CASES.map((u) => [`use case ${u.slug}`, USE_CASE_IMAGES[u.slug]]),
+  ...LOCATIONS.map((l) => [`city ${l.slug}`, LOCATION_IMAGES[l.slug]]),
+  ["locations hub", LOCATIONS_HUB_IMAGE],
+];
+const usedImages = new Set();
+for (const [label, image] of sceneImages) {
+  if (!image) {
+    fail("content/images.ts", `no image for ${label}`);
+    continue;
+  }
+  usedImages.add(image.src);
+  checkCopy("content/images.ts", `alt for ${label}`, image.alt);
+  if (!image.alt) fail("content/images.ts", `empty alt for ${label}`);
+  if (!existsSync(join(PUBLIC, image.src))) fail("content/images.ts", `missing file ${image.src} for ${label}`);
+}
+for (const file of walkFiles(join(PUBLIC, "images"))) {
+  const src = `/${relative(PUBLIC, file)}`;
+  if (!usedImages.has(src)) fail(src, "image file is not used by content/images.ts");
+  if (!src.endsWith(".webp")) fail(src, "scene images must be WebP");
+  if (statSync(file).size > 190_000) fail(src, `${Math.round(statSync(file).size / 1024)} KB (max about 180 KB)`);
+}
+
 // Source scan for dashes.
 const SOURCE = ["app", "components", "content", "lib", "docs", "scripts", "README.md", "CLAUDE.md"];
-const walk = (p) => {
-  if (!existsSync(p)) return [];
-  if (statSync(p).isFile()) return [p];
-  return readdirSync(p).flatMap((name) => walk(join(p, name)));
-};
-for (const file of SOURCE.flatMap((s) => walk(join(ROOT, s)))) {
+for (const file of SOURCE.flatMap((s) => walkFiles(join(ROOT, s)))) {
   if (!/\.(tsx?|mjs|js|css|md|txt)$/.test(file)) continue;
   const lines = readFileSync(file, "utf8").split("\n");
   lines.forEach((line, i) => {

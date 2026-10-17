@@ -8,6 +8,7 @@ import {
   UserCheck,
   WarningCircle,
 } from "@phosphor-icons/react/dist/ssr";
+import { SERVICE_IMAGES } from "@/content/images";
 import { citiesForService } from "@/content/locations";
 import { SERVICES, getService } from "@/content/services";
 import { casesForService } from "@/content/use-cases";
@@ -18,6 +19,7 @@ import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../../components/cta";
 import JsonLd from "../../components/json-ld";
 import RevealObserver from "../../components/reveal-observer";
+import Scene, { HERO_SIZES } from "../../components/scene";
 import { SERVICE_ICONS } from "../../components/service-icons";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
@@ -86,6 +88,12 @@ export default async function ServicePage({
                 How it works
               </a>
             </div>
+            <Scene
+              image={SERVICE_IMAGES[service.slug]}
+              sizes={HERO_SIZES}
+              className="page-hero-media"
+              hero
+            />
           </div>
         </section>
 

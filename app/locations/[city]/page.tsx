@@ -7,6 +7,7 @@ import {
   Compass,
   MapPin,
 } from "@phosphor-icons/react/dist/ssr";
+import { LOCATION_IMAGES } from "@/content/images";
 import {
   LOCATIONS,
   getLocation,
@@ -21,6 +22,7 @@ import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../../components/cta";
 import JsonLd from "../../components/json-ld";
 import RevealObserver from "../../components/reveal-observer";
+import Scene, { HERO_SIZES } from "../../components/scene";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
 import UseCaseTile from "../../components/use-case-tile";
@@ -173,6 +175,12 @@ export default async function CityPage({
                 Use cases for {name} businesses
               </a>
             </div>
+            <Scene
+              image={LOCATION_IMAGES[location.slug]}
+              sizes={HERO_SIZES}
+              className="page-hero-media"
+              hero
+            />
           </div>
         </section>
 
