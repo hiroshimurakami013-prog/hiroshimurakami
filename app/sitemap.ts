@@ -1,33 +1,13 @@
 import type { MetadataRoute } from "next";
+import { ROUTES } from "@/lib/routes";
+import { INDEXABLE, absoluteUrl } from "@/lib/site";
 
-const siteUrl = "https://hiroshimurakami.vercel.app";
-
-// Fixed dates keep the sitemap static. Update them when a page changes.
+// Empty while the site is not indexable. Dates are real content dates from
+// lib/routes.ts, so the sitemap stays static.
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: siteUrl,
-      lastModified: new Date("2026-10-16"),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    {
-      url: `${siteUrl}/privacy`,
-      lastModified: new Date("2026-10-16"),
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${siteUrl}/terms`,
-      lastModified: new Date("2026-10-16"),
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${siteUrl}/data-deletion`,
-      lastModified: new Date("2026-10-16"),
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-  ];
+  if (!INDEXABLE) return [];
+  return ROUTES.map((r) => ({
+    url: absoluteUrl(r.path),
+    lastModified: new Date(r.lastModified),
+  }));
 }

@@ -4,8 +4,6 @@ import Link from "next/link";
 import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import SiteFooter from "./site-footer";
 
-export { FACEBOOK, INSTAGRAM } from "./site-footer";
-
 export function External({
   href,
   children,
@@ -49,13 +47,7 @@ export default function LegalPage({
               aria-label="Hiroshi Murakami, home"
             >
               <span className="symbol-tile" aria-hidden="true">
-                <Image
-                  src="/symbol.png"
-                  alt=""
-                  width={259}
-                  height={249}
-                  style={{ width: 22, height: "auto" }}
-                />
+                <Image src="/symbol.png" alt="" width={22} height={21} />
               </span>
               <span className="hidden sm:inline">Hiroshi Murakami</span>
             </Link>

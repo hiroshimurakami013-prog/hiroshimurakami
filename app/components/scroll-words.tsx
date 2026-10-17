@@ -1,32 +1,12 @@
 "use client";
 
-import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "motion/react";
-
-function Word({
-  children,
-  progress,
-  range,
-}: {
-  children: string;
-  progress: MotionValue<number>;
-  range: [number, number];
-}) {
-  const opacity = useTransform(progress, range, [0.16, 1]);
-  return (
-    <motion.span className="sw" style={{ opacity }}>
-      {children}
-    </motion.span>
-  );
-}
+import { useEffect, useRef, type CSSProperties } from "react";
+import { trackProgress } from "./scroll-frame";
 
 // The statement lights up word by word as it is read, tied to scroll so
-// the pace is the reader's own. CSS keeps it fully lit under reduced motion.
+// the pace is the reader's own. One progress value goes into a CSS
+// variable, and each word works out its own opacity from it in CSS (see
+// .statement .sw). CSS keeps it fully lit under reduced motion.
 export default function ScrollWords({
   text,
   className,
@@ -37,27 +17,32 @@ export default function ScrollWords({
   as?: "p" | "h2";
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.85", "end 0.5"],
-  });
   const words = text.split(" ");
 
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.setProperty("--p", "0");
+    const stop = trackProgress(el, 0.85, 0.5, (p) =>
+      el.style.setProperty("--p", p.toFixed(4)),
+    );
+    return () => {
+      stop();
+      el.style.removeProperty("--p");
+    };
+  }, []);
+
   return (
-    <div ref={ref}>
+    <div ref={ref} className="scroll-words" style={{ "--n": words.length } as CSSProperties}>
       <Tag className={className}>
-        {words.map((w, i) => {
-          const start = i / words.length;
-          const end = start + 1 / words.length;
-          return (
-            <span key={i}>
-              <Word progress={scrollYProgress} range={[start, end]}>
-                {w}
-              </Word>
-              {i < words.length - 1 ? " " : null}
+        {words.map((w, i) => (
+          <span key={i}>
+            <span className="sw" style={{ "--i": i } as CSSProperties}>
+              {w}
             </span>
-          );
-        })}
+            {i < words.length - 1 ? " " : null}
+          </span>
+        ))}
       </Tag>
     </div>
   );

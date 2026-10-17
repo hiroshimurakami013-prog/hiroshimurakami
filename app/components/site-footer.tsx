@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FACEBOOK, INSTAGRAM } from "@/lib/site";
 import HomeLink from "./home-link";
-
-export const INSTAGRAM = "https://www.instagram.com/hiroshimurakami013";
-export const FACEBOOK = "https://www.facebook.com/1252933767913035";
 
 // One footer for every page, so the home page and the legal pages always
 // carry the same brand line, contact links and legal links.
@@ -16,18 +14,12 @@ export default function SiteFooter() {
           aria-label="Hiroshi Murakami, home"
         >
           <span className="symbol-tile" aria-hidden="true">
-            <Image
-              src="/symbol.png"
-              alt=""
-              width={259}
-              height={249}
-              style={{ width: 22, height: "auto" }}
-            />
+            <Image src="/symbol.png" alt="" width={22} height={21} />
           </span>
           <span className="leading-snug">
             <span className="block font-semibold">Hiroshi Murakami</span>
             <span className="block text-[0.92rem] text-text-2">
-              Practical AI for accountants and business owners.
+              AI automation and AI accounting for businesses.
             </span>
           </span>
         </HomeLink>

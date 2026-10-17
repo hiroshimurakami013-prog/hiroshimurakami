@@ -1,29 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import LegalPage, {
-  External,
-  FACEBOOK,
-  INSTAGRAM,
-} from "../components/legal-page";
+import { FACEBOOK, INSTAGRAM, pageMetadata } from "@/lib/site";
+import LegalPage, { External } from "../components/legal-page";
 
-const title = "Data deletion | Hiroshi Murakami";
-const description =
-  "How to request deletion of any data related to the Hiroshi Murakami website or the Hiro App Meta integration.";
-
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: { canonical: "/data-deletion" },
-  openGraph: {
-    type: "website",
-    siteName: "Hiroshi Murakami",
-    title,
-    description,
-    url: "/data-deletion",
-    images: ["/og.png"],
-  },
-  twitter: { card: "summary_large_image", title, description, images: ["/og.png"] },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Data deletion | Hiroshi Murakami",
+  description:
+    "How to request deletion of any data related to the Hiroshi Murakami website or the Hiro App Meta integration.",
+  path: "/data-deletion",
+});
 
 export default function DataDeletionPage() {
   return (

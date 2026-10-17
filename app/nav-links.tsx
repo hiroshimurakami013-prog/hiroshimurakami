@@ -1,29 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useReducedMotion, useScroll, useSpring } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { onScrollFrame } from "./components/scroll-frame";
 
+// In-page sections for now. The hub pages replace these anchors once they
+// exist. Narrow screens keep fewer links, to leave room for the call to
+// action.
 const links = [
-  { id: "about", label: "About" },
-  { id: "services", label: "Services" },
-  { id: "work", label: "Work" },
-  { id: "process", label: "Process" },
+  { id: "services", label: "Services", show: undefined },
+  { id: "use-cases", label: "Use cases", show: "hidden min-[400px]:block" },
+  { id: "process", label: "Process", show: "hidden sm:block" },
 ];
 
-// Marks the section in the middle of the viewport. The highlight glides
-// between links as a shared layout element, and a thin bar tracks progress.
+// Marks the section in the middle of the viewport. One highlight glides
+// between links on a CSS transition, and a thin bar tracks progress.
 export default function NavLinks() {
   const [active, setActive] = useState<string | null>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 200,
-    damping: 40,
-    restDelta: 0.001,
-  });
+  const list = useRef<HTMLDivElement>(null);
+  const indicator = useRef<HTMLSpanElement>(null);
+  const bar = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ids = ["hero", "flow", ...links.map((l) => l.id), "contact"];
+    const ids = [
+      "hero",
+      "about",
+      "flow",
+      "area",
+      ...links.map((l) => l.id),
+      "contact",
+    ];
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
@@ -39,40 +44,56 @@ export default function NavLinks() {
       { rootMargin: "-45% 0px -50% 0px" },
     );
     sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+
+    const off = onScrollFrame((y, vh) => {
+      const max = document.documentElement.scrollHeight - vh;
+      bar.current?.style.setProperty(
+        "--progress",
+        (max > 0 ? Math.min(1, y / max) : 0).toFixed(4),
+      );
+    });
+    return () => {
+      observer.disconnect();
+      off();
+    };
   }, []);
+
+  // Moves the one highlight under the active link.
+  useEffect(() => {
+    const el = indicator.current;
+    const link = active
+      ? list.current?.querySelector<HTMLElement>(`[data-id="${active}"]`)
+      : null;
+    if (!el) return;
+    if (!link) {
+      el.dataset.on = "false";
+      return;
+    }
+    el.style.setProperty("--x", `${link.offsetLeft}px`);
+    el.style.setProperty("--w", `${link.offsetWidth}px`);
+    el.dataset.on = "true";
+  }, [active]);
 
   return (
     <>
-      <motion.div
-        className="scroll-progress"
-        style={{ scaleX: reduce ? scrollYProgress : progress }}
-        aria-hidden="true"
-      />
-      <ul className="nav-links">
+      <div ref={bar} className="scroll-progress" aria-hidden="true" />
+      <div ref={list} className="relative">
+        <span ref={indicator} className="nav-indicator" aria-hidden="true" />
+        <ul className="nav-links">
         {links.map((l) => (
-          <li key={l.id}>
+          <li key={l.id} className={l.show}>
             <a
               href={`#${l.id}`}
+              data-id={l.id}
               className="nav-link"
               aria-current={active === l.id ? "true" : undefined}
             >
-              {active === l.id && (
-                <motion.span
-                  layoutId="nav-indicator"
-                  className="nav-indicator"
-                  transition={
-                    reduce
-                      ? { duration: 0 }
-                      : { type: "spring", bounce: 0, duration: 0.45 }
-                  }
-                />
-              )}
               {l.label}
             </a>
           </li>
         ))}
-      </ul>
+        </ul>
+      </div>
     </>
   );
 }

@@ -1,29 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import LegalPage, {
-  External,
-  FACEBOOK,
-  INSTAGRAM,
-} from "../components/legal-page";
+import { FACEBOOK, INSTAGRAM, SITE_HOST, pageMetadata } from "@/lib/site";
+import LegalPage, { External } from "../components/legal-page";
 
-const title = "Terms of Service | Hiroshi Murakami";
-const description =
-  "The terms for using the Hiroshi Murakami website: what the site is and is not, use of the site, intellectual property, third-party links and the Hiro App Meta integration.";
-
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: { canonical: "/terms" },
-  openGraph: {
-    type: "website",
-    siteName: "Hiroshi Murakami",
-    title,
-    description,
-    url: "/terms",
-    images: ["/og.png"],
-  },
-  twitter: { card: "summary_large_image", title, description, images: ["/og.png"] },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Terms of Service | Hiroshi Murakami",
+  description:
+    "The terms for using the Hiroshi Murakami website: what the site is, fair use, intellectual property, third-party links and the Hiro App Meta integration.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (
@@ -41,7 +26,7 @@ export default function TermsPage() {
       <section aria-labelledby="acceptance">
         <h2 id="acceptance">Accepting these terms</h2>
         <p>
-          This website, hiroshimurakami.vercel.app, is run by Hiroshi Murakami.
+          This website, {SITE_HOST}, is run by Hiroshi Murakami.
           In these terms, &quot;I&quot;, &quot;me&quot; and &quot;my&quot; mean
           Hiroshi Murakami, and &quot;you&quot; means anyone visiting the site.
           By using the site, you agree to these terms. If you do not agree,
@@ -52,9 +37,10 @@ export default function TermsPage() {
       <section aria-labelledby="what">
         <h2 id="what">What this website is</h2>
         <p>
-          I help businesses in the accounting field automate accounting work
-          with AI, such as invoice capture, bank reconciliation and monthly
-          reporting. This website describes that work and how to get in touch.
+          I build AI automation and AI accounting for businesses, such as AI
+          receptionists, follow-ups, lead qualification, invoice capture, bank
+          reconciliation and monthly reporting. This website describes that
+          work and how to get in touch.
         </p>
         <ul>
           <li>
@@ -102,9 +88,9 @@ export default function TermsPage() {
           please do not reuse its content, brand or logo without my permission.
         </p>
         <p>
-          The project cards on the site are labelled &quot;Case study&quot;.
-          They are illustrative examples of the kind of work I do, not
-          descriptions of specific clients or guaranteed results.
+          The examples on the site are labelled &quot;Use case&quot;. They are
+          illustrative scenarios of the kind of work I do, not descriptions of
+          specific clients or guaranteed results.
         </p>
       </section>
 

@@ -1,163 +1,92 @@
 import type { CSSProperties } from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import {
   ArrowUpRight,
-  ArrowsLeftRight,
-  BookOpenText,
-  CalendarCheck,
-  ChartBar,
-  ChartLineUp,
+  Asterisk,
+  Calculator,
+  ChatsCircle,
   CheckCircle,
-  FolderOpen,
-  Invoice,
-  Receipt,
+  Funnel,
+  Headset,
+  PaperPlaneTilt,
+  Robot,
+  TreeStructure,
+  Waveform,
 } from "@phosphor-icons/react/dist/ssr";
+import type { Icon } from "@phosphor-icons/react";
+import { LOCATIONS } from "@/content/locations";
+import { SERVICES, type ServiceSlug } from "@/content/services";
+import { USE_CASE_HIGHLIGHTS } from "@/content/use-cases";
+import { HOME_DESCRIPTION, homeJsonLd } from "@/lib/schema";
+import { CTA_LABEL, FACEBOOK, INSTAGRAM, pageMetadata } from "@/lib/site";
 import NavLinks from "./nav-links";
 import Aurora from "./components/aurora";
 import Flow from "./components/flow";
 import HeroSection from "./components/hero-parallax";
+import JsonLd from "./components/json-ld";
 import Magnetic from "./components/magnetic";
 import Marquee from "./components/marquee";
 import ProcessSteps from "./components/process-steps";
 import RevealObserver from "./components/reveal-observer";
 import ScrollWords from "./components/scroll-words";
-import SiteFooter, { FACEBOOK, INSTAGRAM } from "./components/site-footer";
-import TiltCard from "./components/tilt-card";
+import SiteFooter from "./components/site-footer";
+
+export const metadata: Metadata = pageMetadata({
+  title: "AI Automation and AI Accounting | Hiroshi Murakami",
+  description: HOME_DESCRIPTION,
+  path: "/",
+});
 
 const capabilities = [
+  "AI receptionist",
+  "Voice agents",
+  "Follow-ups",
+  "Lead qualification",
+  "Custom CRM",
+  "Customer support",
   "Invoice capture",
-  "Receipt scanning",
-  "Expense coding",
   "Bank reconciliation",
-  "Month end close",
-  "Plain language reports",
-  "Payables follow up",
-  "Accountant handoff",
+  "Month-end reports",
 ];
 
-const services = [
-  {
-    title: "Invoices and receipts",
-    text: "AI reads incoming invoices and receipts, pulls out the details and codes them to the right accounts, ready for your review.",
-    icon: Receipt,
-  },
-  {
-    title: "Bookkeeping",
-    text: "Day to day entries are prepared by AI and checked by a person. Fewer keystrokes, fewer slips, a cleaner ledger.",
-    icon: BookOpenText,
-  },
-  {
-    title: "Bank reconciliation",
-    text: "Transactions are matched to your records automatically. You only look at the few items that need a human decision.",
-    icon: ArrowsLeftRight,
-  },
-  {
-    title: "Reporting",
-    text: "Monthly numbers gathered into a clear, readable pack, so you can see how the business is doing without digging.",
-    icon: ChartBar,
-  },
-];
+const serviceIcons: Record<ServiceSlug, Icon> = {
+  "ai-receptionist": Headset,
+  "custom-voice-agents": Waveform,
+  "ai-agents": Robot,
+  "ai-follow-ups": PaperPlaneTilt,
+  "ai-lead-qualification": Funnel,
+  "custom-crm-and-workflows": TreeStructure,
+  "ai-customer-support": ChatsCircle,
+  "ai-accounting": Calculator,
+};
 
-// Placeholder projects until the owner supplies real case studies. Each art
-// panel has its own light so the grid never reads as one repeated card.
-const projects = [
-  {
-    title: "Invoice capture and coding automation",
-    text: "Supplier invoices arrive by email or upload, AI extracts the fields and suggests the coding, and a person approves.",
-    tags: ["Invoices", "AI extraction"],
-    icon: Invoice,
-    art: {
-      "--art-bg": "linear-gradient(135deg, #2a1410, #12141d 70%)",
-      "--art-orb": "#ff6b4a",
-      "--orb-x": "50%",
-      "--orb-y": "-20%",
-    },
-  },
-  {
-    title: "Bank reconciliation on autopilot",
-    text: "Bank lines are matched to ledger entries by rules and AI, with a short exceptions list left for review.",
-    tags: ["Reconciliation", "Matching"],
-    icon: ArrowsLeftRight,
-    art: {
-      "--art-bg": "linear-gradient(160deg, #0c2422, #11141c 75%)",
-      "--art-orb": "#2fb6a6",
-      "--orb-x": "35%",
-      "--orb-y": "-10%",
-    },
-  },
-  {
-    title: "Monthly reporting pack",
-    text: "A repeatable month end pack: profit and loss, cash position and plain language notes, assembled for you.",
-    tags: ["Reporting", "Month end"],
-    icon: ChartLineUp,
-    art: {
-      "--art-bg": "linear-gradient(150deg, #121a2e, #10131b 75%)",
-      "--art-orb": "#4a86c5",
-      "--orb-x": "45%",
-      "--orb-y": "0%",
-    },
-  },
-  {
-    title: "Receipt capture for small teams",
-    text: "Snap a receipt, send it, and AI files it against the right expense with the right category.",
-    tags: ["Receipts", "Expenses"],
-    icon: Receipt,
-    art: {
-      "--art-bg": "linear-gradient(150deg, #261a12, #12131a 75%)",
-      "--art-orb": "#ffa45c",
-      "--orb-x": "40%",
-      "--orb-y": "-25%",
-    },
-  },
-  {
-    title: "Accounts payable follow up",
-    text: "AI tracks due dates and drafts friendly reminders, so bills are paid on time and nothing slips through.",
-    tags: ["Payables", "Workflow"],
-    icon: CalendarCheck,
-    art: {
-      "--art-bg": "linear-gradient(150deg, #0e2219, #11141b 75%)",
-      "--art-orb": "#3ccf9b",
-      "--orb-x": "50%",
-      "--orb-y": "-15%",
-    },
-  },
-  {
-    title: "Accountant handoff workspace",
-    text: "One tidy place where owners drop documents and accountants pick up clean, pre-sorted records.",
-    tags: ["Collaboration", "Documents"],
-    icon: FolderOpen,
-    art: {
-      "--art-bg":
-        "linear-gradient(110deg, #22130f, #10131b 45%, #0c1f22 100%)",
-      "--art-orb": "#ff6b4a",
-      "--orb-x": "60%",
-      "--orb-y": "-60%",
-    },
-  },
-];
+const serviceName = Object.fromEntries(
+  SERVICES.map((s) => [s.slug, s.name]),
+) as Record<ServiceSlug, string>;
 
 const steps = [
   {
     n: "1",
     title: "Audit",
-    text: "We look at how your books, invoices and reports work today and find the repetitive tasks that cost you the most time.",
+    text: "We look at how calls, leads, follow-ups and the books are handled today, and find the repetitive work that costs you the most time.",
   },
   {
     n: "2",
-    title: "Automate",
-    text: "We set up AI workflows for those tasks, with a person always reviewing before anything is final.",
+    title: "Build",
+    text: "I build AI workflows for those tasks and connect them to the tools you already use, with a person reviewing anything that matters.",
   },
   {
     n: "3",
     title: "Refine",
-    text: "We check the results together, tune the rules and keep improving, so the system fits the way you work.",
+    text: "We check the results together, tune the rules and keep improving, so the system fits the way your business works.",
   },
 ];
 
 const principles = [
   "Practical AI",
   "Plain language",
-  "A person checks every result",
+  "A person checks what matters",
 ];
 
 const order = (n: number) => ({ "--i": n }) as CSSProperties;
@@ -192,7 +121,7 @@ function PrimaryCta() {
         rel="noopener noreferrer"
         className="btn btn-primary"
       >
-        <span>Book a free AI accounting audit</span>
+        <span>{CTA_LABEL}</span>
         <span className="sr-only"> (opens Instagram in a new tab)</span>
         <span className="btn-icon" aria-hidden="true">
           <ArrowUpRight size={18} weight="bold" />
@@ -202,22 +131,11 @@ function PrimaryCta() {
   );
 }
 
-function Symbol({ size }: { size: number }) {
-  return (
-    <Image
-      src="/symbol.png"
-      alt=""
-      width={259}
-      height={249}
-      style={{ width: size, height: "auto" }}
-      priority
-    />
-  );
-}
-
 export default function Home() {
   return (
     <>
+      <JsonLd data={homeJsonLd()} />
+
       <a href="#main" className="skip-link">
         Skip to content
       </a>
@@ -231,12 +149,22 @@ export default function Home() {
               aria-label="Hiroshi Murakami, back to top"
             >
               <span className="symbol-tile" aria-hidden="true">
-                <Symbol size={22} />
+                <Image src="/symbol.png" alt="" width={22} height={21} />
               </span>
-              <span className="hidden sm:inline">Hiroshi Murakami</span>
+              <span className="hidden md:inline">Hiroshi Murakami</span>
             </a>
-            <nav aria-label="Main">
+            <nav aria-label="Main" className="flex items-center gap-1">
               <NavLinks />
+              <a
+                href={INSTAGRAM}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-cta"
+              >
+                <span className="sm:hidden">Free AI audit</span>
+                <span className="hidden sm:inline">{CTA_LABEL}</span>
+                <span className="sr-only"> (opens Instagram in a new tab)</span>
+              </a>
             </nav>
           </div>
         </div>
@@ -247,40 +175,100 @@ export default function Home() {
           <h1 id="hero-title" className="display hero-title">
             <span className="line-mask">
               <span className="line-inner" style={order(0)}>
-                AI accounting,
+                AI that answers,
               </span>
             </span>
             <span className="line-mask">
               <span className="line-inner" style={order(1)}>
-                on autopilot<span className="dot">.</span>
+                follows up and
+              </span>
+            </span>
+            <span className="line-mask">
+              <span className="line-inner" style={order(2)}>
+                keeps the books<span className="dot">.</span>
               </span>
             </span>
           </h1>
           <div className="mt-8 flex flex-col gap-9 md:mt-11 md:gap-11">
-            <p className="lead hero-fade max-w-[36rem]" style={order(0)}>
-              I help businesses automate bookkeeping, invoices, reconciliation
-              and reporting with AI. Less typing, fewer errors, more time
-              back.
+            {/* Static on purpose: this paragraph is the LCP element, so it
+                paints with the first frame instead of fading in. */}
+            <p className="lead max-w-[40rem]">
+              I build AI automation and AI accounting for small and mid-size
+              businesses: receptionists that pick up, follow-ups that go out
+              on time and books that stay reconciled. Serving Los Angeles
+              County and clients worldwide, remote-first.
             </p>
             <div
               className="hero-fade flex flex-wrap items-center gap-x-7 gap-y-4"
-              style={order(1)}
+              style={order(0)}
             >
               <PrimaryCta />
-              <a href="#work" className="text-link font-medium">
-                See the work
+              <a href="#services" className="text-link font-medium">
+                See the services
               </a>
             </div>
           </div>
         </HeroSection>
 
-        <Marquee items={capabilities} />
+        <Marquee
+          items={capabilities}
+          separator={
+            <Asterisk
+              className="marquee-star"
+              size={28}
+              weight="bold"
+              aria-hidden="true"
+            />
+          }
+        />
+
+        {/* Services */}
+        <section
+          id="services"
+          aria-labelledby="services-title"
+          className="section"
+        >
+          <div className="wrap">
+            <h2
+              id="services-title"
+              className="h2 words max-w-[17ch]"
+              data-reveal
+            >
+              <Words text="Eight ways AI takes work off your plate" />
+            </h2>
+            <p className="lead mt-6 max-w-[50ch]" data-reveal="blur">
+              AI automation for the calls, messages and handoffs that slow a
+              team down, and AI accounting for the books. Each system is built
+              around how your business already works.
+            </p>
+            <ul className="svc-grid mt-14 md:mt-20">
+              {SERVICES.map((s, i) => {
+                const ServiceIcon = serviceIcons[s.slug];
+                return (
+                  <li
+                    key={s.slug}
+                    className="svc-card"
+                    data-glow
+                    data-reveal
+                    style={order(i % 4)}
+                  >
+                    <span className="service-icon" aria-hidden="true">
+                      <ServiceIcon size={24} weight="light" />
+                    </span>
+                    <h3 className="svc-title">{s.name}</h3>
+                    <p className="svc-text">{s.summary}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
 
         {/* About */}
         <section
           id="about"
           aria-labelledby="about-title"
-          className="section"
+          className="section pt-0"
         >
           <div className="wrap">
             <h2
@@ -292,13 +280,13 @@ export default function Home() {
             </h2>
             <ScrollWords
               className="statement mt-10 max-w-[30ch] md:mt-14"
-              text="I work with business owners and accountants who are tired of manual accounting work. Using AI, I turn the slow, repetitive parts of the job into steady workflows that run in the background."
+              text="I work with owners and managers who are tired of doing the same manual work every week. Using AI, I turn the slow, repetitive parts of the job into steady workflows that run in the background."
             />
             <div className="mt-14 grid gap-10 md:mt-20 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-16">
               <p className="lead" data-reveal="blur">
                 The idea is simple: practical AI, explained in plain language,
-                with a person checking the results. You keep control. The
-                machine does the typing.
+                with a person checking the results that matter. You keep
+                control. The machine does the busywork.
               </p>
               <ul
                 className="principles md:flex-col md:justify-center"
@@ -325,93 +313,81 @@ export default function Home() {
               className="h2 words max-w-[18ch]"
               data-reveal
             >
-              <Words text="How the AI accounting flow works" />
+              <Words text="How an AI workflow runs, from inbox to done" />
             </h2>
+            <p className="lead mt-6 max-w-[50ch]" data-reveal="blur">
+              The same pattern works for a missed call, a new lead or a
+              supplier invoice: work comes in, AI does the first pass, and a
+              person signs off on what matters.
+            </p>
           </div>
           <Flow />
         </section>
 
-        {/* Services */}
+        {/* Use cases */}
         <section
-          id="services"
-          aria-labelledby="services-title"
+          id="use-cases"
+          aria-labelledby="use-cases-title"
           className="section"
         >
           <div className="wrap">
             <h2
-              id="services-title"
+              id="use-cases-title"
               className="h2 words max-w-[17ch]"
               data-reveal
             >
-              <Words text="Built around the tasks that eat your week" />
+              <Words text="Problems these systems are built to solve" />
             </h2>
-            <p className="lead mt-6 max-w-[46ch]" data-reveal="blur">
-              AI-automated accounting for the four jobs that take the most
-              hours: documents, entries, matching and reporting.
+            <p className="lead mt-6 max-w-[50ch]" data-reveal="blur">
+              Illustrative scenarios, not client case studies. Each one is a
+              common problem and the AI workflow that handles it.
             </p>
-            <ul className="services-list mt-14 md:mt-20">
-              {services.map((s, i) => (
+            <ul className="uc-grid mt-14 md:mt-20">
+              {USE_CASE_HIGHLIGHTS.map((u, i) => (
                 <li
-                  key={s.title}
-                  className="service"
-                  data-glow
+                  key={u.title}
+                  className="uc-tile"
                   data-reveal
-                  style={order(i)}
+                  style={order(i % 4)}
                 >
-                  <span className="service-icon" aria-hidden="true">
-                    <s.icon size={24} weight="light" />
+                  <span className="uc-meta">
+                    <span className="case-label">Use case</span>
+                    <span className="uc-service">{serviceName[u.service]}</span>
                   </span>
-                  <h3 className="service-title">{s.title}</h3>
-                  <p>{s.text}</p>
+                  <h3 className="uc-title">{u.title}</h3>
+                  <p className="uc-text">{u.summary}</p>
                 </li>
               ))}
             </ul>
           </div>
         </section>
 
-        {/* Work */}
-        <section
-          id="work"
-          aria-labelledby="work-title"
-          className="section pt-0"
-        >
-          <div className="wrap">
-            <h2
-              id="work-title"
-              className="h2 words max-w-[16ch]"
-              data-reveal
-            >
-              <Words text="The kinds of projects I build" />
+        {/* Los Angeles area */}
+        <section id="area" aria-labelledby="area-title" className="area">
+          <div className="wrap area-inner" data-reveal>
+            <h2 id="area-title" className="h3 area-title">
+              Serving businesses across Los Angeles County, remote-first
+              <span className="dot">.</span>
             </h2>
-            <p className="lead mt-6 max-w-[44ch]" data-reveal="blur">
-              Detailed case studies are on the way. Until then, these are the
-              workflows I set up most often.
+            <p className="area-text">
+              Audits, setup and check-ins happen online, so I work with teams
+              anywhere in the county, and with clients worldwide.
             </p>
-            <ul className="work-grid mt-14 md:mt-20">
-              {projects.map((p, i) => (
-                <li key={p.title} data-reveal style={order(i % 3)}>
-                  <TiltCard className="card" style={p.art as CSSProperties}>
-                    <div className="card-art" aria-hidden="true">
-                      <span className="card-art-orb" />
-                      <span className="card-art-grid" />
-                      <span className="card-art-icon">
-                        <p.icon size={44} weight="thin" />
-                      </span>
-                    </div>
-                    <div className="card-body">
-                      <span className="case-label">Case study</span>
-                      <h3 className="card-title">{p.title}</h3>
-                      <p className="card-text">{p.text}</p>
-                      <ul className="card-tags" aria-label="Topics">
-                        {p.tags.map((t) => (
-                          <li key={t}>{t}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </TiltCard>
-                </li>
+          </div>
+          <div className="ticker" aria-label="Cities served" role="region">
+            <div className="ticker-track">
+              {[false, true].map((hidden) => (
+                <ul
+                  key={String(hidden)}
+                  className="ticker-group"
+                  aria-hidden={hidden || undefined}
+                >
+                  {LOCATIONS.map((l) => (
+                    <li key={l.slug}>{l.name}</li>
+                  ))}
+                </ul>
               ))}
-            </ul>
+            </div>
           </div>
         </section>
 
@@ -419,7 +395,7 @@ export default function Home() {
         <section
           id="process"
           aria-labelledby="process-title"
-          className="section pt-0"
+          className="section"
         >
           <div className="wrap">
             <h2
@@ -453,8 +429,8 @@ export default function Home() {
               >
                 <Words text="Ready to hand off the busywork?" dot={false} />
               </h2>
-              <p className="lead mt-8 max-w-[44ch]">
-                Tell me where your accounting time goes. I will show you what
+              <p className="lead mt-8 max-w-[46ch]">
+                Tell me where your team&apos;s time goes. I will show you what
                 AI can take off your plate, free of charge.
               </p>
               <div className="mt-11 flex flex-wrap items-center gap-x-6 gap-y-4">
@@ -470,7 +446,8 @@ export default function Home() {
                 </a>
               </div>
               <p className="mt-7 text-[0.95rem] text-text-2">
-                Send a message on Instagram. No forms, no pressure.
+                Send a message on Instagram or Facebook. No forms, no
+                pressure.
               </p>
             </div>
           </div>

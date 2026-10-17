@@ -1,73 +1,88 @@
 "use client";
 
-import { useRef } from "react";
-import {
-  motion,
-  useAnimationFrame,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-  wrap,
-} from "motion/react";
-import { Asterisk } from "@phosphor-icons/react";
+import { useEffect, useRef, type ReactNode } from "react";
 
-// A kinetic band of capabilities. It drifts on its own, speeds up with the
-// reader's scroll and turns around when they scroll back up.
-export default function Marquee({ items }: { items: string[] }) {
-  const reduce = useReducedMotion();
-  const base = useMotionValue(0);
-  const direction = useRef(-1);
+// A kinetic band of capabilities. It drifts on its own as a CSS animation,
+// so the compositor moves it and the main thread stays free. Scrolling only
+// nudges the animation's playback rate: faster with the reader's scroll
+// speed, reversed when they scroll back up, easing back to the base drift.
+// Still and wrapped under reduced motion (see globals.css).
+// The separator icon is rendered by the server and passed in, so no icon
+// code ships to the browser.
+export default function Marquee({
+  items,
+  separator,
+}: {
+  items: string[];
+  separator: ReactNode;
+}) {
+  const track = useRef<HTMLDivElement>(null);
 
-  const { scrollY } = useScroll();
-  const velocity = useVelocity(scrollY);
-  const smooth = useSpring(velocity, { damping: 50, stiffness: 300 });
-  const boost = useTransform(smooth, [0, 1200], [0, 4], { clamp: false });
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  // Two identical groups, so shifting by -50% loops without a seam.
-  const transform = useTransform(
-    base,
-    (v) => `translate3d(${wrap(-50, 0, v)}%, 0, 0)`,
-  );
+    let lastY = window.scrollY;
+    let lastT = performance.now();
+    let direction = 1;
+    let boost = 0;
+    let raf = 0;
 
-  useAnimationFrame((_, delta) => {
-    if (reduce) return;
-    const b = boost.get();
-    if (b < -0.05) direction.current = 1;
-    else if (b > 0.05) direction.current = -1;
-    const speed = 1.6 * (1 + Math.min(Math.abs(b), 6));
-    base.set(base.get() + direction.current * speed * (delta / 1000));
-  });
+    const animation = () => el.getAnimations()[0];
+    const apply = () => {
+      const a = animation();
+      if (a) a.playbackRate = direction * (1 + boost);
+    };
+
+    // Runs only while a boost is decaying, then stops itself.
+    const settle = () => {
+      boost *= 0.92;
+      if (boost < 0.02) {
+        boost = 0;
+        raf = 0;
+      } else raf = requestAnimationFrame(settle);
+      apply();
+    };
+
+    const onScroll = () => {
+      if (reduce.matches) return;
+      const now = performance.now();
+      const dy = window.scrollY - lastY;
+      const dt = Math.max(16, now - lastT);
+      lastY = window.scrollY;
+      lastT = now;
+      if (dy !== 0) direction = dy > 0 ? 1 : -1;
+      const speed = Math.abs(dy / dt) * 1000;
+      boost = Math.max(boost, Math.min(speed / 300, 6));
+      apply();
+      if (!raf) raf = requestAnimationFrame(settle);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const group = (hidden: boolean) => (
     <ul className="marquee-group" aria-hidden={hidden || undefined}>
       {items.map((item) => (
         <li key={item} className="marquee-item">
           {item}
-          <Asterisk
-            className="marquee-star"
-            size={28}
-            weight="bold"
-            aria-hidden="true"
-          />
+          {separator}
         </li>
       ))}
     </ul>
   );
 
   return (
-    <div
-      className="marquee"
-      data-static={reduce ? "true" : undefined}
-      aria-label="Capabilities"
-      role="region"
-    >
-      <motion.div className="marquee-track" style={{ transform }}>
+    <div className="marquee" aria-label="Capabilities" role="region">
+      <div ref={track} className="marquee-track">
         {group(false)}
         {group(true)}
-      </motion.div>
+      </div>
     </div>
   );
 }

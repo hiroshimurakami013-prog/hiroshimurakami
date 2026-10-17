@@ -1,0 +1,248 @@
+#!/usr/bin/env node
+// Site QA against the built output (docs/BUILD-PLAN.md section 9).
+// Run after `npm run build`:   node scripts/check-links.mjs
+//
+// For every route in lib/routes.ts, and the 404, it reads the prerendered
+// HTML in .next/server/app and checks:
+// - every internal link resolves (a known route, a public file or an
+//   in-page anchor that exists), and no route is an orphan
+// - exactly one H1
+// - a title of 60 characters or fewer and a description of 155 or fewer
+// - a canonical URL on SITE_URL
+// - noindex while INDEXABLE is false
+// - every JSON-LD block parses
+// - no em or en dashes, and no lowercase or title-case "ai" word in copy,
+//   alt text or metadata
+// It also checks robots.txt and the sitemap against the INDEXABLE switch,
+// and scans the source folders for em and en dashes.
+//
+// Node 22.18+ strips the TypeScript types from the lib imports by itself.
+
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { join, relative } from "node:path";
+import { ROUTES } from "../lib/routes.ts";
+import { INDEXABLE, SITE_URL } from "../lib/site.ts";
+
+const ROOT = new URL("..", import.meta.url).pathname;
+const BUILD = join(ROOT, ".next/server/app");
+const PUBLIC = join(ROOT, "public");
+
+// Files served by metadata routes rather than pages.
+const METADATA_PATHS = new Set([
+  "/robots.txt",
+  "/sitemap.xml",
+  "/icon.png",
+  "/apple-icon.png",
+  "/opengraph-image",
+]);
+
+const DASHES = new RegExp("[\\u2013\\u2014]");
+const BAD_AI = /\b(ai|Ai|aI)\b/;
+
+const problems = [];
+const fail = (where, msg) => problems.push(`${where}: ${msg}`);
+
+if (!existsSync(BUILD)) {
+  console.error("No build output found. Run `npm run build` first.");
+  process.exit(1);
+}
+
+const decode = (s) =>
+  s
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#x27;|&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&nbsp;/g, " ");
+
+const attr = (tag, name) => {
+  const m = tag.match(new RegExp(`\\s${name}="([^"]*)"`, "i"));
+  return m ? decode(m[1]) : null;
+};
+
+const htmlFile = (path) =>
+  join(BUILD, path === "/" ? "index.html" : `${path.slice(1)}.html`);
+
+// Only the server-rendered document, without the inline RSC payload.
+const documentPart = (html) =>
+  html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, (s) =>
+    /type="application\/ld\+json"/.test(s) ? s : "",
+  );
+
+function visibleText(html) {
+  return decode(
+    html
+      .replace(/<head\b[\s\S]*?<\/head>/i, " ")
+      .replace(/<(script|style|noscript|template)\b[\s\S]*?<\/\1>/gi, " ")
+      .replace(/<[^>]+>/g, " "),
+  )
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function checkCopy(where, label, text) {
+  if (!text) return;
+  if (DASHES.test(text)) {
+    const at = text.search(DASHES);
+    fail(where, `${label} has an em or en dash near "${text.slice(Math.max(0, at - 30), at + 30)}"`);
+  }
+  const ai = text.match(BAD_AI);
+  if (ai) {
+    const at = ai.index ?? 0;
+    fail(where, `${label} has "${ai[0]}" (write AI) near "${text.slice(Math.max(0, at - 30), at + 30)}"`);
+  }
+}
+
+const routePaths = new Set(ROUTES.map((r) => r.path));
+const inbound = new Map(ROUTES.map((r) => [r.path, 0]));
+
+const pages = [
+  ...ROUTES.map((r) => ({ path: r.path, file: htmlFile(r.path), notFound: false })),
+  { path: "(404)", file: join(BUILD, "_not-found.html"), notFound: true },
+];
+
+for (const page of pages) {
+  const where = page.path;
+  if (!existsSync(page.file)) {
+    fail(where, `no prerendered HTML at ${relative(ROOT, page.file)}`);
+    continue;
+  }
+  const raw = readFileSync(page.file, "utf8");
+  const doc = documentPart(raw);
+  const head = doc.match(/<head\b[\s\S]*?<\/head>/i)?.[0] ?? "";
+
+  // Title and description.
+  const title = decode(head.match(/<title>([\s\S]*?)<\/title>/i)?.[1] ?? "").trim();
+  if (!title) fail(where, "missing <title>");
+  else if (title.length > 60) fail(where, `title is ${title.length} characters (max 60): "${title}"`);
+  checkCopy(where, "title", title);
+
+  const metas = head.match(/<meta\b[^>]*>/gi) ?? [];
+  const meta = (key) =>
+    metas.find((m) => attr(m, "name") === key || attr(m, "property") === key);
+
+  const description = meta("description") ? attr(meta("description"), "content") : null;
+  if (!description) fail(where, "missing meta description");
+  else if (description.length > 155)
+    fail(where, `description is ${description.length} characters (max 155)`);
+
+  for (const m of metas) {
+    const key = attr(m, "name") ?? attr(m, "property") ?? "";
+    if (/^(description|og:title|og:description|og:image:alt|twitter:title|twitter:description|twitter:image:alt)$/.test(key))
+      checkCopy(where, `meta ${key}`, attr(m, "content"));
+  }
+
+  // Canonical, except on the 404.
+  if (!page.notFound) {
+    const canonical = head.match(/<link\b[^>]*rel="canonical"[^>]*>/i)?.[0];
+    const href = canonical ? attr(canonical, "href") : null;
+    const expected = page.path === "/" ? SITE_URL : `${SITE_URL}${page.path}`;
+    if (!href) fail(where, "missing canonical");
+    else if (href !== expected) fail(where, `canonical is ${href}, expected ${expected}`);
+  }
+
+  // Robots.
+  const robots = metas
+    .filter((m) => attr(m, "name") === "robots")
+    .map((m) => attr(m, "content") ?? "");
+  if ((!INDEXABLE || page.notFound) && !robots.some((r) => /noindex/.test(r)))
+    fail(where, "missing noindex");
+  if (INDEXABLE && !page.notFound && robots.some((r) => /noindex/.test(r)))
+    fail(where, "noindex present although INDEXABLE is true");
+
+  // One H1.
+  const h1s = doc.match(/<h1\b/gi)?.length ?? 0;
+  if (h1s !== 1) fail(where, `${h1s} H1 elements (expected 1)`);
+
+  // JSON-LD.
+  for (const block of doc.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      const data = JSON.parse(block[1]);
+      checkCopy(where, "JSON-LD", JSON.stringify(data));
+    } catch (e) {
+      fail(where, `JSON-LD does not parse: ${e.message}`);
+    }
+  }
+
+  // Copy and alt text.
+  checkCopy(where, "page copy", visibleText(doc));
+  for (const tag of doc.match(/<[a-z][^>]*\s(alt|aria-label|title)="[^"]*"[^>]*>/gi) ?? []) {
+    for (const name of ["alt", "aria-label", "title"]) checkCopy(where, name, attr(tag, name));
+  }
+
+  // Internal links.
+  const ids = new Set([...doc.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+  for (const tag of doc.match(/<a\b[^>]*>/gi) ?? []) {
+    let href = attr(tag, "href");
+    if (!href) {
+      fail(where, `link without href: ${tag}`);
+      continue;
+    }
+    if (href.startsWith(SITE_URL)) href = href.slice(SITE_URL.length) || "/";
+    if (/^(https?:|mailto:|tel:)/i.test(href)) continue;
+    if (href.startsWith("#")) {
+      if (href.length > 1 && !ids.has(href.slice(1))) fail(where, `anchor ${href} has no target`);
+      continue;
+    }
+    const [pathAndQuery, hash] = href.split("#");
+    const path = pathAndQuery.split("?")[0] || "/";
+    if (path !== "/" && path.endsWith("/")) fail(where, `trailing slash in ${href}`);
+    if (path !== path.toLowerCase()) fail(where, `uppercase in ${href}`);
+    if (routePaths.has(path)) {
+      if (!page.notFound && path !== page.path) inbound.set(path, inbound.get(path) + 1);
+      if (hash && path === page.path && !ids.has(hash)) fail(where, `anchor ${href} has no target`);
+      continue;
+    }
+    if (METADATA_PATHS.has(path)) continue;
+    const file = join(PUBLIC, path);
+    if (existsSync(file) && statSync(file).isFile()) continue;
+    fail(where, `broken internal link ${href}`);
+  }
+}
+
+// Orphans: every page except home needs a link from another page.
+for (const [path, count] of inbound) {
+  if (path !== "/" && count === 0) fail(path, "orphan page, no other page links to it");
+}
+
+// robots.txt and sitemap against the switch.
+const robotsTxt = readFileSync(join(BUILD, "robots.txt.body"), "utf8");
+const sitemap = readFileSync(join(BUILD, "sitemap.xml.body"), "utf8");
+if (/Disallow:\s*\/\s*$/m.test(robotsTxt)) fail("robots.txt", "blocks crawling");
+if (!INDEXABLE) {
+  if (/Sitemap:/i.test(robotsTxt)) fail("robots.txt", "advertises a sitemap while not indexable");
+  if (/<url>/.test(sitemap)) fail("sitemap.xml", "has entries while not indexable");
+} else {
+  if (!robotsTxt.includes(`${SITE_URL}/sitemap.xml`)) fail("robots.txt", "missing sitemap URL");
+  for (const r of ROUTES) {
+    const loc = r.path === "/" ? SITE_URL : `${SITE_URL}${r.path}`;
+    if (!sitemap.includes(`<loc>${loc}</loc>`)) fail("sitemap.xml", `missing ${loc}`);
+  }
+}
+
+// Source scan for dashes.
+const SOURCE = ["app", "components", "content", "lib", "docs", "scripts", "README.md", "CLAUDE.md"];
+const walk = (p) => {
+  if (!existsSync(p)) return [];
+  if (statSync(p).isFile()) return [p];
+  return readdirSync(p).flatMap((name) => walk(join(p, name)));
+};
+for (const file of SOURCE.flatMap((s) => walk(join(ROOT, s)))) {
+  if (!/\.(tsx?|mjs|js|css|md|txt)$/.test(file)) continue;
+  const lines = readFileSync(file, "utf8").split("\n");
+  lines.forEach((line, i) => {
+    if (DASHES.test(line)) fail(`${relative(ROOT, file)}:${i + 1}`, "em or en dash");
+  });
+}
+
+const checked = pages.length;
+if (problems.length) {
+  console.error(`check-links: ${problems.length} problem(s) across ${checked} pages\n`);
+  for (const p of problems) console.error(`  - ${p}`);
+  process.exit(1);
+}
+console.log(
+  `check-links: ${checked} pages OK (${ROUTES.length} routes and the 404). ` +
+    `INDEXABLE=${INDEXABLE}, SITE_URL=${SITE_URL}`,
+);

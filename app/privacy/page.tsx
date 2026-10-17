@@ -1,29 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import LegalPage, {
-  External,
-  FACEBOOK,
-  INSTAGRAM,
-} from "../components/legal-page";
+import { FACEBOOK, INSTAGRAM, SITE_HOST, pageMetadata } from "@/lib/site";
+import LegalPage, { External } from "../components/legal-page";
 
-const title = "Privacy Policy | Hiroshi Murakami";
-const description =
-  "How the Hiroshi Murakami website and the Hiro App Meta integration handle data: no cookies, no analytics, no forms, and no sale of personal data.";
-
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: { canonical: "/privacy" },
-  openGraph: {
-    type: "website",
-    siteName: "Hiroshi Murakami",
-    title,
-    description,
-    url: "/privacy",
-    images: ["/og.png"],
-  },
-  twitter: { card: "summary_large_image", title, description, images: ["/og.png"] },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy Policy | Hiroshi Murakami",
+  description:
+    "How the Hiroshi Murakami website and the Hiro App Meta integration handle data: no cookies, no analytics, no forms, and no sale of personal data.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (
@@ -45,10 +30,11 @@ export default function PrivacyPage() {
       <section aria-labelledby="who">
         <h2 id="who">Who runs this website</h2>
         <p>
-          This website, hiroshimurakami.vercel.app, is run by Hiroshi Murakami,
-          who provides AI-automated accounting services: helping business
-          owners and accountants automate tasks such as invoice capture, bank
-          reconciliation and monthly reporting. In this policy, &quot;I&quot;,
+          This website, {SITE_HOST}, is run by Hiroshi Murakami, who provides
+          AI automation and AI accounting services: helping businesses and
+          accountants automate work such as answering calls, following up with
+          customers, invoice capture, bank reconciliation and monthly
+          reporting. In this policy, &quot;I&quot;,
           &quot;me&quot; and &quot;my&quot; mean Hiroshi Murakami.
         </p>
       </section>
