@@ -887,6 +887,13 @@ main:focus {
   filter: none;
   transition-delay: 120ms;
 }
+/* Set for a moment while the flow and the process steps take their scroll
+   state off screen on load (see FlowPin and ProcessSteps), so that change
+   starts no transitions nobody could see. */
+[data-settling] .flow-step,
+[data-settling] .step-num {
+  transition: none !important;
+}
 .flow-meter {
   display: none;
 }

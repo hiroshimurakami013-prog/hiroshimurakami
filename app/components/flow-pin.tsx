@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
-import { trackProgress, useReducedMotion } from "./scroll-frame";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
+import { endSettling, trackProgress, useReducedMotion } from "./scroll-frame";
 
 const noop = () => () => {};
 
@@ -20,6 +26,20 @@ export default function FlowPin({ children }: { children: ReactNode }) {
   );
   const pinned = hydrated && !reduce;
 
+  // Pinning turns the still diagram into the first frame of the story. When
+  // that happens off screen, as on a normal load, skip the crossfades it
+  // would start: nobody can see them, and they would only keep the main
+  // thread busy while the page is still loading. Runs before paint, so the
+  // first styled frame already has transitions off.
+  useLayoutEffect(() => {
+    const root = ref.current;
+    if (!pinned || !root) return;
+    const rect = root.getBoundingClientRect();
+    if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
+      root.dataset.settling = "";
+    }
+  }, [pinned]);
+
   // Progress from the flow's top reaching the top of the viewport to its
   // bottom reaching the bottom. Also syncs at once, in case the page loaded
   // mid-scroll.
@@ -30,7 +50,12 @@ export default function FlowPin({ children }: { children: ReactNode }) {
     const steps = root?.querySelectorAll<HTMLElement>(".flow-step");
     if (!pinned || !root || !stage || !bars || !steps) return;
     let current = -1;
+    let first = true;
     const stop = trackProgress(root, 0, 1, (v) => {
+      if (first) {
+        first = false;
+        if (root.dataset.settling !== undefined) endSettling(root);
+      }
       // A short hold at both ends, so the first and last frames can be read.
       const p = Math.min(1, Math.max(0, (v - 0.04) / 0.86));
       stage.style.setProperty("--p", p.toFixed(4));
@@ -50,6 +75,7 @@ export default function FlowPin({ children }: { children: ReactNode }) {
     });
     return () => {
       stop();
+      delete root.dataset.settling;
       stage.style.removeProperty("--p");
       bars.forEach((bar) => bar.style.removeProperty("--m"));
       steps.forEach((step) => delete step.dataset.active);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { trackProgress } from "./scroll-frame";
+import { endSettling, trackProgress } from "./scroll-frame";
 
 type Step = { n: string; title: string; text: string };
 
@@ -19,15 +19,30 @@ export default function ProcessSteps({ steps }: { steps: Step[] }) {
     const line = rail.current;
     if (!list || !line) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const stop = trackProgress(list, 0.8, 0.55, (p) => {
+    let first = true;
+    const stop = trackProgress(list, 0.8, 0.55, (p, visible) => {
+      const next = Math.floor(p * steps.length + 0.15);
+      // The first update moves the steps from fully lit to where the reader
+      // is. Off screen, as on a normal load, that needs no transitions.
+      if (first) {
+        first = false;
+        if (!visible && next !== steps.length) list.dataset.settling = "";
+      }
       line.style.setProperty("--rail", p.toFixed(4));
-      setLit(Math.floor(p * steps.length + 0.15));
+      setLit(next);
     });
     return () => {
       stop();
+      delete list.dataset.settling;
       line.style.removeProperty("--rail");
     };
   }, [steps.length]);
+
+  // Clears the settling state once React has committed the new steps.
+  useEffect(() => {
+    const list = ref.current;
+    if (list?.dataset.settling !== undefined) endSettling(list);
+  }, [lit]);
 
   return (
     <div className="relative">

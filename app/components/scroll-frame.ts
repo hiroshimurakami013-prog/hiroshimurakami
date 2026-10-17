@@ -43,41 +43,60 @@ export function onScrollFrame(fn: Frame) {
  * Scroll progress of an element from 0 to 1, between two moments: when its
  * top meets `start` (a fraction of the viewport height from the top) and
  * when its bottom meets `end`. Positions are measured on resize, not on
- * every frame, so scrolling never forces layout.
+ * every frame, so scrolling never forces layout. `visible` says whether
+ * any part of the element is in the viewport.
  */
 export function trackProgress(
   el: HTMLElement,
   start: number,
   end: number,
-  onProgress: (progress: number) => void,
+  onProgress: (progress: number, visible: boolean) => void,
 ) {
   let top = 0;
   let height = 0;
-  const measure = () => {
+  let measured = false;
+
+  const update = (y: number, vh: number) => {
+    if (!measured) return;
+    const from = top - start * vh;
+    const to = top + height - end * vh;
+    const p = to > from ? (y - from) / (to - from) : 1;
+    onProgress(Math.min(1, Math.max(0, p)), top - y < vh && top + height > y);
+  };
+
+  // The first measurement waits for the observer's initial callback, which
+  // runs once layout is already done. Measuring straight away would force
+  // an extra layout in the middle of hydration.
+  const ro = new ResizeObserver(() => {
     const rect = el.getBoundingClientRect();
     top = rect.top + window.scrollY;
     height = rect.height;
-  };
-  measure();
-
-  const ro = new ResizeObserver(() => {
-    measure();
-    schedule();
+    measured = true;
+    update(window.scrollY, window.innerHeight);
   });
   ro.observe(el);
   ro.observe(document.body);
 
-  const off = onScrollFrame((y, vh) => {
-    const from = top - start * vh;
-    const to = top + height - end * vh;
-    const p = to > from ? (y - from) / (to - from) : 1;
-    onProgress(Math.min(1, Math.max(0, p)));
-  });
+  const off = onScrollFrame(update);
 
   return () => {
     ro.disconnect();
     off();
   };
+}
+
+/**
+ * Ends the settling state that [data-settling] in globals.css describes:
+ * while it is set, an element that takes its scroll state off screen does
+ * not start transitions nobody can see. Cleared after two frames, so the
+ * new state has been styled without transitions by then.
+ */
+export function endSettling(el: HTMLElement) {
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      delete el.dataset.settling;
+    }),
+  );
 }
 
 const REDUCE = "(prefers-reduced-motion: reduce)";
