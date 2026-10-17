@@ -1,36 +1,25 @@
-import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import {
-  ArrowUpRight,
-  Asterisk,
-  Calculator,
-  ChatsCircle,
-  CheckCircle,
-  Funnel,
-  Headset,
-  PaperPlaneTilt,
-  Robot,
-  TreeStructure,
-  Waveform,
-} from "@phosphor-icons/react/dist/ssr";
-import type { Icon } from "@phosphor-icons/react";
-import { LOCATIONS } from "@/content/locations";
-import { SERVICES, type ServiceSlug } from "@/content/services";
+import Link from "next/link";
+import { ArrowRight, Asterisk, CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { PROCESS_STEPS, SERVICES, serviceName } from "@/content/services";
 import { USE_CASE_HIGHLIGHTS } from "@/content/use-cases";
 import { HOME_DESCRIPTION, homeJsonLd } from "@/lib/schema";
-import { CTA_LABEL, FACEBOOK, INSTAGRAM, pageMetadata } from "@/lib/site";
+import { CTA_LABEL, INSTAGRAM, pageMetadata } from "@/lib/site";
 import NavLinks from "./nav-links";
+import AreaBand from "./components/area-band";
 import Aurora from "./components/aurora";
+import { ClosingCta, PrimaryCta } from "./components/cta";
 import Flow from "./components/flow";
 import HeroSection from "./components/hero-parallax";
 import JsonLd from "./components/json-ld";
-import Magnetic from "./components/magnetic";
 import Marquee from "./components/marquee";
 import ProcessSteps from "./components/process-steps";
 import RevealObserver from "./components/reveal-observer";
 import ScrollWords from "./components/scroll-words";
+import ServiceCard from "./components/service-card";
 import SiteFooter from "./components/site-footer";
+import Words, { order } from "./components/words";
 
 export const metadata: Metadata = pageMetadata({
   title: "AI Automation and AI Accounting | Hiroshi Murakami",
@@ -50,86 +39,16 @@ const capabilities = [
   "Month-end reports",
 ];
 
-const serviceIcons: Record<ServiceSlug, Icon> = {
-  "ai-receptionist": Headset,
-  "custom-voice-agents": Waveform,
-  "ai-agents": Robot,
-  "ai-follow-ups": PaperPlaneTilt,
-  "ai-lead-qualification": Funnel,
-  "custom-crm-and-workflows": TreeStructure,
-  "ai-customer-support": ChatsCircle,
-  "ai-accounting": Calculator,
-};
-
-const serviceName = Object.fromEntries(
-  SERVICES.map((s) => [s.slug, s.name]),
-) as Record<ServiceSlug, string>;
-
-const steps = [
-  {
-    n: "1",
-    title: "Audit",
-    text: "We look at how calls, leads, follow-ups and the books are handled today, and find the repetitive work that costs you the most time.",
-  },
-  {
-    n: "2",
-    title: "Build",
-    text: "I build AI workflows for those tasks and connect them to the tools you already use, with a person reviewing anything that matters.",
-  },
-  {
-    n: "3",
-    title: "Refine",
-    text: "We check the results together, tune the rules and keep improving, so the system fits the way your business works.",
-  },
-];
-
 const principles = [
   "Practical AI",
   "Plain language",
   "A person checks what matters",
 ];
 
-const order = (n: number) => ({ "--i": n }) as CSSProperties;
-
-// Splits a heading into words for the staggered reveal. The full text stays
-// in the DOM as real words, so it reads normally to everyone.
-function Words({ text, dot = true }: { text: string; dot?: boolean }) {
-  const words = text.split(" ");
-  return (
-    <>
-      {words.map((w, i) => (
-        <span key={i}>
-          <span className="w" style={{ "--w": i } as CSSProperties}>
-            {w}
-            {dot && i === words.length - 1 ? (
-              <span className="dot">.</span>
-            ) : null}
-          </span>
-          {i < words.length - 1 ? " " : null}
-        </span>
-      ))}
-    </>
-  );
-}
-
-function PrimaryCta() {
-  return (
-    <Magnetic>
-      <a
-        href={INSTAGRAM}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn btn-primary"
-      >
-        <span>{CTA_LABEL}</span>
-        <span className="sr-only"> (opens Instagram in a new tab)</span>
-        <span className="btn-icon" aria-hidden="true">
-          <ArrowUpRight size={18} weight="bold" />
-        </span>
-      </a>
-    </Magnetic>
-  );
-}
+// One headline use case per service, in the same order as the services.
+const highlights = SERVICES.flatMap((s) =>
+  USE_CASE_HIGHLIGHTS.filter((u) => u.service === s.slug),
+);
 
 export default function Home() {
   return (
@@ -242,25 +161,19 @@ export default function Home() {
               around how your business already works.
             </p>
             <ul className="svc-grid mt-14 md:mt-20">
-              {SERVICES.map((s, i) => {
-                const ServiceIcon = serviceIcons[s.slug];
-                return (
-                  <li
-                    key={s.slug}
-                    className="svc-card"
-                    data-glow
-                    data-reveal
-                    style={order(i % 4)}
-                  >
-                    <span className="service-icon" aria-hidden="true">
-                      <ServiceIcon size={24} weight="light" />
-                    </span>
-                    <h3 className="svc-title">{s.name}</h3>
-                    <p className="svc-text">{s.summary}</p>
-                  </li>
-                );
-              })}
+              {SERVICES.map((s, i) => (
+                <ServiceCard key={s.slug} service={s} index={i} />
+              ))}
             </ul>
+            <p className="mt-10 md:mt-12" data-reveal>
+              <Link
+                href="/services"
+                className="text-link inline-flex items-center gap-2 font-medium"
+              >
+                Compare all AI services
+                <ArrowRight size={16} weight="bold" aria-hidden="true" />
+              </Link>
+            </p>
           </div>
         </section>
 
@@ -343,16 +256,16 @@ export default function Home() {
               common problem and the AI workflow that handles it.
             </p>
             <ul className="uc-grid mt-14 md:mt-20">
-              {USE_CASE_HIGHLIGHTS.map((u, i) => (
+              {highlights.map((u, i) => (
                 <li
-                  key={u.title}
+                  key={u.slug}
                   className="uc-tile"
                   data-reveal
                   style={order(i % 4)}
                 >
                   <span className="uc-meta">
                     <span className="case-label">Use case</span>
-                    <span className="uc-service">{serviceName[u.service]}</span>
+                    <span className="uc-service">{serviceName(u.service)}</span>
                   </span>
                   <h3 className="uc-title">{u.title}</h3>
                   <p className="uc-text">{u.summary}</p>
@@ -363,33 +276,7 @@ export default function Home() {
         </section>
 
         {/* Los Angeles area */}
-        <section id="area" aria-labelledby="area-title" className="area">
-          <div className="wrap area-inner" data-reveal>
-            <h2 id="area-title" className="h3 area-title">
-              Serving businesses across Los Angeles County, remote-first
-              <span className="dot">.</span>
-            </h2>
-            <p className="area-text">
-              Audits, setup and check-ins happen online, so I work with teams
-              anywhere in the county, and with clients worldwide.
-            </p>
-          </div>
-          <div className="ticker" aria-label="Cities served" role="region">
-            <div className="ticker-track">
-              {[false, true].map((hidden) => (
-                <ul
-                  key={String(hidden)}
-                  className="ticker-group"
-                  aria-hidden={hidden || undefined}
-                >
-                  {LOCATIONS.map((l) => (
-                    <li key={l.slug}>{l.name}</li>
-                  ))}
-                </ul>
-              ))}
-            </div>
-          </div>
-        </section>
+        <AreaBand />
 
         {/* Process */}
         <section
@@ -406,52 +293,13 @@ export default function Home() {
               <Words text="Three steps, with a person checking along the way" />
             </h2>
             <div className="mt-14 md:mt-24">
-              <ProcessSteps steps={steps} />
+              <ProcessSteps steps={PROCESS_STEPS} />
             </div>
           </div>
         </section>
 
         {/* Closing CTA */}
-        <section
-          id="contact"
-          aria-labelledby="cta-title"
-          className="pb-[clamp(3rem,8vw,6rem)]"
-        >
-          <div className="wrap">
-            <div className="cta" data-glow data-reveal>
-              <span className="cta-orb cta-orb-a" aria-hidden="true" />
-              <span className="cta-orb cta-orb-b" aria-hidden="true" />
-              <span className="cta-orb cta-orb-c" aria-hidden="true" />
-              <h2
-                id="cta-title"
-                className="display cta-title words"
-                data-reveal
-              >
-                <Words text="Ready to hand off the busywork?" dot={false} />
-              </h2>
-              <p className="lead mt-8 max-w-[46ch]">
-                Tell me where your team&apos;s time goes. I will show you what
-                AI can take off your plate, free of charge.
-              </p>
-              <div className="mt-11 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <PrimaryCta />
-                <a
-                  href={FACEBOOK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-ghost"
-                >
-                  Message on Facebook
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              </div>
-              <p className="mt-7 text-[0.95rem] text-text-2">
-                Send a message on Instagram or Facebook. No forms, no
-                pressure.
-              </p>
-            </div>
-          </div>
-        </section>
+        <ClosingCta />
       </main>
 
       <SiteFooter />

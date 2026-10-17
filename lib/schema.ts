@@ -1,5 +1,5 @@
 import { AREA_SERVED } from "@/content/locations";
-import { SERVICES } from "@/content/services";
+import { SERVICES, type Service } from "@/content/services";
 import { FACEBOOK, INSTAGRAM, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
 
 // Structured data builders. Honest by construction: no address, no
@@ -52,6 +52,94 @@ export function homeJsonLd() {
         },
         sameAs: [INSTAGRAM, FACEBOOK],
       },
+    ],
+  };
+}
+
+export type BreadcrumbItem = { name: string; path: string };
+
+export function breadcrumbJsonLd(items: BreadcrumbItem[]) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+const SERVICES_HUB_NAME = "AI automation and AI accounting services";
+
+/** The services hub: the eight services as a list, and the breadcrumb. */
+export function servicesHubJsonLd(
+  description: string,
+  crumbs: BreadcrumbItem[],
+) {
+  const url = absoluteUrl("/services");
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${url}#page`,
+        url,
+        name: SERVICES_HUB_NAME,
+        description,
+        inLanguage: "en-US",
+        isPartOf: { "@id": WEBSITE_ID },
+        mainEntity: {
+          "@type": "ItemList",
+          itemListElement: SERVICES.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: s.name,
+            url: absoluteUrl(`/services/${s.slug}`),
+          })),
+        },
+      },
+      breadcrumbJsonLd(crumbs),
+    ],
+  };
+}
+
+/** One service page: the Service, linked to the provider and the hub. */
+export function serviceJsonLd(service: Service, crumbs: BreadcrumbItem[]) {
+  const url = absoluteUrl(`/services/${service.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: service.name,
+        serviceType: service.serviceType,
+        description: service.description,
+        url,
+        provider: {
+          "@type": "ProfessionalService",
+          "@id": BUSINESS_ID,
+          name: SITE_NAME,
+          url: SITE_URL,
+        },
+        areaServed: [
+          { "@type": "AdministrativeArea", name: AREA_SERVED },
+          "Worldwide, remote",
+        ],
+        isRelatedTo: service.related.map((slug) => ({
+          "@type": "Service",
+          name: SERVICES.find((s) => s.slug === slug)?.name ?? slug,
+          url: absoluteUrl(`/services/${slug}`),
+        })),
+        subjectOf: {
+          "@type": "CollectionPage",
+          "@id": `${absoluteUrl("/services")}#page`,
+          name: SERVICES_HUB_NAME,
+          url: absoluteUrl("/services"),
+        },
+      },
+      breadcrumbJsonLd(crumbs),
     ],
   };
 }

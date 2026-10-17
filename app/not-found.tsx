@@ -20,6 +20,11 @@ const links = [
     text: "AI automation and AI accounting services, use cases and how the process works.",
   },
   {
+    href: "/services",
+    label: "Services",
+    text: "AI accounting, AI receptionists, voice agents, follow-ups and more, explained in plain language.",
+  },
+  {
     href: "/privacy",
     label: "Privacy Policy",
     text: "How this website and the Hiro App handle data.",

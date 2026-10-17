@@ -12,7 +12,15 @@
 // - noindex while INDEXABLE is false
 // - every JSON-LD block parses
 // - no em or en dashes, and no lowercase or title-case "ai" word in copy,
-//   alt text or metadata
+//   alt text, metadata or JSON-LD text (URLs are skipped, slugs such as
+//   /services/ai-agents are fine)
+// - a heading outline without skipped levels, and an Open Graph image
+// - unique titles and descriptions across pages
+// - the shared footer is identical on every page
+// - deep pages (/services and below) have a breadcrumb trail and
+//   BreadcrumbList JSON-LD, and each service page has Service JSON-LD with
+//   provider, serviceType and areaServed
+// - every service page is reachable from the home page within two clicks
 // It also checks robots.txt and the sitemap against the INDEXABLE switch,
 // and scans the source folders for em and en dashes.
 //
@@ -94,8 +102,33 @@ function checkCopy(where, label, text) {
   }
 }
 
+// Text values of a JSON-LD tree, without identifiers and URLs.
+const URL_KEYS = new Set(["@id", "@context", "url", "item", "logo", "image", "sameAs"]);
+function jsonText(value, key = "") {
+  if (typeof value === "string")
+    return URL_KEYS.has(key) || /^https?:\/\//.test(value) ? [] : [value];
+  if (Array.isArray(value)) return value.flatMap((v) => jsonText(v, key));
+  if (value && typeof value === "object")
+    return Object.entries(value).flatMap(([k, v]) => jsonText(v, k));
+  return [];
+}
+// Every node of a JSON-LD tree that is an object.
+function jsonNodes(value) {
+  if (Array.isArray(value)) return value.flatMap(jsonNodes);
+  if (value && typeof value === "object")
+    return [value, ...Object.values(value).flatMap(jsonNodes)];
+  return [];
+}
+
+const isDeep = (path) => path.startsWith("/services");
+const isServicePage = (path) => /^\/services\/[^/]+$/.test(path);
+
 const routePaths = new Set(ROUTES.map((r) => r.path));
 const inbound = new Map(ROUTES.map((r) => [r.path, 0]));
+const outbound = new Map();
+const titles = new Map();
+const descriptions = new Map();
+let firstFooter = null;
 
 const pages = [
   ...ROUTES.map((r) => ({ path: r.path, file: htmlFile(r.path), notFound: false })),
@@ -117,6 +150,8 @@ for (const page of pages) {
   if (!title) fail(where, "missing <title>");
   else if (title.length > 60) fail(where, `title is ${title.length} characters (max 60): "${title}"`);
   checkCopy(where, "title", title);
+  if (title && titles.has(title)) fail(where, `title is the same as on ${titles.get(title)}`);
+  titles.set(title, where);
 
   const metas = head.match(/<meta\b[^>]*>/gi) ?? [];
   const meta = (key) =>
@@ -126,6 +161,11 @@ for (const page of pages) {
   if (!description) fail(where, "missing meta description");
   else if (description.length > 155)
     fail(where, `description is ${description.length} characters (max 155)`);
+  if (description && descriptions.has(description))
+    fail(where, `description is the same as on ${descriptions.get(description)}`);
+  if (description) descriptions.set(description, where);
+
+  if (!page.notFound && !meta("og:image")) fail(where, "missing og:image");
 
   for (const m of metas) {
     const key = attr(m, "name") ?? attr(m, "property") ?? "";
@@ -151,18 +191,52 @@ for (const page of pages) {
   if (INDEXABLE && !page.notFound && robots.some((r) => /noindex/.test(r)))
     fail(where, "noindex present although INDEXABLE is true");
 
-  // One H1.
+  // The shared footer, byte for byte the same everywhere.
+  const footer = doc.match(/<footer\b[\s\S]*?<\/footer>/i)?.[0];
+  if (!footer) fail(where, "missing site footer");
+  else if (firstFooter === null) firstFooter = { where, footer };
+  else if (footer !== firstFooter.footer) fail(where, `footer differs from the one on ${firstFooter.where}`);
+
+  // One H1, and an outline that never skips a level on the way down.
   const h1s = doc.match(/<h1\b/gi)?.length ?? 0;
   if (h1s !== 1) fail(where, `${h1s} H1 elements (expected 1)`);
+  let level = 0;
+  for (const h of doc.matchAll(/<h([1-6])\b/gi)) {
+    const next = Number(h[1]);
+    if (next > level + 1) fail(where, `heading jumps from H${level} to H${next}`);
+    level = next;
+  }
 
   // JSON-LD.
+  const nodes = [];
   for (const block of doc.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       const data = JSON.parse(block[1]);
-      checkCopy(where, "JSON-LD", JSON.stringify(data));
+      for (const text of jsonText(data)) checkCopy(where, "JSON-LD", text);
+      nodes.push(...jsonNodes(data));
     } catch (e) {
       fail(where, `JSON-LD does not parse: ${e.message}`);
     }
+  }
+  const typed = (type) => nodes.filter((n) => n["@type"] === type);
+
+  // Breadcrumbs and Service markup on the deep pages.
+  if (isDeep(page.path)) {
+    if (!/<nav\b[^>]*aria-label="Breadcrumb"/i.test(doc)) fail(where, "missing breadcrumb trail");
+    const crumbs = typed("BreadcrumbList")[0];
+    if (!crumbs) fail(where, "missing BreadcrumbList JSON-LD");
+    else {
+      const items = crumbs.itemListElement ?? [];
+      const last = items[items.length - 1]?.item;
+      if (last !== `${SITE_URL}${page.path}`) fail(where, `BreadcrumbList ends at ${last}`);
+    }
+  }
+  if (isServicePage(page.path)) {
+    const service = typed("Service").find((n) => n.provider);
+    if (!service) fail(where, "missing Service JSON-LD with a provider");
+    else
+      for (const key of ["serviceType", "areaServed", "name", "description"])
+        if (!service[key]) fail(where, `Service JSON-LD has no ${key}`);
   }
 
   // Copy and alt text.
@@ -172,6 +246,8 @@ for (const page of pages) {
   }
 
   // Internal links.
+  const links = new Set();
+  outbound.set(page.path, links);
   const ids = new Set([...doc.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
   for (const tag of doc.match(/<a\b[^>]*>/gi) ?? []) {
     let href = attr(tag, "href");
@@ -190,6 +266,7 @@ for (const page of pages) {
     if (path !== "/" && path.endsWith("/")) fail(where, `trailing slash in ${href}`);
     if (path !== path.toLowerCase()) fail(where, `uppercase in ${href}`);
     if (routePaths.has(path)) {
+      links.add(path);
       if (!page.notFound && path !== page.path) inbound.set(path, inbound.get(path) + 1);
       if (hash && path === page.path && !ids.has(hash)) fail(where, `anchor ${href} has no target`);
       continue;
@@ -204,6 +281,22 @@ for (const page of pages) {
 // Orphans: every page except home needs a link from another page.
 for (const [path, count] of inbound) {
   if (path !== "/" && count === 0) fail(path, "orphan page, no other page links to it");
+}
+
+// Click depth from the home page: every service within two clicks.
+const depth = new Map([["/", 0]]);
+for (let queue = ["/"]; queue.length; ) {
+  const from = queue.shift();
+  for (const to of outbound.get(from) ?? []) {
+    if (depth.has(to)) continue;
+    depth.set(to, depth.get(from) + 1);
+    queue.push(to);
+  }
+}
+for (const r of ROUTES) {
+  if (!depth.has(r.path)) fail(r.path, "not reachable from the home page");
+  else if (isDeep(r.path) && depth.get(r.path) > 2)
+    fail(r.path, `${depth.get(r.path)} clicks from the home page (max 2)`);
 }
 
 // robots.txt and sitemap against the switch.

@@ -29,6 +29,11 @@ export default function SiteFooter() {
               <HomeLink className="text-link">Home</HomeLink>
             </li>
             <li>
+              <Link href="/services" className="text-link">
+                Services
+              </Link>
+            </li>
+            <li>
               <a
                 href={INSTAGRAM}
                 target="_blank"

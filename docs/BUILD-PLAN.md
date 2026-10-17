@@ -96,7 +96,7 @@ Work is split into phases, each ending with a commit whose message starts with `
 
 ### Status
 - [x] P1 foundation, noindex switch, performance, home repositioning, nav, OG images, description fixes
-- [ ] P2 services hub and 8 service pages
+- [x] P2 services hub and 8 service pages (typed content for services and all 24 use cases, Service and BreadcrumbList JSON-LD, breadcrumbs, OG images, Services in header and footer, linked home cards, extended `npm run check`)
 - [ ] P3 use cases hub and 24 use case pages
 - [ ] P4 locations hub and 10 city pages
 - [ ] P5 images generated, optimised and wired in
@@ -105,6 +105,9 @@ Work is split into phases, each ending with a commit whose message starts with `
 ### Open items
 - Performance (P1): local Lighthouse mobile on the home page went from 51 to about 70 (TBT 6.9 s to 0.6 to 1.0 s, LCP 4.0 s to 3.6 s, CLS 0). In this environment even /privacy, which is plain text plus the Next and React runtime, scores 75, so the remaining gap to 90 is the framework runtime on a weak, software-rendered CPU rather than page code. Re-measure with PageSpeed Insights on the deployed site, and again in P6.
 - Fonts: the Bricolage Grotesque file is 128 KB because it carries the width axis (the site uses a fixed 94% width). A self-hosted instance pinned at that width (fontTools `varLib.instancer`, then `next/font/local`) would save about 50 KB without changing the look. fontTools was not available here.
-- Navigation: the header links are in-page anchors (Services, Use cases, Process) until the hubs exist. Switch them to /services, /use-cases and /locations, and add the hubs to the shared footer, in P2 to P4.
-- The home service cards, use case tiles and the city ticker are deliberately not links yet. Link them to their pages in P2, P3 and P4, and add those routes to `lib/routes.ts` so the sitemap and `npm run check` cover them.
+- Navigation: "Services" now goes to /services in the home header (`app/nav-links.tsx`), the deep page header (`app/components/site-header.tsx`), the shared footer and the 404. "Use cases" still points to /#use-cases and "Process" stays an in-page anchor. Switch Use cases to /use-cases in P3, add Locations in P4, and add both hubs to the shared footer.
+- The home use case tiles and the city ticker are still not links. Link them in P3 and P4. On the service pages, the three use case summaries are plain text blocks (`casesForService` in `content/use-cases.ts`): turn them into links to /use-cases/<slug> in P3, and fill in each use case's `detail` field there.
+- Service pages show the Los Angeles area band with the city ticker as plain text. In P4, add links from each service page to the relevant city pages, and add the new routes to `lib/routes.ts` (the service routes are generated from `content/services.ts`).
+- `npm run check` now also checks heading outlines, unique titles and descriptions, og:image, an identical footer on every page, breadcrumbs and BreadcrumbList on deep pages, Service JSON-LD on service pages and a two-click depth from home. `isDeep()` in the script only covers /services so far: extend it to /use-cases and /locations in P3 and P4.
+- P2 pages were checked through the build output and `npm run check`, not visually: headless Chrome could not be started in this session. Look at /services and one service page on desktop and mobile before deploying.
 - `AGENTS.md` contains em dashes inside the block that `next dev` writes and rewrites. It is outside the checked folders. Leave it, or fix it only together with the Next.js tooling.

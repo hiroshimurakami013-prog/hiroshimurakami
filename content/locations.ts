@@ -1,7 +1,19 @@
 // Los Angeles area cities served remotely. There is no office or address in
 // any of them. The slugs become /locations/<slug> once those pages exist.
 
-export type Location = { slug: string; name: string };
+export type LocationSlug =
+  | "los-angeles"
+  | "santa-monica"
+  | "pasadena"
+  | "glendale"
+  | "burbank"
+  | "long-beach"
+  | "beverly-hills"
+  | "culver-city"
+  | "torrance"
+  | "inglewood";
+
+export type Location = { slug: LocationSlug; name: string };
 
 export const LOCATIONS: Location[] = [
   { slug: "los-angeles", name: "Los Angeles" },

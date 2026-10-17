@@ -1812,7 +1812,7 @@ main:focus {
   }
 }
 
-/* ---------- 404 ---------- */
+/* ---------- 404, and link rows reused on the service pages ---------- */
 
 .nf-code {
   font-family: var(--font-display), sans-serif;
@@ -1866,6 +1866,434 @@ main:focus {
   .nf-link:hover .nf-link-label {
     color: var(--ember-soft);
   }
+}
+
+/* ---------- Service links ---------- */
+
+/* The title link stretches over the whole card. */
+.svc-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-raised);
+  border-radius: inherit;
+}
+.svc-link:focus-visible {
+  outline: none;
+}
+.svc-link:focus-visible::after {
+  outline: 2px solid var(--ember-soft);
+  outline-offset: 3px;
+}
+.svc-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-3);
+  transition: color 200ms ease;
+}
+.svc-more svg {
+  transition: transform 300ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .svc-card:hover .svc-more {
+    color: var(--ember-soft);
+  }
+  .svc-card:hover .svc-more svg {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .svc-more svg {
+    transition: none;
+  }
+}
+
+/* ---------- Deep pages (services hub and service pages) ---------- */
+
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(3rem, 7vw, 5.5rem) clamp(3.5rem, 8vw, 6.5rem);
+}
+.page-title {
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+  font-size: clamp(2.6rem, 1.3rem + 5.2vw, 5.75rem);
+  max-width: 18ch;
+}
+.page-hero .service-icon {
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+}
+.page-hero .service-icon + .page-title {
+  margin-top: 1.5rem;
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.92rem;
+  color: var(--text-3);
+}
+.crumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.crumbs a {
+  color: var(--text-2);
+}
+.crumbs [aria-current="page"] {
+  color: var(--text);
+}
+
+.block {
+  position: relative;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  border-top: 1px solid var(--line);
+}
+.block-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3.25rem);
+  font-weight: 650;
+  font-stretch: 94%;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-wrap: balance;
+  max-width: 22ch;
+}
+.block-title-sm {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2.1rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.split {
+  display: grid;
+  gap: 3rem 4.5rem;
+}
+@media (min-width: 960px) {
+  .split {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  }
+}
+.prose {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 62ch;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+.prose p:first-child {
+  color: var(--text);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+}
+
+.check-list {
+  display: grid;
+  gap: 0.9rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-2);
+}
+.check-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: start;
+  text-wrap: pretty;
+}
+.check-list svg {
+  margin-top: 0.3rem;
+  color: var(--mint);
+}
+
+.card-grid {
+  display: grid;
+  gap: 1rem;
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 720px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+@media (min-width: 1100px) {
+  .card-grid[data-count="3"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.info-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(
+      120% 80% at 0% 0%,
+      rgb(255 255 255 / 0.035),
+      transparent 60%
+    ),
+    var(--night-2);
+}
+.info-card h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.info-card p {
+  color: var(--text-2);
+  font-size: 0.97rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+.info-card-icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.85rem;
+  border: 1px solid var(--line-strong);
+  color: var(--steel);
+}
+.info-card:nth-child(2n) .info-card-icon {
+  color: var(--mint);
+}
+
+/* How it works: a numbered rail, each step lighting up as it arrives. */
+.steps {
+  position: relative;
+  display: grid;
+  gap: 0;
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  max-width: 52rem;
+}
+.steps li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1.25rem;
+  padding-bottom: 2.25rem;
+  counter-increment: step;
+}
+.steps li:last-child {
+  padding-bottom: 0;
+}
+.steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--night-2);
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+  color: var(--ember-soft);
+  box-shadow: 0 0 0 6px var(--night);
+}
+.steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 3.25rem;
+  bottom: 0.25rem;
+  left: calc(1.5rem - 0.5px);
+  width: 1px;
+  background: linear-gradient(var(--line-strong), transparent);
+}
+.steps h3 {
+  padding-top: 0.55rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.steps p {
+  margin-top: 0.45rem;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+
+.note {
+  display: grid;
+  gap: 1rem;
+}
+.note + .note {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.note h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.note h3 svg {
+  color: var(--tide);
+}
+.note p {
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+
+.uc-grid[data-count="3"] {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+@media (min-width: 1100px) {
+  .uc-grid[data-count="3"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.faq {
+  display: grid;
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.faq li {
+  display: grid;
+  gap: 0.6rem 4rem;
+  padding-block: 1.75rem;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 900px) {
+  .faq li {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  }
+}
+.faq h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+.faq p {
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+
+/* The AI accounting feature on the services hub. */
+.feature-card {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  gap: 2rem 4rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding: clamp(1.75rem, 4vw, 3.25rem);
+  border-radius: clamp(1.5rem, 3vw, 2.25rem);
+  background:
+    radial-gradient(
+      70% 120% at 100% 0%,
+      rgb(255 107 74 / 0.12),
+      transparent 70%
+    ),
+    radial-gradient(
+      60% 120% at 0% 100%,
+      rgb(47 182 166 / 0.08),
+      transparent 70%
+    ),
+    var(--night-2);
+}
+@media (min-width: 960px) {
+  .feature-card {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+.feature-card .svc-title {
+  margin-top: 1.25rem;
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.6rem);
+}
+.feature-card .svc-text {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  max-width: 46ch;
+}
+.feature-card .svc-more {
+  margin-top: 1.5rem;
+}
+.feature-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.feature-list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.8rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-2);
+}
+.feature-list svg {
+  margin-top: 0.3rem;
+  color: var(--mint);
+}
+
+/* The eighth tile on the hub grid: the free audit. */
+.audit-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: clamp(1.5rem, 2.4vw, 2rem);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--line-strong);
+}
+.audit-tile p {
+  color: var(--text-2);
+  font-size: 0.97rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+.audit-tile h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.65rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin-bottom: 0.75rem;
 }
 
 .sr-only {

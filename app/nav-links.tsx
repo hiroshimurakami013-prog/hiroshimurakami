@@ -1,15 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { onScrollFrame } from "./components/scroll-frame";
 
-// In-page sections for now. The hub pages replace these anchors once they
-// exist. Narrow screens keep fewer links, to leave room for the call to
-// action.
+// Services goes to its hub. The rest are in-page sections until their hubs
+// exist. Each link still tracks its section on the home page. Narrow
+// screens keep fewer links, to leave room for the call to action.
 const links = [
-  { id: "services", label: "Services", show: undefined },
-  { id: "use-cases", label: "Use cases", show: "hidden min-[400px]:block" },
-  { id: "process", label: "Process", show: "hidden sm:block" },
+  { id: "services", href: "/services", label: "Services", show: undefined },
+  {
+    id: "use-cases",
+    href: "#use-cases",
+    label: "Use cases",
+    show: "hidden min-[400px]:block",
+  },
+  { id: "process", href: "#process", label: "Process", show: "hidden sm:block" },
 ];
 
 // Marks the section in the middle of the viewport. One highlight glides
@@ -82,14 +88,20 @@ export default function NavLinks() {
         <ul className="nav-links">
         {links.map((l) => (
           <li key={l.id} className={l.show}>
-            <a
-              href={`#${l.id}`}
-              data-id={l.id}
-              className="nav-link"
-              aria-current={active === l.id ? "true" : undefined}
-            >
-              {l.label}
-            </a>
+            {l.href.startsWith("#") ? (
+              <a
+                href={l.href}
+                data-id={l.id}
+                className="nav-link"
+                aria-current={active === l.id ? "true" : undefined}
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link href={l.href} data-id={l.id} className="nav-link">
+                {l.label}
+              </Link>
+            )}
           </li>
         ))}
         </ul>
