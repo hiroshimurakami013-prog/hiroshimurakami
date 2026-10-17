@@ -39,6 +39,11 @@ export default function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/locations" className="text-link">
+                Locations
+              </Link>
+            </li>
+            <li>
               <a
                 href={INSTAGRAM}
                 target="_blank"

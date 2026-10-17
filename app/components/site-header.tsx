@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { CTA_LABEL, INSTAGRAM } from "@/lib/site";
 
-// Header for the deep pages: the brand home, the hubs that exist so far and
+// Header for the deep pages: the brand home, the three hubs and
 // the call to action. The home page keeps its own fixed header with the
 // in-page section highlight.
 const links = [
   { href: "/services", label: "Services", show: undefined },
   { href: "/use-cases", label: "Use cases", show: "hidden min-[420px]:block" },
+  { href: "/locations", label: "Locations", show: "hidden min-[560px]:block" },
 ];
 
 export default function SiteHeader({ current }: { current?: string }) {

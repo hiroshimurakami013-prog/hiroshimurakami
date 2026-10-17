@@ -1489,6 +1489,72 @@ main:focus {
   text-wrap: pretty;
 }
 
+/* Still links to the city pages, above the moving ticker. */
+.area-links {
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+}
+.area-links-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-2);
+}
+.area-links ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.area-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  font-weight: 500;
+  transition:
+    border-color 200ms ease,
+    color 200ms ease,
+    background-color 200ms ease;
+}
+.area-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  padding-inline: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 200ms ease;
+}
+.area-all svg {
+  color: var(--ember-soft);
+  transition: transform 300ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .area-chip:hover {
+    border-color: rgb(47 182 166 / 0.6);
+    background-color: rgb(47 182 166 / 0.08);
+  }
+  .area-all:hover {
+    color: var(--ember-soft);
+  }
+  .area-all:hover svg {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .area-chip,
+  .area-all,
+  .area-all svg {
+    transition: none;
+  }
+}
+
 /* A slow, CSS only ticker of the cities served. Two identical groups, so
    shifting by -50% loops without a seam. Still and wrapped under reduced
    motion. */
@@ -2217,8 +2283,14 @@ main:focus {
   text-wrap: pretty;
 }
 
-.uc-grid[data-count="3"] {
+.uc-grid[data-count="3"],
+.uc-grid[data-count="2"] {
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+@media (min-width: 1100px) {
+  .uc-grid[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 @media (min-width: 1100px) {
   .uc-grid[data-count="3"] {
@@ -2455,4 +2527,28 @@ main:focus {
   .uc-service-link svg {
     transition: none;
   }
+}
+
+/* ---------- City pages ---------- */
+
+.city-serving {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+  max-width: 52ch;
+  font-size: 0.95rem;
+  color: var(--text-2);
+}
+.city-serving svg {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--tide);
+}
+.city-serving + .page-title {
+  margin-top: 1.25rem;
+}
+.city-title {
+  max-width: 22ch;
+  font-size: clamp(2.3rem, 1.2rem + 4vw, 4.6rem);
 }

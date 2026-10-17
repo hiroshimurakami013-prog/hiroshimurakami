@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Asterisk, CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { LOCATIONS } from "@/content/locations";
 import { PROCESS_STEPS, SERVICES } from "@/content/services";
 import { USE_CASE_HIGHLIGHTS } from "@/content/use-cases";
 import { HOME_DESCRIPTION, homeJsonLd } from "@/lib/schema";
@@ -270,7 +271,7 @@ export default function Home() {
         </section>
 
         {/* Los Angeles area */}
-        <AreaBand />
+        <AreaBand cities={LOCATIONS} />
 
         {/* Process */}
         <section

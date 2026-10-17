@@ -1,5 +1,6 @@
 // The explicit .ts extension lets scripts/check-links.mjs import this file
 // directly with Node's type stripping.
+import { LOCATIONS } from "../content/locations.ts";
 import { SERVICES } from "../content/services.ts";
 import { USE_CASES } from "../content/use-cases.ts";
 
@@ -20,6 +21,11 @@ export const ROUTES: SiteRoute[] = [
   { path: "/use-cases", lastModified: "2026-10-17" },
   ...USE_CASES.map((u) => ({
     path: `/use-cases/${u.slug}`,
+    lastModified: "2026-10-17",
+  })),
+  { path: "/locations", lastModified: "2026-10-17" },
+  ...LOCATIONS.map((l) => ({
+    path: `/locations/${l.slug}`,
     lastModified: "2026-10-17",
   })),
 ];

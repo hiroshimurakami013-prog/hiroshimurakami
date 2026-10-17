@@ -17,15 +17,20 @@
 // - a heading outline without skipped levels, and an Open Graph image
 // - unique titles and descriptions across pages
 // - the shared footer is identical on every page
-// - deep pages (/services, /use-cases and below) have a breadcrumb trail
+// - deep pages (/services, /use-cases, /locations and below) have a breadcrumb trail
 //   and BreadcrumbList JSON-LD, and each service page has Service JSON-LD
 //   with provider, serviceType and areaServed
 // - each use case page is labelled "Use case" with the illustrative
 //   scenario note, has at least 500 words of copy in its main content,
 //   links to its parent service, a sibling use case and its related service,
 //   and is linked from at least two other pages
+// - each city page (section 8: no doorway pages) carries the remote-first
+//   line, has at least 600 words of copy written for that city, shares no
+//   run of 12 words with another city, links to all eight services, its 3
+//   to 5 use cases, its neighbouring cities and the hub, and is linked from
+//   at least two other pages; each use case page links to its cities
 // - every service page is reachable from the home page within two clicks,
-//   and every use case page within three
+//   every location page within two, and every use case page within three
 // It also checks robots.txt and the sitemap against the INDEXABLE switch,
 // and scans the source folders for em and en dashes.
 //
@@ -33,6 +38,8 @@
 
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
+import { LOCATIONS, cityCopy, servingLine } from "../content/locations.ts";
+import { SERVICES } from "../content/services.ts";
 import { USE_CASES, siblingUseCase } from "../content/use-cases.ts";
 import { ROUTES } from "../lib/routes.ts";
 import { INDEXABLE, SITE_URL } from "../lib/site.ts";
@@ -126,7 +133,8 @@ function jsonNodes(value) {
   return [];
 }
 
-const isDeep = (path) => path.startsWith("/services") || path.startsWith("/use-cases");
+const isDeep = (path) => /^\/(services|use-cases|locations)(\/|$)/.test(path);
+const cityFor = (path) => LOCATIONS.find((l) => path === `/locations/${l.slug}`);
 const isServicePage = (path) => /^\/services\/[^/]+$/.test(path);
 const scenarioFor = (path) => USE_CASES.find((u) => path === `/use-cases/${u.slug}`);
 const maxDepth = (path) => (path.startsWith("/use-cases/") ? 3 : 2);
@@ -262,8 +270,25 @@ for (const page of pages) {
       ["parent service", `/services/${useCase.service}`],
       ["sibling use case", `/use-cases/${siblingUseCase(useCase).slug}`],
       ["related service", `/services/${useCase.relatedService}`],
+      ...useCase.locations.map((slug) => ["city", `/locations/${slug}`]),
     ])
       if (!hrefs.has(href)) fail(where, `no link to its ${label} ${href}`);
+  }
+
+  // City pages: the remote-first line and the required links.
+  const city = cityFor(page.path);
+  if (city) {
+    const main = doc.match(/<main\b[\s\S]*?<\/main>/i)?.[0] ?? "";
+    const text = visibleText(main);
+    if (!text.includes(servingLine(city.name))) fail(where, "missing the remote-first serving line");
+    const hrefs = new Set((main.match(/<a\b[^>]*>/gi) ?? []).map((t) => attr(t, "href")));
+    for (const [label, href] of [
+      ...SERVICES.map((s) => ["service", `/services/${s.slug}`]),
+      ...city.detail.useCases.map((u) => ["use case", `/use-cases/${u.slug}`]),
+      ...city.detail.neighbours.map((slug) => ["neighbouring city", `/locations/${slug}`]),
+      ["hub", "/locations"],
+    ])
+      if (!hrefs.has(href)) fail(where, `no link to ${label} ${href}`);
   }
 
   // Copy and alt text.
@@ -318,6 +343,33 @@ for (const u of USE_CASES) {
   const path = `/use-cases/${u.slug}`;
   const from = linkedFrom.get(path)?.size ?? 0;
   if (from < 2) fail(path, `linked from ${from} other page(s) (min 2)`);
+}
+
+// City pages: enough copy of their own, no shared passages, a sensible
+// number of use cases, and links from at least two other pages.
+const SHINGLE = 12;
+const shingles = (words) => {
+  const set = new Set();
+  for (let i = 0; i + SHINGLE <= words.length; i++) set.add(words.slice(i, i + SHINGLE).join(" "));
+  return set;
+};
+const cityShingles = LOCATIONS.map((l) => {
+  const words = cityCopy(l.detail).join(" ").toLowerCase().replace(/[^a-z0-9' ]+/g, " ").split(/\s+/).filter(Boolean);
+  return { l, words, set: shingles(words) };
+});
+for (const { l, words, set } of cityShingles) {
+  const where = `/locations/${l.slug}`;
+  if (words.length < 600) fail(where, `only ${words.length} words written for this city (min 600)`);
+  const n = l.detail.useCases.length;
+  if (n < 3 || n > 5) fail(where, `${n} use cases (expected 3 to 5)`);
+  if (new Set(l.detail.serviceOrder).size !== SERVICES.length) fail(where, "serviceOrder must list all eight services once");
+  for (const other of cityShingles) {
+    if (other.l.slug <= l.slug) continue;
+    const shared = [...set].find((s) => other.set.has(s));
+    if (shared) fail(where, `shares a passage with /locations/${other.l.slug}: "${shared}"`);
+  }
+  const from = linkedFrom.get(where)?.size ?? 0;
+  if (from < 2) fail(where, `linked from ${from} other page(s) (min 2)`);
 }
 
 // Click depth from the home page: services within two clicks, use cases

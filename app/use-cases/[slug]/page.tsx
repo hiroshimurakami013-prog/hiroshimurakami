@@ -8,7 +8,7 @@ import {
   LockSimple,
   UserCheck,
 } from "@phosphor-icons/react/dist/ssr";
-import { LOCATIONS } from "@/content/locations";
+import { getLocation } from "@/content/locations";
 import { getService } from "@/content/services";
 import { USE_CASES, getUseCase, siblingUseCase } from "@/content/use-cases";
 import { scenarioJsonLd } from "@/lib/schema";
@@ -55,11 +55,10 @@ export default async function UseCasePage({
   const related = getService(useCase.relatedService);
   if (!service || !related) notFound();
   const sibling = siblingUseCase(useCase);
-  const cities = listOf(
-    useCase.locations.map(
-      (slug) => LOCATIONS.find((l) => l.slug === slug)?.name ?? slug,
-    ),
-  );
+  const places = useCase.locations
+    .map((slug) => getLocation(slug))
+    .filter((l) => l !== undefined);
+  const cities = listOf(places.map((l) => l.name));
   const crumbs: Crumb[] = [
     { name: "Home", path: "/" },
     { name: "Use cases", path: "/use-cases" },
@@ -254,6 +253,7 @@ export default async function UseCasePage({
         <AreaBand
           title="Common across Los Angeles County"
           text={`This scenario comes up often for businesses in ${cities}. Audits, setup and check-ins happen online, so I work with teams anywhere in the county, and with clients worldwide.`}
+          cities={places}
         />
 
         <ClosingCta

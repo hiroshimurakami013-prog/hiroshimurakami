@@ -30,6 +30,11 @@ const links = [
     text: "Illustrative scenarios: everyday business problems and how AI handles them.",
   },
   {
+    href: "/locations",
+    label: "Locations",
+    text: "Los Angeles area city pages, and how remote-first service works across the county.",
+  },
+  {
     href: "/privacy",
     label: "Privacy Policy",
     text: "How this website and the Hiro App handle data.",

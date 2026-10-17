@@ -8,6 +8,7 @@ import {
   UserCheck,
   WarningCircle,
 } from "@phosphor-icons/react/dist/ssr";
+import { citiesForService } from "@/content/locations";
 import { SERVICES, getService } from "@/content/services";
 import { casesForService } from "@/content/use-cases";
 import { serviceJsonLd } from "@/lib/schema";
@@ -326,6 +327,7 @@ export default async function ServicePage({
         <AreaBand
           title={`${service.name} for businesses across Los Angeles County`}
           text={`${service.localNote} Audits, setup and check-ins happen online, so I work with teams anywhere in the county, and with clients worldwide.`}
+          cities={citiesForService(service.slug)}
         />
 
         {/* FAQ */}

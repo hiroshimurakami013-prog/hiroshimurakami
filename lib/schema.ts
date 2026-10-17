@@ -1,4 +1,4 @@
-import { AREA_SERVED } from "@/content/locations";
+import { AREA_SERVED, LOCATIONS } from "@/content/locations";
 import { SERVICES, type Service } from "@/content/services";
 import { USE_CASES, type UseCase } from "@/content/use-cases";
 import { FACEBOOK, INSTAGRAM, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
@@ -206,5 +206,51 @@ export function scenarioJsonLd(useCase: UseCase, crumbs: BreadcrumbItem[]) {
       },
       breadcrumbJsonLd(crumbs),
     ],
+  };
+}
+
+const LOCATIONS_HUB_NAME =
+  "AI automation and AI accounting in the Los Angeles area";
+
+/** The locations hub: the cities as a list, and the breadcrumb. */
+export function locationsHubJsonLd(
+  description: string,
+  crumbs: BreadcrumbItem[],
+) {
+  const url = absoluteUrl("/locations");
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${url}#page`,
+        url,
+        name: LOCATIONS_HUB_NAME,
+        description,
+        inLanguage: "en-US",
+        isPartOf: { "@id": WEBSITE_ID },
+        mainEntity: {
+          "@type": "ItemList",
+          itemListElement: LOCATIONS.map((l, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: l.name,
+            url: absoluteUrl(`/locations/${l.slug}`),
+          })),
+        },
+      },
+      breadcrumbJsonLd(crumbs),
+    ],
+  };
+}
+
+/**
+ * One city page: the breadcrumb only. The work is remote-first, so there
+ * is no local business, address or Service markup to claim here.
+ */
+export function cityJsonLd(crumbs: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbJsonLd(crumbs)],
   };
 }

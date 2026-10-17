@@ -10,10 +10,13 @@ export default function UseCaseTile({
   useCase,
   index,
   showService = false,
+  text,
 }: {
   useCase: UseCase;
   index: number;
   showService?: boolean;
+  /** Replaces the summary, for example with a note on why it fits a city. */
+  text?: string;
 }) {
   return (
     <li className="uc-tile" data-reveal style={order(index)}>
@@ -28,7 +31,7 @@ export default function UseCaseTile({
           {useCase.title}
         </Link>
       </h3>
-      <p className="uc-text">{useCase.summary}</p>
+      <p className="uc-text">{text ?? useCase.summary}</p>
       <span className="uc-more" aria-hidden="true">
         Read the use case
         <ArrowRight size={16} weight="bold" />

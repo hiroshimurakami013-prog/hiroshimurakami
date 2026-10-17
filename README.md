@@ -19,7 +19,7 @@ The build plan and its status live in `docs/BUILD-PLAN.md`.
 - `lib/routes.ts`: every public page with its last content change. The sitemap and the link checker read it, so add new pages here.
 - `lib/schema.ts`: JSON-LD (WebSite and ProfessionalService on the home page).
 - `lib/og.tsx`: shared renderer for the `opengraph-image.tsx` files next to each page. Fonts for it are committed in `assets/fonts` (SIL Open Font License, see the licence files there).
-- `content/`: typed content modules (services, use cases, locations). `content/services.ts` holds the full copy of every service page, rendered by `app/services/[slug]/page.tsx`. Edit copy there, not in the template.
+- `content/`: typed content modules (services, use cases, locations). `content/services.ts` holds the full copy of every service page, rendered by `app/services/[slug]/page.tsx`. Edit copy there, not in the template. Use case page copy lives in `content/use-case-details/`, and each Los Angeles area city page has its own file in `content/location-details/` (rendered by `app/locations/[city]/page.tsx`). City pages must stay distinct: `npm run check` fails if a city has fewer than 600 words of its own copy or shares a 12-word passage with another city.
 - `scripts/check-links.mjs`: QA against the built output. Run `npm run build && npm run check`.
 
 ## Design
