@@ -40,7 +40,11 @@ import { join } from "node:path";
 
 const NEXT = join(import.meta.dirname, "..", ".next");
 const SERVER = join(NEXT, "server");
-const CHUNKS = join(NEXT, "static", "chunks");
+// Vercel builds serve chunks from /_next/static/immutable/chunks, a plain
+// build from /_next/static/chunks. Use whichever exists on disk.
+const CHUNKS = [join(NEXT, "static", "immutable", "chunks"), join(NEXT, "static", "chunks")].find(
+  (dir) => existsSync(dir),
+);
 
 function walk(dir, ext) {
   return readdirSync(dir).flatMap((name) => {
@@ -49,12 +53,14 @@ function walk(dir, ext) {
   });
 }
 
+// This step is only a speed-up. If the build output is not what it expects,
+// leave it untouched and let the deploy succeed.
 function fail(message) {
-  console.error(`optimize-output: ${message}`);
-  process.exit(1);
+  console.warn(`optimize-output: skipped, ${message}`);
+  process.exit(0);
 }
 
-if (!existsSync(SERVER) || !existsSync(CHUNKS)) fail("no build output, run `next build` first");
+if (!existsSync(SERVER) || !CHUNKS) fail("no build output found");
 
 // 1. Compile hints.
 const HINT = "//# allFunctionsCalledOnLoad\n";
@@ -68,7 +74,7 @@ for (const file of walk(CHUNKS, ".js")) {
 
 // 2. Scripts after first paint.
 const MARK = "data-boot";
-const CHUNK = String.raw`/_next/static/chunks/[\w.-]+\.js`;
+const CHUNK = String.raw`/_next/static/(?:immutable/)?chunks/[\w.-]+\.js`;
 const SCRIPT = new RegExp(String.raw`<script src="(${CHUNK})" async=""></script>`, "g");
 const PRELOAD = new RegExp(String.raw`<link rel="preload" as="script" fetchPriority="low" href="(${CHUNK})"/>`, "g");
 
