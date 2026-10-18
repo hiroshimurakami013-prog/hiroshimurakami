@@ -37,7 +37,7 @@ export function ClosingCta({
       className="pb-[clamp(3rem,8vw,6rem)]"
     >
       <div className="wrap">
-        <div className="cta" data-glow data-reveal>
+        <div className="cta" data-glow data-reveal data-loop>
           <span className="cta-orb cta-orb-a" aria-hidden="true" />
           <span className="cta-orb cta-orb-b" aria-hidden="true" />
           <span className="cta-orb cta-orb-c" aria-hidden="true" />

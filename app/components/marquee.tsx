@@ -78,7 +78,7 @@ export default function Marquee({
   );
 
   return (
-    <div className="marquee" aria-label="Capabilities" role="region">
+    <div className="marquee" aria-label="Capabilities" role="region" data-loop>
       <div ref={track} className="marquee-track">
         {group(false)}
         {group(true)}

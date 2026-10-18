@@ -1,4 +1,4 @@
-import Image from "next/image";
+import StaticImage from "./static-image";
 import Link from "next/link";
 import { FACEBOOK, INSTAGRAM } from "@/lib/site";
 import HomeLink from "./home-link";
@@ -11,7 +11,7 @@ export default function SiteFooter() {
       <div className="wrap flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
         <HomeLink className="flex items-center gap-4">
           <span className="symbol-tile" aria-hidden="true">
-            <Image src="/symbol.png" alt="" width={22} height={21} />
+            <StaticImage src="/symbol.png" alt="" width={22} height={21} />
           </span>
           <span className="leading-snug">
             <span className="block font-semibold">Hiroshi Murakami</span>

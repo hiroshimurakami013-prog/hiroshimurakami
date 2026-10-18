@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
+import StaticImage from "./static-image";
 import Link from "next/link";
 import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import SiteFooter from "./site-footer";
@@ -47,7 +47,7 @@ export default function LegalPage({
               aria-label="Hiroshi Murakami, home"
             >
               <span className="symbol-tile" aria-hidden="true">
-                <Image src="/symbol.png" alt="" width={22} height={21} />
+                <StaticImage src="/symbol.png" alt="" width={22} height={21} />
               </span>
               <span className="hidden sm:inline">Hiroshi Murakami</span>
             </Link>

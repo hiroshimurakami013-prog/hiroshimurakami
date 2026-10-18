@@ -33,6 +33,7 @@ Every page has a unique title and description, a canonical URL, Open Graph and T
 - `lib/og.tsx`: shared renderer for the `opengraph-image.tsx` files next to each page. Fonts for it are committed in `assets/fonts` (SIL Open Font License, see the licence files there).
 - `content/`: typed content modules (services, use cases, locations). `content/services.ts` holds the full copy of every service page, rendered by `app/services/[slug]/page.tsx`. Edit copy there, not in the template. Use case page copy lives in `content/use-case-details/`, and each Los Angeles area city page has its own file in `content/location-details/` (rendered by `app/locations/[city]/page.tsx`). City pages must stay distinct: `npm run check` fails if a city has fewer than 600 words of its own copy or shares a 12-word passage with another city.
 - `scripts/check-links.mjs`: QA against the built output. Run `npm run build && npm run check`.
+- `scripts/optimize-output.mjs`: runs as part of `npm run build`, after `next build`. It adds V8 compile hints to the client chunks and makes every prerendered page start its scripts after the first paint (see Performance). It changes nothing a visitor sees.
 
 ## Edit content
 
@@ -64,6 +65,10 @@ Motion respects `prefers-reduced-motion`: smooth scrolling, the aurora, parallax
 - Lenis loads after idle and only runs a frame loop while a glide is in progress.
 - The hero lead paragraph is the LCP element and renders without animation.
 - Deep pages end their hero with one scene image, the only image with high fetch priority on the page. Card and tile images are lazy and decorative (`alt=""`, the card title already names them). `next/image` serves AVIF or WebP at the width the `sizes` attribute asks for.
+- The pages are complete HTML and CSS, so their scripts wait for the first paint (on the home page also for the end of the hero intro), or start at once on the first input or after 3 s. See `scripts/optimize-output.mjs`.
+- On a plain fresh load, the blocks below the first one render late (`content-visibility`, lifted block by block by `app/components/render-release.tsx` before each reaches the screen). Loads with a `#fragment`, reloads and back and forward skip this, so scroll positions are always measured on the real layout.
+- Endless loops (marquee, city ticker, flow core ring, CTA light) only play while their band is on screen (`[data-loop]`, marked by `app/components/reveal-observer.tsx`).
+- The logo mark uses `app/components/static-image.tsx` (the same `<img>` as `next/image`, rendered on the server), so pages without scene images load no image code.
 
 ## Develop
 

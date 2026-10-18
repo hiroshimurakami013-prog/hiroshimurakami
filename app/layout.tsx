@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Geist } from "next/font/google";
 import { ROBOTS, SITE_NAME, SITE_URL } from "@/lib/site";
+import RenderRelease from "./components/render-release";
 import SmoothScroll from "./components/smooth-scroll";
 import "./globals.css";
 
@@ -48,15 +49,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         {/* Marks JS as available before paint, so scroll reveals only hide
-            content when they can also show it again. */}
+            content when they can also show it again. On a plain fresh load
+            (no #fragment, no reload or back and forward, which all restore
+            a scroll position the browser has to measure) it also lets the
+            blocks below the first screen render late, see RenderRelease. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
+            __html:
+              "(function(d,p){var n=p.getEntriesByType&&p.getEntriesByType('navigation')[0];d.classList.add('js');if(!location.hash&&(!n||n.type==='navigate'))d.classList.add('render-late')})(document.documentElement,performance)",
           }}
         />
       </head>
       <body>
         <SmoothScroll />
+        <RenderRelease />
         {children}
       </body>
     </html>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import StaticImage from "./components/static-image";
 import Link from "next/link";
 import { ArrowRight, Asterisk, CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import { LOCATIONS } from "@/content/locations";
@@ -70,7 +70,7 @@ export default function Home() {
               aria-label="Hiroshi Murakami, back to top"
             >
               <span className="symbol-tile" aria-hidden="true">
-                <Image src="/symbol.png" alt="" width={22} height={21} />
+                <StaticImage src="/symbol.png" alt="" width={22} height={21} />
               </span>
               <span className="hidden md:inline">Hiroshi Murakami</span>
             </a>
@@ -119,9 +119,12 @@ export default function Home() {
               on time and books that stay reconciled. Serving Los Angeles
               County and clients worldwide, remote-first.
             </p>
+            {/* The last part of the intro: the page starts its scripts once
+                this has faded in (see scripts/optimize-output.mjs). */}
             <div
               className="hero-fade flex flex-wrap items-center gap-x-7 gap-y-4"
               style={order(0)}
+              data-boot-after
             >
               <PrimaryCta />
               <a href="#services" className="text-link font-medium">

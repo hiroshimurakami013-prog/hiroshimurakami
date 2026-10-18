@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import StaticImage from "./components/static-image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { CTA_LABEL, INDEXABLE, INSTAGRAM, ROBOTS } from "@/lib/site";
@@ -67,7 +67,7 @@ export default function NotFound() {
               aria-label="Hiroshi Murakami, home"
             >
               <span className="symbol-tile" aria-hidden="true">
-                <Image src="/symbol.png" alt="" width={22} height={21} />
+                <StaticImage src="/symbol.png" alt="" width={22} height={21} />
               </span>
               <span className="hidden sm:inline">Hiroshi Murakami</span>
             </Link>

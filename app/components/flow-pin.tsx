@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useSyncExternalStore,
-  type ReactNode,
-} from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { endSettling, trackProgress, useReducedMotion } from "./scroll-frame";
-
-const noop = () => () => {};
 
 // The client half of the flow: it pins the server-rendered diagram and
 // drives it from scroll. One progress value goes into a CSS variable on the
@@ -19,26 +11,35 @@ export default function FlowPin({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   // Pinned only on the client, so the server HTML is the still diagram.
-  const hydrated = useSyncExternalStore(
-    noop,
-    () => true,
-    () => false,
-  );
-  const pinned = hydrated && !reduce;
+  const [ready, setReady] = useState(false);
+  const pinned = ready && !reduce;
+  const settled = useRef(false);
 
-  // Pinning turns the still diagram into the first frame of the story. When
-  // that happens off screen, as on a normal load, skip the crossfades it
-  // would start: nobody can see them, and they would only keep the main
-  // thread busy while the page is still loading. Runs before paint, so the
-  // first styled frame already has transitions off.
-  useLayoutEffect(() => {
+  // Pinning turns the still diagram into the first frame of the story. It
+  // waits for the observer's first report, which comes after layout, so
+  // hydration never has to measure the page. When the flow is off screen,
+  // as on a normal load, the settling state goes on first, so the pinned
+  // styles arrive without the crossfades nobody could see.
+  useEffect(() => {
     const root = ref.current;
-    if (!pinned || !root) return;
-    const rect = root.getBoundingClientRect();
-    if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
-      root.dataset.settling = "";
-    }
-  }, [pinned]);
+    if (!root) return;
+    // Once only: a page shown again (cacheComponents re-runs effects) is
+    // already pinned, and nothing would clear the settling state then.
+    if (settled.current) return;
+    const io = new IntersectionObserver(([entry]) => {
+      io.disconnect();
+      settled.current = true;
+      if (
+        !entry.isIntersecting &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        root.dataset.settling = "";
+      }
+      setReady(true);
+    });
+    io.observe(root);
+    return () => io.disconnect();
+  }, []);
 
   // Progress from the flow's top reaching the top of the viewport to its
   // bottom reaching the bottom. Also syncs at once, in case the page loaded

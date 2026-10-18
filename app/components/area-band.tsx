@@ -46,7 +46,7 @@ export default function AreaBand({
           </li>
         </ul>
       </div>
-      <div className="ticker" aria-label="Cities served" role="region">
+      <div className="ticker" aria-label="Cities served" role="region" data-loop>
         <div className="ticker-track">
           {[false, true].map((hidden) => (
             <ul

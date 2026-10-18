@@ -85,12 +85,19 @@ html.lenis body {
 body {
   margin: 0;
   min-height: 100dvh;
+  /* A faint steel glow from the top: an ellipse 120% of the page wide and
+     60% of its height tall, transparent from 60% of the way out. Below 36%
+     of the page height it is fully transparent, so the gradient is drawn
+     into the top 36% only, with the vertical radius scaled to match (60% of
+     the page = 500/3 % of that box). Same pixels as one full page gradient,
+     but a far smaller image to raster on first paint. */
   background:
     radial-gradient(
-      120% 60% at 50% 0%,
-      rgb(74 134 197 / 0.07),
-      transparent 60%
-    ),
+        120% calc(500% / 3) at 50% 0%,
+        rgb(74 134 197 / 0.07),
+        transparent 60%
+      )
+      0 0 / 100% 36% no-repeat,
     var(--night);
   color: var(--text);
   font-family: var(--font-text), ui-sans-serif, system-ui, sans-serif;
@@ -1637,6 +1644,27 @@ main:focus {
   to {
     transform: translate3d(-50%, 0, 0);
   }
+}
+
+/* While the page loads, every block below the first one, and the footer,
+   skips layout and paint until it nears the screen, so the first frame only
+   renders what is on it. RenderRelease lifts this block by block (as each
+   nears the screen, and the rest a few seconds after the page is idle),
+   after which nothing is contained. It only applies on a plain fresh load
+   (the .render-late class, set in the layout), never without JS. */
+.render-late :is(main > :not(:first-child), .site-footer):not([data-released]) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+/* Endless loops (marquee, city ticker, core ring, CTA light) only play
+   while their band is on screen: off screen nobody sees them, yet every
+   frame still costs the browser work, most of all while the page loads.
+   With JS they wait paused at their first frame until RevealObserver marks
+   the band [data-inview]; without JS they simply run. */
+.js [data-loop]:not([data-inview])
+  :is(.marquee-track, .ticker-track, .core-ring, .cta-orb) {
+  animation-play-state: paused;
 }
 
 /* ---------- Process ---------- */

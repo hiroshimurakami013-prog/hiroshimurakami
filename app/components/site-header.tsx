@@ -1,4 +1,4 @@
-import Image from "next/image";
+import StaticImage from "./static-image";
 import Link from "next/link";
 import { CTA_LABEL, INSTAGRAM } from "@/lib/site";
 
@@ -22,7 +22,7 @@ export default function SiteHeader({ current }: { current?: string }) {
             aria-label="Hiroshi Murakami, home"
           >
             <span className="symbol-tile" aria-hidden="true">
-              <Image src="/symbol.png" alt="" width={22} height={21} />
+              <StaticImage src="/symbol.png" alt="" width={22} height={21} />
             </span>
             <span className="hidden md:inline">Hiroshi Murakami</span>
           </Link>

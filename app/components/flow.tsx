@@ -67,6 +67,7 @@ export default function Flow() {
 
             <div
               className="flow-stage"
+              data-loop
               role="img"
               aria-label="Diagram: missed calls, web form leads, customer emails and supplier invoices flow into an AI core, and come out as booked appointments, routed leads, drafted replies and reconciled books, with a person reviewing."
             >
