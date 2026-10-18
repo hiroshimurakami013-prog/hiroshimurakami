@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local `vercel build` output.
+    ".vercel/**",
     // Design skill tooling, not part of the site.
     ".claude/**",
   ]),

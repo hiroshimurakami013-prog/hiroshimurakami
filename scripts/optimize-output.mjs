@@ -1,7 +1,7 @@
 // Runs after `next build` (see "build" in package.json) and tunes the build
 // output for a fast first paint and a quiet main thread on phones. Neither
 // step changes what a visitor sees. Measured with Lighthouse (mobile) in
-// Perf2, see docs/BUILD-PLAN.md.
+// Perf2 and Perf3, see docs/BUILD-PLAN.md.
 //
 // 1. Compile hints. Every client chunk starts with the V8 magic comment
 //    `//# allFunctionsCalledOnLoad`. Chrome then compiles the functions of
@@ -33,20 +33,31 @@
 //    visible (a background tab never paints), when the browser has no paint
 //    timing, on the first input of any kind, and after 3 s at the latest.
 //
-// Only files written by `next build` change. A page rendered at request
-// time instead simply loads its scripts the usual way.
+// Where the output lives. A plain build serves `.next` (HTML in
+// `.next/server`, chunks in `.next/static`). On Vercel, the Next.js adapter
+// copies the build into `.next/output` while `next build` is still running
+// ("Running onBuildComplete from Vercel"). After the build command, Vercel
+// moves that folder to `.vercel/output` and deploys it, not the rest of
+// `.next`. In it, the HTML of each prerendered page is
+// `functions/<route>.prerender-fallback.html` (its size is also recorded as
+// `initialMetadata.htmlSize` in the `<route>.prerender-config.json` next to
+// it), the 404 and 500 pages are in `static/`, and the chunks are in
+// `static/_next/static/immutable/chunks` (or `static/_next/static/chunks`).
+// This script runs between the two steps and patches both copies. This
+// works the same in a Git deploy and in `vercel build`, with no change to
+// the project settings.
+//
+// Only files written by the build change. A page rendered at request time
+// instead simply loads its scripts the usual way.
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const NEXT = join(import.meta.dirname, "..", ".next");
-const SERVER = join(NEXT, "server");
-// Vercel builds serve chunks from /_next/static/immutable/chunks, a plain
-// build from /_next/static/chunks. Use whichever exists on disk.
-const CHUNKS = [join(NEXT, "static", "immutable", "chunks"), join(NEXT, "static", "chunks")].find(
-  (dir) => existsSync(dir),
-);
+const ROOT = join(import.meta.dirname, "..");
+const NEXT = join(ROOT, ".next");
+const VERCEL = join(NEXT, "output");
 
 function walk(dir, ext) {
+  if (!existsSync(dir)) return [];
   return readdirSync(dir).flatMap((name) => {
     const p = join(dir, name);
     return statSync(p).isDirectory() ? walk(p, ext) : p.endsWith(ext) ? [p] : [];
@@ -60,16 +71,22 @@ function fail(message) {
   process.exit(0);
 }
 
-if (!existsSync(SERVER) || !CHUNKS) fail("no build output found");
+// The chunk folders under a `_next/static` folder: `chunks` on a plain
+// build, `immutable/chunks` on Vercel.
+const chunkDirs = (dir) =>
+  [join(dir, "immutable", "chunks"), join(dir, "chunks")].filter((d) => existsSync(d));
 
 // 1. Compile hints.
 const HINT = "//# allFunctionsCalledOnLoad\n";
-let hinted = 0;
-for (const file of walk(CHUNKS, ".js")) {
-  const js = readFileSync(file, "utf8");
-  if (js.startsWith(HINT)) continue;
-  writeFileSync(file, HINT + js);
-  hinted++;
+function hint(dirs, keep = () => true) {
+  let count = 0;
+  for (const file of dirs.flatMap((dir) => walk(dir, ".js")).filter(keep)) {
+    const js = readFileSync(file, "utf8");
+    if (js.startsWith(HINT)) continue;
+    writeFileSync(file, HINT + js);
+    count++;
+  }
+  return count;
 }
 
 // 2. Scripts after first paint.
@@ -94,12 +111,12 @@ const loader = (src) =>
   `setTimeout(start,3000)}` +
   `soon()})(document,window)</script>`;
 
-let deferred = 0;
-for (const file of walk(SERVER, ".html")) {
+// Rewrites one HTML file. Returns true when it changed.
+function defer(file) {
   const html = readFileSync(file, "utf8");
-  if (html.includes(`<script ${MARK}>`)) continue;
+  if (html.includes(`<script ${MARK}>`)) return false;
   const src = [...html.matchAll(SCRIPT)].map((m) => m[1]);
-  if (!src.length) continue;
+  if (!src.length) return false;
   const first = html.indexOf(`<script src="${src[0]}" async=""></script>`);
   const head = html.indexOf("</head>");
   // The loader takes the place of the first chunk script, which Next puts
@@ -109,7 +126,42 @@ for (const file of walk(SERVER, ".html")) {
   out = out.replace(SCRIPT, "");
   out = out.replace(PRELOAD, (tag, href) => (src.includes(href) ? "" : tag));
   writeFileSync(file, out);
-  deferred++;
+  return true;
 }
 
-console.log(`optimize-output: compile hints on ${hinted} chunks, scripts after first paint on ${deferred} pages`);
+// Keeps the size Vercel records for a prerendered page in step with its
+// patched HTML file.
+function syncSize(htmlFile) {
+  const config = htmlFile.replace(/\.prerender-fallback\.html$/, ".prerender-config.json");
+  if (config === htmlFile || !existsSync(config)) return;
+  const json = JSON.parse(readFileSync(config, "utf8"));
+  if (typeof json.initialMetadata?.htmlSize !== "number") return;
+  json.initialMetadata.htmlSize = statSync(htmlFile).size;
+  writeFileSync(config, JSON.stringify(json));
+}
+
+const BUILD_ID = join(NEXT, "BUILD_ID");
+if (!existsSync(BUILD_ID) || !chunkDirs(join(NEXT, "static")).length) fail("no build output found");
+
+const report = [];
+
+// The `.next` output, served by `next start` and by Vercel functions.
+const nextHinted = hint(chunkDirs(join(NEXT, "static")));
+const nextDeferred = walk(join(NEXT, "server"), ".html").filter(defer).length;
+report.push(`.next: compile hints on ${nextHinted} chunks, scripts after first paint on ${nextDeferred} pages`);
+
+// The Vercel deployment output, when the Vercel adapter wrote it during
+// this build.
+if (existsSync(VERCEL)) {
+  const vercelHinted = hint(chunkDirs(join(VERCEL, "static", "_next", "static")));
+  const pages = [...walk(join(VERCEL, "functions"), ".prerender-fallback.html"), ...walk(join(VERCEL, "static"), ".html")];
+  let vercelDeferred = 0;
+  for (const file of pages) {
+    if (!defer(file)) continue;
+    syncSize(file);
+    vercelDeferred++;
+  }
+  report.push(`Vercel output: compile hints on ${vercelHinted} chunks, scripts after first paint on ${vercelDeferred} pages`);
+}
+
+console.log(`optimize-output: ${report.join("; ")}`);
