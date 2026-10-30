@@ -17,7 +17,7 @@
 // - a heading outline without skipped levels, and an Open Graph image
 // - unique titles and descriptions across pages
 // - the shared footer is identical on every page
-// - deep pages (/services, /use-cases, /locations and below) have a breadcrumb trail
+// - deep pages (/services, /use-cases, /locations, /blog and below) have a breadcrumb trail
 //   and BreadcrumbList JSON-LD, and each service page has Service JSON-LD
 //   with provider, serviceType and areaServed
 // - each use case page is labelled "Use case" with the illustrative
@@ -29,6 +29,11 @@
 //   run of 12 words with another city, links to all eight services, its 3
 //   to 5 use cases, its neighbouring cities and the hub, and is linked from
 //   at least two other pages; each use case page links to its cities
+// - the blog hub lists and links every post in content/posts.ts with
+//   CollectionPage JSON-LD; each post has a byline and date, Article JSON-LD
+//   by the author with its real dates, an "At a glance" list of three, a
+//   labelled opinion section, its source links opening in a new tab with
+//   rel="noopener", a link back to /blog and 450 to 650 words of copy
 // - every <img> has alt, width and height and an existing file; pages with
 //   a hero scene (service, use case and city pages, and the locations hub)
 //   have exactly one high priority image, other pages none, and every other
@@ -58,6 +63,7 @@ import {
   USE_CASE_IMAGES,
 } from "../content/images.ts";
 import { LOCATIONS, cityCopy, servingLine } from "../content/locations.ts";
+import { POSTS, postCopy } from "../content/posts.ts";
 import { SERVICES } from "../content/services.ts";
 import { USE_CASES, siblingUseCase } from "../content/use-cases.ts";
 import { ROUTES } from "../lib/routes.ts";
@@ -166,10 +172,11 @@ function jsonNodes(value) {
   return [];
 }
 
-const isDeep = (path) => /^\/(services|use-cases|locations)(\/|$)/.test(path);
+const isDeep = (path) => /^\/(services|use-cases|locations|blog)(\/|$)/.test(path);
 const cityFor = (path) => LOCATIONS.find((l) => path === `/locations/${l.slug}`);
 const isServicePage = (path) => /^\/services\/[^/]+$/.test(path);
 const scenarioFor = (path) => USE_CASES.find((u) => path === `/use-cases/${u.slug}`);
+const postFor = (path) => POSTS.find((p) => path === `/blog/${p.slug}`);
 const maxDepth = (path) => (path.startsWith("/use-cases/") ? 3 : 2);
 // Pages whose hero ends in a scene image, the one high priority image.
 const hasHeroScene = (path) => /^\/(services|use-cases|locations)\/[^/]+$/.test(path) || path === "/locations";
@@ -334,6 +341,47 @@ for (const page of pages) {
       ...useCase.locations.map((slug) => ["city", `/locations/${slug}`]),
     ])
       if (!hrefs.has(href)) fail(where, `no link to its ${label} ${href}`);
+  }
+
+  // The blog hub: every post listed and linked.
+  if (page.path === "/blog") {
+    const main = doc.match(/<main\b[\s\S]*?<\/main>/i)?.[0] ?? "";
+    const hrefs = new Set((main.match(/<a\b[^>]*>/gi) ?? []).map((t) => attr(t, "href")));
+    for (const p of POSTS) if (!hrefs.has(`/blog/${p.slug}`)) fail(where, `no link to post /blog/${p.slug}`);
+    const list = typed("CollectionPage")[0]?.mainEntity?.itemListElement ?? [];
+    if (list.length !== POSTS.length) fail(where, `CollectionPage lists ${list.length} posts, expected ${POSTS.length}`);
+  }
+
+  // Blog posts: byline, dates, Article markup, the labelled parts, the
+  // credited source and a sensible length.
+  const post = postFor(page.path);
+  if (post) {
+    const main = doc.match(/<main\b[\s\S]*?<\/main>/i)?.[0] ?? "";
+    const text = visibleText(main);
+    if (!text.includes(`By ${post.author}`)) fail(where, "missing the byline");
+    if (!main.includes(`<time dateTime="${post.datePublished}"`) && !main.includes(`<time datetime="${post.datePublished}"`))
+      fail(where, `missing <time> for ${post.datePublished}`);
+    const article = typed("Article")[0];
+    if (!article) fail(where, "missing Article JSON-LD");
+    else {
+      if (article.headline !== post.title) fail(where, "Article headline differs from the post title");
+      if (article.author?.name !== post.author) fail(where, "Article author differs from the byline");
+      if (article.datePublished !== post.datePublished) fail(where, "Article datePublished differs from the post");
+      if (!article.publisher) fail(where, "Article JSON-LD has no publisher");
+    }
+    if (post.glance.length !== 3) fail(where, `"At a glance" has ${post.glance.length} points (expected 3)`);
+    if (!/At a glance/.test(text)) fail(where, 'missing the "At a glance" list');
+    if (!/my opinion/i.test(text)) fail(where, "the opinion section is not labelled as opinion");
+    const anchors = main.match(/<a\b[^>]*>/gi) ?? [];
+    for (const l of post.source.links) {
+      const tag = anchors.find((t) => attr(t, "href") === l.href);
+      if (!tag) fail(where, `no link to the source ${l.href}`);
+      else if (attr(tag, "target") !== "_blank" || !/noopener/.test(attr(tag, "rel") ?? ""))
+        fail(where, `source link ${l.href} does not open in a new tab with rel="noopener"`);
+    }
+    if (!anchors.some((t) => attr(t, "href") === "/blog")) fail(where, "no link back to /blog");
+    const words = postCopy(post).join(" ").split(/\s+/).length;
+    if (words < 450 || words > 650) fail(where, `${words} words of post copy (450 to 650)`);
   }
 
   // City pages: the remote-first line and the required links.

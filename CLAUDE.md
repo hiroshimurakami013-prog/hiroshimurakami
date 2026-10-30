@@ -25,6 +25,7 @@ Copy lives in typed modules under `content/`, rendered by shared templates. Edit
 - `content/services.ts`: the 8 services (`Service`), with all service page copy, FAQs, related services and process steps. Rendered by `app/services/[slug]/page.tsx`.
 - `content/use-cases.ts`: the 24 use case cards (3 per service, with parent service, related service and cities). Long-form copy per service in `content/use-case-details/<service>.ts`. Rendered by `app/use-cases/[slug]/page.tsx`.
 - `content/locations.ts`: the 10 Los Angeles area cities. Each city's copy, sections, FAQ, use cases and neighbours in `content/location-details/<city>.ts`. Rendered by `app/locations/[city]/page.tsx`.
+- `content/posts.ts`: blog posts (`Post`), newest first, each reporting on a credited source with the opinion labelled. Rendered by `app/blog/[slug]/page.tsx` and listed on `/blog`. See README "Blog".
 - `content/images.ts`: scene image paths, sizes and alt text.
 - `lib/routes.ts`: every public page and its last content date (feeds the sitemap and the checker). Add new pages here.
 - `lib/site.ts`: `SITE_URL`, `INDEXABLE`, contact links, `pageMetadata()`. `lib/schema.ts`: JSON-LD builders (no address, rating or review markup).

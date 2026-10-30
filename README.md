@@ -8,12 +8,13 @@ The build plan and its status live in `docs/BUILD-PLAN.md`, the source of truth 
 
 ## Pages
 
-All routes are statically generated (49 pages plus a branded 404):
+All routes are statically generated (51 pages plus a branded 404):
 
 - `/`: home, positioning for AI automation and AI accounting, services, use case highlights, the Los Angeles area band, process and a closing call to action.
 - `/services` and 8 service pages under `/services/<slug>`.
 - `/use-cases` and 24 use case pages under `/use-cases/<slug>`, three per service. They are illustrative scenarios, labelled "Use case".
 - `/locations` and 10 Los Angeles area city pages under `/locations/<city>`, each with its own angle, remote-first.
+- `/blog` and posts under `/blog/<slug>`: short posts for owners and accountants that report on a published source, credit and link it, and label the author's own opinion.
 - `/privacy`, `/terms`, `/data-deletion`: legal pages. Their URLs must not change (a Meta app links to them).
 
 Every page has a unique title and description, a canonical URL, Open Graph and Twitter tags, a generated Open Graph image and JSON-LD. Deep pages have breadcrumbs.
@@ -29,9 +30,9 @@ Every page has a unique title and description, a canonical URL, Open Graph and T
 
 - `lib/site.ts`: `SITE_URL`, `INDEXABLE`, contact links, the CTA label and `pageMetadata()` for titles, descriptions, canonicals and Open Graph tags. Nothing else hard-codes the domain.
 - `lib/routes.ts`: every public page with its last content change. The sitemap and the link checker read it, so add new pages here.
-- `lib/schema.ts`: JSON-LD builders: WebSite and ProfessionalService on the home page, Service on service pages, CollectionPage on the hubs, WebPage on use cases, BreadcrumbList on every deep page, and `articleJsonLd()` ready for a future blog. No address, rating or review markup.
+- `lib/schema.ts`: JSON-LD builders: WebSite and ProfessionalService on the home page, Service on service pages, CollectionPage on the hubs, WebPage on use cases, Article on blog posts (`articleJsonLd()`), BreadcrumbList on every deep page. No address, rating or review markup.
 - `lib/og.tsx`: shared renderer for the `opengraph-image.tsx` files next to each page. Fonts for it are committed in `assets/fonts` (SIL Open Font License, see the licence files there).
-- `content/`: typed content modules (services, use cases, locations). `content/services.ts` holds the full copy of every service page, rendered by `app/services/[slug]/page.tsx`. Edit copy there, not in the template. Use case page copy lives in `content/use-case-details/`, and each Los Angeles area city page has its own file in `content/location-details/` (rendered by `app/locations/[city]/page.tsx`). City pages must stay distinct: `npm run check` fails if a city has fewer than 600 words of its own copy or shares a 12-word passage with another city.
+- `content/`: typed content modules (services, use cases, locations, blog posts). `content/services.ts` holds the full copy of every service page, rendered by `app/services/[slug]/page.tsx`. Edit copy there, not in the template. Use case page copy lives in `content/use-case-details/`, and each Los Angeles area city page has its own file in `content/location-details/` (rendered by `app/locations/[city]/page.tsx`). City pages must stay distinct: `npm run check` fails if a city has fewer than 600 words of its own copy or shares a 12-word passage with another city.
 - `scripts/check-links.mjs`: QA against the built output. Run `npm run build && npm run check`.
 - `scripts/optimize-output.mjs`: runs as part of `npm run build`, after `next build`. It adds V8 compile hints to the client chunks and makes every prerendered page start its scripts after the first paint (see Performance). It changes nothing a visitor sees. On Vercel it patches both `.next` and `.next/output`, the copy that Vercel's Next.js adapter writes during `next build` and that Vercel then moves to `.vercel/output` and deploys. It works with a plain Git push and needs no Vercel project setting. To check a deploy, view the source of a page: it should contain `<script data-boot>` and no `<script src="/_next/static/.../chunks/..." async>` tags.
 
@@ -41,9 +42,23 @@ Every page has a unique title and description, a canonical URL, Open Graph and T
 - Use cases: the card data (title, summary, parent service, related service, cities) in `content/use-cases.ts`, and the long copy in `content/use-case-details/<service>.ts`.
 - City pages: `content/location-details/<city>.ts`. Keep each city distinct, with facts that are widely known and conservative.
 - Contact links and the call to action label: `lib/site.ts`.
+- Blog posts: `content/posts.ts` (see "Blog" below).
 - After a content change, update the date for that page in `lib/routes.ts` (it becomes the sitemap `lastmod`), then run `npm run build`, `npm run lint` and `npm run check`.
 
 Rules for all copy: "AI" in capitals, no em or en dashes, no invented clients, testimonials, statistics or guarantees, no contact details other than Instagram and Facebook. Titles stay at 60 characters or fewer and descriptions at 155 or fewer; the checker enforces these.
+
+## Blog
+
+`/blog` lists every post in `content/posts.ts`, newest first. Each post is rendered by `app/blog/[slug]/page.tsx` with a byline and date, an "At a glance" list, the reported sections, a labelled "My take", a "What this means for you" box, a "Source" section, "Keep reading" links and the closing call to action. Its Open Graph image comes from `app/blog/[slug]/opengraph-image.tsx`, its JSON-LD from `articleJsonLd()`. The blog is linked from the shared footer only, to keep the headers uncrowded on narrow screens.
+
+To add a post:
+
+1. Add a `Post` object at the top of `POSTS` in `content/posts.ts`: `slug` (lowercase, hyphens), `title` (the H1, a sentence ending in a full stop, which becomes the ember dot), `seoTitle` (60 characters or fewer), `description` (155 or fewer), `author`, `datePublished` (and `dateModified` after an edit) as `YYYY-MM-DD`, `lead`, three `glance` points, `sections`, `take`, `forYou`, `source` (publisher, title and the links) and `related` internal links.
+2. Use only facts the source states, and credit it. No invented numbers, names, clients or claims. Keep the opinion in `take`, starting with a line that says it is opinion.
+3. Keep the copy (lead, glance, sections, take and box) between 450 and 650 words. `npm run check` counts it.
+4. Routes, the sitemap and the blog index pick the post up from `POSTS`; nothing else needs editing. Then run `npm run build`, `npm run lint` and `npm run check`.
+
+`npm run check` verifies the byline, the `<time>` date, Article JSON-LD (headline, author, dates, publisher), the three glance points, the opinion label, every source link opening in a new tab with `rel="noopener"`, a link back to `/blog`, the word count, and that the index links every post.
 
 ## Design
 

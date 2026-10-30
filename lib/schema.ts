@@ -1,4 +1,5 @@
 import { AREA_SERVED, LOCATIONS } from "@/content/locations";
+import { POSTS } from "@/content/posts";
 import { SERVICES, type Service } from "@/content/services";
 import { USE_CASES, type UseCase } from "@/content/use-cases";
 import { FACEBOOK, INSTAGRAM, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
@@ -267,9 +268,40 @@ export type ArticleInput = {
   image?: string;
 };
 
+const BLOG_NAME = "Blog: AI for business owners and accountants";
+
+/** The blog index: every post as a list, and the breadcrumb. */
+export function blogHubJsonLd(description: string, crumbs: BreadcrumbItem[]) {
+  const url = absoluteUrl("/blog");
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${url}#page`,
+        url,
+        name: BLOG_NAME,
+        description,
+        inLanguage: "en-US",
+        isPartOf: { "@id": WEBSITE_ID },
+        mainEntity: {
+          "@type": "ItemList",
+          itemListElement: POSTS.map((p, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: p.title,
+            url: absoluteUrl(`/blog/${p.slug}`),
+          })),
+        },
+      },
+      breadcrumbJsonLd(crumbs),
+    ],
+  };
+}
+
 /**
- * Ready for a future blog post: an Article by Hiroshi Murakami, and the
- * breadcrumb. Not used yet. Only pass dates and an image the page shows.
+ * A blog post: an Article by Hiroshi Murakami, and the breadcrumb. Only
+ * pass dates and an image the page shows.
  */
 export function articleJsonLd(article: ArticleInput, crumbs: BreadcrumbItem[]) {
   const url = absoluteUrl(article.path);
