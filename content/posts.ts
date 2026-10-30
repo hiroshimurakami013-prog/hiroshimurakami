@@ -12,6 +12,15 @@ export type PostSection = {
 
 export type PostLink = { href: string; label: string; text: string };
 
+/** A 1600 by 900 WebP under public/images/blog/. */
+export type PostImage = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption?: string;
+};
+
 export type Post = {
   slug: string;
   /** The H1, written as a sentence. */
@@ -44,6 +53,15 @@ export type Post = {
   /** Internal links under "Keep reading". */
   related: PostLink[];
   cta: { title: string; text: string };
+  /**
+   * Every post has two images in the site's look, at least one showing a
+   * real person: the main image under the lead and one inside the body,
+   * placed right after the section with id `afterSectionId`.
+   */
+  images: {
+    hero: PostImage;
+    inline: { afterSectionId: string; image: PostImage };
+  };
 };
 
 export const POSTS: Post[] = [
@@ -149,6 +167,25 @@ export const POSTS: Post[] = [
     cta: {
       title: "Where does AI fit in your books?",
       text: "If you want to know where AI fits in your books, send me a message on Instagram. We look at the routine work AI could take on and where a professional should stay in charge. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/ai-agents-tax-benchmark-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "Hiroshi Murakami next to the number 10.8%, the best pass rate for an AI agent on 50 professional tax assignments",
+        caption: "Hiroshi Murakami, with the headline number from the benchmark.",
+      },
+      inline: {
+        afterSectionId: "example-deadline",
+        image: {
+          src: "/images/blog/ai-agents-tax-benchmark-deadline.webp",
+          width: 1600,
+          height: 900,
+          alt: "Three dates for Anna's condo sale: October 2026 and January 2027 meet the residence rule, but end of August 2027 is the deadline the AI agent never mentioned.",
+          caption: "The example from the article, as a picture.",
+        },
+      },
     },
   },
 ];

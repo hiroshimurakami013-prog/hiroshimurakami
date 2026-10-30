@@ -1,4 +1,6 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -7,7 +9,12 @@ import {
   CheckCircle,
   Compass,
 } from "@phosphor-icons/react/dist/ssr";
-import { POSTS, formatPostDate, getPost } from "@/content/posts";
+import {
+  POSTS,
+  formatPostDate,
+  getPost,
+  type PostImage,
+} from "@/content/posts";
 import { articleJsonLd } from "@/lib/schema";
 import { pageMetadata } from "@/lib/site";
 import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
@@ -16,6 +23,38 @@ import JsonLd from "../../components/json-ld";
 import RevealObserver from "../../components/reveal-observer";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
+
+// A post image in a rounded frame with a fixed 16:9 ratio, so nothing shifts
+// while it loads. The hero image loads eagerly with high fetch priority, the
+// one in the body is lazy.
+function PostFigure({
+  image,
+  sizes,
+  className,
+  hero = false,
+}: {
+  image: PostImage;
+  sizes: string;
+  className?: string;
+  hero?: boolean;
+}) {
+  return (
+    <figure className={className ? `post-figure ${className}` : "post-figure"}>
+      <div className="post-figure-frame">
+        <Image
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          sizes={sizes}
+          loading={hero ? "eager" : "lazy"}
+          fetchPriority={hero ? "high" : undefined}
+        />
+      </div>
+      {image.caption && <figcaption>{image.caption}</figcaption>}
+    </figure>
+  );
+}
 
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }));
@@ -96,6 +135,12 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </p>
+              <PostFigure
+                image={post.images.hero}
+                sizes="(min-width: 960px) 880px, 92vw"
+                className="post-figure-hero"
+                hero
+              />
             </div>
           </header>
 
@@ -117,12 +162,20 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
 
               <div className="post-body">
                 {[...post.sections, post.take].map((s) => (
-                  <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`}>
-                    <h2 id={`${s.id}-title`}>{s.title}</h2>
-                    {s.paragraphs.map((p) => (
-                      <p key={p.slice(0, 40)}>{p}</p>
-                    ))}
-                  </section>
+                  <Fragment key={s.id}>
+                    <section id={s.id} aria-labelledby={`${s.id}-title`}>
+                      <h2 id={`${s.id}-title`}>{s.title}</h2>
+                      {s.paragraphs.map((p) => (
+                        <p key={p.slice(0, 40)}>{p}</p>
+                      ))}
+                    </section>
+                    {s.id === post.images.inline.afterSectionId && (
+                      <PostFigure
+                        image={post.images.inline.image}
+                        sizes="(min-width: 800px) 704px, 92vw"
+                      />
+                    )}
+                  </Fragment>
                 ))}
 
                 <aside className="post-box" aria-labelledby="for-you-title">

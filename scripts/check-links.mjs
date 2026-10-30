@@ -33,13 +33,15 @@
 //   CollectionPage JSON-LD; each post has a byline and date, Article JSON-LD
 //   by the author with its real dates, an "At a glance" list of three, a
 //   labelled opinion section, its source links opening in a new tab with
-//   rel="noopener", a link back to /blog and 450 to 650 words of copy
+//   rel="noopener", a link back to /blog and 450 to 650 words of copy; every
+//   post has a hero and an inline image, 1600 by 900 WebP files under
+//   public/images/blog with clean alt text, the inline one after a real section
 // - every <img> has alt, width and height and an existing file; pages with
-//   a hero scene (service, use case and city pages, and the locations hub)
-//   have exactly one high priority image, other pages none, and every other
-//   scene image is lazy; every service, use case and city has a scene image
-//   in content/images.ts, and public/images holds only used WebP files of
-//   about 180 KB or less
+//   a hero scene (service, use case, city and blog post pages, and the
+//   locations hub) have exactly one high priority image, other pages none,
+//   and every other scene image is lazy; every service, use case and city has
+//   a scene image in content/images.ts, and public/images holds only used
+//   WebP files of about 180 KB or less
 // - every service page is reachable from the home page within two clicks,
 //   every location page within two, and every use case page within three
 // - lang, viewport, theme-color, og:url and og:image on SITE_URL, Twitter
@@ -178,11 +180,27 @@ const isServicePage = (path) => /^\/services\/[^/]+$/.test(path);
 const scenarioFor = (path) => USE_CASES.find((u) => path === `/use-cases/${u.slug}`);
 const postFor = (path) => POSTS.find((p) => path === `/blog/${p.slug}`);
 const maxDepth = (path) => (path.startsWith("/use-cases/") ? 3 : 2);
-// Pages whose hero ends in a scene image, the one high priority image.
-const hasHeroScene = (path) => /^\/(services|use-cases|locations)\/[^/]+$/.test(path) || path === "/locations";
+// Pages whose hero ends in a scene image or a post's main image, the one
+// high priority image.
+const hasHeroScene = (path) =>
+  /^\/(services|use-cases|locations|blog)\/[^/]+$/.test(path) || path === "/locations";
 // The public file behind an <img> src, also through the next/image loader.
 const imageFile = (src) =>
   src.startsWith("/_next/image") ? new URLSearchParams(src.split("?")[1]).get("url") : src;
+
+// Pixel width and height from a WebP file header, or null.
+function webpSize(file) {
+  const b = readFileSync(file);
+  if (b.toString("ascii", 0, 4) !== "RIFF" || b.toString("ascii", 8, 12) !== "WEBP") return null;
+  const chunk = b.toString("ascii", 12, 16);
+  if (chunk === "VP8X") return [1 + b.readUIntLE(24, 3), 1 + b.readUIntLE(27, 3)];
+  if (chunk === "VP8 ") return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
+  if (chunk === "VP8L") {
+    const n = b.readUInt32LE(21);
+    return [(n & 0x3fff) + 1, ((n >>> 14) & 0x3fff) + 1];
+  }
+  return null;
+}
 
 const routePaths = new Set(ROUTES.map((r) => r.path));
 const inbound = new Map(ROUTES.map((r) => [r.path, 0]));
@@ -558,6 +576,33 @@ const sceneImages = [
   ["locations hub", LOCATIONS_HUB_IMAGE],
 ];
 const usedImages = new Set();
+// Post images: every post has a main image and one in the body, after a
+// section that exists, as 1600 by 900 WebP files with plain alt text.
+for (const post of POSTS) {
+  const where = `content/posts.ts (${post.slug})`;
+  const { hero, inline } = post.images ?? {};
+  if (!hero) fail(where, "no hero image");
+  if (!inline?.image) fail(where, "no inline image");
+  if (inline && ![...post.sections, post.take].some((s) => s.id === inline.afterSectionId))
+    fail(where, `inline image follows unknown section "${inline.afterSectionId}"`);
+  for (const [label, image] of [["hero", hero], ["inline", inline?.image]]) {
+    if (!image) continue;
+    usedImages.add(image.src);
+    if (!image.alt?.trim()) fail(where, `empty alt for the ${label} image`);
+    else checkCopy(where, `alt for the ${label} image`, image.alt);
+    if (image.caption) checkCopy(where, `caption for the ${label} image`, image.caption);
+    if (!image.src.startsWith("/images/blog/") || !image.src.endsWith(".webp"))
+      fail(where, `${label} image ${image.src} is not a WebP under /images/blog/`);
+    if (image.width !== 1600 || image.height !== 900)
+      fail(where, `${label} image is ${image.width} by ${image.height} (expected 1600 by 900)`);
+    if (!existsSync(join(PUBLIC, image.src))) fail(where, `missing file ${image.src}`);
+    else {
+      const [w, h] = webpSize(join(PUBLIC, image.src)) ?? [];
+      if (w !== image.width || h !== image.height)
+        fail(where, `${image.src} is ${w} by ${h} pixels, not ${image.width} by ${image.height}`);
+    }
+  }
+}
 for (const [label, image] of sceneImages) {
   if (!image) {
     fail("content/images.ts", `no image for ${label}`);
@@ -570,7 +615,7 @@ for (const [label, image] of sceneImages) {
 }
 for (const file of walkFiles(join(PUBLIC, "images"))) {
   const src = `/${relative(PUBLIC, file)}`;
-  if (!usedImages.has(src)) fail(src, "image file is not used by content/images.ts");
+  if (!usedImages.has(src)) fail(src, "image file is not used by content/images.ts or content/posts.ts");
   if (!src.endsWith(".webp")) fail(src, "scene images must be WebP");
   if (statSync(file).size > 190_000) fail(src, `${Math.round(statSync(file).size / 1024)} KB (max about 180 KB)`);
 }

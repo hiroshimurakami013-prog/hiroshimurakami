@@ -2627,6 +2627,32 @@ main:focus {
   }
 }
 
+/* Post images: rounded like the cards, in a fixed 16:9 frame. */
+.post-figure-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--night-2);
+}
+.post-figure-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.post-figure figcaption {
+  margin-top: 0.85rem;
+  color: var(--text-3);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.post-figure-hero {
+  max-width: 55rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
 /* The reading column stays aligned with the hero, at a comfortable measure. */
 .post-column > * {
   max-width: 44rem;

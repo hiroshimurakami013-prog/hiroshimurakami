@@ -56,7 +56,8 @@ To add a post:
 1. Add a `Post` object at the top of `POSTS` in `content/posts.ts`: `slug` (lowercase, hyphens), `title` (the H1, a sentence ending in a full stop, which becomes the ember dot), `seoTitle` (60 characters or fewer), `description` (155 or fewer), `author`, `datePublished` (and `dateModified` after an edit) as `YYYY-MM-DD`, `lead`, three `glance` points, `sections`, `take`, `forYou`, `source` (publisher, title and the links) and `related` internal links.
 2. Use only facts the source states, and credit it. No invented numbers, names, clients or claims. Keep the opinion in `take`, starting with a line that says it is opinion.
 3. Keep the copy (lead, glance, sections, take and box) between 450 and 650 words. `npm run check` counts it.
-4. Routes, the sitemap and the blog index pick the post up from `POSTS`; nothing else needs editing. Then run `npm run build`, `npm run lint` and `npm run check`.
+4. Every post needs 2 images in `images`, 1600 by 900 WebP files under `public/images/blog/` in the site's look: a `hero` under the lead and an `inline` one after the section named in `afterSectionId`. At least one of them shows a real person. Alt text is required, captions are optional.
+5. Routes, the sitemap and the blog index pick the post up from `POSTS`; nothing else needs editing. Then run `npm run build`, `npm run lint` and `npm run check`.
 
 `npm run check` verifies the byline, the `<time>` date, Article JSON-LD (headline, author, dates, publisher), the three glance points, the opinion label, every source link opening in a new tab with `rel="noopener"`, a link back to `/blog`, the word count, and that the index links every post.
 
