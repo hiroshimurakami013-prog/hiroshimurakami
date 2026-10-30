@@ -54,9 +54,9 @@ export type Post = {
   related: PostLink[];
   cta: { title: string; text: string };
   /**
-   * Every post has two images in the site's look, at least one showing a
-   * real person: the main image under the lead and one inside the body,
-   * placed right after the section with id `afterSectionId`.
+   * Every post has two images in the site's look: the main image under the
+   * lead and one inside the body, placed right after the section with id
+   * `afterSectionId`. Generated illustrations say so in the caption.
    */
   images: {
     hero: PostImage;
@@ -71,10 +71,11 @@ export const POSTS: Post[] = [
       "AI agents just faced 50 real tax assignments. The best one passed 10.8%.",
     seoTitle: "AI Agents Took On 50 Tax Assignments | Hiroshi Murakami",
     description:
-      "A new benchmark tested AI agents on professional tax work. Here is what it found and what it means for accountants and business owners.",
+      "A new benchmark gave AI agents 50 real tax assignments and the best passed 10.8%. What it found, and what it means for accountants and business owners.",
     author: "Hiroshi Murakami",
     datePublished: "2026-10-29",
-    lead: "A new benchmark gave AI agents the kind of work a tax professional does every week. Here is what happened.",
+    dateModified: "2026-10-30",
+    lead: "A new benchmark gave AI agents 50 real tax assignments. The best agent passed 10.8% of them. Here is what happened.",
     glance: [
       "Surge AI tested AI agents on 50 professional tax assignments, built and reviewed by tax experts.",
       "The best agent passed 10.8% of them at a strict 95% rubric threshold.",
@@ -173,8 +174,8 @@ export const POSTS: Post[] = [
         src: "/images/blog/ai-agents-tax-benchmark-hero.webp",
         width: 1600,
         height: 900,
-        alt: "Hiroshi Murakami next to the number 10.8%, the best pass rate for an AI agent on 50 professional tax assignments",
-        caption: "Hiroshi Murakami, with the headline number from the benchmark.",
+        alt: "Illustration of a tired accountant at a desk piled with tax papers while a glowing AI figure sorts the same papers",
+        caption: "An AI-generated illustration of the idea, not a photo of real people.",
       },
       inline: {
         afterSectionId: "example-deadline",
@@ -182,8 +183,8 @@ export const POSTS: Post[] = [
           src: "/images/blog/ai-agents-tax-benchmark-deadline.webp",
           width: 1600,
           height: 900,
-          alt: "Three dates for Anna's condo sale: October 2026 and January 2027 meet the residence rule, but end of August 2027 is the deadline the AI agent never mentioned.",
-          caption: "The example from the article, as a picture.",
+          alt: "Illustration of Anna in her condo as a glowing AI figure points at three glowing orbs, the dates on her sale timeline",
+          caption: "An AI-generated illustration of Anna's example, not a photo of a real person.",
         },
       },
     },

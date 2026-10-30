@@ -65,11 +65,21 @@ export async function generateMetadata({
 }: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const post = getPost((await params).slug);
   if (!post) return {};
-  return pageMetadata({
+  const meta = pageMetadata({
     title: post.seoTitle,
     description: post.description,
     path: `/blog/${post.slug}`,
   });
+  return {
+    ...meta,
+    openGraph: {
+      ...meta.openGraph,
+      type: "article",
+      publishedTime: post.datePublished,
+      modifiedTime: post.dateModified ?? post.datePublished,
+      authors: [post.author],
+    },
+  };
 }
 
 export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
@@ -96,6 +106,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
             description: post.description,
             datePublished: post.datePublished,
             dateModified: post.dateModified,
+            image: post.images.hero.src,
           },
           crumbs,
         )}
