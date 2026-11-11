@@ -1,6 +1,6 @@
 # Hiroshi Murakami website
 
-Next.js site for Hiroshi Murakami, who builds AI for small and mid-size businesses in two fields: AI automation (receptionists, voice agents, agents, follow-ups, lead qualification, custom CRM and workflows, customer support assistants) and AI accounting (invoice capture, bookkeeping, bank reconciliation, reporting). Audience: owners and managers, especially in the Los Angeles area, plus accountants. Deployed at https://hiroshimurakami.vercel.app and kept noindex until the owner has a real domain.
+Next.js site for Hiroshi Murakami, who builds AI for small and mid-size businesses in two fields: AI automation (receptionists, voice agents, agents, follow-ups, lead qualification, custom CRM and workflows, customer support assistants) and AI accounting (invoice capture, bookkeeping, bank reconciliation, reporting). Audience: owners and managers, especially in the Los Angeles area, plus accountants. Deployed live at https://www.hiroshimurakami.tech (indexable in production via Vercel env vars; previews and local builds stay noindex).
 
 ## Source of truth
 `docs/BUILD-PLAN.md` is the source of truth for strategy, routes, SEO, performance, images and the indexing switch. It overrides this file where they conflict. Its "Status" and "Open items" lists record what was done and what is left. `README.md` explains the structure, editing content, images and the Go live checklist.

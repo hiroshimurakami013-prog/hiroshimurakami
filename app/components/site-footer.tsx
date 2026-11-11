@@ -8,12 +8,12 @@ import HomeLink from "./home-link";
 export default function SiteFooter() {
   return (
     <footer className="site-footer">
-      <div className="wrap flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
+      <div className="wrap flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-10">
         <HomeLink className="flex items-center gap-4">
           <span className="symbol-tile" aria-hidden="true">
             <StaticImage src="/symbol.png" alt="" width={22} height={21} />
           </span>
-          <span className="leading-snug">
+          <span className="flex flex-col gap-1 leading-snug">
             <span className="block font-semibold">Hiroshi Murakami</span>
             <span className="block text-[0.92rem] text-text-2">
               AI automation and AI accounting for businesses.
@@ -85,7 +85,7 @@ export default function SiteFooter() {
           </ul>
         </nav>
       </div>
-      <p className="wrap mt-10 text-[0.85rem] text-text-3">
+      <p className="wrap mt-6 text-[0.85rem] text-text-3">
         &copy; 2026 Hiroshi Murakami. All rights reserved.
       </p>
     </footer>

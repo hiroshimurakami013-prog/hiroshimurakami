@@ -1656,6 +1656,10 @@ main:focus {
   content-visibility: auto;
   contain-intrinsic-size: auto 800px;
 }
+/* The footer is short: do not reserve a section-sized placeholder for it. */
+.render-late .site-footer:not([data-released]) {
+  contain-intrinsic-size: auto 420px;
+}
 
 /* Endless loops (marquee, city ticker, core ring, CTA light) only play
    while their band is on screen: off screen nobody sees them, yet every

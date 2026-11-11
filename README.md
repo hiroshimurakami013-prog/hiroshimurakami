@@ -2,7 +2,7 @@
 
 Website for Hiroshi Murakami, who builds AI automation (receptionists, voice agents, agents, follow-ups, lead qualification, custom CRM and workflows, customer support assistants) and AI accounting (invoice capture, bookkeeping, bank reconciliation, reporting) for small and mid-size businesses in the Los Angeles area and worldwide.
 
-Current deployment: https://hiroshimurakami.vercel.app (noindex until the real domain is live, see "Go live" below).
+Current deployment: https://www.hiroshimurakami.tech (live and indexable; production env sets `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_INDEXABLE=true`).
 
 The build plan and its status live in `docs/BUILD-PLAN.md`, the source of truth for strategy and rules. `CLAUDE.md` has the short version of the rules for agents.
 
