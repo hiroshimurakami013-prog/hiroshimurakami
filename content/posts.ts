@@ -66,6 +66,118 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "numica-buys-retiring-accounting-firms",
+    title:
+      "An AI start-up just raised $21M to buy retiring accountants' firms.",
+    seoTitle: "AI Start-up Numica Buys Accounting Firms | Hiroshi Murakami",
+    description:
+      "Numica raised $21M to buy small accounting firms from retiring owners and run them on AI. What it does, why now, and what it means for business owners.",
+    author: "Hiroshi Murakami",
+    datePublished: "2026-11-11",
+    dateModified: "2026-11-11",
+    lead: "A New York start-up called Numica has raised $21M to buy small accounting firms from owners close to retirement, then run the work on its own AI system. Here is what happened, and why it matters if a small firm keeps your books.",
+    glance: [
+      "Numica raised $21M, a mix of equity and debt, to buy small US accounting firms from retiring owners.",
+      "After a deal closes, its AI system keeps the books and handles billing and tax filing, while accountants check the output.",
+      "It targets firms too small to interest larger buyers, whose clients are mostly local businesses.",
+    ],
+    sections: [
+      {
+        id: "what-happened",
+        title: "What happened",
+        paragraphs: [
+          "Numica is a New York start-up that buys small accounting firms from owners who are close to retirement. This month it announced $21M in funding, a mix of equity and debt, from Roosh X and Flashpoint Capital. Flashpoint, based in London, first backed Numica with equity and has now added a growth debt loan.",
+          "Numica launched in June 2025 and bought its first practice, in New York, a few months later. It has bought seven practices in total.",
+          "\"The model is simple: we acquire a profitable business and make it more profitable,\" said Slava Orekoff, co-founder and CEO and a former SVP at SAP. His co-founder, Victor Lysenko, previously founded Osome, a Singapore-based accounting start-up.",
+        ],
+      },
+      {
+        id: "how-it-works",
+        title: "How it works",
+        paragraphs: [
+          "Once a deal closes, Numica moves the firm's clients, staff and daily work onto its own AI system. The platform keeps the books and handles billing, practice management and tax filing. The accountants check the AI's output instead of doing the work by hand.",
+          "For clients, little should change: the same accountant and the same relationship. The changes happen behind the scenes.",
+          "Numica says the profit margin at its first firm rose from 37% to 52% within two months, and it expects 70%. Those are Numica's own claims, not independent figures.",
+        ],
+      },
+      {
+        id: "why-now",
+        title: "Why now",
+        paragraphs: [
+          "The reason is a shortage of accountants. More than 300,000 US accountants and auditors left their jobs over two years, a 17% fall, The Wall Street Journal reported in 2023, as cited by The Next Web. Many small-firm owners have no one to take over.",
+          "Private equity has already moved in at the top: ten of the 20 largest US accounting firms are or will soon be backed by private equity. Numica goes after the smaller firms they pass over, with annual revenue of $700,000 to $5 million. Those firms are easier to take over and usually too small to interest larger buyers.",
+          "Most of their clients are local businesses such as restaurants, hair salons and dental practices.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the article.",
+        "If you run a restaurant, a salon or a dental practice, the person who knows your books may soon work inside a firm run on AI. You might not notice. That is the point of the model.",
+        "That is not bad news in itself. AI is good at the routine work: entering transactions, matching payments, preparing a first draft. But it changes what you should ask.",
+        "Ask your accountant who reviews the AI's output, and how. Make sure a person stays in charge of the judgment calls: what to claim, what to flag, what to question. AI works best behind a human you trust.",
+      ],
+    },
+    forYou: [
+      "Owners: ask who checks the AI's work on your books.",
+      "Accountants: let AI take the routine. The review and the advice stay yours.",
+      "Everyone: judge a firm by the person in charge, not only by its software.",
+    ],
+    source: {
+      publisher: "The Next Web",
+      title: "Numica raises $21M to buy accounting firms from retiring US owners",
+      note: "Every figure and quote in this post comes from that article. The margin figures are Numica's own claims.",
+      links: [
+        {
+          href: "https://thenextweb.com/news/numica-21m-ai-accounting-firm-acquisitions",
+          label: "Read the article on The Next Web",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/use-cases/automated-bank-reconciliation",
+        label: "Automated bank reconciliation",
+        text: "A use case: how AI matches transactions so a person only reviews the exceptions.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Who checks the AI on your books?",
+      text: "If you want to know where AI fits in your books, book a free 30 minute call or send me a message on Instagram. We look at the routine work AI could take on and where a person you trust should stay in charge. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/numica-retiring-accounting-firms-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A silver-haired accountant closing a paper ledger at her desk at night while a laptop glows with ember light beside her",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "how-it-works",
+        image: {
+          src: "/images/blog/numica-retiring-accounting-firms-clients.webp",
+          width: 1600,
+          height: 900,
+          alt: "A cafe owner and her longtime accountant smiling across a table with a glowing laptop between them",
+          caption: "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "ai-agents-tax-benchmark",
     title:
       "AI agents just faced 50 real tax assignments. The best one passed 10.8%.",
