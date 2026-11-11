@@ -100,7 +100,7 @@ npm run check   # after a build
 
 ## Contact and placeholders
 
-Contact channels are the Instagram profile and Facebook page in `lib/site.ts` (`INSTAGRAM`, `FACEBOOK`). There is no email address or phone number on the site.
+The "Book a free AI audit" button opens the Calendly scheduler (`CALENDLY_URL` in `lib/site.ts`) as a popup through `app/components/booking-link.tsx`. Calendly loads lazily on first hover, focus, touch or click, and the link falls back to a plain new tab. Other contact channels are the Instagram profile and Facebook page (`INSTAGRAM`, `FACEBOOK`). There is no email address or phone number on the site.
 
 Use cases are illustrative scenarios, labelled "Use case". They are not client case studies and contain no client names or metrics.
 

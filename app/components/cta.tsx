@@ -1,23 +1,19 @@
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
-import { CTA_LABEL, FACEBOOK, INSTAGRAM } from "@/lib/site";
+import { BOOKING_LABEL, CTA_LABEL, FACEBOOK } from "@/lib/site";
+import BookingLink from "./booking-link";
 import Magnetic from "./magnetic";
 import Words from "./words";
 
 export function PrimaryCta() {
   return (
     <Magnetic>
-      <a
-        href={INSTAGRAM}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn btn-primary"
-      >
+      <BookingLink className="btn btn-primary">
         <span>{CTA_LABEL}</span>
-        <span className="sr-only"> (opens Instagram in a new tab)</span>
+        <span className="sr-only"> {BOOKING_LABEL}</span>
         <span className="btn-icon" aria-hidden="true">
           <ArrowUpRight size={18} weight="bold" />
         </span>
-      </a>
+      </BookingLink>
     </Magnetic>
   );
 }
@@ -58,7 +54,8 @@ export function ClosingCta({
             </a>
           </div>
           <p className="mt-7 text-[0.95rem] text-text-2">
-            Send a message on Instagram or Facebook. No forms, no pressure.
+            Pick a time that suits you for a free 30 minute discovery call. Prefer to
+            write first? Message me on Instagram or Facebook.
           </p>
         </div>
       </div>

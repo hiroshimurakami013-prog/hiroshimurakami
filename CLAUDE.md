@@ -6,8 +6,8 @@ Next.js site for Hiroshi Murakami, who builds AI for small and mid-size business
 `docs/BUILD-PLAN.md` is the source of truth for strategy, routes, SEO, performance, images and the indexing switch. It overrides this file where they conflict. Its "Status" and "Open items" lists record what was done and what is left. `README.md` explains the structure, editing content, images and the Go live checklist.
 
 ## Contact and call to action
-- Primary CTA everywhere: "Book a free AI audit" (`CTA_LABEL` in `lib/site.ts`), linking to https://www.instagram.com/hiroshimurakami013.
-- Secondary: the Facebook Page https://www.facebook.com/1252933767913035.
+- Primary CTA everywhere: "Book a free AI audit" (`CTA_LABEL` in `lib/site.ts`), opening the Calendly 30 minute call (`CALENDLY_URL`) as a popup through `BookingLink`.
+- Secondary: the Instagram profile https://www.instagram.com/hiroshimurakami013 and the Facebook Page https://www.facebook.com/1252933767913035.
 - There is no email address, phone number or office address. Never invent contact details.
 
 ## Hard rules

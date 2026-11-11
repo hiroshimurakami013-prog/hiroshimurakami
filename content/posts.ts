@@ -167,7 +167,7 @@ export const POSTS: Post[] = [
     ],
     cta: {
       title: "Where does AI fit in your books?",
-      text: "If you want to know where AI fits in your books, send me a message on Instagram. We look at the routine work AI could take on and where a professional should stay in charge. No obligation.",
+      text: "If you want to know where AI fits in your books, book a free 30 minute call or send me a message on Instagram. We look at the routine work AI could take on and where a professional should stay in charge. No obligation.",
     },
     images: {
       hero: {

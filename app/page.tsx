@@ -6,7 +6,8 @@ import { LOCATIONS } from "@/content/locations";
 import { PROCESS_STEPS, SERVICES } from "@/content/services";
 import { USE_CASE_HIGHLIGHTS } from "@/content/use-cases";
 import { HOME_DESCRIPTION, homeJsonLd } from "@/lib/schema";
-import { CTA_LABEL, INSTAGRAM, pageMetadata } from "@/lib/site";
+import { BOOKING_LABEL, CTA_LABEL, pageMetadata } from "@/lib/site";
+import BookingLink from "./components/booking-link";
 import NavLinks from "./nav-links";
 import AreaBand from "./components/area-band";
 import Aurora from "./components/aurora";
@@ -76,16 +77,11 @@ export default function Home() {
             </a>
             <nav aria-label="Main" className="flex items-center gap-1">
               <NavLinks />
-              <a
-                href={INSTAGRAM}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nav-cta"
-              >
+              <BookingLink className="nav-cta">
                 <span className="sm:hidden">Free AI audit</span>
                 <span className="hidden sm:inline">{CTA_LABEL}</span>
-                <span className="sr-only"> (opens Instagram in a new tab)</span>
-              </a>
+                <span className="sr-only"> {BOOKING_LABEL}</span>
+              </BookingLink>
             </nav>
           </div>
         </div>

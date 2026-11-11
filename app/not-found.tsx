@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import StaticImage from "./components/static-image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { CTA_LABEL, INDEXABLE, INSTAGRAM, ROBOTS } from "@/lib/site";
+import { BOOKING_LABEL, CTA_LABEL, INDEXABLE, ROBOTS } from "@/lib/site";
+import BookingLink from "./components/booking-link";
 import SiteFooter from "./components/site-footer";
 
 // Never indexed, whatever the INDEXABLE switch says.
@@ -107,15 +108,10 @@ export default function NotFound() {
           </ul>
           <p className="mt-10 text-text-2">
             Looking for help with AI in your business?{" "}
-            <a
-              href={INSTAGRAM}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link font-medium"
-            >
-              {CTA_LABEL} on Instagram
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
+            <BookingLink className="text-link font-medium">
+              {CTA_LABEL}
+              <span className="sr-only"> {BOOKING_LABEL}</span>
+            </BookingLink>
             .
           </p>
         </div>

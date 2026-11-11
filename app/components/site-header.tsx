@@ -1,6 +1,7 @@
 import StaticImage from "./static-image";
 import Link from "next/link";
-import { CTA_LABEL, INSTAGRAM } from "@/lib/site";
+import { BOOKING_LABEL, CTA_LABEL } from "@/lib/site";
+import BookingLink from "./booking-link";
 
 // Header for the deep pages: the brand home, the three hubs and
 // the call to action. The home page keeps its own fixed header with the
@@ -40,16 +41,11 @@ export default function SiteHeader({ current }: { current?: string }) {
                 </li>
               ))}
             </ul>
-            <a
-              href={INSTAGRAM}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-cta"
-            >
+            <BookingLink className="nav-cta">
               <span className="sm:hidden">Free AI audit</span>
               <span className="hidden sm:inline">{CTA_LABEL}</span>
-              <span className="sr-only"> (opens Instagram in a new tab)</span>
-            </a>
+              <span className="sr-only"> {BOOKING_LABEL}</span>
+            </BookingLink>
           </nav>
         </div>
       </div>

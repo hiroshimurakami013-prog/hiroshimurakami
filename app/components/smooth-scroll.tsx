@@ -48,6 +48,14 @@ export function scrollToY(top: number, immediate = false) {
   } else window.scrollTo({ top, behavior: immediate ? "instant" : "smooth" });
 }
 
+// Pauses or resumes Lenis for overlays, such as the booking popup, that
+// must hold the page still while they are open.
+export function setScrollLocked(locked: boolean) {
+  if (!active) return;
+  if (locked) active.stop();
+  else active.start();
+}
+
 export default function SmoothScroll() {
   const pathname = usePathname();
   const positions = useRef(new Map<string, number>());

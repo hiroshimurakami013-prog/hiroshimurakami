@@ -26,6 +26,12 @@ export const FACEBOOK = "https://www.facebook.com/1252933767913035";
 /** Primary call to action, the same wording everywhere. */
 export const CTA_LABEL = "Book a free AI audit";
 
+/** Calendly page for the free 30 minute discovery call. */
+export const CALENDLY_URL = "https://calendly.com/hiroshimurakami013/30min";
+
+/** Screen reader hint placed after the booking button text. */
+export const BOOKING_LABEL = "(opens the booking calendar)";
+
 export const ROBOTS: Metadata["robots"] = INDEXABLE
   ? { index: true, follow: true }
   : {
