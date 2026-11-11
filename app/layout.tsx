@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Geist } from "next/font/google";
-import { ROBOTS, SITE_NAME, SITE_URL } from "@/lib/site";
+import { INDEXABLE, ROBOTS, SITE_NAME, SITE_URL } from "@/lib/site";
+import Script from "next/script";
 import RenderRelease from "./components/render-release";
 import SmoothScroll from "./components/smooth-scroll";
 import "./globals.css";
@@ -61,6 +62,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body>
+        {/* Microsoft Clarity, only on the live indexable site. */}
+        {INDEXABLE && (
+          <Script id="clarity" strategy="afterInteractive">
+            {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zc4o4h610v");`}
+          </Script>
+        )}
         <SmoothScroll />
         <RenderRelease />
         {children}

@@ -14,8 +14,8 @@ export default function SiteFooter() {
             <StaticImage src="/symbol.png" alt="" width={22} height={21} />
           </span>
           <span className="flex flex-col gap-1 leading-snug">
-            <span className="block font-semibold">Hiroshi Murakami</span>
-            <span className="block text-[0.92rem] text-text-2">
+            <span className="font-semibold">Hiroshi Murakami</span>
+            <span className="text-[0.92rem] text-text-2">
               AI automation and AI accounting for businesses.
             </span>
           </span>
