@@ -33,7 +33,11 @@
 //   CollectionPage JSON-LD; each post has a byline and date, Article JSON-LD
 //   by the author with its real dates, an "At a glance" list of three, a
 //   labelled opinion section, its source links opening in a new tab with
-//   rel="noopener", a link back to /blog and 450 to 650 words of copy; every
+//   rel="noopener", a link back to /blog and 450 to 650 words of copy
+//   (counted without the [anchor text](/path) link markup); at least three
+//   inline internal links in its body, one of them to another post, each
+//   target linked once and no markup left unparsed; it is linked from at
+//   least two other pages; every
 //   post has a hero and an inline image, 1600 by 900 WebP files under
 //   public/images/blog with clean alt text, the inline one after a real section
 // - every <img> has alt, width and height and an existing file; pages with
@@ -398,6 +402,13 @@ for (const page of pages) {
         fail(where, `source link ${l.href} does not open in a new tab with rel="noopener"`);
     }
     if (!anchors.some((t) => attr(t, "href") === "/blog")) fail(where, "no link back to /blog");
+    const inline = anchors.filter((t) => /(^|\s)post-link(\s|$)/.test(attr(t, "class") ?? "")).map((t) => attr(t, "href"));
+    if (inline.length < 3) fail(where, `${inline.length} inline internal links in the body (min 3)`);
+    if (!inline.some((h) => h.startsWith("/blog/") && h !== page.path))
+      fail(where, "no inline link to another post");
+    for (const h of new Set(inline))
+      if (inline.indexOf(h) !== inline.lastIndexOf(h)) fail(where, `inline link to ${h} more than once (link the first mention only)`);
+    if (/\]\(/.test(text)) fail(where, "unparsed link markup in the copy");
     const words = postCopy(post).join(" ").split(/\s+/).length;
     if (words < 450 || words > 650) fail(where, `${words} words of post copy (450 to 650)`);
   }
@@ -494,6 +505,13 @@ for (const [path, count] of inbound) {
 // Use case pages need links from at least two other pages.
 for (const u of USE_CASES) {
   const path = `/use-cases/${u.slug}`;
+  const from = linkedFrom.get(path)?.size ?? 0;
+  if (from < 2) fail(path, `linked from ${from} other page(s) (min 2)`);
+}
+
+// Blog posts need links from at least two other pages.
+for (const p of POSTS) {
+  const path = `/blog/${p.slug}`;
   const from = linkedFrom.get(path)?.size ?? 0;
   if (from < 2) fail(path, `linked from ${from} other page(s) (min 2)`);
 }

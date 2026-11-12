@@ -2617,7 +2617,8 @@ main:focus {
   color: var(--text-3);
 }
 .post-credit a,
-.post-body a {
+.post-body a,
+.post-link {
   color: var(--text);
   text-decoration: underline;
   text-decoration-color: var(--line-strong);
@@ -2626,7 +2627,8 @@ main:focus {
 }
 @media (hover: hover) and (pointer: fine) {
   .post-credit a:hover,
-  .post-body a:hover {
+  .post-body a:hover,
+  .post-link:hover {
     text-decoration-color: currentColor;
   }
 }

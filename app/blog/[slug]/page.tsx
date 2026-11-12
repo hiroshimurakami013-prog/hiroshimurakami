@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import {
   Compass,
 } from "@phosphor-icons/react/dist/ssr";
 import {
+  INLINE_LINK,
   POSTS,
   formatPostDate,
   getPost,
@@ -54,6 +55,23 @@ function PostFigure({
       {image.caption && <figcaption>{image.caption}</figcaption>}
     </figure>
   );
+}
+
+// Post copy with its [anchor text](/path) markup turned into site links.
+function PostText({ text }: { text: string }) {
+  const parts: ReactNode[] = [];
+  let last = 0;
+  for (const m of text.matchAll(INLINE_LINK)) {
+    parts.push(text.slice(last, m.index));
+    parts.push(
+      <Link key={m.index} href={m[2]} className="post-link">
+        {m[1]}
+      </Link>,
+    );
+    last = m.index + m[0].length;
+  }
+  parts.push(text.slice(last));
+  return <>{parts}</>;
 }
 
 export function generateStaticParams() {
@@ -134,7 +152,9 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
                 {headline}
                 <span className="dot">.</span>
               </h1>
-              <p className="lead mt-8 max-w-[58ch]">{post.lead}</p>
+              <p className="lead mt-8 max-w-[58ch]">
+                <PostText text={post.lead} />
+              </p>
               <p className="post-credit">
                 Source:{" "}
                 <a
@@ -177,7 +197,9 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
                     <section id={s.id} aria-labelledby={`${s.id}-title`}>
                       <h2 id={`${s.id}-title`}>{s.title}</h2>
                       {s.paragraphs.map((p) => (
-                        <p key={p.slice(0, 40)}>{p}</p>
+                        <p key={p.slice(0, 40)}>
+                          <PostText text={p} />
+                        </p>
                       ))}
                     </section>
                     {s.id === post.images.inline.afterSectionId && (
@@ -196,7 +218,9 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
                   </h2>
                   <ul>
                     {post.forYou.map((f) => (
-                      <li key={f}>{f}</li>
+                      <li key={f}>
+                        <PostText text={f} />
+                      </li>
                     ))}
                   </ul>
                 </aside>
