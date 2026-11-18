@@ -78,6 +78,133 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "accounting-firms-ai-adoption-no-policy",
+    title: "AI policy for accounting firms: most use AI, few have a policy.",
+    seoTitle: "AI Policy for Accounting Firms: Survey | Hiroshi Murakami",
+    description:
+      "AI policy for accounting firms: Rightworks says 71% use or test AI, but 63% of users have no formal policy. What to ask your accountant.",
+    author: "Hiroshi Murakami",
+    datePublished: "2026-11-18",
+    dateModified: "2026-11-18",
+    lead: "A new Rightworks survey says 71% of accounting and tax firms now use or test AI, up from 40% in 2024. But 63% of the firms using AI have no formal AI policy. If your accountant uses AI on your [books](/services/ai-accounting), here is what the survey found, what to ask, and why an AI policy for accounting firms should fit on one page.",
+    glance: [
+      "Rightworks says 71% of accounting and tax firms use or test AI, up from 40% in 2024.",
+      "63% of firms using AI lack a formal AI policy, and only 40% are comfortable entering client information into AI tools.",
+      "Firms using AI report 39% higher revenue per employee, but that is an association, not proof.",
+    ],
+    sections: [
+      {
+        id: "what-the-survey-found",
+        title: "What the survey found",
+        paragraphs: [
+          "Rightworks, a provider of cloud solutions to accounting and tax professionals, ran a seven minute online survey in October 2026. It heard from 206 accounting and tax firms and 224 small and mid-sized businesses. The 2024 comparisons come from its earlier AI Tracker study.",
+          "The headline numbers: 71% of firms use or test AI, up from 40% in 2024. And 74% of current AI users save at least two hours a week, up from 47% in 2024. Also, 55% do not expect headcount to change.",
+        ],
+      },
+      {
+        id: "why-an-ai-policy-for-accounting-firms-matters",
+        title: "Why an AI policy for accounting firms matters",
+        paragraphs: [
+          "Use is racing ahead of rules. Of the firms using AI, 63% lack a formal AI policy. Ian Williams, CEO of Rightworks, said: \"Adoption has outrun governance as firms fear falling behind their peers.\" He also said: \"Most Firms are embracing AI with good intentions, but habit isn't policy.\"",
+          "The firms know the risks. The top concerns are data privacy at 68% and inaccuracy at 62%. Knowledge and training is a distant third at 35%, after topping the list in 2024. Only 40% of AI-using firms are comfortable entering client information into AI tools.",
+          "Output needs checking too. 39% of AI-using firms say AI output needs review often or always. The most common safeguard, at 61%, is checking output against original sources such as IRS publications and client records.",
+          "Anjan Bagchee, CISO of Rightworks, said: \"Every firm should have a short list of approved AI tools, but few have the resources to build one.\"",
+        ],
+      },
+      {
+        id: "strong-association-not-proof",
+        title: "A strong association, not proof",
+        paragraphs: [
+          "Firms actively using AI report 39% higher revenue per employee than firms still testing or not using it. CPA Practice Advisor calls this a \"strong association\". It is not proof that AI caused the gain. Busier, better run firms may simply adopt AI sooner.",
+        ],
+      },
+      {
+        id: "who-ran-the-survey",
+        title: "Who ran the survey",
+        paragraphs: [
+          "Rightworks sells compliance and AI tools, so it has a commercial interest in this topic. Read the survey as a vendor's view. The research was previewed at Thomson Reuters Synergy, November 16 to 19, 2026, and the full report is in early access.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the survey.",
+        "If you own a small business, your accountant probably uses AI on your books. Ask three questions. Which AI tools do you use on my work? Who checks the output? Where does my data go?",
+        "If you are an accountant, write a one page policy this week. List the approved tools. Name who reviews the output. Say what client information may go in, and what may not. Checking against source records is the right habit. It is the same habit as checking an AI-drafted [bank reconciliation](/use-cases/automated-bank-reconciliation) against the statement.",
+        "None of this is new. Microsoft's [Copilot accounting skills](/blog/copilot-accounting-skills-excel) still rely on a person to approve the work, and [Numica](/blog/numica-buys-retiring-accounting-firms) has accountants check what its AI produces.",
+      ],
+    },
+    forYou: [
+      "Owners: ask your accountant which AI tools they use, who checks the output, and where your data goes.",
+      "Accountants: write a one page AI policy this week, with approved tools and a review step.",
+      "Everyone: AI can save time, but a person still checks the work.",
+    ],
+    source: {
+      publisher: "CPA Practice Advisor",
+      title:
+        "AI Use in Accounting Firms Surges 78%, With 39% Higher Revenue Per Employee for Active Users",
+      note: "By Isaac M. O'Bannon, November 16, 2026. The survey is the Rightworks AI in Accounting 2026 Benchmark Report. Rightworks is a vendor, so it has a commercial interest.",
+      links: [
+        {
+          href: "https://www.cpapracticeadvisor.com/2026/11/16/ai-use-in-accounting-firms-surges-78-with-39-higher-revenue-per-employee/193930/",
+          label: "Read the article on CPA Practice Advisor",
+        },
+        {
+          href: "https://www.rightworks.com/resources/ai-accounting-report/",
+          label: "See the Rightworks AI in Accounting 2026 Benchmark Report page",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/copilot-accounting-skills-excel",
+        label: "Microsoft is putting accounting skills inside Excel's Copilot",
+        text: "A post: what Copilot drafts, and who approves it.",
+      },
+      {
+        href: "/blog/numica-buys-retiring-accounting-firms",
+        label: "An AI start-up is buying retiring accountants' firms",
+        text: "A post: Numica runs small accounting firms on AI, with accountants checking the output.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Does your business have an AI policy?",
+      text: "If you want to know where AI fits in your books, and who should check it, book a free 30 minute call or send me a message on Instagram. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/accounting-firms-ai-adoption-no-policy-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A small accounting office at night, an accountant reading a printed one page AI policy beside a glowing laptop.",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "why-an-ai-policy-for-accounting-firms-matters",
+        image: {
+          src: "/images/blog/accounting-firms-ai-adoption-no-policy-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "An accountant checking an AI-prepared report against paper client records at a desk.",
+          caption:
+            "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "copilot-accounting-skills-excel",
     title: "Microsoft is putting accounting skills inside Excel's Copilot.",
     seoTitle: "Copilot in Excel Gets Accounting Skills | Hiroshi Murakami",
@@ -180,6 +307,11 @@ export const POSTS: Post[] = [
         href: "/blog/ai-agents-tax-benchmark",
         label: "AI agents just faced 50 real tax assignments",
         text: "A post: what a tax benchmark shows about the judgment calls AI still misses.",
+      },
+      {
+        href: "/blog/accounting-firms-ai-adoption-no-policy",
+        label: "Most accounting firms use AI, few have a policy",
+        text: "A post: what a Rightworks survey says, and what to ask your accountant.",
       },
       {
         href: "/blog",
@@ -302,6 +434,11 @@ export const POSTS: Post[] = [
         href: "/blog/ai-agents-tax-benchmark",
         label: "AI agents just faced 50 real tax assignments",
         text: "A post: what a tax benchmark shows about the judgment calls AI still misses.",
+      },
+      {
+        href: "/blog/accounting-firms-ai-adoption-no-policy",
+        label: "Most accounting firms use AI, few have a policy",
+        text: "A post: what a Rightworks survey says, and what to ask your accountant.",
       },
       {
         href: "/blog",
