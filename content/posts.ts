@@ -78,6 +78,133 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "clients-check-accountants-with-ai",
+    title: "AI accounting clients are checking their accountant's work.",
+    seoTitle: "AI Accounting Clients Check Their Accountant's Work",
+    description:
+      "AI accounting clients: TaxDome says 74% of clients who use AI have checked, or would check, their accountant's work with AI. What to ask, and what to do.",
+    author: "Hiroshi Murakami",
+    datePublished: "2026-11-19",
+    dateModified: "2026-11-19",
+    lead: "TaxDome's 2026 Accounting Client Satisfaction Report says 74% of clients who use AI have checked, or would consider checking, their accountant's work with AI. And 93% of clients want to know if their accountant uses AI on their return. So AI accounting clients are now a real group. Here is what the survey found, and what to ask your accountant.",
+    glance: [
+      "TaxDome says 74% of clients who use AI have checked, or would consider checking, their accountant's work with AI.",
+      "93% of clients want to know if their accountant uses AI on their return.",
+      "94% say a quick response matters, and 60% feel better knowing a human reviews all the work.",
+    ],
+    sections: [
+      {
+        id: "what-the-report-found",
+        title: "What the report found",
+        paragraphs: [
+          "TaxDome surveyed 1,000 US clients who use an accountant or tax professional. This is its second survey of accounting clients, after the first edition in 2024. It was released on November 18, 2026.",
+          "The headline: 74% of clients who use AI have checked, or would consider checking, their accountant's work with AI. CPA Practice Advisor adds that 1 in 5 clients (20%) have already used AI to review work their accountant completed. Also, 68% have at least tried AI for taxes or finances. Only 3% have used AI on an actual return.",
+        ],
+      },
+      {
+        id: "do-clients-want-to-know-their-accountant-uses-ai",
+        title: "Do clients want to know their accountant uses AI?",
+        paragraphs: [
+          "Yes. 93% of clients want to know if their accountant uses AI on their return. And 60% say knowing a human still reviews all the work would make them comfortable with a service that uses AI.",
+          "Clients who have used AI to check their accountant's work are 5 times as likely to feel more confident knowing their accountant uses AI, compared with clients who have never used it.",
+        ],
+      },
+      {
+        id: "speed-and-replies",
+        title: "Speed and replies matter most",
+        paragraphs: [
+          "94% of clients say it is very or extremely important that their accountant responds quickly. Only 62% say the same about completing work faster. Among clients who have considered leaving their accountant, 52% rank slow responses in their top three reasons.",
+          "Clients may also pay for speed. 95% of business owners spending $10,000 or more a year on accounting would pay more for faster service. Across all clients, the share willing to pay more rose from 20% in 2024 to 53% in 2026.",
+        ],
+      },
+      {
+        id: "who-ran-the-report",
+        title: "Who ran the report",
+        paragraphs: [
+          "TaxDome sells practice management software to accounting firms, more than 15,000 of them. So it has a commercial interest. The survey dates, fieldwork vendor and margin of error are not stated, and I found no independent check. Read it as a vendor's view.",
+          "Ilya Radzinsky, TaxDome's co-founder and chief product officer, said: \"In the age of AI, the firms that win will be the ones closest to their clients.\"",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the report.",
+        "Do not fear this. AI-checked work should make everyone more accurate, and openness wins trust. The best answer to a client with an AI tool is an accountant who uses AI openly and keeps a human reviewing.",
+        "If you own a business, ask your accountant three questions. Do you use AI on my books? Who reviews it? How fast do you reply? Our post on [AI policy for accounting firms](/blog/accounting-firms-ai-adoption-no-policy) shows why a clear answer matters.",
+        "If you are an accountant, tell clients where you use AI. Reply fast, because replies matter more than speed of work. Use AI to stay close to the client, for example with [AI follow-ups](/services/ai-follow-ups) that keep people informed. For the books themselves, see [AI accounting](/services/ai-accounting).",
+      ],
+    },
+    forYou: [
+      "Owners: ask your accountant if they use AI on your books, who reviews it, and how fast they reply.",
+      "Accountants: tell clients where AI is used, keep a human reviewing, and reply quickly.",
+      "Everyone: AI checks can make the work more accurate, and openness builds trust.",
+    ],
+    source: {
+      publisher: "TaxDome, via PR Newswire",
+      title:
+        "TaxDome's 2026 Client Report Finds 3 in 4 AI Users Would Fact-Check Their Accountant With AI",
+      note: "Press release, November 18, 2026. Also covered by Jason Bramwell in CPA Practice Advisor, November 18, 2026. TaxDome is a software vendor for accounting firms, so it has a commercial interest, and the survey details are not fully stated.",
+      links: [
+        {
+          href: "https://www.prnewswire.com/news-releases/taxdomes-2026-client-report-finds-3-in-4-ai-users-would-fact-check-their-accountant-with-ai-302943247.html",
+          label: "Read the TaxDome press release on PR Newswire",
+        },
+        {
+          href: "https://www.cpapracticeadvisor.com/2026/11/18/many-ai-adopting-clients-would-use-ai-to-fact-check-their-accountants-work-taxdome-report-says/194273/",
+          label: "Read the article on CPA Practice Advisor",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/accounting-firms-ai-adoption-no-policy",
+        label: "AI policy for accounting firms",
+        text: "A post: most firms use AI, few have a policy.",
+      },
+      {
+        href: "/blog/numica-buys-retiring-accounting-firms",
+        label: "An AI start-up is buying retiring accountants' firms",
+        text: "A post: Numica runs small accounting firms on AI, with accountants checking the output.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Want to know where AI fits in your books?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at where AI helps, and who should review it. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/clients-check-accountants-with-ai-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A business owner at a laptop in a dark office reviewing a financial report beside a faint ember-lit AI figure",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "do-clients-want-to-know-their-accountant-uses-ai",
+        image: {
+          src: "/images/blog/clients-check-accountants-with-ai-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "An accountant and a client at a desk reviewing a ledger together while an ember-lit AI figure checks the numbers",
+          caption:
+            "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "accounting-firms-ai-adoption-no-policy",
     title: "AI policy for accounting firms: most use AI, few have a policy.",
     seoTitle: "AI Policy for Accounting Firms: Survey | Hiroshi Murakami",
@@ -172,6 +299,11 @@ export const POSTS: Post[] = [
         href: "/blog/numica-buys-retiring-accounting-firms",
         label: "An AI start-up is buying retiring accountants' firms",
         text: "A post: Numica runs small accounting firms on AI, with accountants checking the output.",
+      },
+      {
+        href: "/blog/clients-check-accountants-with-ai",
+        label: "AI accounting clients are checking their accountant's work",
+        text: "A post: TaxDome says most clients who use AI would check their accountant with AI.",
       },
       {
         href: "/blog",
