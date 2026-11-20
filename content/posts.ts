@@ -78,6 +78,148 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "chatgpt-for-accounting-launch",
+    title: "ChatGPT for Accounting: what small businesses and accountants should do.",
+    seoTitle: "ChatGPT for Accounting: What to Do With It",
+    description:
+      "ChatGPT for Accounting launched on 18 November 2026. It drafts entries and reconciles bank lines, and a person approves. What owners should do.",
+    author: "Hiroshi Murakami",
+    datePublished: "2026-11-20",
+    dateModified: "2026-11-20",
+    lead: "OpenAI launched ChatGPT for Accounting on 18 November 2026. It is a free Accounting plugin, plus partner plugins for QuickBooks, Xero, NetSuite and more. It prepares drafts, and a person approves every change. Here is what it does, and what to do with it.",
+    glance: [
+      "ChatGPT for Accounting combines a free Accounting plugin from OpenAI with partner plugins for QuickBooks Online, Xero, Oracle NetSuite, BILL, FreshBooks, Rillet and Campfire.",
+      "It can draft entries from invoices and receipts, reconcile bank lines and prepare month-end reports. OpenAI says \"You make the final call.\"",
+      "Outside benchmarks say AI is not yet reliable enough to close the books alone, so a review step matters.",
+    ],
+    sections: [
+      {
+        id: "what-chatgpt-for-accounting-does",
+        title: "What ChatGPT for Accounting does",
+        paragraphs: [
+          "OpenAI announced it on 18 November 2026 through the official ChatGPT account on X, one day after ChatGPT for Sales. It targets invoice and receipt entries, bank reconciliation, month-end and client reports, data entry and audit preparation.",
+          "OpenAI said it can prepare draft entries from invoices and receipts, suggest account classifications and flag unclear information. It can pull together invoices, bank statements and payment records from connected apps, emails and files.",
+        ],
+      },
+      {
+        id: "month-end-and-reusable-skills",
+        title: "Month-end reports and reusable skills",
+        paragraphs: [
+          "At month-end, it can use your existing templates and records to prepare reports, explain key changes and point to supporting information. It can flag possible duplicate entries, missing information and unexplained differences.",
+          "You can save templates, instructions and review procedures as reusable skills, then repeat them each month.",
+        ],
+      },
+      {
+        id: "a-person-approves-every-change",
+        title: "A person approves every change",
+        paragraphs: [
+          "OpenAI says: \"You make the final call.\" Users check records, calculations and suggested classifications before approving. OpenAI's help page says to compare proposed entries with the original invoices. If an entry status is unclear, check the accounting app before retrying, to avoid a duplicate.",
+          "On privacy, OpenAI said information from ChatGPT Business and Enterprise is not used to train its models by default. Workspace admins control which apps are enabled.",
+        ],
+      },
+      {
+        id: "setup-and-where-xero-fits",
+        title: "Setup, and where Xero fits",
+        paragraphs: [
+          "It runs in the ChatGPT desktop app, with computer use set up. Business members can install Accounting without admin approval. In Enterprise, an admin must approve it first. The plugin is free, but usage varies by plan. You upload an Excel template and files, or connect an accounting app.",
+          "Xero also expanded its OpenAI integration, so accountants can start month-end close reviews inside ChatGPT using live Xero data. Actions are taken back in Xero, \"where your ledger lives and where every change stays traceable.\" Xero says this is currently available in the US.",
+        ],
+      },
+      {
+        id: "how-reliable-is-it",
+        title: "How reliable is it?",
+        paragraphs: [
+          "i-scoop.eu reports that single tasks often work, but close work is not reliable every time. On the APEX-Accounting benchmark (Mercor with Ramp), the best model solves 21.5% of tasks at least once in eight attempts, and 2.6% every time. The authors wrote: \"An agent that is usually correct but not reliably so cannot yet close the books unsupervised.\"",
+          "In one independent test, it matched a $1,465 deposit to $1,500 of receipts less a $35 fee, and left an unexplained $120 debit open.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the sources.",
+        "Use it for the first pass, not the last word. Let AI draft invoice entries, match bank lines and prepare the month-end report. Then a person checks each one against the original document. It prepares drafts. It does not replace the books or the accountant.",
+        "A clean ledger comes first, because tidy categories and complete records make better drafts. For help, see [AI accounting](/services/ai-accounting).",
+        "Accountants: write down your review step. Our post on [Microsoft's accounting skills in Copilot for Excel](/blog/copilot-accounting-skills-excel) shows the same pattern. For work across several apps, [AI agents](/services/ai-agents) can help.",
+      ],
+    },
+    forYou: [
+      "Owners: let AI do the first pass on reconciliation, invoice entry and month-end reports, with a person approving.",
+      "Accountants: save your review step as a skill, and compare every entry with the source document.",
+      "Everyone: keep the ledger clean. It prepares drafts, not the books.",
+    ],
+    source: {
+      publisher: "OpenAI, with reporting from ANI",
+      title: "Using ChatGPT for accounting work",
+      note: "OpenAI help centre article, and ANI, \"OpenAI launches accounting plugin for ChatGPT, targets bookkeeping and financial reporting tasks\", 19 November 2026. Further reading: the Xero blog and i-scoop.eu.",
+      links: [
+        {
+          href: "https://help.openai.com/en/articles/20001709-using-chatgpt-for-accounting-work",
+          label: "Read the OpenAI help centre article",
+        },
+        {
+          href: "https://www.aninews.in/news/business/openai-launches-accounting-plugin-for-chatgpt-targets-bookkeeping-and-financial-reporting-tasks20261119123610/",
+          label: "Read the ANI report",
+        },
+        {
+          href: "https://blog.xero.com/news-events/openai-integration-chatgpt-for-accounting/",
+          label: "Further reading: the Xero blog",
+        },
+        {
+          href: "https://www.i-scoop.eu/chatgpt-for-accounting-europe/",
+          label: "Further reading: i-scoop.eu",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/copilot-accounting-skills-excel",
+        label: "Accounting skills in Copilot for Excel",
+        text: "A post: Microsoft puts accounting skills in Copilot for Excel.",
+      },
+      {
+        href: "/blog/clients-check-accountants-with-ai",
+        label: "AI accounting clients are checking their accountant's work",
+        text: "A post: what clients want to know about AI in their books.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Want a clean first pass on your books?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at where AI drafts the work, and who reviews it. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/chatgpt-for-accounting-launch-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A small business owner at a desk at night reviewing a bank reconciliation on a laptop while a glowing ember figure of AI stands beside them.",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "month-end-and-reusable-skills",
+        image: {
+          src: "/images/blog/chatgpt-for-accounting-launch-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "An accountant checking a month-end report on a screen with an ember glow of AI beside the figures, ready to approve each entry.",
+          caption:
+            "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "clients-check-accountants-with-ai",
     title: "AI accounting clients are checking their accountant's work.",
     seoTitle: "AI Accounting Clients Check Their Accountant's Work",
@@ -162,6 +304,11 @@ export const POSTS: Post[] = [
         href: "/services/ai-accounting",
         label: "AI Accounting",
         text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/chatgpt-for-accounting-launch",
+        label: "ChatGPT for Accounting",
+        text: "A post: OpenAI's new accounting plugin drafts the work, and a person approves.",
       },
       {
         href: "/blog/accounting-firms-ai-adoption-no-policy",
