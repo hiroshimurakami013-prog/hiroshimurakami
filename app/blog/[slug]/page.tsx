@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  ArrowRight,
   ArrowUpRight,
   CheckCircle,
   Compass,
@@ -14,13 +13,17 @@ import {
   POSTS,
   formatPostDate,
   getPost,
+  latestPosts,
   type PostImage,
+  type PostLink,
 } from "@/content/posts";
+import { getService } from "@/content/services";
 import { articleJsonLd } from "@/lib/schema";
 import { pageMetadata } from "@/lib/site";
 import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta } from "../../components/cta";
 import JsonLd from "../../components/json-ld";
+import PostList, { PostListLink } from "../../components/post-list";
 import RevealObserver from "../../components/reveal-observer";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
@@ -114,6 +117,35 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
   const headline = post.title.replace(/\.$/, "");
   const sourceLink = post.source.links[0];
 
+  // "More from the blog": the three newest other posts, then the post's
+  // service page, then its hand-picked links that are not listed yet, and
+  // the blog index last.
+  const newest = latestPosts(3, post.slug);
+  const service = getService(post.service);
+  const listed = new Set(newest.map((p) => `/blog/${p.slug}`));
+  const more: PostLink[] = [];
+  for (const l of [
+    ...(service
+      ? [
+          {
+            href: `/services/${service.slug}`,
+            label: service.name,
+            text: `The service behind this post. ${service.summary}`,
+          },
+        ]
+      : []),
+    ...post.related,
+    {
+      href: "/blog",
+      label: "All posts",
+      text: "Every post on the blog, newest first.",
+    },
+  ]) {
+    if (listed.has(l.href)) continue;
+    listed.add(l.href);
+    more.push(l);
+  }
+
   return (
     <>
       <JsonLd
@@ -134,7 +166,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
         Skip to content
       </a>
 
-      <SiteHeader />
+      <SiteHeader current="/blog" />
 
       <main id="main" tabIndex={-1}>
         <article aria-labelledby="page-title">
@@ -249,24 +281,16 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           </div>
         </article>
 
-        <section className="block" aria-labelledby="keep-reading-title">
+        <section className="block" aria-labelledby="more-title">
           <div className="wrap post-column">
-            <h2 id="keep-reading-title" className="block-title-sm" data-reveal>
-              Keep reading
+            <h2 id="more-title" className="block-title-sm" data-reveal>
+              More from the blog
             </h2>
-            <ul className="nf-links mt-7">
-              {post.related.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="nf-link">
-                    <span>
-                      <span className="nf-link-label">{l.label}</span>
-                      <span className="nf-link-text">{l.text}</span>
-                    </span>
-                    <ArrowRight size={20} weight="bold" aria-hidden="true" />
-                  </Link>
-                </li>
+            <PostList posts={newest} className="mt-7">
+              {more.map((l) => (
+                <PostListLink key={l.href} {...l} />
               ))}
-            </ul>
+            </PostList>
           </div>
         </section>
 

@@ -34,7 +34,7 @@ export default function BlogPage() {
         Skip to content
       </a>
 
-      <SiteHeader />
+      <SiteHeader current="/blog" />
 
       <main id="main" tabIndex={-1}>
         <section className="page-hero" aria-labelledby="page-title">

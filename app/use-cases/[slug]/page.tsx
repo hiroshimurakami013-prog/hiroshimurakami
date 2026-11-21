@@ -10,6 +10,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { imageForUseCase } from "@/content/images";
 import { getLocation } from "@/content/locations";
+import { postsForPage } from "@/content/posts";
 import { getService } from "@/content/services";
 import { USE_CASES, getUseCase, siblingUseCase } from "@/content/use-cases";
 import { scenarioJsonLd } from "@/lib/schema";
@@ -18,6 +19,7 @@ import AreaBand from "../../components/area-band";
 import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../../components/cta";
 import JsonLd from "../../components/json-ld";
+import { FromTheBlog } from "../../components/post-list";
 import RevealObserver from "../../components/reveal-observer";
 import Scene, { HERO_SIZES } from "../../components/scene";
 import SiteFooter from "../../components/site-footer";
@@ -256,6 +258,12 @@ export default async function UseCasePage({
             </div>
           </div>
         </section>
+
+        {/* Posts about this use case's service, when there are any */}
+        <FromTheBlog
+          posts={postsForPage(`/use-cases/${useCase.slug}`, service.slug, 2)}
+          text={`Recent posts on ${service.name} that bear on this scenario, with every source credited and my own opinion labelled.`}
+        />
 
         {/* Los Angeles area */}
         <AreaBand

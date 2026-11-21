@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { onScrollFrame } from "./components/scroll-frame";
 
-// Services, Use cases and Locations go to their hubs, Process is an in-page section.
-// Each link still tracks its section on the home page. Narrow
-// screens keep fewer links, to leave room for the call to action.
+// Services, Use cases, Locations and Blog go to their pages, Process is an
+// in-page section. Each link still tracks its section on the home page.
+// Narrow screens keep fewer links, to leave room for the call to action.
 const links = [
   { id: "services", href: "/services", label: "Services", show: undefined },
   {
@@ -21,7 +21,8 @@ const links = [
     label: "Locations",
     show: "hidden min-[560px]:block",
   },
-  { id: "process", href: "#process", label: "Process", show: "hidden md:block" },
+  { id: "process", href: "#process", label: "Process", show: "hidden lg:block" },
+  { id: "blog", href: "/blog", label: "Blog", show: "hidden md:block" },
 ];
 
 // Marks the section in the middle of the viewport. One highlight glides

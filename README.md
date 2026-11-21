@@ -10,7 +10,7 @@ The build plan and its status live in `docs/BUILD-PLAN.md`, the source of truth 
 
 All routes are statically generated (51 pages plus a branded 404):
 
-- `/`: home, positioning for AI automation and AI accounting, services, use case highlights, the Los Angeles area band, process and a closing call to action.
+- `/`: home, positioning for AI automation and AI accounting, services, use case highlights, the Los Angeles area band, process, the latest blog posts and a closing call to action.
 - `/services` and 8 service pages under `/services/<slug>`.
 - `/use-cases` and 24 use case pages under `/use-cases/<slug>`, three per service. They are illustrative scenarios, labelled "Use case".
 - `/locations` and 10 Los Angeles area city pages under `/locations/<city>`, each with its own angle, remote-first.
@@ -49,18 +49,20 @@ Rules for all copy: "AI" in capitals, no em or en dashes, no invented clients, t
 
 ## Blog
 
-`/blog` lists every post in `content/posts.ts`, newest first. Each post is rendered by `app/blog/[slug]/page.tsx` with a byline and date, an "At a glance" list, the reported sections, a labelled "My take", a "What this means for you" box, a "Source" section, "Keep reading" links and the closing call to action. Its Open Graph image comes from `app/blog/[slug]/opengraph-image.tsx`, its JSON-LD from `articleJsonLd()`. The blog is linked from the shared footer only, to keep the headers uncrowded on narrow screens.
+`/blog` lists every post in `content/posts.ts`, newest first. Each post is rendered by `app/blog/[slug]/page.tsx` with a byline and date, an "At a glance" list, the reported sections, a labelled "My take", a "What this means for you" box, a "Source" section, a "More from the blog" block and the closing call to action. "More from the blog" lists the three newest other posts, then the post's service page, then its `related` links not listed yet and the blog index. Its Open Graph image comes from `app/blog/[slug]/opengraph-image.tsx`, its JSON-LD from `articleJsonLd()`.
+
+Internal links to posts are built from `POSTS`, so a new post shows up everywhere on its own: "Blog" in the header of every page (from 768 px up; it is always in the HTML) and in the footer, "Latest from the blog" on the home page (the three newest posts), and "From the blog" on the page of the post's `service` and that service's use case pages (two posts, those that already link to the page first, then the newest). The rows are rendered by `app/components/post-list.tsx`, and `postsForPage()` and `latestPosts()` in `content/posts.ts` pick them.
 
 To add a post:
 
-1. Add a `Post` object at the top of `POSTS` in `content/posts.ts`: `slug` (lowercase, hyphens), `title` (the H1, a sentence ending in a full stop, which becomes the ember dot), `seoTitle` (60 characters or fewer), `description` (155 or fewer), `author`, `datePublished` (and `dateModified` after an edit) as `YYYY-MM-DD`, `lead`, three `glance` points, `sections`, `take`, `forYou`, `source` (publisher, title and the links) and `related` internal links.
+1. Add a `Post` object at the top of `POSTS` in `content/posts.ts`: `slug` (lowercase, hyphens), `title` (the H1, a sentence ending in a full stop, which becomes the ember dot), `seoTitle` (60 characters or fewer), `description` (155 or fewer), `author`, `service` (the slug of the service the post is about), `datePublished` (and `dateModified` after an edit) as `YYYY-MM-DD`, `lead`, three `glance` points, `sections`, `take`, `forYou`, `source` (publisher, title and the links) and `related` internal links.
 2. Use only facts the source states, and credit it. No invented numbers, names, clients or claims. Keep the opinion in `take`, starting with a line that says it is opinion.
 3. Keep the copy (lead, glance, sections, take and box) between 450 and 650 words. `npm run check` counts it.
 4. Link 3 to 5 relevant pages inline: in the lead, section and take paragraphs and the box, write `[anchor text](/path)` with descriptive anchor text, only internal paths that exist, the first mention only. At least one of them links to another post, and `related` should list other posts too, not only service pages. The markup is not counted as words.
 5. Every post needs 2 images in `images`, 1600 by 900 WebP files under `public/images/blog/` in the site's look: a `hero` under the lead and an `inline` one after the section named in `afterSectionId`. At least one of them shows a real person. Alt text is required, captions are optional.
 6. Routes, the sitemap and the blog index pick the post up from `POSTS`; nothing else needs editing. Then run `npm run build`, `npm run lint` and `npm run check`.
 
-`npm run check` verifies the byline, the `<time>` date, Article JSON-LD (headline, author, dates, publisher), the three glance points, the opinion label, every source link opening in a new tab with `rel="noopener"`, a link back to `/blog`, the word count, at least 3 inline internal links per post (one to another post, each target once), that every post is linked from at least two other pages, and that the index links every post.
+`npm run check` verifies the byline, the `<time>` date, Article JSON-LD (headline, author as a Person, published and modified dates, the hero image, publisher), the Blog link in the main navigation, the three newest posts and /blog on the home page, the three newest other posts and the service page on each post, two posts on each service and use case page whose service has posts, the three glance points, the opinion label, every source link opening in a new tab with `rel="noopener"`, a link back to `/blog`, the word count, at least 3 inline internal links per post (one to another post, each target once), that every post is linked from at least two other pages, and that the index links every post.
 
 ## Design
 

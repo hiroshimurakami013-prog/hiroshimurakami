@@ -3,6 +3,7 @@ import StaticImage from "./components/static-image";
 import Link from "next/link";
 import { ArrowRight, Asterisk, CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import { LOCATIONS } from "@/content/locations";
+import { latestPosts } from "@/content/posts";
 import { PROCESS_STEPS, SERVICES } from "@/content/services";
 import { USE_CASE_HIGHLIGHTS } from "@/content/use-cases";
 import { HOME_DESCRIPTION, homeJsonLd } from "@/lib/schema";
@@ -16,6 +17,7 @@ import Flow from "./components/flow";
 import HeroSection from "./components/hero-parallax";
 import JsonLd from "./components/json-ld";
 import Marquee from "./components/marquee";
+import PostList from "./components/post-list";
 import ProcessSteps from "./components/process-steps";
 import RevealObserver from "./components/reveal-observer";
 import ScrollWords from "./components/scroll-words";
@@ -289,6 +291,29 @@ export default function Home() {
             <div className="mt-14 md:mt-24">
               <ProcessSteps steps={PROCESS_STEPS} />
             </div>
+          </div>
+        </section>
+
+        {/* Latest from the blog: the three newest posts, read from POSTS */}
+        <section id="blog" aria-labelledby="blog-title" className="section pt-0">
+          <div className="wrap">
+            <h2 id="blog-title" className="h2 words max-w-[17ch]" data-reveal>
+              <Words text="Latest from the blog" />
+            </h2>
+            <p className="lead mt-6 max-w-[50ch]" data-reveal="blur">
+              Short notes for owners and accountants on what is new in AI, with
+              every source credited and my own opinion labelled.
+            </p>
+            <PostList posts={latestPosts(3)} className="mt-12 md:mt-16" />
+            <p className="mt-10" data-reveal>
+              <Link
+                href="/blog"
+                className="text-link inline-flex items-center gap-2 font-medium"
+              >
+                Read all posts
+                <ArrowRight size={16} weight="bold" aria-hidden="true" />
+              </Link>
+            </p>
           </div>
         </section>
 

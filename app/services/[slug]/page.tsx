@@ -10,6 +10,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { SERVICE_IMAGES } from "@/content/images";
 import { citiesForService } from "@/content/locations";
+import { postsForPage } from "@/content/posts";
 import { SERVICES, getService } from "@/content/services";
 import { casesForService } from "@/content/use-cases";
 import { serviceJsonLd } from "@/lib/schema";
@@ -18,6 +19,7 @@ import AreaBand from "../../components/area-band";
 import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../../components/cta";
 import JsonLd from "../../components/json-ld";
+import { FromTheBlog } from "../../components/post-list";
 import RevealObserver from "../../components/reveal-observer";
 import Scene, { HERO_SIZES } from "../../components/scene";
 import { SERVICE_ICONS } from "../../components/service-icons";
@@ -330,6 +332,12 @@ export default async function ServicePage({
             </ul>
           </div>
         </section>
+
+        {/* Posts about this service, when there are any */}
+        <FromTheBlog
+          posts={postsForPage(`/services/${service.slug}`, service.slug, 2)}
+          text={`Recent posts on ${service.name}: what changed, what it means for owners and accountants, and where a person stays in charge.`}
+        />
 
         {/* Los Angeles area */}
         <AreaBand

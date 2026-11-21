@@ -3,6 +3,8 @@
 // its own opinion clearly labelled. Only use facts the source states: no
 // invented numbers, names, clients or claims.
 
+import type { ServiceSlug } from "./services";
+
 export type PostSection = {
   /** In-page anchor, kebab-case. */
   id: string;
@@ -42,6 +44,12 @@ export type Post = {
   /** Meta description, 155 characters or fewer. */
   description: string;
   author: string;
+  /**
+   * The service the post is about. Its page is linked under "More from the
+   * blog", and the service and its use case pages list the post under
+   * "From the blog".
+   */
+  service: ServiceSlug;
   /** ISO dates (YYYY-MM-DD). */
   datePublished: string;
   dateModified?: string;
@@ -84,6 +92,7 @@ export const POSTS: Post[] = [
     description:
       "Which accounting software does AI recommend? A study found QuickBooks in about three in four answers. Use AI as a shortlist, then check fit.",
     author: "Hiroshi Murakami",
+    service: "ai-accounting",
     datePublished: "2026-11-21",
     dateModified: "2026-11-21",
     lead: "Which accounting software does AI recommend? If you ask ChatGPT or Google AI, the answer is often QuickBooks. A study reported by Accounting Today on 19 November 2026 puts numbers on it. Here is what it found, and how to use the answer.",
@@ -212,6 +221,7 @@ export const POSTS: Post[] = [
     description:
       "ChatGPT for Accounting launched on 18 November 2026. It drafts entries and reconciles bank lines, and a person approves. What owners should do.",
     author: "Hiroshi Murakami",
+    service: "ai-accounting",
     datePublished: "2026-11-20",
     dateModified: "2026-11-20",
     lead: "OpenAI launched ChatGPT for Accounting on 18 November 2026. It is a free Accounting plugin, plus partner plugins for QuickBooks, Xero, NetSuite and more. It prepares drafts, and a person approves every change. Here is what it does, and what to do with it.",
@@ -359,6 +369,7 @@ export const POSTS: Post[] = [
     description:
       "AI accounting clients: TaxDome says 74% of clients who use AI have checked, or would check, their accountant's work with AI. What to ask, and what to do.",
     author: "Hiroshi Murakami",
+    service: "ai-accounting",
     datePublished: "2026-11-19",
     dateModified: "2026-11-19",
     lead: "TaxDome's 2026 Accounting Client Satisfaction Report says 74% of clients who use AI have checked, or would consider checking, their accountant's work with AI. And 93% of clients want to know if their accountant uses AI on their return. So AI accounting clients are now a real group. Here is what the survey found, and what to ask your accountant.",
@@ -491,6 +502,7 @@ export const POSTS: Post[] = [
     description:
       "AI policy for accounting firms: Rightworks says 71% use or test AI, but 63% of users have no formal policy. What to ask your accountant.",
     author: "Hiroshi Murakami",
+    service: "ai-accounting",
     datePublished: "2026-11-18",
     dateModified: "2026-11-18",
     lead: "A new Rightworks survey says 71% of accounting and tax firms now use or test AI, up from 40% in 2024. But 63% of the firms using AI have no formal AI policy. If your accountant uses AI on your [books](/services/ai-accounting), here is what the survey found, what to ask, and why an AI policy for accounting firms should fit on one page.",
@@ -623,6 +635,7 @@ export const POSTS: Post[] = [
     description:
       "Copilot in Excel can now draft reconciliations, journal entries and reports. What Microsoft announced, when it arrives, and who should approve the work.",
     author: "Hiroshi Murakami",
+    service: "ai-accounting",
     datePublished: "2026-11-12",
     dateModified: "2026-11-12",
     lead: "Microsoft has announced accounting skills for Copilot in Excel. It can draft reconciliations, journal entries and reports, and a person reviews and approves the work. Here is what happened, and what it means if you or a bookkeeper keep your books.",
@@ -763,6 +776,7 @@ export const POSTS: Post[] = [
     description:
       "Numica raised $21M to buy small accounting firms from retiring owners and run them on AI. What it does, why now, and what it means for business owners.",
     author: "Hiroshi Murakami",
+    service: "ai-accounting",
     datePublished: "2026-11-11",
     dateModified: "2026-11-12",
     lead: "A New York start-up called Numica has raised $21M to buy small accounting firms from owners close to retirement, then run the work on its own AI system. Here is what happened, and why it matters if a small firm keeps your books.",
@@ -890,6 +904,7 @@ export const POSTS: Post[] = [
     description:
       "A new benchmark gave AI agents 50 real tax assignments and the best passed 10.8%. What it found, and what it means for accountants and business owners.",
     author: "Hiroshi Murakami",
+    service: "ai-accounting",
     datePublished: "2026-10-29",
     dateModified: "2026-11-12",
     lead: "A new benchmark gave AI agents 50 real tax assignments. The best agent passed 10.8% of them. Here is what happened.",
@@ -1020,6 +1035,40 @@ export const POSTS: Post[] = [
 
 export function getPost(slug: string): Post | undefined {
   return POSTS.find((p) => p.slug === slug);
+}
+
+/** The newest posts, optionally leaving one out (POSTS is newest first). */
+export function latestPosts(count: number, exceptSlug?: string): Post[] {
+  return POSTS.filter((p) => p.slug !== exceptSlug).slice(0, count);
+}
+
+/** Every internal path a post links to, inline or under "Keep reading". */
+function postTargets(post: Post): Set<string> {
+  const texts = [
+    post.lead,
+    ...post.sections.flatMap((s) => s.paragraphs),
+    ...post.take.paragraphs,
+    ...post.forYou,
+  ];
+  const targets = new Set(post.related.map((l) => l.href));
+  for (const t of texts) for (const m of t.matchAll(INLINE_LINK)) targets.add(m[2]);
+  return targets;
+}
+
+/**
+ * The posts most relevant to a page of one service: posts that already link
+ * to that page come first, then the newest other posts about the service.
+ * Newest first within each group, so new posts show up on their own.
+ */
+export function postsForPage(
+  path: string,
+  service: ServiceSlug,
+  count: number,
+): Post[] {
+  const own = POSTS.filter((p) => p.service === service);
+  const linking = own.filter((p) => postTargets(p).has(path));
+  const rest = own.filter((p) => !linking.includes(p));
+  return [...linking, ...rest].slice(0, count);
 }
 
 /** "October 29, 2026" from "2026-10-29", independent of the time zone. */

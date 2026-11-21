@@ -31,7 +31,8 @@
 //   at least two other pages; each use case page links to its cities
 // - the blog hub lists and links every post in content/posts.ts with
 //   CollectionPage JSON-LD; each post has a byline and date, Article JSON-LD
-//   by the author with its real dates, an "At a glance" list of three, a
+//   with its headline, the author as a Person, its real published and
+//   modified dates and its hero image, an "At a glance" list of three, a
 //   labelled opinion section, its source links opening in a new tab with
 //   rel="noopener", a link back to /blog and 450 to 650 words of copy
 //   (counted without the [anchor text](/path) link markup); at least three
@@ -374,6 +375,38 @@ for (const page of pages) {
     if (list.length !== POSTS.length) fail(where, `CollectionPage lists ${list.length} posts, expected ${POSTS.length}`);
   }
 
+  // Internal links that help new posts get found: Blog in the header of
+  // every page, the three newest posts on the home page, and on each post
+  // the three newest other posts and its service page.
+  if (!page.notFound) {
+    // The legal pages keep their quiet header with only a home link.
+    const header = doc.match(/<header\b[\s\S]*?<\/header>/i)?.[0] ?? "";
+    if (/aria-label="Main"/.test(header) && !(header.match(/<a\b[^>]*>/gi) ?? []).some((t) => attr(t, "href") === "/blog"))
+      fail(where, "no Blog link in the main navigation");
+    const main = doc.match(/<main\b[\s\S]*?<\/main>/i)?.[0] ?? "";
+    const hrefs = new Set((main.match(/<a\b[^>]*>/gi) ?? []).map((t) => attr(t, "href")));
+    const expected =
+      page.path === "/"
+        ? [...POSTS.slice(0, 3).map((p) => `/blog/${p.slug}`), "/blog"]
+        : postFor(page.path)
+          ? [
+              ...POSTS.filter((p) => `/blog/${p.slug}` !== page.path)
+                .slice(0, 3)
+                .map((p) => `/blog/${p.slug}`),
+              `/services/${postFor(page.path).service}`,
+            ]
+          : [];
+    for (const href of expected) if (!hrefs.has(href)) fail(where, `no link to ${href}`);
+    // Service and use case pages list up to two posts about their service.
+    const service =
+      SERVICES.find((s) => page.path === `/services/${s.slug}`)?.slug ??
+      USE_CASES.find((u) => page.path === `/use-cases/${u.slug}`)?.service;
+    const own = POSTS.filter((p) => p.service === service);
+    const shown = own.filter((p) => hrefs.has(`/blog/${p.slug}`)).length;
+    if (service && shown < Math.min(2, own.length))
+      fail(where, `links to ${shown} posts about ${service} (expected ${Math.min(2, own.length)})`);
+  }
+
   // Blog posts: byline, dates, Article markup, the labelled parts, the
   // credited source and a sensible length.
   const post = postFor(page.path);
@@ -383,12 +416,19 @@ for (const page of pages) {
     if (!text.includes(`By ${post.author}`)) fail(where, "missing the byline");
     if (!main.includes(`<time dateTime="${post.datePublished}"`) && !main.includes(`<time datetime="${post.datePublished}"`))
       fail(where, `missing <time> for ${post.datePublished}`);
-    const article = typed("Article")[0];
-    if (!article) fail(where, "missing Article JSON-LD");
+    const article = typed("Article")[0] ?? typed("BlogPosting")[0];
+    if (!article) fail(where, "missing Article or BlogPosting JSON-LD");
     else {
       if (article.headline !== post.title) fail(where, "Article headline differs from the post title");
-      if (article.author?.name !== post.author) fail(where, "Article author differs from the byline");
+      if (article.author?.["@type"] !== "Person" || article.author?.name !== post.author)
+        fail(where, "Article author is not the Person in the byline");
       if (article.datePublished !== post.datePublished) fail(where, "Article datePublished differs from the post");
+      if (article.dateModified !== (post.dateModified ?? post.datePublished))
+        fail(where, "Article dateModified differs from the post");
+      const image = Array.isArray(article.image) ? article.image[0] : article.image;
+      const imageUrl = typeof image === "string" ? image : image?.url;
+      if (imageUrl !== `${SITE_URL}${post.images.hero.src}`)
+        fail(where, `Article image is ${imageUrl ?? "missing"}, expected the post's hero image`);
       if (!article.publisher) fail(where, "Article JSON-LD has no publisher");
     }
     if (post.glance.length !== 3) fail(where, `"At a glance" has ${post.glance.length} points (expected 3)`);
