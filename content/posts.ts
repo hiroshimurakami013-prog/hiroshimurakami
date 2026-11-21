@@ -78,6 +78,134 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "ai-recommends-quickbooks-first",
+    title: "Which accounting software does AI recommend? Mostly QuickBooks.",
+    seoTitle: "Which Accounting Software Does AI Recommend?",
+    description:
+      "Which accounting software does AI recommend? A study found QuickBooks in about three in four answers. Use AI as a shortlist, then check fit.",
+    author: "Hiroshi Murakami",
+    datePublished: "2026-11-21",
+    dateModified: "2026-11-21",
+    lead: "Which accounting software does AI recommend? If you ask ChatGPT or Google AI, the answer is often QuickBooks. A study reported by Accounting Today on 19 November 2026 puts numbers on it. Here is what it found, and how to use the answer.",
+    glance: [
+      "QuickBooks was named in 75.7% of AI answers to questions that did not name a brand, and it came first 48.1% of the time.",
+      "The study asked ChatGPT, Gemini, Google AI Mode and Google AI Overviews 75 real questions, three times each, for 886 answers.",
+      "The study's founder says the AI's first pick is \"a shortlist, not a recommendation.\"",
+    ],
+    sections: [
+      {
+        id: "what-the-study-found",
+        title: "What the study found",
+        paragraphs: [
+          "Top Search Agency, an SEO firm, published the study \"State of AI Search Visibility for SaaS 2027\". Its accounting category used data collected on 15 November 2026.",
+          "The firm asked four AI engines 75 real accounting software questions taken from Google searches. Each question was asked three times. That gave 886 answers, naming 42 different brands.",
+        ],
+      },
+      {
+        id: "who-gets-named-first",
+        title: "Who gets named, and who comes first",
+        paragraphs: [
+          "QuickBooks was named in 75.7% of answers to questions that did not name a brand. The study page frames that as a share of all 886 answers, and Accounting Today reports it for brand-neutral questions. Either way, it is about three in four answers.",
+          "Next came Xero at 56.7%, Wave at 54.9%, Zoho Books at 52.6%, FreshBooks at 40.5% and Sage at 30.7%.",
+          "QuickBooks was named first 48.1% of the time. Wave was first 10.6%, Zoho Books 10.5%, Xero 8.5%, FreshBooks 6.4% and Sage 3.4%. Overall, 70.1% of first mentions went to QuickBooks, Xero or Wave.",
+        ],
+      },
+      {
+        id: "free-software-and-head-to-head-questions",
+        title: "Free software and head-to-head questions",
+        paragraphs: [
+          "On questions about free software, Wave was named in 86% of answers, QuickBooks in 44% and Xero in 13%.",
+          "Asked \"QuickBooks vs Xero: which is better?\", QuickBooks was named first in all 12 answers. Even for problem questions, such as keeping finances ready for tax season or creating a profit and loss statement, AI tended to recommend QuickBooks.",
+        ],
+      },
+      {
+        id: "why-ai-repeats-the-web",
+        title: "Why AI repeats the web",
+        paragraphs: [
+          "QuickBooks was the most mentioned brand on all four engines. The top brand was steady too: ChatGPT gave the same number one brand across three repeated prompts 82.7% of the time, Gemini 70.7%, Google AI Mode 77.3% and AI Overviews 82.6%.",
+          "The most cited sources were QuickBooks' own site at 27.2%, YouTube at 24.2%, Wave at 23.9%, Xero at 21.9%, Reddit at 21% and NerdWallet at 18.1%.",
+          "Usman Tauqir, founder and CEO of Top Search Agency, said: \"AI assistants don't test software. They repeat what the web already says about it. QuickBooks has the largest US user base and the most reviews, comparisons and 'best accounting software' lists written about it, so it comes up first. That isn't a judgment that it's the better product.\"",
+          "One caveat: this is a study by an SEO firm that sells AI visibility services. It measures what AI says, not which product is best.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the sources.",
+        "Use the AI answer as a shortlist, then check fit. Look at price, bank feeds, what your accountant already uses, whether you need free software, and which country's tax rules you follow. Popular is not the same as right for you.",
+        "Ask your accountant before you switch. Our post on [clients checking their accountant's work with AI](/blog/clients-check-accountants-with-ai) shows why a human check still matters.",
+        "For invoices, bank matching and reports, see [AI accounting](/services/ai-accounting). For a recent example of AI inside accounting tools, read our post on [ChatGPT for Accounting](/blog/chatgpt-for-accounting-launch).",
+      ],
+    },
+    forYou: [
+      "Owners: treat the AI's first pick as a shortlist of two or three, then compare price, bank feeds and free needs.",
+      "Accountants: expect clients to arrive with an AI-picked tool, and ask what fits their books and tax country.",
+      "Everyone: AI repeats what the web says most. It does not test the software for you.",
+    ],
+    source: {
+      publisher: "Accounting Today, with Top Search Agency",
+      title: "AI accounting software recommendations favor narrow band of prominent brands",
+      note: "Accounting Today, 19 November 2026, and the Top Search Agency study \"State of AI Search Visibility for SaaS 2027\", accounting category, with data collected on 15 November 2026.",
+      links: [
+        {
+          href: "https://www.accountingtoday.com/news/ai-accounting-software-recommendations-favor-narrow-band-of-prominent-brands",
+          label: "Read the Accounting Today report",
+        },
+        {
+          href: "https://topsearchagency.com/ai-search-visibility-study/accounting/",
+          label: "Read the Top Search Agency study",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/chatgpt-for-accounting-launch",
+        label: "ChatGPT for Accounting: what to do",
+        text: "A post: what the launch means for owners and accountants.",
+      },
+      {
+        href: "/blog/clients-check-accountants-with-ai",
+        label: "AI accounting clients are checking their accountant's work",
+        text: "A post: what clients want to know about AI in their books.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Not sure which tool fits your books?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at your invoices, bank feeds and reports, and where AI helps. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/ai-recommends-quickbooks-first-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A small business owner at a night desk asking an AI assistant which accounting software to choose, with a warm ember glow from the screen",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "free-software-and-head-to-head-questions",
+        image: {
+          src: "/images/blog/ai-recommends-quickbooks-first-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "An accountant and a business owner comparing accounting software options on a laptop, an ember light tracing the shortlist",
+          caption: "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "chatgpt-for-accounting-launch",
     title: "ChatGPT for Accounting: what small businesses and accountants should do.",
     seoTitle: "ChatGPT for Accounting: What to Do With It",
@@ -187,6 +315,11 @@ export const POSTS: Post[] = [
         href: "/blog/clients-check-accountants-with-ai",
         label: "AI accounting clients are checking their accountant's work",
         text: "A post: what clients want to know about AI in their books.",
+      },
+      {
+        href: "/blog/ai-recommends-quickbooks-first",
+        label: "Which accounting software does AI recommend?",
+        text: "A post: AI names QuickBooks first, so use it as a shortlist.",
       },
       {
         href: "/blog",
