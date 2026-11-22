@@ -14,7 +14,7 @@ export default function DataDeletionPage() {
   return (
     <LegalPage
       title="Data deletion"
-      updated="October 16, 2026"
+      updated="November 22, 2026"
       intro={
         <p>
           You can ask for any data related to you to be deleted at any time.
@@ -25,8 +25,11 @@ export default function DataDeletionPage() {
       <section aria-labelledby="what">
         <h2 id="what">What data there is</h2>
         <p>
-          This website has no forms, accounts, cookies or analytics, so it does
-          not store personal data about visitors. The Meta app &quot;Hiro
+          This website has no forms or accounts, so it does not store personal
+          data about visitors. It uses Microsoft Clarity analytics, which
+          records anonymised usage and sets cookies, as explained in the{" "}
+          <Link href="/privacy">Privacy Policy</Link>. You can delete those
+          cookies in your browser at any time. The Meta app &quot;Hiro
           App&quot; only publishes content to my own Instagram account and
           Facebook Page. It does not collect or store data about anyone else.
         </p>

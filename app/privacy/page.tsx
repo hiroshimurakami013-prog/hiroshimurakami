@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FACEBOOK, INSTAGRAM, SITE_HOST, pageMetadata } from "@/lib/site";
+import { FACEBOOK, INSTAGRAM, LINKEDIN, SITE_HOST, pageMetadata } from "@/lib/site";
 import LegalPage, { External } from "../components/legal-page";
+
+const MICROSOFT_PRIVACY = "https://privacy.microsoft.com/privacystatement";
+const CLARITY_TERMS = "https://clarity.microsoft.com/terms";
 
 export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy | Hiroshi Murakami",
   description:
-    "How the Hiroshi Murakami website and the Hiro App Meta integration handle data: no cookies, no analytics, no forms, and no sale of personal data.",
+    "How the Hiroshi Murakami website and the Hiro App Meta integration handle data: Microsoft Clarity analytics and cookies, no forms, no sale of data.",
   path: "/privacy",
 });
 
@@ -14,15 +17,16 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy Policy"
-      updated="October 16, 2026"
+      updated="November 22, 2026"
       intro={
         <p>
           This policy explains, in plain language, what happens to your
           information when you visit this website or interact with the content
           Hiroshi Murakami publishes on Instagram and Facebook. The short
-          version: this website does not collect personal information, and the
-          Meta app described below only publishes to Hiroshi&apos;s own
-          accounts. The rules for using the site are in the{" "}
+          version: this website has no forms or accounts, it uses Microsoft
+          Clarity analytics to see how visitors use the pages, and the Meta app
+          described below only publishes to Hiroshi&apos;s own accounts. The
+          rules for using the site are in the{" "}
           <Link href="/terms">Terms of Service</Link>.
         </p>
       }
@@ -41,13 +45,33 @@ export default function PrivacyPage() {
 
       <section aria-labelledby="collect">
         <h2 id="collect">What this website collects</h2>
-        <p>This website is a simple information page. It has:</p>
+        <p>This website is a simple information site. It has:</p>
         <ul>
           <li>No contact forms, sign ups, accounts or log ins.</li>
-          <li>No cookies set by the website.</li>
-          <li>No analytics, advertising or tracking tools.</li>
-          <li>No third-party scripts, embeds or tracking pixels.</li>
+          <li>
+            One analytics tool, Microsoft Clarity, described below. It sets
+            cookies to recognise a returning browser.
+          </li>
+          <li>No advertising tools, advertising cookies or tracking pixels.</li>
+          <li>No embedded videos, widgets or other third-party embeds.</li>
         </ul>
+        <p>
+          <strong>Microsoft Clarity analytics.</strong> The site uses
+          Microsoft Clarity to understand how visitors use the pages, so I can
+          see what is useful and fix what is confusing. Clarity records
+          anonymised usage, such as clicks, scrolling and which pages are
+          viewed, together with technical details such as browser and device
+          type. It sets cookies in your browser to recognise a returning
+          browser. Clarity is run by Microsoft, which processes this data under
+          the{" "}
+          <External href={MICROSOFT_PRIVACY}>Microsoft Privacy Statement</External>
+          . How Clarity collects and uses data is set out on{" "}
+          <External href={CLARITY_TERMS}>Clarity&apos;s terms and data page</External>
+          . I use the reports only to improve this website, not for advertising
+          and not to identify individual visitors. You can block or delete
+          cookies in your browser settings at any time, and the site works the
+          same without them.
+        </p>
         <p>
           <strong>Hosting logs.</strong> The site is hosted by Vercel. Like any
           web host, Vercel&apos;s servers process technical information when
@@ -68,19 +92,23 @@ export default function PrivacyPage() {
         <p>
           <strong>Your browser.</strong> Some visual effects react to your
           scrolling and cursor position. This happens only inside your browser
-          to animate the page. Nothing about it is stored or sent anywhere.
+          to animate the page. The animation itself does not store or send
+          anything. Clarity, described above, separately records clicks and
+          scrolling as part of its anonymised usage data.
         </p>
       </section>
 
       <section aria-labelledby="links">
-        <h2 id="links">Links to Instagram and Facebook</h2>
+        <h2 id="links">Links to Instagram, Facebook and LinkedIn</h2>
         <p>
           The site links to my Instagram profile (
-          <External href={INSTAGRAM}>@hiroshimurakami013</External>) and my{" "}
-          <External href={FACEBOOK}>Facebook Page</External>. These links are
-          plain links, not embedded widgets, so nothing from Meta loads on this
-          website. When you follow a link, you leave this site and Meta&apos;s
-          own privacy policy applies to what you do there.
+          <External href={INSTAGRAM}>@hiroshimurakami013</External>), my{" "}
+          <External href={FACEBOOK}>Facebook Page</External> and my{" "}
+          <External href={LINKEDIN}>LinkedIn profile</External>. These links
+          are plain links, not embedded widgets, so nothing from Meta or
+          LinkedIn loads on this website. When you follow a link, you leave
+          this site and that platform&apos;s own privacy policy applies to what
+          you do there.
         </p>
         <p>
           If you send me a direct message on Instagram or Facebook, I can see
@@ -129,7 +157,9 @@ export default function PrivacyPage() {
         <p>
           This website and Hiro App do not store personal information about
           you, so there is nothing for me to keep. Hosting logs are kept by
-          Vercel for a limited period under its own policies. Messages you send
+          Vercel for a limited period under its own policies. Clarity usage
+          data is kept by Microsoft under its own policies, linked above.
+          Messages you send
           me on Instagram or Facebook remain in those platforms until they are
           deleted, and you can ask me to delete them at any time.
         </p>
@@ -161,7 +191,9 @@ export default function PrivacyPage() {
           You can ask me what information I have about you, ask me to correct
           it, or ask me to delete it. In practice, the only information I might
           hold is a conversation you started with me on Instagram or Facebook.
-          The steps are on the{" "}
+          Clarity usage data is anonymised and does not tell me who you are;
+          you can stop it by blocking or deleting cookies in your browser. The
+          steps are on the{" "}
           <Link href="/data-deletion">data deletion page</Link>.
         </p>
       </section>
@@ -188,6 +220,10 @@ export default function PrivacyPage() {
           <li>
             Facebook Page message:{" "}
             <External href={FACEBOOK}>Hiroshi Murakami on Facebook</External>
+          </li>
+          <li>
+            LinkedIn message:{" "}
+            <External href={LINKEDIN}>Hiroshi Murakami on LinkedIn</External>
           </li>
         </ul>
       </section>

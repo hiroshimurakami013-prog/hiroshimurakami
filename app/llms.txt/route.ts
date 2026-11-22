@@ -4,7 +4,7 @@ import { SERVICES } from "@/content/services";
 import { SAVINGS_CALCULATOR } from "@/content/tools";
 import { USE_CASES } from "@/content/use-cases";
 import { HOME_DESCRIPTION } from "@/lib/schema";
-import { CALENDLY_URL, FACEBOOK, INSTAGRAM, SITE_NAME, absoluteUrl } from "@/lib/site";
+import { CALENDLY_URL, FACEBOOK, INSTAGRAM, LINKEDIN, SITE_NAME, absoluteUrl } from "@/lib/site";
 
 // /llms.txt: a short, plain summary of the site and its key pages for AI
 // assistants and answer engines (llmstxt.org format). Built from the same
@@ -21,7 +21,7 @@ function body() {
     "",
     `> ${HOME_DESCRIPTION}`,
     "",
-    "Hiroshi Murakami builds AI automation and AI accounting for small and mid-size businesses, serving Los Angeles County and clients worldwide, remote-first. AI does the first pass of repetitive work and a person reviews what matters. There is no office address, email address or phone number: contact is through the free AI audit booking page, Instagram or Facebook. Use cases on the site are illustrative scenarios, not client case studies, and worked examples use labelled assumptions, not client results.",
+    "Hiroshi Murakami builds AI automation and AI accounting for small and mid-size businesses, serving Los Angeles County and clients worldwide, remote-first. AI does the first pass of repetitive work and a person reviews what matters. There is no office address, email address or phone number: contact is through the free AI audit booking page, Instagram, Facebook or LinkedIn. Use cases on the site are illustrative scenarios, not client case studies, and worked examples use labelled assumptions, not client results.",
     "",
     "## Start here",
     link("Home", "/", "who it is for and how an engagement runs"),
@@ -45,6 +45,7 @@ function body() {
     `- [Book a free AI audit](${CALENDLY_URL}): 30 minute video call`,
     `- [Instagram](${INSTAGRAM})`,
     `- [Facebook](${FACEBOOK})`,
+    `- [LinkedIn](${LINKEDIN})`,
     "",
   ].join("\n");
 }

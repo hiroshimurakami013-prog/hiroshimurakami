@@ -2,7 +2,7 @@ import { AREA_SERVED, LOCATIONS } from "@/content/locations";
 import { POSTS } from "@/content/posts";
 import { SERVICES, type Service } from "@/content/services";
 import { USE_CASES, type UseCase } from "@/content/use-cases";
-import { FACEBOOK, INSTAGRAM, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
+import { FACEBOOK, INSTAGRAM, LINKEDIN, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
 
 // Structured data builders. Honest by construction: no address, no
 // ratings, no reviews, nothing that is not visible on the site.
@@ -26,7 +26,7 @@ const PERSON_KNOWS_ABOUT = [
   "AI voice agents",
   "Business workflow automation",
 ];
-const SAME_AS = [INSTAGRAM, FACEBOOK];
+const SAME_AS = [INSTAGRAM, FACEBOOK, LINKEDIN];
 
 export function personJsonLd() {
   return {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FACEBOOK, INSTAGRAM, SITE_HOST, pageMetadata } from "@/lib/site";
+import { FACEBOOK, INSTAGRAM, LINKEDIN, SITE_HOST, pageMetadata } from "@/lib/site";
 import LegalPage, { External } from "../components/legal-page";
 
 export const metadata: Metadata = pageMetadata({
@@ -14,7 +14,7 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="Terms of Service"
-      updated="October 16, 2026"
+      updated="November 22, 2026"
       intro={
         <p>
           These terms explain, in plain language, the rules for using this
@@ -95,14 +95,16 @@ export default function TermsPage() {
       </section>
 
       <section aria-labelledby="links">
-        <h2 id="links">Links to Instagram and Facebook</h2>
+        <h2 id="links">Links to Instagram, Facebook and LinkedIn</h2>
         <p>
           The site links to my Instagram profile (
-          <External href={INSTAGRAM}>@hiroshimurakami013</External>) and my{" "}
-          <External href={FACEBOOK}>Facebook Page</External>. These are run by
-          Meta, not by me. When you follow a link, you leave this site, and
-          Meta&apos;s own terms and policies apply to what you do there. I am
-          not responsible for the content or practices of those platforms.
+          <External href={INSTAGRAM}>@hiroshimurakami013</External>), my{" "}
+          <External href={FACEBOOK}>Facebook Page</External> and my{" "}
+          <External href={LINKEDIN}>LinkedIn profile</External>. Instagram and
+          Facebook are run by Meta and LinkedIn is run by LinkedIn, not by me.
+          When you follow a link, you leave this site, and that platform&apos;s
+          own terms and policies apply to what you do there. I am not
+          responsible for the content or practices of those platforms.
         </p>
       </section>
 
@@ -165,6 +167,10 @@ export default function TermsPage() {
           <li>
             Facebook Page message:{" "}
             <External href={FACEBOOK}>Hiroshi Murakami on Facebook</External>
+          </li>
+          <li>
+            LinkedIn message:{" "}
+            <External href={LINKEDIN}>Hiroshi Murakami on LinkedIn</External>
           </li>
         </ul>
       </section>

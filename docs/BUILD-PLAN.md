@@ -12,7 +12,7 @@ Audience: owners and managers of small and mid-size businesses, especially in th
 ## 1. Non-negotiable rules
 - Always write "AI" in capitals in all copy, alt text and metadata.
 - Never use em dashes or en dashes anywhere (copy, code comments, docs, alt text). Use commas, periods, colons or hyphens.
-- No video. No third-party scripts, analytics, cookies or embeds (the privacy policy says the site has none; if you ever add anything that collects data, update /privacy truthfully).
+- No video. No third-party embeds, ads or tracking pixels. The one exception is Microsoft Clarity analytics (`app/components/clarity.tsx`), which records anonymised usage and sets cookies; the privacy policy describes it (updated November 22, 2026). If you ever add or change anything that collects data, update /privacy truthfully first.
 - No secrets in the repo. Never push or deploy (the owner's agent does that).
 - These URLs must keep working unchanged: /privacy, /terms, /data-deletion (a Meta app depends on them). The shared footer stays identical on every page.
 - Honest marketing: no income or results guarantees, no made-up numbers. Use cases are illustrative scenarios, labelled "Use case", never presented as client case studies. Compare tools fairly (for example: a large CRM such as Salesforce is powerful, but built for generic workflows and often does not fit a specific business model). Do not disparage named products with unverifiable claims.

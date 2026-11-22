@@ -28,9 +28,9 @@ const changed = (path: string, otherwise: string) =>
 
 export const ROUTES: SiteRoute[] = [
   { path: "/", lastModified: "2026-11-22" },
-  { path: "/privacy", lastModified: "2026-10-16" },
-  { path: "/terms", lastModified: "2026-10-16" },
-  { path: "/data-deletion", lastModified: "2026-10-16" },
+  { path: "/privacy", lastModified: "2026-11-22" },
+  { path: "/terms", lastModified: "2026-11-22" },
+  { path: "/data-deletion", lastModified: "2026-11-22" },
   { path: "/services", lastModified: "2026-10-17" },
   // Pages of a service with blog posts gained a "From the blog" block.
   ...SERVICES.map((s) => ({

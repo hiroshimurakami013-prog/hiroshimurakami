@@ -1,7 +1,7 @@
 import StaticImage from "./static-image";
 import Link from "next/link";
 import { SAVINGS_CALCULATOR } from "@/content/tools";
-import { FACEBOOK, INSTAGRAM } from "@/lib/site";
+import { FACEBOOK, INSTAGRAM, LINKEDIN } from "@/lib/site";
 import HomeLink from "./home-link";
 
 // One footer for every page, so the home page and the legal pages always
@@ -70,6 +70,17 @@ export default function SiteFooter() {
                 className="text-link"
               >
                 Facebook
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href={LINKEDIN}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-link"
+              >
+                LinkedIn
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>

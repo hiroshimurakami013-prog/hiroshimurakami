@@ -8,6 +8,6 @@ export default function Image() {
   return renderOgImage({
     title: "Privacy Policy",
     subtitle:
-      "No cookies, no analytics, no forms. How this website and the Hiro App handle data.",
+      "No forms, no ads, Microsoft Clarity analytics. How this website and the Hiro App handle data.",
   });
 }

@@ -13,7 +13,8 @@ Next.js site for Hiroshi Murakami, who builds AI for small and mid-size business
 ## Hard rules
 - Always write "AI" in capitals in all copy, alt text and metadata.
 - Never use em dashes or en dashes anywhere (copy, comments, docs, alt text). Use commas, periods, colons or hyphens.
-- No video. No third-party scripts, analytics, cookies or embeds. If anything that collects data is ever added, update /privacy truthfully first.
+- No video. No third-party embeds, ads or tracking pixels. The only analytics is Microsoft Clarity (`app/components/clarity.tsx`, loaded through the `@microsoft/clarity` npm package), which records anonymised usage and sets cookies; /privacy describes it. Add nothing else that collects data, and if anything changes, update /privacy truthfully first.
+- Secondary contacts also include the LinkedIn profile (`LINKEDIN` in `lib/site.ts`).
 - Honest marketing: no invented clients, testimonials, reviews, ratings, awards, certifications or statistics, no income or results guarantees, no absolute promises such as "every call answered". Use cases are illustrative scenarios labelled "Use case", never client case studies. Compare named tools fairly (Salesforce is powerful, but built for generic workflows) and make no unverifiable claims about named companies.
 - City pages say "serving businesses in <city> and across Los Angeles County, remote-first" and never claim an office or in-person presence. They must stay genuinely distinct (no doorway pages).
 - /privacy, /terms and /data-deletion keep their URLs (a Meta app depends on them). The shared footer (`app/components/site-footer.tsx`) is identical on every page.

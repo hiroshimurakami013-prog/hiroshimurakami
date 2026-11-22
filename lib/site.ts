@@ -22,6 +22,7 @@ export const SITE_NAME = "Hiroshi Murakami";
 
 export const INSTAGRAM = "https://www.instagram.com/hiroshimurakami013";
 export const FACEBOOK = "https://www.facebook.com/1252933767913035";
+export const LINKEDIN = "https://www.linkedin.com/in/hiroshi-murakami-342689223";
 
 /** Primary call to action, the same wording everywhere. */
 export const CTA_LABEL = "Book a free AI audit";
