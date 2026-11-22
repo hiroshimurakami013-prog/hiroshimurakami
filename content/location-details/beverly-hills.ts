@@ -10,7 +10,7 @@ export const BEVERLY_HILLS: LocationDetail = {
   seoDescription:
     "Discreet AI for Beverly Hills medical and aesthetic practices, law and wealth firms and boutiques: call screening, confirmations and polished handovers.",
   headline: "Discreet AI for Beverly Hills practices, firms and boutiques",
-  lead: "Beverly Hills businesses are judged on the details. Medical, dental and aesthetic practices, law and wealth management firms, accountants and high-end boutiques all sell an experience as much as a service, and their clients notice a missed call, a clumsy hold message or a question asked twice. AI only belongs here if it raises that standard, protects privacy and steps aside gracefully when a person should take over.",
+  lead: "AI fits a Beverly Hills practice, firm or boutique when it raises the standard of service: answering the calls your team cannot take, confirming appointments politely and handing each client to a person with the full context, while keeping their details private. Medical, dental and aesthetic practices, law and wealth management firms, accountants and high-end boutiques here are judged on the details, and their clients notice a missed call, a clumsy hold message or a question asked twice. So the AI described on this page is discreet by design and steps aside gracefully when a person should take over.",
   angle:
     "Medical and aesthetic practices, law and wealth firms and luxury retail. Discretion, polish and a seamless step to a person.",
   sections: [
@@ -120,6 +120,16 @@ export const BEVERLY_HILLS: LocationDetail = {
       question: "Can the AI handle VIP clients differently?",
       answer:
         "Yes. Numbers or names you choose can skip the AI entirely, or be greeted by name and passed to a specific person straight away.",
+    },
+    {
+      question: "Can AI confirm appointments for an aesthetic or dental practice?",
+      answer:
+        "Yes. A voice agent or text message confirms the next day's appointments in your practice's tone, offers to move a visit if plans have changed and frees the slot for someone on your waiting list. Anything clinical is passed to your staff.",
+    },
+    {
+      question: "Do you meet clients in Beverly Hills in person?",
+      answer:
+        "No. The work is remote-first: audits, setup and reviews happen over video calls and messages. That keeps meetings short and lets your team join from wherever they are, without a visitor in the practice.",
     },
   ],
   neighbours: ["los-angeles", "santa-monica", "culver-city"],

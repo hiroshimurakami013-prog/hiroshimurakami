@@ -74,6 +74,32 @@ export const USE_CASE_IMAGES: Record<string, SceneImage> = {
     "use-cases/month-end-reporting-clean-dashboard",
     "Scattered paperwork resolving into a clean dashboard of charts at month end",
   ),
+  // The five newer accounting use cases reuse the closest existing scene.
+  // Alt text describes the picture, so it stays true when reused.
+  "bank-reconciliation-for-a-10-person-firm": img(
+    "use-cases/bank-reconciliation-matching-rows",
+    "Bank and ledger rows matched pair by pair with threads of light, one row left for review",
+  ),
+  "ai-transaction-matching-for-quickbooks": img(
+    "use-cases/connecting-disconnected-tools",
+    "Floating islands, each holding a different tool, joined by bridges of light so data flows between them",
+  ),
+  "ai-accounts-payable-invoice-capture": img(
+    "use-cases/data-entry-across-tools",
+    "An AI agent carrying the same data between three app windows instead of retyping it",
+  ),
+  "ai-month-end-close-checklist": img(
+    "use-cases/month-end-reporting-clean-dashboard",
+    "Scattered paperwork resolving into a clean dashboard of charts at month end",
+  ),
+  "ai-expense-categorization": img(
+    "use-cases/invoice-receipt-capture-scan",
+    "Paper receipts scanned by a beam of light and turned into neat, sorted digital records",
+  ),
+  "ai-receptionist-for-accounting-firms": img(
+    "use-cases/missed-calls-front-desk",
+    "An empty front desk while an AI voice catches several incoming calls and turns them into messages",
+  ),
   "missed-calls-at-the-front-desk": img(
     "use-cases/missed-calls-front-desk",
     "An empty front desk while an AI voice catches several incoming calls and turns them into messages",

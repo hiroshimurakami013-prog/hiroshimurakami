@@ -9,7 +9,7 @@ export const LOS_ANGELES: LocationDetail = {
   seoDescription:
     "AI receptionists, follow-ups, custom workflows and AI accounting for small and mid-size businesses in Los Angeles. Remote-first, with a person in charge.",
   headline: "AI automation for Los Angeles businesses, whatever you sell",
-  lead: "Los Angeles is not one market. A restaurant group in one neighbourhood, a garment wholesaler downtown, a law practice on the Westside and a contractor in the Valley all live inside the same city limits, and they lose time in very different places. This page is about finding your place on that map and starting with the one piece of AI that pays attention to it.",
+  lead: "AI automation for a small business in Los Angeles means handing the repetitive work, answering calls, replying to leads, chasing follow-ups and keeping the books matched, to AI workflows that a person on your team still checks. I set these up for Los Angeles businesses remote-first, most often starting with an AI receptionist for missed calls or AI accounting for books that are always behind. Los Angeles is not one market, though. A restaurant group in one neighbourhood, a garment wholesaler downtown, a law practice on the Westside and a contractor in the Valley all lose time in very different places, so this page is about finding your place on that map first.",
   angle:
     "The broad hub: every industry, many languages and a lot of driving. Where to start when your business could be anything.",
   sections: [
@@ -123,6 +123,16 @@ export const LOS_ANGELES: LocationDetail = {
       question: "Which service should a Los Angeles business start with?",
       answer:
         "Whichever problem costs you the most today. For many service businesses that is missed calls, for others it is slow lead replies or books that are always behind. The free AI audit exists to find that answer with you, with no obligation.",
+    },
+    {
+      question: "Do you set up AI receptionists for Los Angeles businesses?",
+      answer:
+        "Yes. An AI receptionist is one of the most common starting points in the city, often as overflow when the front desk is busy and as cover in the evening. It keeps your existing number, books into your calendar where possible and sends a written summary of each call to your team.",
+    },
+    {
+      question: "How much time could AI automation save my business?",
+      answer:
+        "There is no honest single number, because it depends on your volume and how much review you keep. For the books, the free accounting automation savings calculator on this site gives a rough range from four numbers. For calls and leads, the free audit looks at your real volumes before anything is promised.",
     },
   ],
   neighbours: [

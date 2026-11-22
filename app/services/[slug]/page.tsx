@@ -25,6 +25,7 @@ import Scene, { HERO_SIZES } from "../../components/scene";
 import { SERVICE_ICONS } from "../../components/service-icons";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
+import ToolPromo from "../../components/tool-promo";
 import UseCaseTile from "../../components/use-case-tile";
 import Words, { order } from "../../components/words";
 
@@ -293,6 +294,8 @@ export default async function ServicePage({
             </p>
           </div>
         </section>
+
+        {service.group === "accounting" ? <ToolPromo /> : null}
 
         {/* Related services */}
         <section className="block" aria-labelledby="related-title">

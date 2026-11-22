@@ -9,14 +9,72 @@ import { FACEBOOK, INSTAGRAM, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
 
 const BUSINESS_ID = `${SITE_URL}/#business`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
+const PERSON_ID = `${SITE_URL}/#person`;
+
+/**
+ * Hiroshi Murakami as a person, the same entity everywhere it appears (home
+ * page, blog bylines, the free tool). Only facts the site states: what he
+ * builds and the public profiles in lib/site.ts. No credentials or employers.
+ */
+export const PERSON_JOB_TITLE = "AI automation and AI accounting consultant";
+const PERSON_KNOWS_ABOUT = [
+  "AI accounting automation",
+  "Bookkeeping automation",
+  "Bank reconciliation with AI",
+  "Invoice capture with AI",
+  "AI receptionists",
+  "AI voice agents",
+  "Business workflow automation",
+];
+const SAME_AS = [INSTAGRAM, FACEBOOK];
+
+export function personJsonLd() {
+  return {
+    "@type": "Person",
+    "@id": PERSON_ID,
+    name: SITE_NAME,
+    url: SITE_URL,
+    jobTitle: PERSON_JOB_TITLE,
+    knowsAbout: PERSON_KNOWS_ABOUT,
+    worksFor: { "@id": BUSINESS_ID },
+    sameAs: SAME_AS,
+  };
+}
+
+export type FaqItem = { question: string; answer: string };
+
+/**
+ * FAQPage for a page that shows the same questions and answers on screen.
+ * Never pass questions the page does not show.
+ */
+export function faqJsonLd(path: string, faqs: FaqItem[]) {
+  const url = absoluteUrl(path);
+  return {
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    url,
+    inLanguage: "en-US",
+    isPartOf: { "@id": WEBSITE_ID },
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+}
+
+/** The FAQPage node for a graph, when the page shows questions. */
+const withFaq = (path: string, faqs?: FaqItem[]) =>
+  faqs && faqs.length ? [faqJsonLd(path, faqs)] : [];
 
 export const HOME_DESCRIPTION =
   "AI receptionists, voice agents, follow-ups, lead qualification, custom CRMs and AI accounting for small and mid-size businesses in Los Angeles and beyond.";
 
-export function homeJsonLd() {
+export function homeJsonLd(faqs?: FaqItem[]) {
   return {
     "@context": "https://schema.org",
     "@graph": [
+      personJsonLd(),
       {
         "@type": "WebSite",
         "@id": WEBSITE_ID,
@@ -34,7 +92,7 @@ export function homeJsonLd() {
         description: HOME_DESCRIPTION,
         logo: absoluteUrl("/symbol.png"),
         image: absoluteUrl("/symbol.png"),
-        founder: { "@type": "Person", name: SITE_NAME },
+        founder: { "@id": PERSON_ID },
         areaServed: [
           { "@type": "AdministrativeArea", name: AREA_SERVED },
           "Worldwide, remote",
@@ -52,8 +110,9 @@ export function homeJsonLd() {
             },
           })),
         },
-        sameAs: [INSTAGRAM, FACEBOOK],
+        sameAs: SAME_AS,
       },
+      ...withFaq("/", faqs),
     ],
   };
 }
@@ -142,6 +201,7 @@ export function serviceJsonLd(service: Service, crumbs: BreadcrumbItem[]) {
         },
       },
       breadcrumbJsonLd(crumbs),
+      ...withFaq(`/services/${service.slug}`, service.faqs),
     ],
   };
 }
@@ -206,6 +266,7 @@ export function scenarioJsonLd(useCase: UseCase, crumbs: BreadcrumbItem[]) {
         },
       },
       breadcrumbJsonLd(crumbs),
+      ...withFaq(`/use-cases/${useCase.slug}`, useCase.detail.faqs),
     ],
   };
 }
@@ -246,13 +307,18 @@ export function locationsHubJsonLd(
 }
 
 /**
- * One city page: the breadcrumb only. The work is remote-first, so there
- * is no local business, address or Service markup to claim here.
+ * One city page: the breadcrumb and the visible FAQ. The work is
+ * remote-first, so there is no local business, address or Service markup
+ * to claim here.
  */
-export function cityJsonLd(crumbs: BreadcrumbItem[]) {
+export function cityJsonLd(
+  path: string,
+  crumbs: BreadcrumbItem[],
+  faqs?: FaqItem[],
+) {
   return {
     "@context": "https://schema.org",
-    "@graph": [breadcrumbJsonLd(crumbs)],
+    "@graph": [breadcrumbJsonLd(crumbs), ...withFaq(path, faqs)],
   };
 }
 
@@ -266,6 +332,8 @@ export type ArticleInput = {
   dateModified?: string;
   /** Site path of an image shown on the page, if there is one. */
   image?: string;
+  /** Questions shown on the page, if there are any. */
+  faqs?: FaqItem[];
 };
 
 const BLOG_NAME = "Blog: AI for business owners and accountants";
@@ -319,11 +387,47 @@ export function articleJsonLd(article: ArticleInput, crumbs: BreadcrumbItem[]) {
         dateModified: article.dateModified ?? article.datePublished,
         inLanguage: "en-US",
         ...(article.image ? { image: absoluteUrl(article.image) } : {}),
-        author: { "@type": "Person", name: SITE_NAME, url: SITE_URL },
+        author: personJsonLd(),
         publisher: { "@id": BUSINESS_ID },
         isPartOf: { "@id": WEBSITE_ID },
       },
       breadcrumbJsonLd(crumbs),
+      ...withFaq(article.path, article.faqs),
+    ],
+  };
+}
+
+/**
+ * A free tool page: the WebApplication (it runs in the browser and stores
+ * nothing), its visible FAQ and the breadcrumb.
+ */
+export function toolJsonLd(
+  tool: { path: string; name: string; description: string },
+  crumbs: BreadcrumbItem[],
+  faqs?: FaqItem[],
+) {
+  const url = absoluteUrl(tool.path);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": `${url}#app`,
+        name: tool.name,
+        description: tool.description,
+        url,
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Any, runs in the browser",
+        browserRequirements: "Requires JavaScript",
+        isAccessibleForFree: true,
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        inLanguage: "en-US",
+        creator: { "@id": PERSON_ID },
+        publisher: { "@id": BUSINESS_ID },
+        isPartOf: { "@id": WEBSITE_ID },
+      },
+      breadcrumbJsonLd(crumbs),
+      ...withFaq(tool.path, faqs),
     ],
   };
 }

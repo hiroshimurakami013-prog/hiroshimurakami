@@ -22,6 +22,7 @@ import { articleJsonLd } from "@/lib/schema";
 import { pageMetadata } from "@/lib/site";
 import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta } from "../../components/cta";
+import FaqSection from "../../components/faq-section";
 import JsonLd from "../../components/json-ld";
 import PostList, { PostListLink } from "../../components/post-list";
 import RevealObserver from "../../components/reveal-observer";
@@ -157,6 +158,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
             datePublished: post.datePublished,
             dateModified: post.dateModified,
             image: post.images.hero.src,
+            faqs: post.faqs,
           },
           crumbs,
         )}
@@ -280,6 +282,10 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
             </div>
           </div>
         </article>
+
+        {post.faqs ? (
+          <FaqSection title="Quick answers" faqs={post.faqs} />
+        ) : null}
 
         <section className="block" aria-labelledby="more-title">
           <div className="wrap post-column">

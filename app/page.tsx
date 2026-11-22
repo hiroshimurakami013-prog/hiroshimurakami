@@ -5,7 +5,7 @@ import { ArrowRight, Asterisk, CheckCircle } from "@phosphor-icons/react/dist/ss
 import { LOCATIONS } from "@/content/locations";
 import { latestPosts } from "@/content/posts";
 import { PROCESS_STEPS, SERVICES } from "@/content/services";
-import { USE_CASE_HIGHLIGHTS } from "@/content/use-cases";
+import { USE_CASES, USE_CASE_HIGHLIGHTS } from "@/content/use-cases";
 import { HOME_DESCRIPTION, homeJsonLd } from "@/lib/schema";
 import { BOOKING_LABEL, CTA_LABEL, pageMetadata } from "@/lib/site";
 import BookingLink from "./components/booking-link";
@@ -13,6 +13,7 @@ import NavLinks from "./nav-links";
 import AreaBand from "./components/area-band";
 import Aurora from "./components/aurora";
 import { ClosingCta, PrimaryCta } from "./components/cta";
+import FaqSection from "./components/faq-section";
 import Flow from "./components/flow";
 import HeroSection from "./components/hero-parallax";
 import JsonLd from "./components/json-ld";
@@ -50,6 +51,36 @@ const principles = [
   "A person checks what matters",
 ];
 
+// Short, direct answers to the questions owners ask first. Shown on the
+// page and emitted as FAQPage JSON-LD from the same list.
+const faqs = [
+  {
+    question: "What is AI automation for a small business?",
+    answer:
+      "It is software that uses AI to do repetitive work your team does by hand today, such as answering routine calls, replying to new leads, sending follow-ups and preparing bookkeeping entries. A person still checks anything that matters, and the AI works inside the tools you already use.",
+  },
+  {
+    question: "What does AI accounting automate?",
+    answer:
+      "The first pass of bookkeeping: reading invoices and receipts, suggesting how to code them, matching bank and card lines and preparing the month-end checklist and reports. Your bookkeeper or accountant reviews and approves the results, and the AI never pays bills or files taxes.",
+  },
+  {
+    question: "Do you work with businesses in Los Angeles?",
+    answer:
+      "Yes. I work with businesses across Los Angeles County, and with clients elsewhere, remote-first. Audits, setup and reviews happen over video calls and messages, so there is no office visit and no drive.",
+  },
+  {
+    question: "Will AI replace my staff?",
+    answer:
+      "That is not the aim. The AI takes the routine and the overflow, such as the call nobody could pick up or the invoice nobody had time to enter, so your people spend their time on customers, judgement and advice.",
+  },
+  {
+    question: "How do we get started?",
+    answer:
+      "Book a free 30 minute AI audit. We look at where your team's time goes, which tasks AI could take on safely and where a person should stay in charge. There is no obligation.",
+  },
+];
+
 // One headline use case per service, in the same order as the services.
 const highlights = SERVICES.flatMap((s) =>
   USE_CASE_HIGHLIGHTS.filter((u) => u.service === s.slug),
@@ -58,7 +89,7 @@ const highlights = SERVICES.flatMap((s) =>
 export default function Home() {
   return (
     <>
-      <JsonLd data={homeJsonLd()} />
+      <JsonLd data={homeJsonLd(faqs)} />
 
       <a href="#main" className="skip-link">
         Skip to content
@@ -113,9 +144,10 @@ export default function Home() {
                 paints with the first frame instead of fading in. */}
             <p className="lead max-w-[40rem]">
               I build AI automation and AI accounting for small and mid-size
-              businesses: receptionists that pick up, follow-ups that go out
-              on time and books that stay reconciled. Serving Los Angeles
-              County and clients worldwide, remote-first.
+              businesses: AI receptionists that pick up, follow-ups that go
+              out on time and books that stay reconciled, with a person
+              checking what matters. Serving Los Angeles County and clients
+              worldwide, remote-first.
             </p>
             {/* The last part of the intro: the page starts its scripts once
                 this has faded in (see scripts/optimize-output.mjs). */}
@@ -265,7 +297,7 @@ export default function Home() {
             </ul>
             <p className="mt-10" data-reveal>
               <Link href="/use-cases" className="text-link font-medium">
-                See all 24 use cases, grouped by service
+                See all {USE_CASES.length} use cases, grouped by service
               </Link>
             </p>
           </div>
@@ -316,6 +348,13 @@ export default function Home() {
             </p>
           </div>
         </section>
+
+        {/* Questions */}
+        <FaqSection
+          title="Common questions"
+          faqs={faqs}
+          className="section pt-0"
+        />
 
         {/* Closing CTA */}
         <ClosingCta />

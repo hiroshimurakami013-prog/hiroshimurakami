@@ -70,7 +70,7 @@ export type LocationDetail = {
   serviceNotes: Partial<Record<ServiceSlug, string>>;
   /** Three to five use cases, each with a note on why it fits this city. */
   useCases: { slug: string; note: string }[];
-  /** Three or four questions unique to this city. */
+  /** Three to six questions unique to this city, also as FAQPage JSON-LD. */
   faqs: CityFaq[];
   /** Nearby cities, linked at the foot of the page. */
   neighbours: LocationSlug[];

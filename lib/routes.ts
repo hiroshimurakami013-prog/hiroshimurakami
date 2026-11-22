@@ -3,6 +3,7 @@
 import { LOCATIONS } from "../content/locations.ts";
 import { POSTS } from "../content/posts.ts";
 import { SERVICES } from "../content/services.ts";
+import { SAVINGS_CALCULATOR } from "../content/tools.ts";
 import { USE_CASES } from "../content/use-cases.ts";
 
 // Every public page, with the date its content last changed. The sitemap
@@ -10,6 +11,20 @@ import { USE_CASES } from "../content/use-cases.ts";
 export type SiteRoute = { path: string; lastModified: string };
 
 const hasPosts = (service: string) => POSTS.some((p) => p.service === service);
+
+// Pages whose own copy changed in the growth batch of 2026-11-22 (answer-first
+// leads, FAQs, new links). See docs/GROWTH-LOG.md.
+const GROWTH_BATCH = "2026-11-22";
+const growthPages = new Set([
+  "/services/ai-receptionist",
+  "/use-cases/missed-calls-at-the-front-desk",
+  "/use-cases/ai-receptionist-for-accounting-firms",
+  "/locations/pasadena",
+  "/locations/los-angeles",
+  "/locations/beverly-hills",
+]);
+const changed = (path: string, otherwise: string) =>
+  growthPages.has(path) ? GROWTH_BATCH : otherwise;
 
 export const ROUTES: SiteRoute[] = [
   { path: "/", lastModified: "2026-11-22" },
@@ -20,18 +35,25 @@ export const ROUTES: SiteRoute[] = [
   // Pages of a service with blog posts gained a "From the blog" block.
   ...SERVICES.map((s) => ({
     path: `/services/${s.slug}`,
-    lastModified: hasPosts(s.slug) ? "2026-11-22" : "2026-10-17",
+    lastModified: changed(
+      `/services/${s.slug}`,
+      hasPosts(s.slug) ? "2026-11-22" : "2026-10-17",
+    ),
   })),
-  { path: "/use-cases", lastModified: "2026-10-17" },
+  { path: "/use-cases", lastModified: GROWTH_BATCH },
   ...USE_CASES.map((u) => ({
     path: `/use-cases/${u.slug}`,
-    lastModified: hasPosts(u.service) ? "2026-11-22" : "2026-10-17",
+    lastModified: changed(
+      `/use-cases/${u.slug}`,
+      hasPosts(u.service) ? "2026-11-22" : "2026-10-17",
+    ),
   })),
   { path: "/locations", lastModified: "2026-10-17" },
   ...LOCATIONS.map((l) => ({
     path: `/locations/${l.slug}`,
-    lastModified: "2026-10-17",
+    lastModified: changed(`/locations/${l.slug}`, "2026-10-17"),
   })),
+  { path: SAVINGS_CALCULATOR.path, lastModified: GROWTH_BATCH },
   { path: "/blog", lastModified: POSTS[0]?.datePublished ?? "2026-10-29" },
   ...POSTS.map((p) => ({
     path: `/blog/${p.slug}`,

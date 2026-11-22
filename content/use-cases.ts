@@ -11,14 +11,32 @@ import { CUSTOM_VOICE_AGENTS_DETAILS } from "./use-case-details/custom-voice-age
 
 // Use cases are illustrative scenarios, never client case studies. Each one
 // is labelled "Use case" wherever it appears, with no client names and no
-// metrics.
+// client results. A worked example may show figures, but only as labelled
+// assumptions.
 //
-// Three per service (docs/BUILD-PLAN.md section 6), each rendered at
+// At least three per service (docs/BUILD-PLAN.md section 6), plus long-tail
+// pages added in the growth batch (docs/GROWTH-LOG.md), each rendered at
 // /use-cases/<slug> by app/use-cases/[slug]/page.tsx. The cards below hold
 // what the hub, the service pages and the home page show. The long-form
 // page copy lives in content/use-case-details/, one file per service.
 
 export type UseCaseStep = { title: string; text: string };
+export type UseCaseFaq = { question: string; answer: string };
+
+/**
+ * A worked example with figures. Every figure is an assumption made for the
+ * example and is labelled as such on the page: never a client result.
+ */
+export type WorkedExample = {
+  title: string;
+  intro: string;
+  /** The assumed starting point, as label and value. */
+  assumptions: { label: string; value: string }[];
+  /** What happens, in order. */
+  steps: string[];
+  /** The arithmetic of the outcome, in plain words. */
+  result: string;
+};
 
 /** The long-form page content. */
 export type UseCaseDetail = {
@@ -42,6 +60,10 @@ export type UseCaseDetail = {
   humanInTheLoop: string;
   /** How data is handled. */
   privacy: string;
+  /** Optional worked example with assumed, clearly labelled figures. */
+  example?: WorkedExample;
+  /** Optional visible FAQ, also emitted as FAQPage JSON-LD. */
+  faqs?: UseCaseFaq[];
 };
 
 export type UseCase = {
@@ -57,6 +79,8 @@ export type UseCase = {
   locations: LocationSlug[];
   /** Shown on the home page, one per service. */
   highlight?: boolean;
+  /** Closely related use cases, linked under "Keep reading". */
+  seeAlso?: string[];
   detail: UseCaseDetail;
 };
 
@@ -81,6 +105,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "Supplier invoices and receipts are collected from email and phone photos, read by AI and coded from your past entries, ready for a person to approve.",
     relatedService: "ai-agents",
     locations: ["los-angeles", "torrance", "long-beach", "glendale"],
+    seeAlso: ["ai-accounts-payable-invoice-capture", "ai-expense-categorization"],
   },
   {
     slug: "automated-bank-reconciliation",
@@ -91,6 +116,10 @@ const CARDS: Omit<UseCase, "detail">[] = [
     relatedService: "ai-follow-ups",
     locations: ["los-angeles", "pasadena", "beverly-hills", "torrance"],
     highlight: true,
+    seeAlso: [
+      "bank-reconciliation-for-a-10-person-firm",
+      "ai-transaction-matching-for-quickbooks",
+    ],
   },
   {
     slug: "faster-month-end-reporting",
@@ -100,6 +129,57 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "With books coded and reconciled through the month, a close checklist and the core reports are ready for review soon after month end.",
     relatedService: "custom-crm-and-workflows",
     locations: ["los-angeles", "pasadena", "culver-city", "santa-monica"],
+    seeAlso: ["ai-month-end-close-checklist"],
+  },
+  {
+    slug: "bank-reconciliation-for-a-10-person-firm",
+    service: "ai-accounting",
+    title: "Automating bank reconciliation in a 10 person firm",
+    summary:
+      "No full-time bookkeeper, a few accounts and cards, and matching done in the evenings. A worked example of daily AI matching with one person approving the exceptions.",
+    relatedService: "custom-crm-and-workflows",
+    locations: ["los-angeles", "culver-city", "santa-monica", "burbank"],
+    seeAlso: ["automated-bank-reconciliation", "ai-month-end-close-checklist"],
+  },
+  {
+    slug: "ai-transaction-matching-for-quickbooks",
+    service: "ai-accounting",
+    title: "AI transaction matching for QuickBooks",
+    summary:
+      "Bank feed lines that QuickBooks rules cannot place, such as bundled payouts and combined payments, matched by AI with a reason for each, ready for review.",
+    relatedService: "ai-agents",
+    locations: ["los-angeles", "long-beach", "torrance", "glendale"],
+    seeAlso: ["automated-bank-reconciliation", "ai-expense-categorization"],
+  },
+  {
+    slug: "ai-accounts-payable-invoice-capture",
+    service: "ai-accounting",
+    title: "Accounts payable invoices captured and ready to approve",
+    summary:
+      "Supplier invoices become draft bills with due dates, checked for duplicates and routed for approval. Paying stays a person's decision.",
+    relatedService: "ai-follow-ups",
+    locations: ["long-beach", "torrance", "los-angeles", "inglewood"],
+    seeAlso: ["invoice-and-receipt-capture", "ai-transaction-matching-for-quickbooks"],
+  },
+  {
+    slug: "ai-month-end-close-checklist",
+    service: "ai-accounting",
+    title: "A month-end close checklist that AI works through",
+    summary:
+      "On the first working day, AI checks every item on the close list, sends each open question to the right person and drafts the notes for review.",
+    relatedService: "custom-crm-and-workflows",
+    locations: ["pasadena", "culver-city", "santa-monica", "los-angeles"],
+    seeAlso: ["faster-month-end-reporting", "bank-reconciliation-for-a-10-person-firm"],
+  },
+  {
+    slug: "ai-expense-categorization",
+    service: "ai-accounting",
+    title: "Card and bank expenses categorised by AI",
+    summary:
+      "Each expense gets a suggested account, tax code and job from your own coding history, so categories stay consistent without coding every line by hand.",
+    relatedService: "ai-agents",
+    locations: ["torrance", "long-beach", "inglewood", "glendale"],
+    seeAlso: ["invoice-and-receipt-capture", "ai-transaction-matching-for-quickbooks"],
   },
 
   // AI Receptionist
@@ -112,6 +192,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
     relatedService: "ai-customer-support",
     locations: ["beverly-hills", "glendale", "pasadena", "los-angeles"],
     highlight: true,
+    seeAlso: ["ai-receptionist-for-accounting-firms"],
   },
   {
     slug: "after-hours-calls",
@@ -130,6 +211,16 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "Callers book, move or cancel appointments in one conversation, straight into your calendar, while your team looks after the people in the room.",
     relatedService: "custom-voice-agents",
     locations: ["beverly-hills", "santa-monica", "glendale", "pasadena"],
+  },
+  {
+    slug: "ai-receptionist-for-accounting-firms",
+    service: "ai-receptionist",
+    title: "An AI receptionist for accounting firms in tax season",
+    summary:
+      "Document drop-offs, appointment requests and \"did you get my forms?\" calls answered and logged, while accountants stay in their meetings. No tax advice from the AI.",
+    relatedService: "ai-accounting",
+    locations: ["pasadena", "beverly-hills", "glendale", "los-angeles"],
+    seeAlso: ["missed-calls-at-the-front-desk", "after-hours-calls"],
   },
 
   // Custom Voice Agents

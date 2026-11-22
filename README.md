@@ -8,16 +8,18 @@ The build plan and its status live in `docs/BUILD-PLAN.md`, the source of truth 
 
 ## Pages
 
-All routes are statically generated (51 pages plus a branded 404):
+All routes are statically generated (every route in `lib/routes.ts` plus a branded 404):
 
-- `/`: home, positioning for AI automation and AI accounting, services, use case highlights, the Los Angeles area band, process, the latest blog posts and a closing call to action.
+- `/`: home, positioning for AI automation and AI accounting, services, use case highlights, the Los Angeles area band, process, the latest blog posts, a short FAQ and a closing call to action.
 - `/services` and 8 service pages under `/services/<slug>`.
-- `/use-cases` and 24 use case pages under `/use-cases/<slug>`, three per service. They are illustrative scenarios, labelled "Use case".
+- `/use-cases` and 30 use case pages under `/use-cases/<slug>`, at least three per service (AI Accounting has eight, AI Receptionist four). They are illustrative scenarios, labelled "Use case". A use case may have a worked example (`example`, figures labelled as assumptions, never client results), a visible FAQ (`faqs`) and related use cases (`seeAlso`).
+- `/tools/accounting-automation-savings-calculator`: a free calculator (client component, runs in the browser, stores and sends nothing). Copy, FAQ and the assumptions it uses live in `content/tools.ts`. Linked from the shared footer, the AI Accounting service page and the AI accounting use cases.
+- `/llms.txt`: a plain summary of the site and key pages for AI assistants, built by `app/llms.txt/route.ts` from the content modules (so its URLs follow `SITE_URL`).
 - `/locations` and 10 Los Angeles area city pages under `/locations/<city>`, each with its own angle, remote-first.
 - `/blog` and posts under `/blog/<slug>`: short posts for owners and accountants that report on a published source, credit and link it, and label the author's own opinion.
 - `/privacy`, `/terms`, `/data-deletion`: legal pages. Their URLs must not change (a Meta app links to them).
 
-Every page has a unique title and description, a canonical URL, Open Graph and Twitter tags, a generated Open Graph image and JSON-LD. Deep pages have breadcrumbs.
+Every page has a unique title and description, a canonical URL, Open Graph and Twitter tags, a generated Open Graph image and JSON-LD. Deep pages have breadcrumbs. Pages that show a visible FAQ (home, services, cities, use cases and posts with `faqs`, the calculator) also emit FAQPage JSON-LD built from the same list, so markup and screen always match. The home page carries the Person (Hiroshi Murakami) and ProfessionalService entities with `sameAs` to Instagram and Facebook; blog posts use the same Person as author.
 
 ## Stack
 

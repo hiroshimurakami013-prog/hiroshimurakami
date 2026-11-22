@@ -72,6 +72,12 @@ export type Post = {
   };
   /** Internal links under "Keep reading". */
   related: PostLink[];
+  /**
+   * Optional short questions and answers, shown under the post and emitted
+   * as FAQPage JSON-LD. Facts only from the source; any opinion says so.
+   * Not counted in the post's word count.
+   */
+  faqs?: { question: string; answer: string }[];
   cta: { title: string; text: string };
   /**
    * Every post has two images in the site's look: the main image under the
@@ -908,8 +914,8 @@ export const POSTS: Post[] = [
     author: "Hiroshi Murakami",
     service: "ai-accounting",
     datePublished: "2026-11-11",
-    dateModified: "2026-11-12",
-    lead: "A New York start-up called Numica has raised $21M to buy small accounting firms from owners close to retirement, then run the work on its own AI system. Here is what happened, and why it matters if a small firm keeps your books.",
+    dateModified: "2026-11-22",
+    lead: "Numica is a New York start-up that has raised $21M to buy small accounting firms from owners close to retirement and run their work on its own AI system, with the firms' accountants checking the AI's output. For clients, little should change on the surface, while bookkeeping, billing and tax filing move onto AI behind the scenes. Here is what happened, and why it matters if a small firm keeps your books.",
     glance: [
       "Numica raised $21M, a mix of equity and debt, to buy small US accounting firms from retiring owners.",
       "After a deal closes, its AI system keeps the books and handles billing and tax filing, while accountants check the output.",
@@ -997,9 +1003,36 @@ export const POSTS: Post[] = [
         text: "A post: what a Rightworks survey says, and what to ask your accountant.",
       },
       {
+        href: "/use-cases/ai-receptionist-for-accounting-firms",
+        label: "An AI receptionist for accounting firms",
+        text: "A use case: tax season calls answered and logged, with no tax advice from the AI.",
+      },
+      {
         href: "/blog",
         label: "All posts",
         text: "Every post on the blog, newest first.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is Numica?",
+        answer:
+          "A New York start-up, launched in June 2025, that buys small US accounting firms from retiring owners and moves their work onto its own AI system. It has bought seven practices in total, according to The Next Web.",
+      },
+      {
+        question: "How much did Numica raise, and from whom?",
+        answer:
+          "$21M, a mix of equity and debt, from Roosh X and Flashpoint Capital. Flashpoint first backed Numica with equity and has now added a growth debt loan.",
+      },
+      {
+        question: "Which firms does Numica buy?",
+        answer:
+          "Small US accounting firms with annual revenue of $700,000 to $5 million, usually too small to interest larger buyers. Their clients are mostly local businesses such as restaurants, hair salons and dental practices.",
+      },
+      {
+        question: "What should I ask my accountant if their firm uses AI?",
+        answer:
+          "In my opinion: who reviews the AI's output, how they review it, and who makes the judgment calls on your books, such as what to claim and what to question.",
       },
     ],
     cta: {
@@ -1036,10 +1069,10 @@ export const POSTS: Post[] = [
     author: "Hiroshi Murakami",
     service: "ai-accounting",
     datePublished: "2026-10-29",
-    dateModified: "2026-11-12",
-    lead: "A new benchmark gave AI agents 50 real tax assignments. The best agent passed 10.8% of them. Here is what happened.",
+    dateModified: "2026-11-22",
+    lead: "AI agents cannot yet do tax work on their own. In Surge AI's DAYJOB: Tax benchmark, the best agent passed only 10.8% of 50 real tax assignments.",
     glance: [
-      "Surge AI tested AI agents on 50 professional tax assignments, built and reviewed by tax experts.",
+      "Tax experts built and reviewed all 50 assignments.",
       "The best agent passed 10.8% of them at a strict 95% rubric threshold.",
       "The telling misses were judgment calls: a deadline nobody asked about, a fact nobody checked.",
     ],
@@ -1135,6 +1168,23 @@ export const POSTS: Post[] = [
         href: "/blog",
         label: "All posts",
         text: "Every post on the blog, newest first.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is the DAYJOB: Tax benchmark?",
+        answer:
+          "A benchmark from Surge AI that gives AI agents 50 professional tax assignments across eight areas. The tasks were built by tax experts, went through three layers of expert review and come with messy workspaces of up to 123 files each.",
+      },
+      {
+        question: "Which AI agent scored best?",
+        answer:
+          "Claude Sonnet 5.5 led with a 10.8% pass rate, followed by Claude Fable 5.1 at 9.6% and Claude Opus 5.5 at 9.2%. An attempt passed only if it met at least 95% of the rubric on the first try. These are the figures as of the publish date.",
+      },
+      {
+        question: "Should a small business let AI do its taxes?",
+        answer:
+          "In my opinion, use AI for the routine work around taxes, such as capturing invoices and matching receipts, and keep a qualified professional on the return and the judgment calls. The benchmark shows why that review still matters.",
       },
     ],
     cta: {

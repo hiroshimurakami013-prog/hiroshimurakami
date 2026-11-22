@@ -59,7 +59,7 @@ export type Service = {
   related: ServiceSlug[];
   /** A sentence on how this service fits businesses in the Los Angeles area. */
   localNote: string;
-  /** Four to six questions, shown on the page (no FAQPage markup). */
+  /** Four to six questions, shown on the page and as FAQPage JSON-LD. */
   faqs: ServiceFaq[];
 };
 
@@ -76,7 +76,7 @@ export const SERVICES: Service[] = [
       "An AI receptionist that answers calls day or night, books appointments and passes clear messages to your team. Built for small businesses.",
     headline: "An AI receptionist that picks up when your team cannot",
     intro:
-      "Callers reach someone helpful instead of voicemail, whether your front desk is at lunch, on another line or closed for the night. The AI answers questions, books appointments and sends your team a clear summary of every call.",
+      "An AI receptionist is a phone assistant that answers your business calls in a natural voice, handles common questions, books appointments and sends your team a written summary of every call. It covers the calls your team cannot get to, at lunch, on another line or after hours, so fewer callers end up in voicemail.",
     whatItIs: [
       "An AI receptionist is a phone assistant with a natural voice that answers your business line. It knows your opening hours, services, prices you are happy to share, your booking rules and who handles what. It talks with callers the way a well briefed receptionist would.",
       "It can work as your main line, as overflow when your staff are busy, or only outside business hours. Every call ends with a short written summary sent to the right person, so nothing depends on someone remembering a voicemail.",
@@ -168,6 +168,11 @@ export const SERVICES: Service[] = [
         question: "Does it replace my receptionist?",
         answer:
           "It is not meant to. It covers the calls your team cannot get to and takes over routine questions, so your receptionist can focus on the people in front of them and the calls that need a human.",
+      },
+      {
+        question: "Do you set up AI receptionists for businesses in Los Angeles?",
+        answer:
+          "Yes. I set up AI receptionists for businesses across Los Angeles County, remote-first: the call mapping, the playbook, testing and the reviews all happen over video calls and messages, and the receptionist works with the phone number you already have.",
       },
     ],
   },
@@ -779,7 +784,7 @@ export const SERVICES: Service[] = [
       "AI accounting that captures invoices and receipts, reconciles bank lines and prepares month-end reports, with a person reviewing every result.",
     headline: "AI accounting that keeps your books current",
     intro:
-      "Bookkeeping is mostly careful, repetitive work: reading invoices and receipts, coding them, matching bank lines and chasing the gaps before month end. AI accounting does that first pass every day, so your books stay current and your bookkeeper or accountant spends their time on review and advice instead of data entry.",
+      "AI accounting uses AI to do the first pass of bookkeeping: reading invoices and receipts, coding them, matching bank lines and preparing month-end reports, while a person reviews and approves the results. Your books stay current through the month, and your bookkeeper or accountant spends their time on review and advice instead of data entry.",
     whatItIs: [
       "AI accounting is a set of workflows that sit alongside your accounting software, commonly QuickBooks Online or Xero. Invoices and receipts are collected from email, uploads and phone photos. The AI reads each one, pulls out the supplier, date, amounts and tax, suggests the account and category based on your past coding, and prepares the entry.",
       "Bank lines are matched to those invoices, receipts and payments as they arrive. The routine matches are prepared automatically. Anything that does not match, looks like a duplicate or falls outside your rules lands on a short exception list for a person.",

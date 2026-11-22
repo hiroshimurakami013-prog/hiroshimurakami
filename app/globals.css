@@ -2869,3 +2869,160 @@ main:focus {
     transition: none;
   }
 }
+
+/* Worked example on use case pages: flat panel, assumptions as a list of
+   label and value, mint for the outcome. */
+.example-panel {
+  display: grid;
+  gap: 2rem 4rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--night-2);
+}
+@media (min-width: 900px) {
+  .example-panel {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.example-panel h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.example-facts {
+  display: grid;
+  gap: 0;
+  margin-top: 1rem;
+}
+.example-facts div {
+  display: grid;
+  gap: 0.2rem;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+.example-facts dt {
+  color: var(--text-3);
+  font-size: 0.92rem;
+}
+.example-facts dd {
+  color: var(--text);
+}
+.example-steps {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+  color: var(--text-2);
+  list-style: decimal;
+}
+.example-steps li::marker {
+  color: var(--ember-soft);
+}
+.example-result {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgb(60 207 155 / 0.28);
+  background: rgb(60 207 155 / 0.06);
+  color: var(--text);
+  text-wrap: pretty;
+}
+
+/* Savings calculator. Plain inputs on a flat panel, the result beside it. */
+.calc {
+  display: grid;
+  gap: 2rem 4rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--night-2);
+}
+@media (min-width: 960px) {
+  .calc {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.calc-fields {
+  display: grid;
+  gap: 1.4rem;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.calc-field {
+  display: grid;
+  gap: 0.45rem;
+}
+.calc-field label {
+  font-weight: 600;
+}
+.calc-field small {
+  color: var(--text-3);
+  font-size: 0.88rem;
+}
+.calc-field input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  background: var(--night);
+  color: var(--text);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  transition: border-color 200ms var(--ease-out);
+}
+.calc-field input:hover {
+  border-color: rgb(255 255 255 / 0.28);
+}
+.calc-field input:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+.calc-result {
+  display: grid;
+  align-content: start;
+  gap: 1.25rem;
+}
+.calc-figure {
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--night);
+}
+.calc-figure-label {
+  color: var(--text-2);
+  font-size: 0.95rem;
+}
+.calc-figure-value {
+  margin-top: 0.3rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.calc-figure:first-child .calc-figure-value {
+  color: var(--mint);
+}
+.calc-note {
+  color: var(--text-2);
+  font-size: 0.95rem;
+  text-wrap: pretty;
+}
+.calc-assumptions {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  padding-left: 1.1rem;
+  color: var(--text-2);
+  font-size: 0.95rem;
+  list-style: disc;
+}
+.calc-assumptions li::marker {
+  color: var(--tide);
+}

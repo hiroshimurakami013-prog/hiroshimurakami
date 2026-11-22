@@ -18,12 +18,14 @@ import { pageMetadata } from "@/lib/site";
 import AreaBand from "../../components/area-band";
 import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../../components/cta";
+import FaqSection from "../../components/faq-section";
 import JsonLd from "../../components/json-ld";
 import { FromTheBlog } from "../../components/post-list";
 import RevealObserver from "../../components/reveal-observer";
 import Scene, { HERO_SIZES } from "../../components/scene";
 import SiteFooter from "../../components/site-footer";
 import SiteHeader from "../../components/site-header";
+import ToolPromo from "../../components/tool-promo";
 import Words, { order } from "../../components/words";
 
 export function generateStaticParams() {
@@ -85,12 +87,28 @@ export default async function UseCasePage({
       label: related.name,
       text: `A related service. ${related.summary}`,
     },
+    ...(useCase.seeAlso ?? []).flatMap((slug) => {
+      const u = getUseCase(slug);
+      return u && u.slug !== sibling.slug
+        ? [
+            {
+              href: `/use-cases/${u.slug}`,
+              label: u.title,
+              text: `A closely related use case. ${u.summary}`,
+            },
+          ]
+        : [];
+    }),
     {
       href: "/use-cases",
       label: "All use cases",
       text: "Every scenario, grouped by service.",
     },
   ];
+  // The calculator fits the accounting scenarios and the accounting firm one.
+  const showTool =
+    useCase.service === "ai-accounting" ||
+    useCase.relatedService === "ai-accounting";
 
   return (
     <>
@@ -218,6 +236,44 @@ export default async function UseCasePage({
           </div>
         </section>
 
+        {/* Worked example with assumed figures, when there is one */}
+        {detail.example ? (
+          <section className="block" aria-labelledby="example-title">
+            <div className="wrap">
+              <h2 id="example-title" className="h2 words max-w-[20ch]" data-reveal>
+                <Words text={detail.example.title} />
+              </h2>
+              <p className="lead mt-6 max-w-[56ch]" data-reveal="blur">
+                {detail.example.intro}
+              </p>
+              <div className="example-panel" data-reveal>
+                <div>
+                  <h3>Assumptions</h3>
+                  <dl className="example-facts">
+                    {detail.example.assumptions.map((a) => (
+                      <div key={a.label}>
+                        <dt>{a.label}</dt>
+                        <dd>{a.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+                <div>
+                  <h3>What happens</h3>
+                  <ol className="example-steps">
+                    {detail.example.steps.map((s) => (
+                      <li key={s.slice(0, 40)}>{s}</li>
+                    ))}
+                  </ol>
+                  <p className="example-result">{detail.example.result}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {showTool ? <ToolPromo /> : null}
+
         {/* Safeguards, and where to read next */}
         <section className="block" aria-label="Safeguards and related pages">
           <div className="wrap split">
@@ -271,6 +327,14 @@ export default async function UseCasePage({
           text={`This scenario comes up often for businesses in ${cities}. Audits, setup and check-ins happen online, so I work with teams anywhere in the county, and with clients worldwide.`}
           cities={places}
         />
+
+        {detail.faqs ? (
+          <FaqSection
+            title="Questions about this use case"
+            faqs={detail.faqs}
+            className="block border-t-0"
+          />
+        ) : null}
 
         <ClosingCta
           title="Does this sound like your business?"

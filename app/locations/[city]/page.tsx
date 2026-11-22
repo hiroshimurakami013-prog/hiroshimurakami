@@ -147,7 +147,9 @@ export default async function CityPage({
 
   return (
     <>
-      <JsonLd data={cityJsonLd(crumbs)} />
+      <JsonLd
+        data={cityJsonLd(`/locations/${location.slug}`, crumbs, detail.faqs)}
+      />
 
       <a href="#main" className="skip-link">
         Skip to content

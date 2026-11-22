@@ -1,5 +1,6 @@
 import StaticImage from "./static-image";
 import Link from "next/link";
+import { SAVINGS_CALCULATOR } from "@/content/tools";
 import { FACEBOOK, INSTAGRAM } from "@/lib/site";
 import HomeLink from "./home-link";
 
@@ -43,6 +44,11 @@ export default function SiteFooter() {
             <li>
               <Link href="/blog" className="text-link">
                 Blog
+              </Link>
+            </li>
+            <li>
+              <Link href={SAVINGS_CALCULATOR.path} className="text-link">
+                {SAVINGS_CALCULATOR.shortName}
               </Link>
             </li>
             <li>

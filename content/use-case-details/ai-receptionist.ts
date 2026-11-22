@@ -1,7 +1,8 @@
 import type { UseCaseDetail } from "../use-cases.ts";
 
 // Long-form copy for the AI Receptionist use cases. Illustrative scenarios,
-// no client names and no numbers.
+// no client names and no results. Worked examples use assumed figures that
+// the page labels as assumptions.
 
 export const AI_RECEPTIONIST_DETAILS: Record<string, UseCaseDetail> = {
   "missed-calls-at-the-front-desk": {
@@ -165,5 +166,101 @@ export const AI_RECEPTIONIST_DETAILS: Record<string, UseCaseDetail> = {
       "The AI books only within the rules you approve and introduces itself as an AI assistant. Exceptions, complaints and anything involving money beyond your standard policy go to a person. Your team can see every change in the calendar and in the call summaries.",
     privacy:
       "Only the details needed for the booking are collected and stored in your own booking system. Recordings, if enabled, are announced to callers, kept as long as you choose and never used to train public AI models.",
+  },
+
+  "ai-receptionist-for-accounting-firms": {
+    seoTitle: "AI Receptionist for Accounting Firms | Hiroshi Murakami",
+    seoDescription:
+      "An AI receptionist for CPA and bookkeeping firms: tax season calls answered, documents and appointments handled, and no tax advice from the AI.",
+    lead: "An AI receptionist for an accounting firm answers the calls your team cannot take, especially in tax season, handles routine requests such as appointment booking, document drop-off and \"did you receive my forms?\", and passes everything else to the right accountant with a written summary. It does not give tax advice: anything that needs professional judgement goes to a person.",
+    problem: [
+      "Picture a CPA or bookkeeping firm with eight people. For most of the year the phone is manageable. Then tax season arrives, and the same few people who prepare returns are also expected to answer a phone that rings all day. Clients ask whether their documents arrived, when their return will be ready, where to drop off paperwork and whether they can book a meeting. New callers ask whether the firm is taking clients.",
+      "Every one of those calls interrupts focused work, and many go to voicemail because the accountant is with a client. Voicemails pile up, clients call again, and the firm's busiest weeks become its most stressful. Hiring seasonal front desk help is possible, but training someone for a few months each year is hard, and good temporary staff are not easy to find.",
+      "Accounting firms also face a particular risk: a well meaning receptionist, human or not, who says something that sounds like tax advice.",
+    ],
+    usualTools: [
+      "Voicemail and a busy signal are the default, and they push clients to email, which adds to the inbox instead. A general answering service takes messages but cannot check whether a client's documents arrived or book into the firm's calendar.",
+      "Client portals help with document exchange, and they are worth promoting, but many clients still pick up the phone, especially older clients and small business owners in a hurry.",
+    ],
+    steps: [
+      {
+        title: "Agree what the AI may say",
+        text: "Together we write the approved answers: office hours, document drop-off and portal instructions, booking rules, fees you are happy to quote and the firm's published deadlines. Everything else is a message for a person.",
+      },
+      {
+        title: "Draw a hard line at advice",
+        text: "The receptionist is instructed never to answer questions about deductions, filing positions, notices or amounts owed. It says plainly that an accountant will call back, and takes a summary.",
+      },
+      {
+        title: "Connect the calendar and, where possible, the portal",
+        text: "It books meetings into the right accountant's calendar. If your practice software allows a safe connection, it can also confirm whether a client's documents have arrived, after checking who is calling.",
+      },
+      {
+        title: "Route by client and urgency",
+        text: "Calls from existing clients go to their accountant's queue with a summary, new client enquiries go to whoever takes them on, and anything urgent, such as a notice with a deadline, is flagged at once.",
+      },
+      {
+        title: "Review in the first weeks",
+        text: "The firm reads call summaries in the first weeks and adjusts the approved answers before the busiest part of the season.",
+      },
+    ],
+    outcomes: [
+      "Fewer interruptions for the people preparing returns.",
+      "Clients get a helpful answer or a booked meeting instead of voicemail.",
+      "Messages arrive as written summaries in one place, not as voicemails to transcribe.",
+      "New client enquiries are captured during the season instead of lost.",
+      "The firm controls exactly what is said on its behalf.",
+    ],
+    requirements: [
+      "Your business number, with call forwarding to the AI when you choose",
+      "Approved answers and the questions that must always go to a person",
+      "Access to the accountants' calendars for booking",
+      "Optional: a connection to your practice or portal software",
+    ],
+    humanInTheLoop:
+      "The receptionist introduces itself as an AI assistant and never gives tax or accounting advice. Any question about a return, a notice, an amount or a filing position becomes a message for an accountant. Callers can always ask for a person.",
+    privacy:
+      "The AI confirms who is calling before discussing any client matter, keeps tax details out of call summaries unless needed, announces any recording and keeps it only as long as you choose. Call data is not used to train public AI models.",
+    example: {
+      title: "A worked example: an 8 person CPA firm in tax season",
+      intro:
+        "Assumed figures to show the arithmetic, not a client result.",
+      assumptions: [
+        { label: "Calls", value: "About 40 calls a working day at the peak of the season" },
+        { label: "Routine share", value: "Assume about half are routine: documents, status, drop-off and booking" },
+        { label: "Time per routine call", value: "About 4 minutes, including getting back into the work" },
+        { label: "Cost of that time", value: "An assumed $60 an hour for preparer time" },
+        { label: "Running cost", value: "An assumed $250 a month for the receptionist and call minutes, a placeholder rather than a quote" },
+      ],
+      steps: [
+        "The AI answers overflow and after-hours calls, and routine calls when the team chooses.",
+        "Routine calls are resolved or booked; the rest arrive as summaries in each accountant's queue.",
+        "The team returns calls in planned blocks instead of between returns.",
+      ],
+      result:
+        "If 20 routine calls a day no longer interrupt preparers, that is about 80 minutes a day, or roughly 27 hours over a 20 day month, worth about $1,600 at the assumed rate, or about $1,350 after the assumed running cost. The quieter benefit is fewer clients reaching voicemail.",
+    },
+    faqs: [
+      {
+        question: "Will the AI receptionist give tax advice?",
+        answer:
+          "No. It is instructed never to answer questions about deductions, filing positions, notices or amounts owed. Those become a message for an accountant, with a summary of what the caller asked.",
+      },
+      {
+        question: "Can it tell clients whether we received their documents?",
+        answer:
+          "Only if your practice or portal software allows a safe connection, and only after confirming who is calling. Otherwise it takes the question and passes it on.",
+      },
+      {
+        question: "Can we use it only during tax season?",
+        answer:
+          "Yes. Call forwarding can be switched on and off, so the firm can use it for the busy months, after hours, or all year.",
+      },
+      {
+        question: "Do callers know they are talking to AI?",
+        answer:
+          "Yes. It introduces itself as an AI assistant for the firm, and anyone who prefers a person can leave a message or be transferred.",
+      },
+    ],
   },
 };

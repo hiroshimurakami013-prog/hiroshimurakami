@@ -9,7 +9,7 @@ export const PASADENA: LocationDetail = {
   seoDescription:
     "AI for Pasadena professional firms, medical practices and research-minded teams: front desk cover, internal knowledge assistants and reconciliation.",
   headline: "Careful AI for Pasadena's firms, practices and research-minded teams",
-  lead: "Pasadena is known for science and research, for healthcare and for a long list of professional firms: law, accounting, wealth management, architecture and engineering. These are businesses where accuracy matters more than novelty, and where a wrong answer to a client is worse than a slow one. So this page starts with how the AI is checked, and only then with what it does.",
+  lead: "For AI consulting and AI automation in Pasadena, I work remotely with professional firms, medical practices and research-minded teams to find the repetitive work AI can safely take on, then build it with a person reviewing what matters. Good first projects here are an internal assistant that answers staff questions from the firm's own documents, AI reconciliation for busy books and overflow call cover for the front desk. Pasadena is known for science and research, for healthcare and for law, accounting, wealth management, architecture and engineering firms, where a wrong answer to a client is worse than a slow one. So this page starts with how the AI is checked, and only then with what it does.",
   angle:
     "Professional firms, healthcare practices and research-minded teams. Accuracy first, with every answer traceable to a source.",
   sections: [
@@ -93,8 +93,22 @@ export const PASADENA: LocationDetail = {
       slug: "human-handover-with-context",
       note: "For practices and firms where the moment a client reaches a person needs to feel seamless.",
     },
+    {
+      slug: "ai-receptionist-for-accounting-firms",
+      note: "For Pasadena CPA and bookkeeping firms whose preparers spend tax season answering the phone between returns.",
+    },
   ],
   faqs: [
+    {
+      question: "Do you offer AI consulting for Pasadena businesses?",
+      answer:
+        "Yes, remote-first. It starts with a free AI audit on a video call, where we map where your team's hours go and which tasks AI could handle safely. I then build and test the workflows with you and we review the results together. There is no Pasadena office, so every meeting happens online.",
+    },
+    {
+      question: "What is a sensible first AI automation project for a Pasadena firm?",
+      answer:
+        "Usually the one with the most repetition and the least risk: a knowledge assistant over internal procedures, reconciliation prepared for review, or overflow call cover. Client advice and anything with legal or clinical weight stays with your professionals from day one.",
+    },
     {
       question: "Can an internal assistant keep confidential client documents private?",
       answer:

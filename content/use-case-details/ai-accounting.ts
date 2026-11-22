@@ -1,7 +1,8 @@
 import type { UseCaseDetail } from "../use-cases.ts";
 
 // Long-form copy for the AI Accounting use cases. Illustrative scenarios,
-// no client names and no numbers.
+// no client names and no results. Worked examples use assumed figures that
+// the page labels as assumptions.
 
 export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
   "invoice-and-receipt-capture": {
@@ -61,10 +62,10 @@ export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
   },
 
   "automated-bank-reconciliation": {
-    seoTitle: "AI Bank Reconciliation | Hiroshi Murakami",
+    seoTitle: "AI Bank Reconciliation and Matching | Hiroshi Murakami",
     seoDescription:
-      "How AI matches bank lines to invoices, receipts and payouts every day, leaving a short exception list for a person, not days of matching at month end.",
-    lead: "Reconciliation is the job that quietly eats the first days of every month. In this scenario, AI does the matching every day and a person only looks at the lines that genuinely need a decision.",
+      "AI bank reconciliation explained: transaction matching of bank lines to invoices, receipts and payouts every day, with a short exception list for a person.",
+    lead: "AI bank reconciliation matches each bank and card line to the invoice, bill, receipt or payout it belongs to, weighing amounts, dates, references and your past decisions, and leaves only the uncertain lines for a person to approve. Run every day instead of at month end, it turns reconciliation from a backlog that eats the first days of the month into a short exception list.",
     problem: [
       "Imagine a services business with several bank accounts, a couple of company cards, card terminal payouts and a payment processor for online invoices. Each payout bundles many customer payments and deducts fees. Some customers pay two invoices in one transfer, others pay part of one. Card statements arrive with merchant names that look nothing like the supplier name in the books.",
       "Matching all of this by hand is slow and dull, so it gets left until month end. By then there are hundreds of lines, memories have faded, and questions such as \"what was this transfer?\" take an email thread to answer. The close slips, reports are late, and cash looks different in the bank than in the books for most of the month.",
@@ -113,6 +114,33 @@ export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
       "The AI proposes, a person confirms. You choose which kinds of match may be recorded without review, for example a recurring rent payment, and everything else waits for approval. The reasoning behind each match is visible, so your accountant can audit it.",
     privacy:
       "Bank data is accessed read only wherever the bank allows it, never used to move money, and kept with access limited to your finance team and accountant. It is not used to train public AI models.",
+    faqs: [
+      {
+        question: "What is AI bank reconciliation?",
+        answer:
+          "It is reconciliation where AI does the matching. Each bank and card line is paired with the invoice, bill, receipt or payout it belongs to, and a person approves the matches and resolves the lines the AI could not place. The accounting software stays the record; the AI only prepares the work.",
+      },
+      {
+        question: "How does transaction matching using AI work?",
+        answer:
+          "The AI compares each transaction with open invoices and bills using several signals at once: amount, date, reference, payer or merchant name and how similar lines were matched before. It can also split a bundled payout into the payments and fees inside it, and match one transfer to several invoices. Every proposed match carries a short reason, so a person can check it.",
+      },
+      {
+        question: "Can I trust the matches?",
+        answer:
+          "You do not have to trust them blindly. Uncertain and unusual matches always go to a person, and you decide which simple, recurring matches may be recorded without review. Every decision is logged, so your accountant can audit it later.",
+      },
+      {
+        question: "Does it work with QuickBooks Online and Xero?",
+        answer:
+          "Yes, those are the most common setups, through their official connections and the bank feeds you already use. Other accounting software can often be supported through exports. The free audit confirms what is possible with yours.",
+      },
+      {
+        question: "Will it replace my bookkeeper?",
+        answer:
+          "No. It removes the line by line matching, so your bookkeeper spends time on the exceptions, the judgement calls and advice. The aim is that their time goes further, not that the role disappears.",
+      },
+    ],
   },
 
   "faster-month-end-reporting": {
@@ -167,5 +195,471 @@ export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
       "AI drafts, people decide. Journals that involve judgement, such as accruals, write-offs or reclassifications, are proposed but never posted without approval, and the final report is always signed off by your bookkeeper or accountant.",
     privacy:
       "Financial data stays inside your accounting software and a private workspace with access limited to the people you name. It is not used to train public AI models, and reports are shared only with the recipients you choose.",
+  },
+
+  "bank-reconciliation-for-a-10-person-firm": {
+    seoTitle: "Bank Reconciliation for a 10 Person Firm | Hiroshi Murakami",
+    seoDescription:
+      "How to automate bank reconciliation in a 10 person firm with no full-time bookkeeper: daily AI matching, one weekly review and a worked example with costs.",
+    lead: "To automate bank reconciliation in a 10 person firm, connect your bank and card feeds to the accounting software, let AI propose a match for every new line each day, and give one person a short weekly review of the exceptions. Nobody ticks off statement lines by hand any more, and the books stay reconciled through the month instead of catching up at the end.",
+    problem: [
+      "Picture a 10 person firm: a design studio, a small engineering or law practice, a property management office or an agency. There is no full-time bookkeeper. The office manager or one of the owners does the books alongside everything else, and an outside accountant handles the year end and the tax returns.",
+      "The money moves through two operating accounts, a savings account, three or four company cards and a payment processor for client invoices. That is a few hundred lines a month, and each one needs to be matched to an invoice, a bill or a receipt. It is nobody's main job, so it waits. By the time someone sits down to do it, the month is over, the receipts are scattered and the outside accountant is asking why the bank balance and the books disagree.",
+      "A firm of this size is too small to justify a finance hire and too busy to give the work proper attention. That gap is exactly where reconciliation quietly falls behind.",
+    ],
+    usualTools: [
+      "Bank feeds and bank rules in QuickBooks Online or Xero help a lot with the simple lines, such as rent, payroll and software subscriptions. They need someone to look after them, though, and they struggle with client payments that cover two invoices, processor payouts with fees taken off and card merchants whose names change.",
+      "Handing the whole job to an outside bookkeeper works, but it is billed by the hour, the questions still come back to the firm, and the books are only as current as the last time the bookkeeper had time for you. A spreadsheet tick list is fine until the person who keeps it is on holiday.",
+    ],
+    steps: [
+      {
+        title: "Connect the feeds, read only",
+        text: "Bank, card and processor data comes in through the feeds your accounting software already uses. No bank logins are collected and nothing can move money.",
+      },
+      {
+        title: "Learn from what is already reconciled",
+        text: "A few months of past reconciliations show how the firm matches its own transactions: which client pays which way, which card is used for what, which payments are recurring.",
+      },
+      {
+        title: "Match every day",
+        text: "Each morning the AI proposes a match for every new line, splits bundled payouts and links combined payments to the right invoices. Each proposal carries a short reason.",
+      },
+      {
+        title: "One person reviews the exceptions",
+        text: "The office manager or an owner gets a short list of what the AI could not place or was unsure about, with the likely candidates side by side. A weekly slot is usually enough at this size.",
+      },
+      {
+        title: "Hand the accountant a clean file",
+        text: "Approved matches are recorded in the accounting software with their reasons, so the outside accountant starts the month end or year end from reconciled books.",
+      },
+    ],
+    outcomes: [
+      "Reconciliation becomes a weekly review instead of an evening of ticking off lines.",
+      "Unknown transactions are asked about while people still remember them.",
+      "The bank balance and the books agree through the month, not only after a catch-up.",
+      "The outside accountant spends less billable time on clean-up and more on advice.",
+      "The process keeps running when the person who usually does it is away.",
+    ],
+    requirements: [
+      "QuickBooks Online or Xero, or another system with reliable exports",
+      "Bank and card feeds connected, plus access to processor reports",
+      "A few months of reconciled history, or a short catch-up first",
+      "One named person who reviews exceptions every week",
+    ],
+    humanInTheLoop:
+      "The AI proposes and the named reviewer approves. At first every match waits for approval. After a month or two the firm can choose which recurring matches, such as rent or payroll, may be recorded without review. Anything unusual still goes to a person.",
+    privacy:
+      "Bank data arrives read only through your accounting software's feeds and is never used to move money. Access is limited to the people you name and your accountant, and the data is not used to train public AI models.",
+    example: {
+      title: "A worked example: a 10 person studio",
+      intro:
+        "The figures below are assumptions chosen to show the arithmetic. They are not a client result, and your own numbers will differ.",
+      assumptions: [
+        { label: "Accounts", value: "2 bank accounts, 3 company cards and 1 payment processor" },
+        { label: "Volume", value: "About 350 bank and card lines a month" },
+        { label: "Time today", value: "About 10 hours a month of matching by the office manager" },
+        { label: "Cost of that time", value: "An assumed $40 an hour including payroll costs, so about $400 a month" },
+        { label: "Running cost", value: "An assumed $100 a month for software and AI usage, a placeholder rather than a quote" },
+      ],
+      steps: [
+        "Week 1: connect the feeds and load six months of reconciled history.",
+        "Week 2: the AI matches alongside the manual process, and the two are compared line by line.",
+        "Week 3: the office manager switches to reviewing exceptions only, about 50 lines a month in this example.",
+        "Month 2: rent, payroll and software subscriptions are approved to record without review.",
+      ],
+      result:
+        "If 50 exceptions take about 2 minutes each and a weekly spot check takes 30 minutes, review comes to roughly 4 hours a month. That frees about 6 hours, worth about $240 a month at the assumed rate, or about $140 after the assumed running cost. The bigger change is that the books are current every week.",
+    },
+    faqs: [
+      {
+        question: "Can a 10 person firm automate bank reconciliation without a bookkeeper?",
+        answer:
+          "Yes, as long as one person owns the weekly exception review. The AI does the matching, but someone who knows the business has to answer the questions it cannot, such as what an unfamiliar transfer was for.",
+      },
+      {
+        question: "How long does setup take for a firm this size?",
+        answer:
+          "In the illustrative plan above it takes about three weeks, including a week of running side by side with the manual process. It takes longer if the books are behind, because the history needs a catch-up first.",
+      },
+      {
+        question: "What if our books are months behind?",
+        answer:
+          "Start with a one-off catch-up, ideally with your accountant, so the AI learns from clean history. After that, daily matching keeps the books from falling behind again.",
+      },
+      {
+        question: "Can the AI pay bills or move money?",
+        answer:
+          "No. Bank data comes in read only and the AI only records approved matches in the accounting software. Payments stay with the people who approve them.",
+      },
+    ],
+  },
+
+  "ai-transaction-matching-for-quickbooks": {
+    seoTitle: "AI Transaction Matching for QuickBooks | Hiroshi Murakami",
+    seoDescription:
+      "AI transaction matching for QuickBooks Online: bank feed lines matched to invoices, bills and payouts with a reason for each, and a person approving them.",
+    lead: "AI transaction matching for QuickBooks reads each bank feed line, compares it with your open invoices, bills and past matching decisions, and proposes the right match with a short reason, so a person only reviews the lines it is unsure about. It works alongside QuickBooks Online's own bank feed and bank rules rather than replacing them.",
+    problem: [
+      "QuickBooks Online is the accounting software for a great many small businesses, and its bank feed is where reconciliation happens day to day. Lines arrive in the review queue, QuickBooks suggests some matches, and bank rules categorise the repeating ones. For a simple business, that covers a lot.",
+      "The trouble starts with the lines that do not look like anything in the books. A processor payout that bundles twenty customer payments minus fees. A customer who pays three invoices with one transfer, or half of one. A card charge whose merchant name looks nothing like the supplier. A refund that arrives a month after the sale. Each of these takes a search, a calculation or an email, and they pile up in the For Review tab until month end.",
+      "As businesses accept more payment methods, the share of these awkward lines grows, while the time anyone has to deal with them does not.",
+    ],
+    usualTools: [
+      "Bank rules are excellent for fixed patterns, and QuickBooks' own match suggestions are a real help for one to one matches. But rules cannot split a payout into its parts, they need maintaining as suppliers and payment habits change, and in many small businesses nobody owns that job.",
+      "Exporting the feed to a spreadsheet and matching there gives control, but it means double handling, and the results still have to be entered back into QuickBooks one by one.",
+    ],
+    steps: [
+      {
+        title: "Connect to QuickBooks Online",
+        text: "The connection goes through Intuit's official integration, with a user role you choose and can remove at any time. Bank logins are never collected.",
+      },
+      {
+        title: "Leave the easy lines to QuickBooks",
+        text: "Lines your bank rules already handle stay with the rules. The AI focuses on what is left in the review queue.",
+      },
+      {
+        title: "Break payouts apart and find combined payments",
+        text: "Processor payouts are split into the payments and fees inside them using the processor's reports, and single transfers are tested against combinations of open invoices.",
+      },
+      {
+        title: "Propose a match with a reason",
+        text: "Amount, date, reference, payer name and your past decisions are weighed together. Each proposal says why, for example: same amount as invoice 1042, paid by the same customer three days after the due date.",
+      },
+      {
+        title: "A person approves, QuickBooks records",
+        text: "Approved matches are recorded in QuickBooks through the official connection where it allows, or set up for one click acceptance in the bank feed where it does not. Corrections are remembered, and the AI can suggest new bank rules for patterns it sees often.",
+      },
+    ],
+    outcomes: [
+      "The For Review tab stops being a month-end backlog.",
+      "Bundled payouts and combined payments no longer need a spreadsheet.",
+      "Bank rules stay useful, because new patterns are spotted and suggested as rules.",
+      "Every match has a written reason your accountant can audit.",
+    ],
+    requirements: [
+      "QuickBooks Online with bank and card feeds connected",
+      "Access to your payment processor's payout reports",
+      "A QuickBooks user role for the integration, chosen by you",
+      "A person who reviews proposals and exceptions on a regular rhythm",
+    ],
+    humanInTheLoop:
+      "Nothing is recorded in QuickBooks without a person's approval until you decide otherwise for specific, recurring patterns. Unclear lines always come to a person with the candidates side by side.",
+    privacy:
+      "Access runs through QuickBooks' own permissions and can be revoked at any time. Data is used only to match your transactions, kept with access limited to your team and accountant, and not used to train public AI models.",
+    example: {
+      title: "A worked example: a busy retail and online shop",
+      intro:
+        "These are assumed figures to show the arithmetic, not a client result.",
+      assumptions: [
+        { label: "Volume", value: "About 900 bank feed lines a month" },
+        { label: "Handled by bank rules already", value: "About half, so 450 lines are matched by hand" },
+        { label: "Time today", value: "About 1.5 minutes a line, so roughly 11 hours a month" },
+        { label: "Cost of that time", value: "An assumed $45 an hour" },
+      ],
+      steps: [
+        "The AI proposes matches for the 450 lines left in the review queue.",
+        "A person confirms clear proposals at about 15 seconds each, roughly 2 hours a month.",
+        "About 45 unclear lines get a closer look at about 2 minutes each, roughly 1.5 hours.",
+      ],
+      result:
+        "Matching drops from about 11 hours to about 3.5 hours a month in this example, roughly 8 hours saved, or about $350 a month at the assumed rate before any running costs.",
+    },
+    faqs: [
+      {
+        question: "Does QuickBooks Online already match transactions?",
+        answer:
+          "Yes. Its bank feed suggests matches and bank rules categorise repeating lines, and that works well for simple, one to one cases. AI matching adds the harder cases: bundled payouts, combined and partial payments and merchant names that do not match the supplier.",
+      },
+      {
+        question: "Does it replace QuickBooks bank rules?",
+        answer:
+          "No. Rules keep doing what they do well. The AI works on what the rules leave behind and can suggest new rules when it sees the same pattern again and again.",
+      },
+      {
+        question: "Does it work with QuickBooks Desktop or Xero?",
+        answer:
+          "Xero is a common setup too. QuickBooks Desktop has more limited connections, so it is checked case by case during the free audit.",
+      },
+      {
+        question: "Is my QuickBooks data safe?",
+        answer:
+          "The integration uses a user role you control and can remove at any time, no bank logins are collected, and the data is not used to train public AI models.",
+      },
+    ],
+  },
+
+  "ai-accounts-payable-invoice-capture": {
+    seoTitle: "AI Accounts Payable Invoice Capture | Hiroshi Murakami",
+    seoDescription:
+      "AI accounts payable: supplier invoices read, checked for duplicates and turned into draft bills with due dates for approval. People still decide payments.",
+    lead: "AI accounts payable invoice capture reads each supplier invoice as it arrives, checks it against the supplier's history and any purchase order, and creates a draft bill with the right due date in your accounting software for a person to approve. Paying stays a human decision: the AI prepares the list of what is due, it never sends money.",
+    problem: [
+      "Imagine a wholesaler or distributor with a dozen staff and a hundred or more suppliers. Invoices arrive by email, through supplier portals and on paper with deliveries. A part-time accounts payable clerk types each one into the accounting software, then walks it around for approval, then keeps track of what is due when.",
+      "Things go wrong in predictable ways. An invoice sits in a manager's inbox waiting for approval and the payment goes out late. The same invoice arrives twice, by email and by post, and gets paid twice. A supplier statement does not agree with the books and nobody knows which invoice is missing. Prices on an invoice drift from what was agreed, and nobody notices because the person entering it has no time to compare.",
+      "With wages up and good accounts staff hard to find, many firms cannot simply add another clerk to keep up.",
+    ],
+    usualTools: [
+      "Bill capture features in accounting software and dedicated accounts payable apps read invoices well, and they are worth using. On their own, though, they rarely know your approval rules, your suppliers' usual prices or which invoices are likely duplicates, so a person still checks every field.",
+      "Approval by email chain works until someone is on holiday, and a spreadsheet of due dates only helps if someone keeps it current.",
+    ],
+    steps: [
+      {
+        title: "Every invoice lands in one queue",
+        text: "A dedicated accounts payable address, your existing inboxes and a photo upload route for paper invoices all feed one place.",
+      },
+      {
+        title: "AI reads and checks",
+        text: "Supplier, invoice number, dates, lines, tax and totals are extracted, then checked against past bills, purchase orders where you use them and the supplier's usual prices. Possible duplicates are flagged.",
+      },
+      {
+        title: "A draft bill is prepared",
+        text: "The bill is created as a draft in the accounting software with the account, tax code and due date, and the original document attached.",
+      },
+      {
+        title: "Routed for approval",
+        text: "Your approval rules decide who signs off, for example by supplier, amount or department, and reminders go out if an approval is waiting too long.",
+      },
+      {
+        title: "A payment list, not a payment",
+        text: "Before each payment run, a person gets a list of approved bills due, with anything disputed or unusual marked. They pay through the bank as usual.",
+      },
+    ],
+    outcomes: [
+      "Nobody keys in supplier invoices from scratch.",
+      "Duplicates and price drifts are flagged before they are paid, not after.",
+      "Approvals stop getting lost in inboxes.",
+      "Supplier statements agree with the books more often, and the gaps are easy to find.",
+      "Payment runs are planned from a clear list of what is due.",
+    ],
+    requirements: [
+      "Your accounting software with permission to create draft bills",
+      "The inboxes or portals where supplier invoices arrive",
+      "Your approval rules, even if they are informal today",
+      "A few months of past bills so checks follow your history",
+    ],
+    humanInTheLoop:
+      "People approve every bill and make every payment. The AI never sends money, never changes bank details and treats any request to change a supplier's bank account as something for a person to verify by phone.",
+    privacy:
+      "Invoices are processed only for your accounts payable and kept with access limited to your finance team and accountant. Supplier bank details are never shown in notes or summaries, and documents are not used to train public AI models.",
+    example: {
+      title: "A worked example: a 12 person distributor",
+      intro:
+        "Assumed figures to show the arithmetic, not a client result.",
+      assumptions: [
+        { label: "Volume", value: "About 250 supplier invoices a month" },
+        { label: "Time today", value: "About 5 minutes to enter and file each one, roughly 21 hours a month" },
+        { label: "Cost of that time", value: "An assumed $35 an hour" },
+        { label: "Running cost", value: "An assumed $150 a month for software and AI usage, a placeholder rather than a quote" },
+      ],
+      steps: [
+        "Each invoice is read and prepared as a draft bill as it arrives.",
+        "The clerk reviews each draft in about 1 minute, roughly 4 hours a month.",
+        "About 25 invoices a month need a closer look, at about 5 minutes each, roughly 2 hours.",
+      ],
+      result:
+        "Entry and filing drop from about 21 hours to about 6.5 hours a month, saving roughly 14.5 hours, worth about $510 at the assumed rate, or about $360 after the assumed running cost.",
+    },
+    faqs: [
+      {
+        question: "What is AI accounts payable automation?",
+        answer:
+          "It is the first pass of accounts payable done by AI: reading supplier invoices, checking them, preparing draft bills and routing them for approval. People still approve the bills and make the payments.",
+      },
+      {
+        question: "How does it catch duplicate invoices?",
+        answer:
+          "It compares invoice numbers, amounts, dates and suppliers with bills already in the system, including near matches such as the same amount from the same supplier a few days apart, and flags them for a person.",
+      },
+      {
+        question: "Can it pay suppliers?",
+        answer:
+          "No. It prepares the list of approved bills that are due. Paying, and verifying any change to a supplier's bank details, stays with your team.",
+      },
+      {
+        question: "How is this different from invoice and receipt capture?",
+        answer:
+          "Capture is about getting documents into the books. Accounts payable adds approvals, due dates, duplicate and price checks and a payment list, so it covers the whole path from invoice to payment decision.",
+      },
+    ],
+  },
+
+  "ai-month-end-close-checklist": {
+    seoTitle: "AI Month-End Close Checklist | Hiroshi Murakami",
+    seoDescription:
+      "An AI month-end close checklist: what AI checks on day one, which questions it sends to whom, and what a person still reviews and signs off.",
+    lead: "An AI month-end close checklist is your close list worked through by AI on the first working day: it checks which accounts are unreconciled, which regular bills are missing, which items are uncoded and which accruals are due, and sends each open question to the person who can answer it. A person still reviews the adjustments and signs off the month.",
+    problem: [
+      "Most small finance teams have a close checklist, even if it lives in one person's head. Reconcile the accounts, clear the uncoded items, check that the regular bills are in, post the accruals, tie out payroll and sales tax, review the profit and loss. Each step is simple. The problem is that each step involves waiting for someone else.",
+      "So the close becomes a week of chasing. Did the landlord's invoice arrive? What was this card charge? Has the payroll report been finalised? The bookkeeper sends messages, waits, follows up and works on something else in between. The owner gets the numbers in the second or third week of the month, by which time they describe a month that feels like ancient history.",
+    ],
+    usualTools: [
+      "Task apps and close management software organise the list well, and they suit larger teams. In a small business, the list is rarely the problem: finding the open items and chasing the answers is, and a task app still needs a person to do both.",
+      "Accounting software reports show the numbers but not what is missing from them. A missing bill does not appear on any report.",
+    ],
+    steps: [
+      {
+        title: "Bank and card accounts reconciled",
+        text: "The AI checks every account against its statement balance and lists the lines still open, ideally few, because matching ran all month.",
+      },
+      {
+        title: "Uncoded and suspense items",
+        text: "Anything sitting in uncategorised or suspense accounts is listed with a suggested account and sent to whoever made the purchase.",
+      },
+      {
+        title: "Regular bills present",
+        text: "Rent, utilities, software subscriptions and other recurring suppliers are compared with previous months. Missing bills are listed and requested from the supplier or the person who receives them.",
+      },
+      {
+        title: "Accruals and prepayments",
+        text: "Recurring accruals and prepayment releases are prepared as draft journals for review, using the schedules you already keep.",
+      },
+      {
+        title: "Payroll and sales tax tie out",
+        text: "Payroll journals are compared with the payroll report, and the sales tax liability with the tax report, with differences explained or flagged.",
+      },
+      {
+        title: "Variance notes and sign-off",
+        text: "Larger movements against last month and the same month last year are drafted in plain words. The bookkeeper or accountant reviews, adjusts and signs off, and only then is the period locked.",
+      },
+    ],
+    outcomes: [
+      "The close starts with a list of what is actually open, not a search for it.",
+      "Questions reach the person who can answer them on day one.",
+      "Draft journals and variance notes are waiting for review instead of being written from scratch.",
+      "The owner gets reviewed numbers sooner, explained in plain language.",
+    ],
+    requirements: [
+      "Your current close steps, written down or explained once",
+      "Access to the accounting software, bank feeds and payroll and tax reports",
+      "Your accrual and prepayment schedules, if you keep them",
+      "Who answers which kind of question, and who signs off",
+    ],
+    humanInTheLoop:
+      "Every journal is a draft until a person approves it. Judgement calls, such as accrual estimates, write-offs and reclassifications, are always made by the bookkeeper or accountant, and the period is locked only after their sign-off.",
+    privacy:
+      "Financial data stays in your accounting software and a private workspace with access limited to the people you name. It is not used to train public AI models.",
+    example: {
+      title: "A worked example: a 15 person agency",
+      intro:
+        "Assumed figures to show the arithmetic, not a client result.",
+      assumptions: [
+        { label: "Close today", value: "About 16 hours of the bookkeeper's time spread over two weeks" },
+        { label: "Cost of that time", value: "An assumed $55 an hour" },
+        { label: "Biggest delays", value: "Missing bills, unexplained card charges and waiting for payroll" },
+      ],
+      steps: [
+        "Day 1: the AI runs the checklist and sends 12 questions to five people, each with the transaction attached.",
+        "Days 1 to 3: answers come back into the same list, and the AI updates the draft journals.",
+        "Day 4: the bookkeeper reviews drafts and variance notes, about 6 hours of work.",
+        "Day 5: the accountant signs off and the period is locked.",
+      ],
+      result:
+        "In this example the bookkeeper's close time falls from about 16 hours to about 9, saving roughly 7 hours, worth about $385 a month at the assumed rate. The owner sees reviewed numbers in the first week rather than the third.",
+    },
+    faqs: [
+      {
+        question: "What should a month-end close checklist include?",
+        answer:
+          "At minimum: bank and card reconciliations, uncoded items cleared, recurring bills present, accruals and prepayments, payroll and sales tax tied out, a review of the profit and loss and balance sheet, and a sign-off before the period is locked.",
+      },
+      {
+        question: "Can AI close the books on its own?",
+        answer:
+          "No, and it should not. AI can find what is open, chase answers and draft journals and notes, but adjustments and the sign-off need a person who understands the business.",
+      },
+      {
+        question: "Does this need special close software?",
+        answer:
+          "No. It works with your accounting software and the checklist you already use. Dedicated close software can still make sense for larger teams.",
+      },
+    ],
+  },
+
+  "ai-expense-categorization": {
+    seoTitle: "AI Expense Categorization | Hiroshi Murakami",
+    seoDescription:
+      "AI expense categorization for card and bank spend: each line gets an account, tax code and job from your history, and a person reviews the unclear ones.",
+    lead: "AI expense categorization reads each card and bank transaction, together with its receipt where there is one, and suggests the account, tax code and job or class based on how you coded similar spending before. A person reviews only the suggestions the AI is unsure about, so categories stay consistent month after month without anyone coding every line by hand.",
+    problem: [
+      "Think of a home services or field business with a dozen company cards. Technicians buy parts, fuel and the odd lunch with a client. Some receipts are photographed, many are not. At month end someone codes several hundred card lines, guessing from merchant names, and the same hardware store ends up in materials one month and repairs the next.",
+      "Inconsistent coding is more than untidy. Job costs are wrong, so quoting is based on bad numbers. Deductible and non-deductible spending get mixed, which costs the accountant time at year end. And sales tax paid on purchases is harder to track.",
+    ],
+    usualTools: [
+      "Bank rules and auto-categorisation in accounting software handle obvious merchants. They do not read receipts, they cannot tell parts for a job from tools for the workshop at the same store, and they assign by merchant rather than by what was bought.",
+      "Spend management apps with receipt capture are useful and worth considering. They still rely on someone choosing a category for anything unusual, and their categories have to be mapped to your chart of accounts.",
+    ],
+    steps: [
+      {
+        title: "Gather the transaction and the receipt",
+        text: "Card and bank lines come from the feeds, and receipts from photos, email and spend apps. The AI pairs each receipt with its transaction.",
+      },
+      {
+        title: "Read what was actually bought",
+        text: "Where there is a receipt, the line items are read, so a single purchase can be split between materials for a job and general supplies.",
+      },
+      {
+        title: "Suggest from your own history",
+        text: "Account, tax code and job or class are suggested from how you coded similar spending, plus rules you set, such as all fuel to vehicle expenses.",
+      },
+      {
+        title: "Ask the cardholder when it is unclear",
+        text: "If the AI cannot tell what a purchase was for, it asks the person who made it with a quick message, while they still remember.",
+      },
+      {
+        title: "Review and post",
+        text: "A bookkeeper reviews the low-confidence suggestions and a sample of the rest, then approves them into the accounting software.",
+      },
+    ],
+    outcomes: [
+      "The same kind of spending lands in the same account every month.",
+      "Job costs reflect what was actually bought for the job.",
+      "Missing receipts are requested within days, not at year end.",
+      "The bookkeeper reviews instead of coding from scratch.",
+    ],
+    requirements: [
+      "Card and bank feeds in your accounting software",
+      "Your chart of accounts, tax codes and job or class tracking",
+      "A few months of coded history to learn from",
+      "A way to message cardholders, such as email or text",
+    ],
+    humanInTheLoop:
+      "Low-confidence suggestions always go to a person, and you can require review for any account, card or amount. Tax treatment follows rules agreed with your accountant; the AI does not decide it on its own.",
+    privacy:
+      "Transaction and receipt data is used only for your books, kept with access limited to your finance team and accountant, and not used to train public AI models. Card numbers are never written into notes.",
+    example: {
+      title: "A worked example: a 20 person field service company",
+      intro:
+        "Assumed figures to show the arithmetic, not a client result.",
+      assumptions: [
+        { label: "Cards", value: "12 company cards" },
+        { label: "Volume", value: "About 600 card lines a month" },
+        { label: "Time today", value: "About 1 minute a line to code, roughly 10 hours a month" },
+        { label: "Cost of that time", value: "An assumed $40 an hour" },
+      ],
+      steps: [
+        "The AI suggests codes for all 600 lines as they arrive.",
+        "The bookkeeper scans confident suggestions at about 10 seconds each, under 2 hours a month.",
+        "About 60 unclear lines are checked at about 2 minutes each, roughly 2 hours.",
+      ],
+      result:
+        "Coding time falls from about 10 hours to about 4 hours a month, saving roughly 6 hours, worth about $240 at the assumed rate before running costs. Consistent job costs are the larger, harder to price benefit.",
+    },
+    faqs: [
+      {
+        question: "How does AI categorise expenses?",
+        answer:
+          "It looks at the merchant, the amount, the receipt's line items where available and how you coded similar spending before, then suggests the account, tax code and job. Suggestions it is unsure about go to a person.",
+      },
+      {
+        question: "Will it use my chart of accounts?",
+        answer:
+          "Yes. It only suggests accounts, tax codes and classes that already exist in your books, and follows the rules you and your accountant set.",
+      },
+      {
+        question: "What happens without a receipt?",
+        answer:
+          "It suggests a category from the merchant and your history, marks the line as missing a receipt and can ask the cardholder for it.",
+      },
+    ],
   },
 };
