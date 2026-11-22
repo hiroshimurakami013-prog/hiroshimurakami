@@ -86,6 +86,136 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "ai-controls-accounting-firm-insurance-premiums",
+    title: "AI risk and accounting firm insurance: why your accountant's AI controls matter.",
+    seoTitle: "AI Risk and Accounting Firm Insurance: What to Ask",
+    description:
+      "Insurers now look at AI risk when pricing accounting firm insurance (E&O). See what that means and the fair question to ask your accountant.",
+    author: "Hiroshi Murakami",
+    service: "ai-accounting",
+    datePublished: "2026-11-22",
+    dateModified: "2026-11-22",
+    lead: "AI risk and accounting firm insurance are now linked. CPA Practice Advisor reported on 20 November 2026 that insurers increasingly look at how firms use AI when they set errors and omissions (E&O) premiums and terms. Here is what that means, and one fair question to ask your accountant.",
+    glance: [
+      "Insurers increasingly factor in how businesses use AI when setting premiums and terms. For US accounting firms, lower premiums depend on managing AI risks and showing the controls.",
+      "ScienceSoft predicts 60 to 80 percent of new E&O and cyber policies and renewals will weigh AI risks by 2028. That is a prediction.",
+      "The article lists four measures: an AI inventory, human review, data protection and monitoring.",
+    ],
+    sections: [
+      {
+        id: "what-insurers-are-looking-at",
+        title: "What AI risk means for accounting firm insurance",
+        paragraphs: [
+          "The article is by Vital Soupel in CPA Practice Advisor. It says domain studies indicate roughly 87 percent of accounting service providers already use at least one AI tool. Most top-tier and midsize US CPA firms carry E&O insurance, and 88 percent of CPAs report dedicated cyber liability coverage.",
+          "ScienceSoft, an AI transformation company that works with the insurance industry, says differences in AI governance practice can mean a 15 to 40 percent variation in premiums for AI adopters.",
+        ],
+      },
+      {
+        id: "inventory-and-human-review",
+        title: "Know your AI, and keep a person in charge",
+        paragraphs: [
+          "First, build an AI inventory. Record the provider, purpose, data access, whether the AI can act on its own, and who oversees it. Then write a policy on approved tools, what data staff may enter, and what is prohibited. Drafting internal agendas without confidential data is low risk. A largely autonomous AI agent doing tax research is higher risk.",
+          "Second, make human review mandatory for client-facing AI output. Qualified accountants should still review AI-generated tax returns and financial advice. Keep workflow logs, corrections and approvals in engagement files.",
+        ],
+      },
+      {
+        id: "data-and-monitoring",
+        title: "Protect the data, then watch the results",
+        paragraphs: [
+          "Third, secure sensitive data before it enters AI workflows. Use encryption, multi-factor authentication and role-based access, and check vendors on where data is stored, whether it trains models and how long it is kept. Internal Revenue Code Section 7216 restricts how return preparers use and disclose tax return data, so sharing it with third-party AI providers may raise compliance concerns.",
+          "Fourth, monitor performance. Track reviewer correction rates, transaction matching accuracy and exception rates. Set alerts for error spikes, and be ready to suspend a tool that keeps misclassifying transactions.",
+        ],
+      },
+      {
+        id: "what-good-controls-can-and-cannot-do",
+        title: "What good controls can and cannot do",
+        paragraphs: [
+          "A strong AI risk programme will not automatically earn a discount. Pricing still depends on service scope, claims history, coverage limits and insurer appetite. But good controls and records may help a firm challenge an unfavourable risk assessment and negotiate better terms.",
+          "Earlier Accounting Today reporting says insurers broadly see AI as a source of risk needing strong governance, not a risk reducer. An Aon risk control lead reported no substantive AI-linked claims at accounting firms so far. CAMICO, a CPA firm insurer, says a short written AI policy is the foundation.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the sources.",
+        "Your accountant's insurance is a safety net behind the work they do on your books. Before you hand over bank feeds, payroll or tax data, ask three plain questions. Do you have a written AI policy? Does a person review AI output? How do you protect my data?",
+        "It is a fair question. Our post on [firms using AI without a policy](/blog/accounting-firms-ai-adoption-no-policy) shows why it is worth asking. Another covers [clients checking their accountant's work with AI](/blog/clients-check-accountants-with-ai).",
+        "For invoices, bank matching and reports with a person reviewing, see [AI accounting](/services/ai-accounting).",
+      ],
+    },
+    forYou: [
+      "Owners: ask your accountant whether they have a written AI policy, a human review step and a data-protection setup.",
+      "Accountants: an AI inventory, review records and monitoring may help you show insurers your controls. A discount is not guaranteed.",
+      "Everyone: good controls protect your data first.",
+    ],
+    source: {
+      publisher: "CPA Practice Advisor, with Accounting Today and CAMICO",
+      title: "How AI Risks Can Affect Accounting Firms' E&O Insurance",
+      note: "Vital Soupel, CPA Practice Advisor, 20 November 2026. Also earlier Accounting Today reporting, \"Insurers eyeing AI risk at CPA firms\", and CAMICO's guidance on generative AI.",
+      links: [
+        {
+          href: "https://www.cpapracticeadvisor.com/2026/11/20/how-ai-risks-can-affect-accounting-firms-eo-insurance/194470/",
+          label: "Read the CPA Practice Advisor article",
+        },
+        {
+          href: "https://www.accountingtoday.com/news/insurers-eyeing-ai-risk-at-cpa-firms",
+          label: "Read the Accounting Today report",
+        },
+        {
+          href: "https://camico.com/?p=12203",
+          label: "Read the CAMICO generative AI guidance",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/accounting-firms-ai-adoption-no-policy",
+        label: "AI policy for accounting firms",
+        text: "A post: most firms use AI, few have a policy.",
+      },
+      {
+        href: "/blog/clients-check-accountants-with-ai",
+        label: "AI accounting clients are checking their accountant's work",
+        text: "A post: what clients want to know about AI in their books.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Want AI in your books, with a person in charge?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at your invoices, bank feeds and reports, and where AI helps. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/ai-controls-accounting-firm-insurance-premiums-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A man in a dim office at night reviews a printed insurance policy while a translucent glowing AI figure stands across the desk.",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "inventory-and-human-review",
+        image: {
+          src: "/images/blog/ai-controls-accounting-firm-insurance-premiums-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "A woman accountant at a glass conference table checks AI output on her laptop next to a stamped, approved document.",
+          caption: "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "ai-recommends-quickbooks-first",
     title: "Which accounting software does AI recommend? Mostly QuickBooks.",
     seoTitle: "Which Accounting Software Does AI Recommend?",

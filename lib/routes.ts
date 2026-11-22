@@ -12,7 +12,7 @@ export type SiteRoute = { path: string; lastModified: string };
 const hasPosts = (service: string) => POSTS.some((p) => p.service === service);
 
 export const ROUTES: SiteRoute[] = [
-  { path: "/", lastModified: "2026-11-21" },
+  { path: "/", lastModified: "2026-11-22" },
   { path: "/privacy", lastModified: "2026-10-16" },
   { path: "/terms", lastModified: "2026-10-16" },
   { path: "/data-deletion", lastModified: "2026-10-16" },
@@ -20,12 +20,12 @@ export const ROUTES: SiteRoute[] = [
   // Pages of a service with blog posts gained a "From the blog" block.
   ...SERVICES.map((s) => ({
     path: `/services/${s.slug}`,
-    lastModified: hasPosts(s.slug) ? "2026-11-21" : "2026-10-17",
+    lastModified: hasPosts(s.slug) ? "2026-11-22" : "2026-10-17",
   })),
   { path: "/use-cases", lastModified: "2026-10-17" },
   ...USE_CASES.map((u) => ({
     path: `/use-cases/${u.slug}`,
-    lastModified: hasPosts(u.service) ? "2026-11-21" : "2026-10-17",
+    lastModified: hasPosts(u.service) ? "2026-11-22" : "2026-10-17",
   })),
   { path: "/locations", lastModified: "2026-10-17" },
   ...LOCATIONS.map((l) => ({
