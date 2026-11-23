@@ -250,6 +250,15 @@ export default function Home() {
                 ))}
               </ul>
             </div>
+            <p className="mt-10 md:mt-12" data-reveal>
+              <Link
+                href="/about"
+                className="text-link inline-flex items-center gap-2 font-medium"
+              >
+                More about Hiroshi
+                <ArrowRight size={16} weight="bold" aria-hidden="true" />
+              </Link>
+            </p>
           </div>
         </section>
 

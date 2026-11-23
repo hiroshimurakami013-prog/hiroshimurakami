@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Geist } from "next/font/google";
-import { ROBOTS, SITE_NAME, SITE_URL } from "@/lib/site";
+import { FEED_ALTERNATE, ROBOTS, SITE_NAME, SITE_URL } from "@/lib/site";
 import ClarityInit from "./components/clarity";
 import CookieNotice from "./components/cookie-notice";
 import RenderRelease from "./components/render-release";
@@ -32,6 +32,7 @@ export const metadata: Metadata = {
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
   formatDetection: { telephone: false, email: false, address: false },
+  alternates: { types: FEED_ALTERNATE },
   robots: ROBOTS,
 };
 

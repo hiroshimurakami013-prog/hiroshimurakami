@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { POSTS, formatPostDate } from "@/content/posts";
 import { blogHubJsonLd } from "@/lib/schema";
-import { pageMetadata } from "@/lib/site";
+import { FEED_PATH, pageMetadata } from "@/lib/site";
 import Breadcrumbs, { type Crumb } from "../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../components/cta";
 import JsonLd from "../components/json-ld";
@@ -53,6 +53,9 @@ export default function BlogPage() {
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
               <PrimaryCta />
+              <a href={FEED_PATH} className="text-link font-medium">
+                Follow by RSS feed
+              </a>
             </div>
           </div>
         </section>

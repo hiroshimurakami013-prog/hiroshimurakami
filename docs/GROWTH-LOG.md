@@ -2,6 +2,16 @@
 
 What was changed for organic growth, when, and why. Newest first. Use it to compare Search Console data before and after each batch.
 
+## 2026-11-23: about page, full llms.txt, llms-full.txt and RSS
+
+Goal: a clearer entity for Hiroshi Murakami and easier discovery by AI assistants and feed readers.
+
+- **About page** `/about` (`app/about/page.tsx`, copy in `content/about.ts`): one-sentence definition, key facts, the eight services, the three steps, what is not offered, profiles with `rel="me"`, four questions. Portrait at `public/images/shared/hiroshi-murakami.webp` (800 by 1000). Linked from the footer, the deep page header (from 1024 px), the home About section and `/llms.txt`. No experience, education or credentials: a TODO in the code marks where they go once the owner supplies them.
+- **Schema**: ProfilePage (main entity `/#person`), BreadcrumbList and FAQPage on `/about`. The shared Person now has `image`, `description` and `mainEntityOfPage` (`/about`); `@id`, `url` and `sameAs` are unchanged.
+- **`/llms.txt`**: lists all 31 use cases grouped by service (before: AI accounting only), `/about`, `/llms-full.txt` and the feed.
+- **`/llms-full.txt`**: text of the about page, services (summary, steps, human review, questions), use case summaries, the calculator and each post's main points.
+- **`/feed.xml`**: RSS 2.0, linked on `/blog` and through `rel="alternate"` on every page. The author is in `dc:creator`, because the RSS `author` element needs an email address.
+
 ## 2026-11-23: key facts, visible dates and one evaluation page
 
 Small batch while Google's November 2026 core update rolls out: quality over volume.

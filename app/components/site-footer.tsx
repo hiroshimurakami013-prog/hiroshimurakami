@@ -27,6 +27,11 @@ export default function SiteFooter() {
               <HomeLink className="text-link">Home</HomeLink>
             </li>
             <li>
+              <Link href="/about" className="text-link">
+                About
+              </Link>
+            </li>
+            <li>
               <Link href="/services" className="text-link">
                 Services
               </Link>

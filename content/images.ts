@@ -219,6 +219,14 @@ export const LOCATION_IMAGES: Record<LocationSlug, SceneImage> = {
   inglewood: LA_NIGHT,
 };
 
+/** The portrait on /about, also the image of the Person in JSON-LD. */
+export const HIROSHI_PORTRAIT: SceneImage = {
+  src: "/images/shared/hiroshi-murakami.webp",
+  width: 800,
+  height: 1000,
+  alt: "Portrait of Hiroshi Murakami",
+};
+
 export function imageForUseCase(slug: string): SceneImage | undefined {
   return USE_CASE_IMAGES[slug];
 }

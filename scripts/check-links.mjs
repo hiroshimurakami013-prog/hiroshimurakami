@@ -17,7 +17,7 @@
 // - a heading outline without skipped levels, and an Open Graph image
 // - unique titles and descriptions across pages
 // - the shared footer is identical on every page
-// - deep pages (/services, /use-cases, /locations, /blog and below) have a breadcrumb trail
+// - deep pages (/services, /use-cases, /locations, /blog and below, /about) have a breadcrumb trail
 //   and BreadcrumbList JSON-LD, and each service page has Service JSON-LD
 //   with provider, serviceType and areaServed
 // - each use case page is labelled "Use case" with the illustrative
@@ -43,7 +43,7 @@
 //   public/images/blog with clean alt text, the inline one after a real section
 // - every <img> has alt, width and height and an existing file; pages with
 //   a hero scene (service, use case, city and blog post pages, and the
-//   locations hub) have exactly one high priority image, other pages none,
+//   locations hub, and the portrait on /about) have exactly one high priority image, other pages none,
 //   and every other scene image is lazy; every service, use case and city has
 //   a scene image in content/images.ts, and public/images holds only used
 //   WebP files of about 180 KB or less
@@ -64,6 +64,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import {
+  HIROSHI_PORTRAIT,
   LOCATIONS_HUB_IMAGE,
   LOCATION_IMAGES,
   SERVICE_IMAGES,
@@ -87,6 +88,7 @@ const METADATA_PATHS = new Set([
   "/icon.png",
   "/apple-icon.png",
   "/opengraph-image",
+  "/feed.xml",
 ]);
 
 // Every file under a folder or file path.
@@ -179,7 +181,7 @@ function jsonNodes(value) {
   return [];
 }
 
-const isDeep = (path) => /^\/(services|use-cases|locations|blog)(\/|$)/.test(path);
+const isDeep = (path) => /^\/(services|use-cases|locations|blog|about)(\/|$)/.test(path);
 const cityFor = (path) => LOCATIONS.find((l) => path === `/locations/${l.slug}`);
 const isServicePage = (path) => /^\/services\/[^/]+$/.test(path);
 const scenarioFor = (path) => USE_CASES.find((u) => path === `/use-cases/${u.slug}`);
@@ -188,7 +190,9 @@ const maxDepth = (path) => (path.startsWith("/use-cases/") ? 3 : 2);
 // Pages whose hero ends in a scene image or a post's main image, the one
 // high priority image.
 const hasHeroScene = (path) =>
-  /^\/(services|use-cases|locations|blog)\/[^/]+$/.test(path) || path === "/locations";
+  /^\/(services|use-cases|locations|blog)\/[^/]+$/.test(path) ||
+  path === "/locations" ||
+  path === "/about";
 // The public file behind an <img> src, also through the next/image loader.
 const imageFile = (src) =>
   src.startsWith("/_next/image") ? new URLSearchParams(src.split("?")[1]).get("url") : src;
@@ -632,6 +636,7 @@ const sceneImages = [
   ...USE_CASES.map((u) => [`use case ${u.slug}`, USE_CASE_IMAGES[u.slug]]),
   ...LOCATIONS.map((l) => [`city ${l.slug}`, LOCATION_IMAGES[l.slug]]),
   ["locations hub", LOCATIONS_HUB_IMAGE],
+  ["about page", HIROSHI_PORTRAIT],
 ];
 const usedImages = new Set();
 // Post images: every post has a main image and one in the body, after a

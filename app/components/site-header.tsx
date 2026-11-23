@@ -3,14 +3,15 @@ import Link from "next/link";
 import { BOOKING_LABEL, CTA_LABEL } from "@/lib/site";
 import BookingLink from "./booking-link";
 
-// Header for the deep pages: the brand home, the three hubs, the blog and
-// the call to action. The home page keeps its own fixed header with the
+// Header for the deep pages: the brand home, the three hubs, the blog, the
+// about page (wide screens) and the call to action. The home page keeps its own fixed header with the
 // in-page section highlight.
 const links = [
   { href: "/services", label: "Services", show: undefined },
   { href: "/use-cases", label: "Use cases", show: "hidden min-[420px]:block" },
   { href: "/locations", label: "Locations", show: "hidden min-[560px]:block" },
   { href: "/blog", label: "Blog", show: "hidden md:block" },
+  { href: "/about", label: "About", show: "hidden lg:block" },
 ];
 
 export default function SiteHeader({ current }: { current?: string }) {

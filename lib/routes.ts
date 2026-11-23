@@ -1,5 +1,6 @@
 // The explicit .ts extension lets scripts/check-links.mjs import this file
 // directly with Node's type stripping.
+import { ABOUT_PATH } from "../content/about.ts";
 import { LOCATIONS } from "../content/locations.ts";
 import { POSTS } from "../content/posts.ts";
 import { SERVICES } from "../content/services.ts";
@@ -50,6 +51,7 @@ const dated = (path: string): SiteRoute => ({
 
 export const ROUTES: SiteRoute[] = [
   { path: "/", lastModified: POSTS[0]?.datePublished ?? "2026-11-22" },
+  { path: ABOUT_PATH, lastModified: "2026-11-23" },
   { path: "/privacy", lastModified: "2026-11-22" },
   { path: "/terms", lastModified: "2026-11-22" },
   { path: "/data-deletion", lastModified: "2026-11-22" },

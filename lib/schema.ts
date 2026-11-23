@@ -1,3 +1,5 @@
+import { ABOUT, ABOUT_DEFINITION, ABOUT_PATH } from "@/content/about";
+import { HIROSHI_PORTRAIT } from "@/content/images";
 import { AREA_SERVED, LOCATIONS } from "@/content/locations";
 import { POSTS } from "@/content/posts";
 import { SERVICES, type Service } from "@/content/services";
@@ -14,7 +16,7 @@ const PERSON_ID = `${SITE_URL}/#person`;
 /**
  * Hiroshi Murakami as a person, the same entity everywhere it appears (home
  * page, blog bylines, the free tool). Only facts the site states: what he
- * builds and the public profiles in lib/site.ts. No credentials or employers.
+ * builds, the portrait on /about and the public profiles in lib/site.ts. No credentials or employers.
  */
 export const PERSON_JOB_TITLE = "AI automation and AI accounting consultant";
 const PERSON_KNOWS_ABOUT = [
@@ -34,6 +36,9 @@ export function personJsonLd() {
     "@id": PERSON_ID,
     name: SITE_NAME,
     url: SITE_URL,
+    mainEntityOfPage: absoluteUrl(ABOUT_PATH),
+    description: ABOUT_DEFINITION,
+    image: absoluteUrl(HIROSHI_PORTRAIT.src),
     jobTitle: PERSON_JOB_TITLE,
     knowsAbout: PERSON_KNOWS_ABOUT,
     worksFor: { "@id": BUSINESS_ID },
@@ -128,6 +133,33 @@ export function breadcrumbJsonLd(items: BreadcrumbItem[]) {
       name: item.name,
       item: absoluteUrl(item.path),
     })),
+  };
+}
+
+/** The about page: a ProfilePage about the Person, its FAQ and breadcrumb. */
+export function aboutJsonLd(
+  description: string,
+  crumbs: BreadcrumbItem[],
+  faqs: FaqItem[],
+) {
+  const url = absoluteUrl(ABOUT_PATH);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        "@id": `${url}#page`,
+        url,
+        name: ABOUT.title,
+        description,
+        inLanguage: "en-US",
+        isPartOf: { "@id": WEBSITE_ID },
+        mainEntity: { "@id": PERSON_ID },
+      },
+      personJsonLd(),
+      breadcrumbJsonLd(crumbs),
+      ...withFaq(ABOUT_PATH, faqs),
+    ],
   };
 }
 

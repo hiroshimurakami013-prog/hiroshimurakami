@@ -11,10 +11,12 @@ The build plan and its status live in `docs/BUILD-PLAN.md`, the source of truth 
 All routes are statically generated (every route in `lib/routes.ts` plus a branded 404):
 
 - `/`: home, positioning for AI automation and AI accounting, services, use case highlights, the Los Angeles area band, process, the latest blog posts, a short FAQ and a closing call to action.
+- `/about`: who Hiroshi Murakami is, what the work covers, how it runs and where to find the profiles. Copy in `content/about.ts`, ProfilePage, Person and FAQPage JSON-LD.
 - `/services` and 8 service pages under `/services/<slug>`.
 - `/use-cases` and 31 use case pages under `/use-cases/<slug>`, at least three per service (AI Accounting has nine, AI Receptionist four). They are illustrative scenarios, labelled "Use case". A use case may have a worked example (`example`, figures labelled as assumptions, never client results), a visible FAQ (`faqs`) and related use cases (`seeAlso`).
 - `/tools/accounting-automation-savings-calculator`: a free calculator (client component, runs in the browser, stores and sends nothing). Copy, FAQ and the assumptions it uses live in `content/tools.ts`. Linked from the shared footer, the AI Accounting service page and the AI accounting use cases.
-- `/llms.txt`: a plain summary of the site and key pages for AI assistants, built by `app/llms.txt/route.ts` from the content modules (so its URLs follow `SITE_URL`).
+- `/llms.txt`: a plain summary of the site and key pages for AI assistants, built by `app/llms.txt/route.ts` from the content modules (so its URLs follow `SITE_URL`). `/llms-full.txt` has the text of the key pages in one file. Shared helpers are in `lib/llms.ts`.
+- `/feed.xml`: RSS 2.0 feed of the blog, built from `content/posts.ts`.
 - `/locations` and 10 Los Angeles area city pages under `/locations/<city>`, each with its own angle, remote-first.
 - `/blog` and posts under `/blog/<slug>`: short posts for owners and accountants that report on a published source, credit and link it, and label the author's own opinion.
 - `/privacy`, `/terms`, `/data-deletion`: legal pages. Their URLs must not change (a Meta app links to them).
