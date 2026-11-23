@@ -41,6 +41,7 @@
   --z-raised: 1;
   --z-header: 20;
   --z-skip: 30;
+  --z-notice: 35;
   --z-grain: 40;
 }
 
@@ -3025,4 +3026,65 @@ main:focus {
 }
 .calc-assumptions li::marker {
   color: var(--tide);
+}
+
+/* ---------- Cookie notice ---------- */
+/* Client-only and position fixed, so it never shifts the layout. A full
+   width bar on phones, a compact card in the bottom left corner on wider
+   screens, clear of the content flow. */
+.cookie-notice {
+  position: fixed;
+  z-index: var(--z-notice);
+  left: max(0.75rem, env(safe-area-inset-left));
+  right: max(0.75rem, env(safe-area-inset-right));
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: 1rem 1rem 1rem 1.25rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: rgb(15 18 27 / 0.94);
+  color: var(--text-2);
+  box-shadow: 0 24px 60px -24px rgb(0 0 0 / 0.7);
+}
+@supports (backdrop-filter: blur(1px)) {
+  .cookie-notice {
+    background: rgb(15 18 27 / 0.82);
+    backdrop-filter: blur(14px) saturate(1.2);
+  }
+}
+.cookie-notice-text {
+  flex: 1 1 16rem;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+.cookie-notice-text .text-link {
+  color: var(--text);
+}
+.cookie-notice-button {
+  min-height: 2.75rem;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 640px) {
+  .cookie-notice {
+    right: auto;
+    left: max(1.25rem, env(safe-area-inset-left));
+    bottom: max(1.25rem, env(safe-area-inset-bottom));
+    max-width: 26rem;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cookie-notice {
+    animation: cookie-notice-in 420ms var(--ease-out) both;
+  }
+}
+@keyframes cookie-notice-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }

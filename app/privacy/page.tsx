@@ -70,7 +70,11 @@ export default function PrivacyPage() {
           . I use the reports only to improve this website, not for advertising
           and not to identify individual visitors. You can block or delete
           cookies in your browser settings at any time, and the site works the
-          same without them.
+          same without them. On your first visit a short notice at the bottom
+          of the screen points to this policy; when you close it, the site
+          stores that in your browser&apos;s localStorage so the notice does not
+          appear again. The notice is information only, not a consent choice,
+          and closing it does not change what Clarity collects.
         </p>
         <p>
           <strong>Hosting logs.</strong> The site is hosted by Vercel. Like any

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Geist } from "next/font/google";
 import { ROBOTS, SITE_NAME, SITE_URL } from "@/lib/site";
 import ClarityInit from "./components/clarity";
+import CookieNotice from "./components/cookie-notice";
 import RenderRelease from "./components/render-release";
 import SmoothScroll from "./components/smooth-scroll";
 import "./globals.css";
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         <ClarityInit />
+        <CookieNotice />
         <SmoothScroll />
         <RenderRelease />
         {children}
