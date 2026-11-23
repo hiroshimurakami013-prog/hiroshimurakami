@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowUpRight, ProhibitInset, UserCheck } from "@phosphor-icons/react/dist/ssr";
-import { ABOUT, ABOUT_DEFINITION, ABOUT_PATH } from "@/content/about";
+import { ABOUT, ABOUT_DEFINITION, ABOUT_PATH, EXPERIENCE, monthYear } from "@/content/about";
 import { HIROSHI_PORTRAIT } from "@/content/images";
 import { PROCESS_STEPS, SERVICES } from "@/content/services";
 import { aboutJsonLd } from "@/lib/schema";
@@ -19,8 +19,8 @@ import SiteFooter from "../components/site-footer";
 import SiteHeader from "../components/site-header";
 import Words, { order } from "../components/words";
 
-// TODO (owner): the LinkedIn headline, experience and education can be added
-// to this page once the owner supplies them. Nothing is guessed until then.
+// TODO (owner): education can be added to this page once the owner supplies
+// it. Nothing is guessed until then.
 
 export const metadata: Metadata = pageMetadata({
   title: ABOUT.seoTitle,
@@ -81,6 +81,72 @@ export default function AboutPage() {
               />
             </div>
             <KeyFacts facts={ABOUT.keyFacts} />
+          </div>
+        </section>
+
+        <section id="background" className="block" aria-labelledby="background-title">
+          <div className="wrap">
+            <h2 id="background-title" className="h2 words max-w-[18ch]" data-reveal>
+              <Words text="Background" />
+            </h2>
+            <p className="lead mt-6 max-w-[60ch]" data-reveal="blur">
+              {ABOUT.background}
+            </p>
+
+            <h3 id="experience-title" className="xp-title" data-reveal>
+              Experience
+            </h3>
+            <ol className="xp" aria-labelledby="experience-title">
+              {EXPERIENCE.map((r) => (
+                <li key={r.company} className="xp-role" data-reveal>
+                  <p className="xp-when">
+                    <time dateTime={r.start}>{monthYear(r.start)}</time>
+                    {" to "}
+                    {r.end ? (
+                      <time dateTime={r.end}>{monthYear(r.end)}</time>
+                    ) : (
+                      "present"
+                    )}
+                    <span className="xp-place">{r.place}</span>
+                  </p>
+                  <div className="xp-body">
+                    <h4>
+                      {r.title}, <span>{r.company}</span>
+                    </h4>
+                    <p>{r.summary}</p>
+                    <ul>
+                      {r.points.map((p) => (
+                        <li key={p}>{p}</li>
+                      ))}
+                    </ul>
+                    {r.stated ? <p className="xp-stated">{r.stated}</p> : null}
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-10" data-reveal>
+              <a
+                href={LINKEDIN}
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="text-link inline-flex items-center gap-2 font-medium"
+              >
+                Details on LinkedIn
+                <span className="sr-only"> (opens in a new tab)</span>
+                <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
+              </a>
+            </p>
+
+            <h3 className="xp-title" data-reveal>
+              What I believe
+            </h3>
+            <ul className="beliefs">
+              {ABOUT.beliefs.map((b, i) => (
+                <li key={b} data-reveal style={order(i)}>
+                  {b}
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

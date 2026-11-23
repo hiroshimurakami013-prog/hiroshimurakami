@@ -16,7 +16,8 @@ const PERSON_ID = `${SITE_URL}/#person`;
 /**
  * Hiroshi Murakami as a person, the same entity everywhere it appears (home
  * page, blog bylines, the free tool). Only facts the site states: what he
- * builds, the portrait on /about and the public profiles in lib/site.ts. No credentials or employers.
+ * builds, the portrait and current role on /about and the public profiles in
+ * lib/site.ts. No education, awards, credentials or past employers.
  */
 export const PERSON_JOB_TITLE = "AI automation and AI accounting consultant";
 const PERSON_KNOWS_ABOUT = [
@@ -27,6 +28,10 @@ const PERSON_KNOWS_ABOUT = [
   "AI receptionists",
   "AI voice agents",
   "Business workflow automation",
+  "NetSuite",
+  "Month-end close",
+  "Revenue recognition (ASC 606)",
+  "Financial controllership",
 ];
 const SAME_AS = [INSTAGRAM, FACEBOOK, LINKEDIN];
 
@@ -41,7 +46,10 @@ export function personJsonLd() {
     image: absoluteUrl(HIROSHI_PORTRAIT.src),
     jobTitle: PERSON_JOB_TITLE,
     knowsAbout: PERSON_KNOWS_ABOUT,
-    worksFor: { "@id": BUSINESS_ID },
+    worksFor: [
+      { "@id": BUSINESS_ID },
+      { "@type": "Organization", name: "TriSage Solutions" },
+    ],
     sameAs: SAME_AS,
   };
 }

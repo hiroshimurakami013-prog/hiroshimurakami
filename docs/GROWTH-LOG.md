@@ -2,6 +2,14 @@
 
 What was changed for organic growth, when, and why. Newest first. Use it to compare Search Console data before and after each batch.
 
+## 2026-11-23: about page work experience
+
+Source: the owner's own LinkedIn export. No education was supplied, so none is shown.
+
+- **`/about`**: Background section with four roles (TriSage Solutions, Ledgerline, Gusto, Brex), "What I believe", "Details on LinkedIn" and a background question in the FAQ. The TriSage figures are labelled "From my LinkedIn profile" and as neither audited nor case studies. Copy in `content/about.ts`.
+- **Schema**: Person `worksFor` lists the business and TriSage Solutions (name only), `description` mentions finance and technology, four new `knowsAbout` items. `@id` and `sameAs` are unchanged. No alumniOf, education or awards.
+- **`/llms.txt` and `/llms-full.txt`**: the companies, roles and dates, generated from `content/about.ts`. The full file also has the role details.
+
 ## 2026-11-23: about page, full llms.txt, llms-full.txt and RSS
 
 Goal: a clearer entity for Hiroshi Murakami and easier discovery by AI assistants and feed readers.

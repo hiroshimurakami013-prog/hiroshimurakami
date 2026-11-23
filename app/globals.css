@@ -2832,6 +2832,129 @@ main:focus {
 }
 
 /* The portrait on /about, beside the title on wide screens. */
+/* Experience timeline: dates beside a rail on wide screens, above each role
+   on narrow ones. */
+.xp-title {
+  margin-top: clamp(3.5rem, 7vw, 5rem);
+  font-family: var(--font-display), sans-serif;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.xp {
+  margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.xp-role {
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+  padding: 0 0 clamp(2.5rem, 5vw, 3.5rem) 2rem;
+}
+.xp-role:last-child {
+  padding-bottom: 0;
+}
+.xp-role::before,
+.xp-role::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.xp-role::before {
+  top: 0.5rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--tide);
+}
+.xp-role:first-child::before {
+  background: var(--ember);
+  box-shadow: 0 0 1.25rem rgb(255 107 74 / 0.6);
+}
+.xp-role:not(:last-child)::after {
+  top: 1.6rem;
+  bottom: -0.1rem;
+  left: 0.3rem;
+  width: 1px;
+  background: var(--line-strong);
+}
+.xp-when {
+  color: var(--text-2);
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+.xp-place {
+  display: block;
+  color: var(--text-3);
+}
+.xp-body {
+  display: grid;
+  gap: 0.9rem;
+  min-width: 0;
+  max-width: 64ch;
+  color: var(--text-2);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+.xp-body h4 {
+  color: var(--text);
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.xp-body h4 span {
+  color: var(--ember-soft);
+}
+.xp-body ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0 0 0 1.1rem;
+  list-style: disc;
+}
+.xp-body li::marker {
+  color: var(--tide);
+}
+.xp-stated {
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--night-2);
+  font-size: 0.97rem;
+}
+@media (min-width: 860px) {
+  .xp-role {
+    grid-template-columns: 16.5rem minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+}
+.beliefs {
+  display: grid;
+  gap: 2rem;
+  margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.beliefs li {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-strong);
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.3rem, 1.1rem + 0.9vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+@media (min-width: 860px) {
+  .beliefs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem;
+  }
+}
+
 .about-portrait {
   aspect-ratio: 4 / 5;
   width: 100%;
