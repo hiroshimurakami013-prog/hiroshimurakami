@@ -66,6 +66,12 @@ export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
     seoDescription:
       "AI bank reconciliation explained: transaction matching of bank lines to invoices, receipts and payouts every day, with a short exception list for a person.",
     lead: "AI bank reconciliation matches each bank and card line to the invoice, bill, receipt or payout it belongs to, weighing amounts, dates, references and your past decisions, and leaves only the uncertain lines for a person to approve. Run every day instead of at month end, it turns reconciliation from a backlog that eats the first days of the month into a short exception list.",
+    keyFacts: [
+      "AI bank reconciliation matches bank and card lines to invoices, bills, receipts and payouts, and sends the lines it cannot match to a person.",
+      "Transaction matching using AI compares the amount, date, reference, payer name and past matching decisions for each transaction.",
+      "AI bank reconciliation can split a bundled payout into the customer payments and fees inside the payout.",
+      "An AI reconciliation setup can work with QuickBooks Online and Xero through their official connections.",
+    ],
     problem: [
       "Imagine a services business with several bank accounts, a couple of company cards, card terminal payouts and a payment processor for online invoices. Each payout bundles many customer payments and deducts fees. Some customers pay two invoices in one transfer, others pay part of one. Card statements arrive with merchant names that look nothing like the supplier name in the books.",
       "Matching all of this by hand is slow and dull, so it gets left until month end. By then there are hundreds of lines, memories have faded, and questions such as \"what was this transfer?\" take an email thread to answer. The close slips, reports are late, and cash looks different in the bank than in the books for most of the month.",
@@ -299,6 +305,12 @@ export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
     seoDescription:
       "AI transaction matching for QuickBooks Online: bank feed lines matched to invoices, bills and payouts with a reason for each, and a person approving them.",
     lead: "AI transaction matching for QuickBooks reads each bank feed line, compares it with your open invoices, bills and past matching decisions, and proposes the right match with a short reason, so a person only reviews the lines it is unsure about. It works alongside QuickBooks Online's own bank feed and bank rules rather than replacing them.",
+    keyFacts: [
+      "AI transaction matching for QuickBooks compares each bank feed line with open invoices, bills and past matching decisions.",
+      "AI transaction matching works alongside QuickBooks Online bank rules rather than replacing the rules.",
+      "AI transaction matching can link one customer transfer in QuickBooks Online to several open invoices.",
+      "A person approves AI-proposed matches before QuickBooks records the matches, unless the business has exempted a specific recurring pattern.",
+    ],
     problem: [
       "QuickBooks Online is the accounting software for a great many small businesses, and its bank feed is where reconciliation happens day to day. Lines arrive in the review queue, QuickBooks suggests some matches, and bank rules categorise the repeating ones. For a simple business, that covers a lot.",
       "The trouble starts with the lines that do not look like anything in the books. A processor payout that bundles twenty customer payments minus fees. A customer who pays three invoices with one transfer, or half of one. A card charge whose merchant name looks nothing like the supplier. A refund that arrives a month after the sale. Each of these takes a search, a calculation or an email, and they pile up in the For Review tab until month end.",
@@ -384,6 +396,122 @@ export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
         question: "Is my QuickBooks data safe?",
         answer:
           "The integration uses a user role you control and can remove at any time, no bank logins are collected, and the data is not used to train public AI models.",
+      },
+    ],
+  },
+
+  "ai-reconciliation-tool-evaluation-checklist": {
+    seoTitle: "How to Evaluate an AI Reconciliation Tool | Hiroshi Murakami",
+    seoDescription:
+      "A buyer checklist for an AI reconciliation tool: readable rules, exceptions, audit trail, access, approvals, data and a trial on a month you closed.",
+    lead: "An AI reconciliation tool is software that proposes which ledger entries belong to each bank, card or payout line, and leaves the rest for a person. The one question that matters when you choose one is: can you see why each match was made, and stop a wrong one before it reaches your books? The checklist below turns that question into things you can ask a vendor and test on your own records.",
+    stepsHeading: "The checklist, step by step",
+    problem: [
+      "Picture an owner with a part-time bookkeeper who has decided that matching by hand has to stop. They sit through a few product demos. Every demo uses tidy sample data, every line finds its match, and every screen looks much the same. Two weeks later they are comparing prices, because price is the only difference they can see.",
+      "The differences that matter show up later, on their own data. A payout lands net of fees and the tool books the net amount as income. A customer pays half an invoice and the tool closes the whole thing. Two payments of the same amount are swapped. None of these raises an alarm, because a confident wrong match looks exactly like a right one. It surfaces when a customer disputes a statement, or when the accountant asks about it at year end.",
+      "Small businesses rarely have anyone whose job is to test software. The bookkeeper who will live with the tool is often asked after the contract is signed.",
+    ],
+    usualTools: [
+      "Demos and feature lists tell you what a tool can do at its best. They do not show how it behaves when it is unsure, and that is what you are really buying. An advertised match rate says little without knowing what counted as a match, on whose transactions, and how many of those matches were wrong.",
+      "Reviews and recommendations help with support and ease of use, but another company's mix of transactions is not yours. A free trial on the current month is better, yet it has no answer key: if you do not already know the correct match, you cannot tell which proposals are mistakes.",
+    ],
+    steps: [
+      {
+        title: "Read the rules and the reasons",
+        text: "Ask to see the matching rules in plain language, and to change one. Then pick any proposed match and ask why it was made. A useful answer names the amount, date, reference or past decision behind it. A score on its own is not a reason.",
+      },
+      {
+        title: "Check how doubt is handled",
+        text: "Look for a confidence score on each match, a threshold you can set, and an exceptions queue with the likely candidates side by side. Ask what happens just below the threshold, and whether an unmatched line can ever be forced into a catch-all account.",
+      },
+      {
+        title: "Test the awkward lines",
+        text: "Bring your own examples: a payout with fees taken off, a part payment, one transfer for several invoices, a refund, two identical amounts, and a payment that leaves the books in one month and clears the bank in the next. The last is a timing difference, and it should stay listed as outstanding rather than be matched to something else.",
+      },
+      {
+        title: "Follow one match through the audit trail",
+        text: "For a single match, find who or what proposed it, the reason, who approved it, when, and what changed afterwards. Check that a match can be undone, that the undo is recorded too, and that the history can be exported if you leave.",
+      },
+      {
+        title: "Ask what the connection can write",
+        text: "Find out how it connects to QuickBooks or Xero, which user role it needs, and whether it only reads or also writes. If it writes, ask exactly what it creates or changes, whether it can touch a closed period, and whether you can start read only.",
+      },
+      {
+        title: "Decide who approves entries",
+        text: "Name the person before you buy. Check that approval can be limited by role and amount, that automatic recording is off until you switch it on for a specific pattern, and that the approver sees the source document and not only the match.",
+      },
+      {
+        title: "Put the data questions in writing",
+        text: "Ask where the data is stored, which outside AI providers process it, whether it is used to train models, who at the vendor can see it, how long it is kept, how it is deleted when you leave, and how you would be told about a breach. Keep the written answers with the contract.",
+      },
+      {
+        title: "Run a one-month trial on a month you closed",
+        text: "Choose a month you reconciled by hand, so you already have the answer key. Give the tool the bank lines and the open items as they stood, without the finished matches, in a test copy or read only. Compare every proposal with your own result, and count wrong matches separately from lines it left for review.",
+      },
+    ],
+    outcomes: [
+      "The choice rests on your own transactions, not on a demo.",
+      "You know which kinds of line the tool gets wrong before it touches live books.",
+      "Approval, access and data questions are settled before the contract rather than after.",
+      "The bookkeeper who will use the tool has tested it and has a say.",
+      "You have a written record to share with your accountant.",
+    ],
+    requirements: [
+      "One month that is fully reconciled by hand and that you trust",
+      "Exports of that month's bank, card and processor lines, plus the open invoices and bills at the time",
+      "A short list of your own awkward transactions",
+      "A test copy of the books or a read-only connection for the trial",
+      "The person who will approve matches, and your accountant's view on the audit trail",
+    ],
+    humanInTheLoop:
+      "The trial is judged by the person who knows the books, not by the tool's own score. After you buy, keep every match waiting for approval at first, allow automatic recording only for patterns that were right throughout the trial, and repeat the comparison on a sample from time to time.",
+    privacy:
+      "Share only what the trial needs. Read the vendor's terms first, use read-only access or exports, leave out payroll and other sensitive accounts, and remove the connection when the trial ends. Ask for the trial data to be deleted and for that to be confirmed in writing. Never hand over bank logins.",
+    example: {
+      title: "A worked example: a trial on a closed month",
+      intro:
+        "The figures below are assumptions chosen to show how to read a trial. They are not a client result or a measurement of any product.",
+      assumptions: [
+        { label: "Month tested", value: "One closed month with 400 bank, card and payout lines" },
+        { label: "Proposed by the tool", value: "Matches for 340 lines, with 60 left as exceptions" },
+        { label: "Compared with the hand-closed month", value: "331 proposals agree and 9 do not" },
+        { label: "Time by hand", value: "About 1.5 minutes a line, so 10 hours for the month" },
+        { label: "Review time in the trial", value: "About 15 seconds a proposal and 2 minutes an exception" },
+      ],
+      steps: [
+        "Check the 9 disagreements first: in this example the closed books were right each time.",
+        "Sort them by cause: 7 are payouts booked net of fees, and 2 are identical amounts matched to the wrong customer.",
+        "Look at the reasons and scores: the 7 share one rule that can be changed, but the 2 had high scores and no warning.",
+        "Change the fee rule, hold identical amounts for review, and run the same month again before deciding.",
+      ],
+      result:
+        "Review takes about 85 minutes for the proposals and 120 minutes for the exceptions, roughly 3.5 hours against 10. The 9 wrong matches are about 2.6% of the 340 proposals. The saving looks good, but the decision turns on the 2 confident mistakes: if the tool cannot be set to hold that kind of line for a person, the safer answer is no.",
+    },
+    faqs: [
+      {
+        question: "What is an AI reconciliation tool?",
+        answer:
+          "Software that proposes which ledger entries belong to each bank, card or payout line, using signals such as amount, date, reference and past decisions, and leaves the lines it is unsure about for a person to resolve.",
+      },
+      {
+        question: "What is a good match rate for an AI reconciliation tool?",
+        answer:
+          "There is no single number worth trusting, because it depends on your transactions. Wrong matches matter more than unmatched lines: an unmatched line costs a minute of review, while a wrong match can sit in the books unnoticed. Measure both on a month you already closed.",
+      },
+      {
+        question: "Should the tool have write access to QuickBooks or Xero?",
+        answer:
+          "Not for the trial. Start read only or in a test copy. Give write access later if approved matches need to be recorded, with a user role limited to that work and closed periods locked.",
+      },
+      {
+        question: "How long should a trial take?",
+        answer:
+          "One closed month of transactions is enough to start, as long as it includes your awkward lines. If a seasonal month looks very different, such as a holiday peak, test that one as well.",
+      },
+      {
+        question: "Do I need a separate tool at all?",
+        answer:
+          "Perhaps not. If bank feeds and rules already place nearly every line, a separate tool may add little. The free AI audit can help you decide whether to keep what you have, buy a tool or connect a custom workflow. I build such workflows, so put the same questions to me.",
       },
     ],
   },

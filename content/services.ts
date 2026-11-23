@@ -39,6 +39,8 @@ export type Service = {
   headline: string;
   /** The lead paragraph under the H1. */
   intro: string;
+  /** Optional "The short version": three or four self-contained sentences. */
+  keyFacts?: string[];
   /** What it is, in a few short paragraphs. */
   whatItIs: string[];
   /** Who it is for, as a short list. */
@@ -77,6 +79,12 @@ export const SERVICES: Service[] = [
     headline: "An AI receptionist that picks up when your team cannot",
     intro:
       "An AI receptionist is a phone assistant that answers your business calls in a natural voice, handles common questions, books appointments and sends your team a written summary of every call. It covers the calls your team cannot get to, at lunch, on another line or after hours, so fewer callers end up in voicemail.",
+    keyFacts: [
+      "An AI receptionist is a phone assistant that answers business calls in a natural voice.",
+      "An AI receptionist can work as a main line, as overflow when staff are busy or only outside business hours.",
+      "A business keeps its existing phone number when calls are forwarded to an AI receptionist.",
+      "Hiroshi Murakami sets up AI receptionists remotely for businesses in Los Angeles and across Los Angeles County.",
+    ],
     whatItIs: [
       "An AI receptionist is a phone assistant with a natural voice that answers your business line. It knows your opening hours, services, prices you are happy to share, your booking rules and who handles what. It talks with callers the way a well briefed receptionist would.",
       "It can work as your main line, as overflow when your staff are busy, or only outside business hours. Every call ends with a short written summary sent to the right person, so nothing depends on someone remembering a voicemail.",
@@ -785,6 +793,12 @@ export const SERVICES: Service[] = [
     headline: "AI accounting that keeps your books current",
     intro:
       "AI accounting uses AI to do the first pass of bookkeeping: reading invoices and receipts, coding them, matching bank lines and preparing month-end reports, while a person reviews and approves the results. Your books stay current through the month, and your bookkeeper or accountant spends their time on review and advice instead of data entry.",
+    keyFacts: [
+      "AI accounting does the first pass of bookkeeping, from reading invoices to matching bank lines.",
+      "Every entry that AI accounting prepares is reviewed by a person before the entry counts.",
+      "AI accounting works most often with QuickBooks Online and Xero.",
+      "AI accounting does not replace a bookkeeper or an accountant.",
+    ],
     whatItIs: [
       "AI accounting is a set of workflows that sit alongside your accounting software, commonly QuickBooks Online or Xero. Invoices and receipts are collected from email, uploads and phone photos. The AI reads each one, pulls out the supplier, date, amounts and tax, suggests the account and category based on your past coding, and prepares the entry.",
       "Bank lines are matched to those invoices, receipts and payments as they arrive. The routine matches are prepared automatically. Anything that does not match, looks like a duplicate or falls outside your rules lands on a short exception list for a person.",

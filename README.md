@@ -12,7 +12,7 @@ All routes are statically generated (every route in `lib/routes.ts` plus a brand
 
 - `/`: home, positioning for AI automation and AI accounting, services, use case highlights, the Los Angeles area band, process, the latest blog posts, a short FAQ and a closing call to action.
 - `/services` and 8 service pages under `/services/<slug>`.
-- `/use-cases` and 30 use case pages under `/use-cases/<slug>`, at least three per service (AI Accounting has eight, AI Receptionist four). They are illustrative scenarios, labelled "Use case". A use case may have a worked example (`example`, figures labelled as assumptions, never client results), a visible FAQ (`faqs`) and related use cases (`seeAlso`).
+- `/use-cases` and 31 use case pages under `/use-cases/<slug>`, at least three per service (AI Accounting has nine, AI Receptionist four). They are illustrative scenarios, labelled "Use case". A use case may have a worked example (`example`, figures labelled as assumptions, never client results), a visible FAQ (`faqs`) and related use cases (`seeAlso`).
 - `/tools/accounting-automation-savings-calculator`: a free calculator (client component, runs in the browser, stores and sends nothing). Copy, FAQ and the assumptions it uses live in `content/tools.ts`. Linked from the shared footer, the AI Accounting service page and the AI accounting use cases.
 - `/llms.txt`: a plain summary of the site and key pages for AI assistants, built by `app/llms.txt/route.ts` from the content modules (so its URLs follow `SITE_URL`).
 - `/locations` and 10 Los Angeles area city pages under `/locations/<city>`, each with its own angle, remote-first.
@@ -46,7 +46,7 @@ Every page has a unique title and description, a canonical URL, Open Graph and T
 - City pages: `content/location-details/<city>.ts`. Keep each city distinct, with facts that are widely known and conservative.
 - Contact links and the call to action label: `lib/site.ts`.
 - Blog posts: `content/posts.ts` (see "Blog" below).
-- After a content change, update the date for that page in `lib/routes.ts` (it becomes the sitemap `lastmod`), then run `npm run build`, `npm run lint` and `npm run check`.
+- After a content change, update the date for that page in `lib/routes.ts` (it becomes the sitemap `lastmod` and the visible "Last updated" date on service, use case and city pages; a new blog post does not change it). Services, use cases and cities may have `keyFacts`, shown as "The short version": each sentence must make sense on its own and be supported by the page, then run `npm run build`, `npm run lint` and `npm run check`.
 
 Rules for all copy: "AI" in capitals, no em or en dashes, no invented clients, testimonials, statistics or guarantees, no contact details other than Instagram and Facebook. Titles stay at 60 characters or fewer and descriptions at 155 or fewer; the checker enforces these.
 

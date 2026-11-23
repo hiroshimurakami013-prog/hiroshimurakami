@@ -19,6 +19,8 @@ import AreaBand from "../../components/area-band";
 import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../../components/cta";
 import JsonLd from "../../components/json-ld";
+import KeyFacts from "../../components/key-facts";
+import LastUpdated from "../../components/last-updated";
 import { FromTheBlog } from "../../components/post-list";
 import RevealObserver from "../../components/reveal-observer";
 import Scene, { HERO_SIZES } from "../../components/scene";
@@ -85,12 +87,14 @@ export default async function ServicePage({
               <span className="dot">.</span>
             </h1>
             <p className="lead mt-8 max-w-[56ch]">{service.intro}</p>
+            <LastUpdated path={`/services/${service.slug}`} />
             <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
               <PrimaryCta />
               <a href="#how-it-works" className="text-link font-medium">
                 How it works
               </a>
             </div>
+            <KeyFacts facts={service.keyFacts} />
             <Scene
               image={SERVICE_IMAGES[service.slug]}
               sizes={HERO_SIZES}

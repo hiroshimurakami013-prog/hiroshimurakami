@@ -46,6 +46,10 @@ export type UseCaseDetail = {
   seoDescription: string;
   /** The lead paragraph under the H1. */
   lead: string;
+  /** Optional "The short version": three or four self-contained sentences. */
+  keyFacts?: string[];
+  /** Optional heading for the steps, when they are not how the AI works. */
+  stepsHeading?: string;
   /** The problem in plain business terms. */
   problem: string[];
   /** Why the usual tools and workarounds fall short. */
@@ -119,6 +123,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
     seeAlso: [
       "bank-reconciliation-for-a-10-person-firm",
       "ai-transaction-matching-for-quickbooks",
+      "ai-reconciliation-tool-evaluation-checklist",
     ],
   },
   {
@@ -149,7 +154,25 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "Bank feed lines that QuickBooks rules cannot place, such as bundled payouts and combined payments, matched by AI with a reason for each, ready for review.",
     relatedService: "ai-agents",
     locations: ["los-angeles", "long-beach", "torrance", "glendale"],
-    seeAlso: ["automated-bank-reconciliation", "ai-expense-categorization"],
+    seeAlso: [
+      "ai-reconciliation-tool-evaluation-checklist",
+      "automated-bank-reconciliation",
+      "ai-expense-categorization",
+    ],
+  },
+  {
+    slug: "ai-reconciliation-tool-evaluation-checklist",
+    service: "ai-accounting",
+    title: "How to evaluate an AI reconciliation tool",
+    summary:
+      "A buyer checklist for owners and bookkeepers: what to ask about matching, approvals and data, and how to run a one-month trial on a month you already closed.",
+    relatedService: "custom-crm-and-workflows",
+    locations: ["pasadena", "los-angeles", "glendale", "burbank"],
+    seeAlso: [
+      "automated-bank-reconciliation",
+      "ai-transaction-matching-for-quickbooks",
+      "bank-reconciliation-for-a-10-person-firm",
+    ],
   },
   {
     slug: "ai-accounts-payable-invoice-capture",

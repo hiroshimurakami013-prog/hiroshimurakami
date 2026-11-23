@@ -74,7 +74,11 @@ export const USE_CASE_IMAGES: Record<string, SceneImage> = {
     "use-cases/month-end-reporting-clean-dashboard",
     "Scattered paperwork resolving into a clean dashboard of charts at month end",
   ),
-  // The five newer accounting use cases reuse the closest existing scene.
+  "ai-reconciliation-tool-evaluation-checklist": img(
+    "use-cases/bank-reconciliation-matching-rows",
+    "Bank and ledger rows matched pair by pair with threads of light, one row left for review",
+  ),
+  // The newer accounting use cases, and the one above, reuse the closest existing scene.
   // Alt text describes the picture, so it stays true when reused.
   "bank-reconciliation-for-a-10-person-firm": img(
     "use-cases/bank-reconciliation-matching-rows",

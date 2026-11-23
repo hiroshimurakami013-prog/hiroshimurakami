@@ -2,6 +2,16 @@
 
 What was changed for organic growth, when, and why. Newest first. Use it to compare Search Console data before and after each batch.
 
+## 2026-11-23: key facts, visible dates and one evaluation page
+
+Small batch while Google's November 2026 core update rolls out: quality over volume.
+
+- **Key facts**: optional `keyFacts` ("The short version", `app/components/key-facts.tsx`) in the hero of service, use case and city pages. Filled on `/locations/pasadena`, `/locations/los-angeles`, `/use-cases/automated-bank-reconciliation`, `/use-cases/ai-transaction-matching-for-quickbooks`, `/services/ai-receptionist` and `/services/ai-accounting`. Not added to JSON-LD: no existing node has a natural place for them. City key facts count in the overlap test.
+- **Last updated**: shown on every service, use case and city page (`app/components/last-updated.tsx`), read from `lib/routes.ts` through `lastModifiedFor()`, so it matches the sitemap. AI accounting pages used to take the date of the newest blog post. They now take the date of their own content, so untouched AI accounting use cases moved back from 2026-11-23 to 2026-11-22.
+- **New page** (31 use cases): `/use-cases/ai-reconciliation-tool-evaluation-checklist`, "How to evaluate an AI reconciliation tool". Linked from both reconciliation pages, the savings calculator and the two posts below. It reuses the bank reconciliation scene image. New optional `stepsHeading`, because its steps are a checklist rather than how the AI works.
+- **Posts**: one inline link each from `/blog/numica-buys-retiring-accounting-firms` and `/blog/ai-agents-tax-benchmark` (`dateModified` 2026-11-23).
+- Indexing logic was not touched.
+
 ## 2026-11-22: answer-first pages, schema, long-tail use cases and a free tool
 
 Starting point: new domain, close to zero clicks, average positions around 60 to 90. Queries seen in Search Console: "ai consulting pasadena", "ai automation pasadena", "ai bank reconciliation", "transaction matching using ai", "ai receptionist los angeles", "ai automation for small business los angeles". The plan: long-tail pages with direct answers first, a free interactive tool that can earn links, and GEO (answer-first copy, structured data and consistent entity data so AI search can cite the site).

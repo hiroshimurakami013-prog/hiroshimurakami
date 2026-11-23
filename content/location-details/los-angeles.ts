@@ -10,6 +10,12 @@ export const LOS_ANGELES: LocationDetail = {
     "AI receptionists, follow-ups, custom workflows and AI accounting for small and mid-size businesses in Los Angeles. Remote-first, with a person in charge.",
   headline: "AI automation for Los Angeles businesses, whatever you sell",
   lead: "AI automation for a small business in Los Angeles means handing the repetitive work, answering calls, replying to leads, chasing follow-ups and keeping the books matched, to AI workflows that a person on your team still checks. I set these up for Los Angeles businesses remote-first, most often starting with an AI receptionist for missed calls or AI accounting for books that are always behind. Los Angeles is not one market, though. A restaurant group in one neighbourhood, a garment wholesaler downtown, a law practice on the Westside and a contractor in the Valley all lose time in very different places, so this page is about finding your place on that map first.",
+  keyFacts: [
+    "AI automation for a small business in Los Angeles can take on answering calls, replying to leads, chasing follow-ups and matching the books.",
+    "An AI receptionist for a Los Angeles business can keep the phone number the business already has.",
+    "AI voice and chat systems can often serve Los Angeles customers in more than one language.",
+    "Hiroshi Murakami sets up AI automation for Los Angeles businesses over video calls and messages.",
+  ],
   angle:
     "The broad hub: every industry, many languages and a lot of driving. Where to start when your business could be anything.",
   sections: [

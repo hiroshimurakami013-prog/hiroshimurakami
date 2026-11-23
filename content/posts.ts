@@ -1034,7 +1034,7 @@ export const POSTS: Post[] = [
     author: "Hiroshi Murakami",
     service: "ai-accounting",
     datePublished: "2026-11-11",
-    dateModified: "2026-11-22",
+    dateModified: "2026-11-23",
     lead: "Numica is a New York start-up that has raised $21M to buy small accounting firms from owners close to retirement and run their work on its own AI system, with the firms' accountants checking the AI's output. For clients, little should change on the surface, while bookkeeping, billing and tax filing move onto AI behind the scenes. Here is what happened, and why it matters if a small firm keeps your books.",
     glance: [
       "Numica raised $21M, a mix of equity and debt, to buy small US accounting firms from retiring owners.",
@@ -1077,7 +1077,7 @@ export const POSTS: Post[] = [
         "This part is my opinion, not a finding of the article.",
         "If you run a restaurant, a salon or a dental practice, the person who knows your books may soon work inside a firm run on AI. You might not notice. That is the point of the model.",
         "That is not bad news in itself. AI is good at the routine work: entering transactions, [matching payments](/use-cases/automated-bank-reconciliation), [preparing a first draft](/blog/copilot-accounting-skills-excel). But it changes what you should ask.",
-        "Ask your accountant who reviews the AI's output, and how. Make sure a person stays in charge of [the judgment calls](/blog/ai-agents-tax-benchmark): what to claim, what to flag, what to question. AI works best behind a human you trust.",
+        "Ask your accountant who reviews the AI's output, and how. Make sure a person stays in charge of [the judgment calls](/blog/ai-agents-tax-benchmark): what to claim, what to flag, what to question. AI works best behind a human you trust. If you are choosing software yourself, ask the same of [an AI reconciliation tool](/use-cases/ai-reconciliation-tool-evaluation-checklist).",
       ],
     },
     forYou: [
@@ -1189,7 +1189,7 @@ export const POSTS: Post[] = [
     author: "Hiroshi Murakami",
     service: "ai-accounting",
     datePublished: "2026-10-29",
-    dateModified: "2026-11-22",
+    dateModified: "2026-11-23",
     lead: "AI agents cannot yet do tax work on their own. In Surge AI's DAYJOB: Tax benchmark, the best agent passed only 10.8% of 50 real tax assignments.",
     glance: [
       "Tax experts built and reviewed all 50 assignments.",
@@ -1240,7 +1240,7 @@ export const POSTS: Post[] = [
         "This part is my opinion, not a finding of the benchmark.",
         "[AI agents](/services/ai-agents) can take repetitive work off a business's plate, like [capturing invoices](/use-cases/invoice-and-receipt-capture) and [matching receipts](/use-cases/automated-bank-reconciliation).",
         "The benchmark shows why that is only half the job. A [human accountant who reviews the output](/blog/numica-buys-retiring-accounting-firms), and spots the issue nobody asked about, still matters.",
-        "So use AI for the routine, and keep a professional on the judgment calls.",
+        "So use AI for the routine, [test tools on a closed month](/use-cases/ai-reconciliation-tool-evaluation-checklist), and keep a professional on the judgment calls.",
       ],
     },
     forYou: [

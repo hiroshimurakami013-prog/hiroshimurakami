@@ -10,6 +10,12 @@ export const PASADENA: LocationDetail = {
     "AI for Pasadena professional firms, medical practices and research-minded teams: front desk cover, internal knowledge assistants and reconciliation.",
   headline: "Careful AI for Pasadena's firms, practices and research-minded teams",
   lead: "For AI consulting and AI automation in Pasadena, I work remotely with professional firms, medical practices and research-minded teams to find the repetitive work AI can safely take on, then build it with a person reviewing what matters. Good first projects here are an internal assistant that answers staff questions from the firm's own documents, AI reconciliation for busy books and overflow call cover for the front desk. Pasadena is known for science and research, for healthcare and for law, accounting, wealth management, architecture and engineering firms, where a wrong answer to a client is worse than a slow one. So this page starts with how the AI is checked, and only then with what it does.",
+  keyFacts: [
+    "Hiroshi Murakami offers AI consulting to Pasadena businesses remotely, with every meeting held online.",
+    "AI consulting for a Pasadena business starts with a free AI audit on a video call.",
+    "Sensible first AI automation projects for a Pasadena firm include a knowledge assistant over internal procedures, reconciliation prepared for review and overflow call cover.",
+    "Client advice and clinical questions at Pasadena firms and practices always go to a professional, never to the AI.",
+  ],
   angle:
     "Professional firms, healthcare practices and research-minded teams. Accuracy first, with every answer traceable to a source.",
   sections: [

@@ -142,6 +142,16 @@ export default function SavingsCalculatorPage() {
                   </Link>
                 </li>
               </ul>
+              <p className="muted mt-7 max-w-[44ch]">
+                Comparing products before you buy? Read{" "}
+                <Link
+                  href="/use-cases/ai-reconciliation-tool-evaluation-checklist"
+                  className="text-link font-medium"
+                >
+                  how to evaluate an AI reconciliation tool
+                </Link>
+                , with a one-month trial you can run on your own books.
+              </p>
             </div>
           </div>
         </section>

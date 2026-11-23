@@ -60,6 +60,8 @@ export type LocationDetail = {
   headline: string;
   /** The lead paragraph under the H1. */
   lead: string;
+  /** Optional "The short version": self-contained sentences unique to this city. */
+  keyFacts?: string[];
   /** One line for the locations hub. */
   angle: string;
   /** The body of the page, in order. */
@@ -126,6 +128,7 @@ export function servingLine(name: string): string {
 export function cityCopy(detail: LocationDetail): string[] {
   return [
     detail.lead,
+    ...(detail.keyFacts ?? []),
     ...detail.sections.flatMap((s) =>
       s.kind === "prose"
         ? [s.heading, ...s.paragraphs]

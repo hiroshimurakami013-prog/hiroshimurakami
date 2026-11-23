@@ -242,7 +242,7 @@ export function scenarioHubJsonLd(
 
 /**
  * One use case page: a WebPage about its parent service, and the
- * breadcrumb. No Article markup, since there is no author or date to show.
+ * breadcrumb. No Article markup, since there is no author to show.
  */
 export function scenarioJsonLd(useCase: UseCase, crumbs: BreadcrumbItem[]) {
   const url = absoluteUrl(`/use-cases/${useCase.slug}`);

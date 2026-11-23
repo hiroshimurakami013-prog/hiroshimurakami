@@ -20,6 +20,8 @@ import Breadcrumbs, { type Crumb } from "../../components/breadcrumbs";
 import { ClosingCta, PrimaryCta } from "../../components/cta";
 import FaqSection from "../../components/faq-section";
 import JsonLd from "../../components/json-ld";
+import KeyFacts from "../../components/key-facts";
+import LastUpdated from "../../components/last-updated";
 import { FromTheBlog } from "../../components/post-list";
 import RevealObserver from "../../components/reveal-observer";
 import Scene, { HERO_SIZES } from "../../components/scene";
@@ -136,6 +138,7 @@ export default async function UseCasePage({
               <span className="dot">.</span>
             </h1>
             <p className="lead mt-8 max-w-[58ch]">{detail.lead}</p>
+            <LastUpdated path={`/use-cases/${useCase.slug}`} />
             <p className="uc-disclaimer">
               <Info size={18} weight="light" aria-hidden="true" />
               <span>
@@ -147,9 +150,10 @@ export default async function UseCasePage({
             <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
               <PrimaryCta />
               <a href="#how-it-works" className="text-link font-medium">
-                How the AI handles it
+                {detail.stepsHeading ?? "How the AI handles it"}
               </a>
             </div>
+            <KeyFacts facts={detail.keyFacts} />
             <Scene
               image={imageForUseCase(useCase.slug)}
               sizes={HERO_SIZES}
@@ -193,7 +197,7 @@ export default async function UseCasePage({
               className="h2 words max-w-[20ch]"
               data-reveal
             >
-              <Words text="How the AI solution works" />
+              <Words text={detail.stepsHeading ?? "How the AI solution works"} />
             </h2>
             <ol className="steps">
               {detail.steps.map((s, i) => (
