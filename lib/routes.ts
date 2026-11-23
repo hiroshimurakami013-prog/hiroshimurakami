@@ -11,6 +11,12 @@ import { USE_CASES } from "../content/use-cases.ts";
 export type SiteRoute = { path: string; lastModified: string };
 
 const hasPosts = (service: string) => POSTS.some((p) => p.service === service);
+// Newest post date for a service: its pages list the post under "From the blog".
+const postsDate = (service: string) =>
+  POSTS.filter((p) => p.service === service)
+    .map((p) => p.datePublished)
+    .sort()
+    .at(-1) ?? "2026-11-22";
 
 // Pages whose own copy changed in the growth batch of 2026-11-22 (answer-first
 // leads, FAQs, new links). See docs/GROWTH-LOG.md.
@@ -27,7 +33,7 @@ const changed = (path: string, otherwise: string) =>
   growthPages.has(path) ? GROWTH_BATCH : otherwise;
 
 export const ROUTES: SiteRoute[] = [
-  { path: "/", lastModified: "2026-11-22" },
+  { path: "/", lastModified: POSTS[0]?.datePublished ?? "2026-11-22" },
   { path: "/privacy", lastModified: "2026-11-22" },
   { path: "/terms", lastModified: "2026-11-22" },
   { path: "/data-deletion", lastModified: "2026-11-22" },
@@ -37,7 +43,7 @@ export const ROUTES: SiteRoute[] = [
     path: `/services/${s.slug}`,
     lastModified: changed(
       `/services/${s.slug}`,
-      hasPosts(s.slug) ? "2026-11-22" : "2026-10-17",
+      hasPosts(s.slug) ? postsDate(s.slug) : "2026-10-17",
     ),
   })),
   { path: "/use-cases", lastModified: GROWTH_BATCH },
@@ -45,7 +51,7 @@ export const ROUTES: SiteRoute[] = [
     path: `/use-cases/${u.slug}`,
     lastModified: changed(
       `/use-cases/${u.slug}`,
-      hasPosts(u.service) ? "2026-11-22" : "2026-10-17",
+      hasPosts(u.service) ? postsDate(u.service) : "2026-10-17",
     ),
   })),
   { path: "/locations", lastModified: "2026-10-17" },

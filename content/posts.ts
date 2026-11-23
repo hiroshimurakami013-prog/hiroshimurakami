@@ -92,6 +92,126 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "thomson-reuters-cocounsel-agentic-tax-compliance",
+    title: "AI tax compliance: Thomson Reuters wants every invoice checked as it happens.",
+    seoTitle: "AI Tax Compliance: Thomson Reuters CoCounsel Explained",
+    description:
+      "Thomson Reuters is bringing agentic AI to tax compliance and AI invoice checking in 2027. See what it does and what small businesses can do now.",
+    author: "Hiroshi Murakami",
+    service: "ai-accounting",
+    datePublished: "2026-11-23",
+    dateModified: "2026-11-23",
+    lead: "AI tax compliance is moving from year-end clean-up to checking each invoice as it happens. On 17 November 2026, at its Synergy conference in Las Vegas, Thomson Reuters announced it is bringing CoCounsel agentic AI to tax and transactional compliance. This is a vendor announcement, and the new workflows are designed, not yet released. Here is what it means for a small business.",
+    glance: [
+      "Thomson Reuters expanded CoCounsel across tax and transactional compliance. The review, the sign-off and the judgment stay with professionals.",
+      "The new agentic workflows for direct tax and transactional compliance begin to roll out in 2027.",
+      "The idea is to check every customer, vendor and invoice as it is set up, so errors are fixed at the source.",
+    ],
+    sections: [
+      {
+        id: "what-thomson-reuters-announced",
+        title: "What Thomson Reuters announced",
+        paragraphs: [
+          "Thomson Reuters announced it at Synergy, its event for corporate, tax, audit, accounting and legal professionals. The aim is to bring agentic AI into more of the workflows tax professionals use every day.",
+          "There is a reason for the push. The 2026 State of the Corporate Tax Department report, from the Thomson Reuters Institute and Tax Executives Institute (October 2026), found that 62% of tax leaders said their departments made limited or no progress adopting automation and AI over the past year.",
+        ],
+      },
+      {
+        id: "ai-invoice-checking-at-the-source",
+        title: "AI invoice checking at the source",
+        paragraphs: [
+          "Thomson Reuters says most tax teams still find out an invoice was wrong when it comes back rejected, or when a correction lands in next month's return. New e-invoicing and digital reporting rules are raising the stakes.",
+          "The new transactional compliance workflows bring indirect tax, e-invoicing through the Pagero network and global trade together, so CoCounsel has one view of each transaction. They are designed to check each customer, vendor and product as they are set up, and every invoice before it reaches the tax authority. They are also designed to reconcile later changes against the books and prefill the return for review.",
+          "Ray Grove, Head of Product, Transactional Compliance, said: \"The goal is to get every transaction right the first time.\" A mistake is fixed once. What reaches the end of the period is a short list of exceptions for the professional to work. A professional approves the return before anything is filed.",
+        ],
+      },
+      {
+        id: "direct-tax-and-the-fiduciary-grade-standard",
+        title: "Direct tax, and a standard for trust",
+        paragraphs: [
+          "For direct tax, the new workflow is designed to prepare common quarter-end workpapers with the research beside each calculation. It carries the work into ONESOURCE Tax Provision, drafts footnote and disclosure language and builds board-ready materials for review. Teams start from a cited draft, with each figure traceable to its source.",
+          "Thomson Reuters says it builds to its Fiduciary-Grade AI standard. The AI works from authoritative sources and shows its steps. Tax engines calculate by rule, so the same inputs give the same number. A professional verifies and signs a draft.",
+          "Already launched: ONESOURCE Indirect Compliance, which Thomson Reuters says cuts routine reporting time by up to 65%. That is a company claim.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the sources.",
+        "These tools are aimed at corporate tax teams first, and the rollout starts in 2027. But the idea travels well. Check every invoice as it is created. Fix mistakes at the source. Hand a person a short list of exceptions. Let that person sign.",
+        "A small business can already do a version of that with [AI accounting](/services/ai-accounting). One example is [AI accounts payable invoice capture](/use-cases/ai-accounts-payable-invoice-capture), where supplier invoices become draft bills and a person approves them. A person always reviews, which is also the point of our post on [AI controls and accounting firm insurance](/blog/ai-controls-accounting-firm-insurance-premiums).",
+        "Owners, ask where mistakes get caught today: at the source, or at month end?",
+      ],
+    },
+    forYou: [
+      "Owners: a wrong invoice is cheaper to fix when it is created than when it comes back rejected.",
+      "Accountants: expect work to shift from finding errors to reviewing exceptions and signing.",
+      "Everyone: this is a vendor announcement. Rollout begins in 2027.",
+    ],
+    source: {
+      publisher: "Thomson Reuters, with CPA Practice Advisor",
+      title: "Thomson Reuters Brings CoCounsel Agentic AI to the Tax and Compliance Products Professionals Trust",
+      note: "Thomson Reuters press release, 17 November 2026, and CPA Practice Advisor, \"Thomson Reuters Expands CoCounsel Agentic AI to Tax and Compliance Products\", 17 November 2026.",
+      links: [
+        {
+          href: "https://www.thomsonreuters.com/en/press-releases/2026/november/thomson-reuters-brings-cocounsel-agentic-ai-to-the-tax-and-compliance-products-professionals-trust",
+          label: "Read the Thomson Reuters press release",
+        },
+        {
+          href: "https://www.cpapracticeadvisor.com/2026/11/17/thomson-reuters-brings-cocounsel-agentic-ai-to-the-tax-and-compliance-products-professionals-trust/194164/",
+          label: "Read the CPA Practice Advisor article",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/use-cases/ai-accounts-payable-invoice-capture",
+        label: "Use case: accounts payable invoice capture",
+        text: "Supplier invoices become draft bills, checked for duplicates and routed for approval.",
+      },
+      {
+        href: "/blog/ai-controls-accounting-firm-insurance-premiums",
+        label: "AI controls and accounting firm insurance",
+        text: "A post: why your accountant's AI controls matter.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Want invoices checked before they cause problems?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at how your invoices are handled today, and where AI helps with a person in charge. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/thomson-reuters-cocounsel-agentic-tax-compliance-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A business owner in a dark office at night reviewing printed invoices while a faint ember light traces across the pages.",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "ai-invoice-checking-at-the-source",
+        image: {
+          src: "/images/blog/thomson-reuters-cocounsel-agentic-tax-compliance-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "Two accountants reviewing a short list of flagged items on a laptop and a printed return at night.",
+          caption: "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "ai-controls-accounting-firm-insurance-premiums",
     title: "AI risk and accounting firm insurance: why your accountant's AI controls matter.",
     seoTitle: "AI Risk and Accounting Firm Insurance: What to Ask",
