@@ -92,6 +92,130 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "kpmg-clara-intelligence-ai-audit",
+    title: "AI audit: KPMG's agents now check every transaction in some areas.",
+    seoTitle: "AI Audit: KPMG Clara Intelligence Explained",
+    description:
+      "KPMG is rolling out KPMG Clara intelligence, an AI audit that checks 100% of transactions in selected areas. See what it means for your business.",
+    author: "Hiroshi Murakami",
+    service: "ai-accounting",
+    datePublished: "2026-11-24",
+    dateModified: "2026-11-24",
+    lead: "An AI audit is no longer a pilot idea. On 17 November 2026, KPMG announced the U.S. rollout of KPMG Clara intelligence (KCi), which it calls an \"AI-enabled, human-assured audit\". Its agents analyze 100% of transactions in selected audit areas. Here is what AI in audit could mean if your accountant or auditor works this way.",
+    glance: [
+      "KPMG built AI agents into its audit platform. Auditors keep responsibility for review and final judgment.",
+      "In selected audit areas, KCi analyzes 100% of transactions. That does not mean whole audits are automated.",
+      "On some engagements this has shortened timelines by up to three and a half weeks and cut manual document retrieval for clients.",
+    ],
+    sections: [
+      {
+        id: "what-kpmg-announced",
+        title: "What KPMG announced about AI in audit",
+        paragraphs: [
+          "KPMG LLP, the U.S. audit, tax and advisory firm, announced the U.S. rollout of KCi. It is built on KPMG Clara, the firm's global smart audit platform, which brings together AI, data, workflow, collaboration and KPMG's methodology. It is not a standalone tool. It puts specialized agents directly into auditor workflows, connecting client data, technical knowledge, risk assessment and substantive procedures.",
+          "The agents handle routine tasks and first-pass documentation. Auditors spend more time on direction, supervision and review, and that review moves earlier in the audit. Christian Peo, Vice Chair, Audit and Assurance at KPMG U.S., said: \"Auditor judgment cannot be automated, but technology helps remove barriers between data, analysis and action.\"",
+          "Two examples. In risk assessment and planning, agents draft preliminary risk considerations and first-pass documentation. In engagement orchestration, they help coordinate milestones and information requests, which gives client accounting teams more visibility.",
+        ],
+      },
+      {
+        id: "ai-audit-full-population-transaction-analysis",
+        title: "AI audit of every transaction, in selected areas",
+        paragraphs: [
+          "In selected audit areas, automated data pipelines analyze 100% of transaction populations. They identify outliers, trends and anomalies for auditors to investigate. KPMG says that on some engagements this has shortened timelines by up to three and a half weeks. It has also removed the need for clients to manually retrieve volumes of individual support documents.",
+          "The 100% applies only to those selected areas, not to whole audits. KCi also supports audit testing, automating elements of control testing and sample evaluation. Auditors are responsible for reviewing and evaluating the results.",
+        ],
+      },
+      {
+        id: "human-assured-and-governed",
+        title: "Human assured, and how it is governed",
+        paragraphs: [
+          "KCi runs in a governed environment grounded in KPMG audit methodology, professional standards and the firm's Trusted AI framework. Traceability lets teams inspect the underlying data sources, evaluate outputs and independently corroborate findings before they enter the system of record.",
+          "KPMG aims to deploy KCi in all private company audits in 2027 and plans a phased rollout for public company audits. In 2026 it reached more than 125 U.S. teams and 500 teams globally. It rests on KPMG's own capabilities plus enterprise technologies from relationships with Anthropic, Google Cloud, Microsoft and OpenAI. Nearly 1,000 audit interns trained this year on professional skepticism and evaluating AI-assisted work.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the sources.",
+        "This is one firm's announcement, not a rule for every accountant. But the direction is clear. If your accountant or auditor uses tools like this, expect fewer document requests, possibly shorter timelines and odd items surfaced earlier.",
+        "It also means clean books matter more. When every transaction is checked and not just a sample, outliers will be found. Regular [bank reconciliation](/use-cases/automated-bank-reconciliation) and tidy coding are the best preparation, and [AI accounting](/services/ai-accounting) can help with the first pass while a person reviews.",
+        "A person still signs off, and that is the right design. See our posts on [Thomson Reuters and AI invoice checking](/blog/thomson-reuters-cocounsel-agentic-tax-compliance) and on [AI controls and accounting firm insurance](/blog/ai-controls-accounting-firm-insurance-premiums). Ask your own accountant how they use AI, and who reviews it.",
+      ],
+    },
+    forYou: [
+      "Owners: expect fewer document requests, and keep your records clean, because outliers will be found.",
+      "Accountants: the work shifts toward investigating flagged items and judging them.",
+      "Everyone: this is one firm's announcement. The 100% applies only to selected audit areas.",
+    ],
+    source: {
+      publisher: "KPMG, with Accounting Today",
+      title: "KPMG Unveils Next Era of AI-Enabled, Human-Assured Audit with U.S. Launch of KPMG Clara intelligence (KCi)",
+      note: "KPMG press release, New York, 17 November 2026, and Accounting Today, \"Tech news: KPMG debuts Clara Intelligence\".",
+      links: [
+        {
+          href: "https://kpmg.com/us/en/media/news/kpmg-unveils-next-era-of-ai-enabled-human-assured-audit-with-us-launch-of-kpmg-clara-intelligence.html",
+          label: "Read the KPMG press release",
+        },
+        {
+          href: "https://www.accountingtoday.com/list/tech-news-kpmg-debuts-clara-intelligence",
+          label: "Read the Accounting Today roundup",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/use-cases/automated-bank-reconciliation",
+        label: "Use case: automated bank reconciliation",
+        text: "Keep the books clean with transactions matched and exceptions flagged for a person.",
+      },
+      {
+        href: "/blog/thomson-reuters-cocounsel-agentic-tax-compliance",
+        label: "AI tax compliance and Thomson Reuters",
+        text: "A post: invoices checked as they happen.",
+      },
+      {
+        href: "/blog/ai-controls-accounting-firm-insurance-premiums",
+        label: "AI controls and accounting firm insurance",
+        text: "A post: why your accountant's AI controls matter.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Want your books ready for AI-assisted checks?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at how your records are kept today, and where AI helps with a person in charge. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/kpmg-clara-intelligence-ai-audit-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A professional in a dark city office at night holding a tablet while glowing ember lines carry pages of ledgers and receipts across a long desk.",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "ai-audit-full-population-transaction-analysis",
+        image: {
+          src: "/images/blog/kpmg-clara-intelligence-ai-audit-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "Hands marking a printed ledger with a pen beside a laptop showing glowing ember markers on a data map, in a dim lamp-lit office.",
+          caption: "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "thomson-reuters-cocounsel-agentic-tax-compliance",
     title: "AI tax compliance: Thomson Reuters wants every invoice checked as it happens.",
     seoTitle: "AI Tax Compliance: Thomson Reuters CoCounsel Explained",
