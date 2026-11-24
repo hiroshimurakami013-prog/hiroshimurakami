@@ -37,6 +37,10 @@ export const LOS_ANGELES: LocationDetail = {
         {
           title: "Calls that nobody picks up",
           text: "Service businesses, clinics and trades lose callers to voicemail during lunch, on busy afternoons and after closing. An AI receptionist answers, books or takes a proper message, and hands anything urgent to a person.",
+          link: {
+            href: "/use-cases/ai-receptionist-buyer-checklist",
+            label: "How to choose an AI receptionist",
+          },
         },
         {
           title: "Leads that wait until tomorrow",

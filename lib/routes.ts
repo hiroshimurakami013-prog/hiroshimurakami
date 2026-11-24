@@ -20,6 +20,7 @@ const FIRST_VERSION = "2026-10-17";
 // date must mean the page's own content changed.
 const GROWTH_BATCH = "2026-11-22";
 const GROWTH_BATCH_2 = "2026-11-23";
+const GROWTH_BATCH_3 = "2026-11-24";
 const growthPages = new Set([
   "/use-cases/missed-calls-at-the-front-desk",
   "/use-cases/ai-receptionist-for-accounting-firms",
@@ -38,12 +39,20 @@ const growthPages2 = new Set([
   "/locations/los-angeles",
   "/locations/pasadena",
 ]);
+const growthPages3 = new Set([
+  "/use-cases/ai-receptionist-buyer-checklist",
+  "/use-cases/missed-calls-at-the-front-desk",
+  "/use-cases/ai-receptionist-for-accounting-firms",
+  "/locations/los-angeles",
+]);
 const contentDate = (path: string) =>
-  growthPages2.has(path)
-    ? GROWTH_BATCH_2
-    : growthPages.has(path)
-      ? GROWTH_BATCH
-      : FIRST_VERSION;
+  growthPages3.has(path)
+    ? GROWTH_BATCH_3
+    : growthPages2.has(path)
+      ? GROWTH_BATCH_2
+      : growthPages.has(path)
+        ? GROWTH_BATCH
+        : FIRST_VERSION;
 const dated = (path: string): SiteRoute => ({
   path,
   lastModified: contentDate(path),

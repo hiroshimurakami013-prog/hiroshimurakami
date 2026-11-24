@@ -263,4 +263,137 @@ export const AI_RECEPTIONIST_DETAILS: Record<string, UseCaseDetail> = {
       },
     ],
   },
+
+  "ai-receptionist-buyer-checklist": {
+    seoTitle: "How to Choose an AI Receptionist | Hiroshi Murakami",
+    seoDescription:
+      "A buyer checklist for an AI receptionist: handover, disclosure, calendar access, call data, a test on 20 past calls and the numbers to track.",
+    lead: "An AI receptionist is a phone assistant that answers your business line, handles approved questions, books or takes a message, and hands the call to a person when it should. The one question that matters when you choose one is: what happens when it is wrong? The checklist below helps a small business owner in Los Angeles, or anywhere else, turn that question into things to ask, test and measure before real callers depend on it.",
+    keyFacts: [
+      "The most important question when choosing an AI receptionist is what happens when it is wrong.",
+      "An AI receptionist should say when it does not know an answer, rather than guess a price or make a promise.",
+      "Callers should be told that they are speaking to an AI assistant.",
+      "Testing an AI receptionist on 20 real past calls shows how it handles a business's own callers before it goes live.",
+    ],
+    stepsHeading: "The buyer checklist, step by step",
+    problem: [
+      "Picture the owner of a small repair company in Los Angeles who wants help with the phone. They listen to three sample calls from three providers. In each one a polite caller asks a clear question, the assistant books a visit and everyone sounds pleased. The owner cannot tell the options apart, so they choose by voice and monthly price.",
+      "Real callers are less tidy. They call from a car with the window open, ask two things at once, change their mind about the day, want a price for a job nobody has seen, or ask for a technician by first name. What separates one assistant from another is what it does in those moments.",
+      "A wrong answer on the phone is also easy to miss. The caller hears a confident voice, believes it and hangs up. The business finds out when a customer arrives for a visit that was never booked, or expects a price nobody agreed to.",
+    ],
+    usualTools: [
+      "A sample call shows the assistant at its best, on a script chosen by the seller. A feature list says that it books appointments, but not whether it writes to your calendar or only sends a request, or what it does when the calendar cannot be reached.",
+      "Calling the demo line yourself is better, yet you know how to be an easy caller. Recommendations help with support and setup, but another company's callers ask different things. And a count of calls answered says nothing about whether the answers were right.",
+    ],
+    steps: [
+      {
+        title: "List what it should do on a call",
+        text: "Write down the five jobs: answer, reply to common questions, book, take a message and hand over to a person. For each one, note what is allowed, what is not, and what a good result looks like for your business. Ask to see each job on a call rather than on a slide.",
+      },
+      {
+        title: "Follow one call through the handover",
+        text: "Ask which words or situations trigger a transfer, whether the caller can simply ask for a person, and what happens if nobody picks up. Then look at what the person receives: the caller's name and number, the reason, what was already said and anything promised. A transfer without context makes the caller start again.",
+      },
+      {
+        title: "Settle disclosure and recording",
+        text: "Callers should be told they are speaking to an AI assistant. Listen to the exact opening words, and ask whether calls are recorded or transcribed, how callers are told, and whether recording can be switched off. Recording and consent rules vary by state, and your callers may not be in yours, so check with a lawyer. This page is not legal advice.",
+      },
+      {
+        title: "Ask it something it cannot know",
+        text: "Ask for a price you never approved, a guarantee, a discount or an opinion on a complaint. The right behaviour is to say it does not know, take a message and say who will follow up. It should never guess a price or make a promise, however often the caller asks.",
+      },
+      {
+        title: "Separate reading from writing",
+        text: "For the calendar and the CRM, ask what the assistant can read, what it can create, and what it can change or delete. Reading free times is a smaller risk than moving existing appointments. Start with the least access that works, and ask what the caller hears if the connection is down.",
+      },
+      {
+        title: "Check what changes after hours",
+        text: "Find out whether evenings, weekends and holidays can have their own rules: what may be booked, what counts as urgent, who is contacted and what the caller is told when nobody is available. Call at 9 at night yourself and see whether the promised alert arrives.",
+      },
+      {
+        title: "Test it with 20 real past calls",
+        text: "Choose 20 past calls from your notes or messages, including awkward ones, and write down the right outcome for each before you start. Replay them by phone with different people as callers and names changed. Mark each result as right, safe but unhelpful, or wrong.",
+      },
+      {
+        title: "Put call data and the exit in writing",
+        text: "Ask who owns the recordings, transcripts and caller details, where they are stored, which outside companies process them, whether they train AI models, how long they are kept and how you export and delete them if you leave. Confirm that your phone number stays under your control.",
+      },
+      {
+        title: "Review a week, then measure four things",
+        text: "After a limited launch, read a full week of transcripts. Track calls answered, calls booked, calls handed over and wrong answers. The first three are usually easy to count. Wrong answers are much harder to spot unless somebody reads, so decide who does it and how often.",
+      },
+    ],
+    outcomes: [
+      "The choice rests on your own callers rather than on a sample call.",
+      "You know how the assistant behaves when it does not know the answer.",
+      "Handover, disclosure and data questions have answers before you sign.",
+      "Calendar and CRM access starts small and grows only when it has earned trust.",
+      "You have a baseline of answered, booked, handed over and wrong to compare later months with.",
+    ],
+    requirements: [
+      "Notes or messages from 20 past calls, with the right outcome for each",
+      "Approved answers, and a list of things the assistant must never say",
+      "Who takes handovers, at which hours, and who covers when they cannot",
+      "A test calendar, or access limited to reading free times",
+      "One person with time to read a week of transcripts",
+      "A lawyer's view on recording and consent for the calls you receive",
+    ],
+    humanInTheLoop:
+      "A person who knows your callers judges the test, not the assistant's own report. At launch, let it cover limited hours or overflow, have every booking checked, and read every transcript for the first week. Widen what it may do one job at a time, and go back a step if wrong answers appear.",
+    privacy:
+      "Use past calls with care: replace names and numbers, leave out health, payment and legal details, and check that you are allowed to use a recording before sharing it with a provider. Ask for test data to be deleted afterwards. Once live, limit who can open transcripts and keep them only for as long as you have a reason to.",
+    example: {
+      title: "A worked example: 20 past calls, then one week",
+      intro:
+        "The figures below are assumptions chosen to show how to read a test. They are not a client result or a measurement of any product.",
+      assumptions: [
+        { label: "Calls replayed", value: "20: 8 questions, 6 bookings or changes, 4 that need a person and 2 with no approved answer" },
+        { label: "First test", value: "15 right, 3 safe but unhelpful and 2 wrong" },
+        { label: "Limited launch", value: "One week of overflow calls, 90 in total" },
+        { label: "Calls in that week", value: "84 answered and 6 ended before the caller spoke" },
+        { label: "Outcome of the 84", value: "26 booked, 14 handed over and 44 given an answer or a message taken" },
+        { label: "Found by reading transcripts", value: "3 wrong answers among the 84" },
+      ],
+      steps: [
+        "Look at the 2 wrong results first: one quoted a price that was never approved, and one booked a visit of the wrong length.",
+        "Fix both causes: prices become a message for a person, and visit lengths are written into the booking rules.",
+        "Replay all 20 calls, not only the 2, because a fix can change other answers. In this example none is wrong the second time, so the limited launch begins.",
+        "Read the week of transcripts, sort the 3 wrong answers by cause, and correct the approved answers before adding hours.",
+      ],
+      result:
+        "The first test was wrong on 2 of 20 calls, or 10%, which is a reason to wait. The launch week was wrong on 3 of 84, about 3.6%. Whether that is acceptable depends on the mistakes: three outdated holiday hours are quick to fix, while one invented price is a reason to stop and narrow what it may say. With numbers this small, look at the causes before the percentages.",
+    },
+    faqs: [
+      {
+        question: "What should I ask before buying an AI receptionist?",
+        answer:
+          "Start with what happens when it is wrong or does not know. Then ask how it hands over to a person and with what context, what callers are told, what it can read and change in your calendar and CRM, who owns the call data, and whether you can test it on your own past calls.",
+      },
+      {
+        question: "Should callers be told they are speaking to AI?",
+        answer:
+          "Yes, in the opening words of the call. Recording and consent rules are a further question and vary by state, so check with a lawyer before you record or transcribe calls. This is not legal advice.",
+      },
+      {
+        question: "Why test with 20 past calls?",
+        answer:
+          "Twenty is a practical starting number: enough to include routine and awkward calls, and small enough to replay by hand. It is not statistical proof, which is why a limited launch and a week of transcripts come next.",
+      },
+      {
+        question: "Should an AI receptionist have write access to my calendar?",
+        answer:
+          "Not on the first day. Let it read free times and send booking requests while you test. Allow it to create appointments once its requests are right, and to move or cancel them only if you need that and can see every change.",
+      },
+      {
+        question: "Which numbers show whether it is working?",
+        answer:
+          "Calls answered, calls booked, calls handed over and wrong answers, looked at together. A high booking count with wrong visit lengths is not a success, and a low handover count may mean that callers who needed a person did not reach one.",
+      },
+      {
+        question: "Do the same questions apply to a receptionist you set up?",
+        answer:
+          "Yes. I set up AI receptionists, so I have an interest in the answer: put every question on this page to me as well. The free AI audit can also conclude that you do not need one.",
+      },
+    ],
+  },
 };

@@ -104,6 +104,11 @@ export const USE_CASE_IMAGES: Record<string, SceneImage> = {
     "use-cases/missed-calls-front-desk",
     "An empty front desk while an AI voice catches several incoming calls and turns them into messages",
   ),
+  // Reuses the AI Receptionist service scene.
+  "ai-receptionist-buyer-checklist": img(
+    "services/ai-receptionist-phone-answering-call",
+    "A phone on a reception desk at night answering a call with a glowing AI voice waveform",
+  ),
   "missed-calls-at-the-front-desk": img(
     "use-cases/missed-calls-front-desk",
     "An empty front desk while an AI voice catches several incoming calls and turns them into messages",

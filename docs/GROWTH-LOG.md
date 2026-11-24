@@ -2,6 +2,16 @@
 
 What was changed for organic growth, when, and why. Newest first. Use it to compare Search Console data before and after each batch.
 
+## 2026-11-24: AI receptionist buyer checklist
+
+One page and a few internal links, as Google's November 2026 core update finishes. No new schema types.
+
+- **New page** (32 use cases): `/use-cases/ai-receptionist-buyer-checklist`, "How to choose an AI receptionist". The angle is evaluation: what happens when it is wrong, handover, disclosure, access, call data, a test on 20 past calls and what to measure. The worked example is labelled as assumptions. It reuses the AI Receptionist service image.
+- **Links to it**: `seeAlso` on `missed-calls-at-the-front-desk` and `ai-receptionist-for-accounting-firms`, the "Calls that nobody picks up" card on `/locations/los-angeles` (new optional `link` on a city point), and the generated use case lists on `/services/ai-receptionist`, `/use-cases`, `/llms.txt` and `/llms-full.txt`.
+- **Dates**: the new page, the two linking use cases and Los Angeles take 2026-11-24 (`GROWTH_BATCH_3`). `/services/ai-receptionist` and `/use-cases` keep their dates, because only their generated lists changed.
+- **Watch**: position for "ai receptionist los angeles" (52 on `/services/ai-receptionist`) and "ai automation for small business los angeles" (80 on `/locations/los-angeles`), and impressions for the new page.
+- Indexing logic was not touched.
+
 ## 2026-11-23: about page work experience
 
 Source: the owner's own LinkedIn export. No education was supplied, so none is shown.

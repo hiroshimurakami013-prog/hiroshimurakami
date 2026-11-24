@@ -215,7 +215,10 @@ const CARDS: Omit<UseCase, "detail">[] = [
     relatedService: "ai-customer-support",
     locations: ["beverly-hills", "glendale", "pasadena", "los-angeles"],
     highlight: true,
-    seeAlso: ["ai-receptionist-for-accounting-firms"],
+    seeAlso: [
+      "ai-receptionist-for-accounting-firms",
+      "ai-receptionist-buyer-checklist",
+    ],
   },
   {
     slug: "after-hours-calls",
@@ -243,7 +246,26 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "Document drop-offs, appointment requests and \"did you get my forms?\" calls answered and logged, while accountants stay in their meetings. No tax advice from the AI.",
     relatedService: "ai-accounting",
     locations: ["pasadena", "beverly-hills", "glendale", "los-angeles"],
-    seeAlso: ["missed-calls-at-the-front-desk", "after-hours-calls"],
+    seeAlso: [
+      "missed-calls-at-the-front-desk",
+      "after-hours-calls",
+      "ai-receptionist-buyer-checklist",
+    ],
+  },
+  {
+    slug: "ai-receptionist-buyer-checklist",
+    service: "ai-receptionist",
+    title: "How to choose an AI receptionist",
+    summary:
+      "A buyer checklist for owners: what to ask about handover, disclosure, access and call data, and how to test an AI receptionist on 20 of your own past calls.",
+    relatedService: "custom-voice-agents",
+    locations: ["los-angeles", "culver-city", "burbank", "long-beach"],
+    seeAlso: [
+      "missed-calls-at-the-front-desk",
+      "after-hours-calls",
+      "appointment-booking-and-rescheduling",
+      "ai-receptionist-for-accounting-firms",
+    ],
   },
 
   // Custom Voice Agents
