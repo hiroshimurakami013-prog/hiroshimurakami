@@ -89,13 +89,13 @@ function Section({ section, index }: { section: CitySection; index: number }) {
                 </span>
                 <h3>{p.title}</h3>
                 <p>{p.text}</p>
-                {p.link ? (
-                  <p>
-                    <Link href={p.link.href} className="text-link font-medium">
-                      {p.link.label}
+                {p.links?.map((l) => (
+                  <p key={l.href}>
+                    <Link href={l.href} className="text-link font-medium">
+                      {l.label}
                     </Link>
                   </p>
-                ) : null}
+                ))}
               </li>
             ))}
           </ul>

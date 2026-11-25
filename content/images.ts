@@ -104,6 +104,14 @@ export const USE_CASE_IMAGES: Record<string, SceneImage> = {
     "use-cases/missed-calls-front-desk",
     "An empty front desk while an AI voice catches several incoming calls and turns them into messages",
   ),
+  "ai-vs-rules-vs-manual-bank-reconciliation": img(
+    "use-cases/bank-reconciliation-matching-rows",
+    "Bank and ledger rows matched pair by pair with threads of light, one row left for review",
+  ),
+  "ai-receptionist-vs-answering-service-vs-voicemail": img(
+    "use-cases/after-hours-calls-closed-shop",
+    "A closed shop at night where a phone on the counter is answered by an AI voice",
+  ),
   // Reuses the AI Receptionist service scene.
   "ai-receptionist-buyer-checklist": img(
     "services/ai-receptionist-phone-answering-call",

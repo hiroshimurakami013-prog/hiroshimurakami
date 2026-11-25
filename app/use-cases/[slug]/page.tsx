@@ -134,8 +134,8 @@ export default async function UseCasePage({
               </Link>
             </p>
             <h1 id="page-title" className="display page-title uc-page-title">
-              {useCase.title}
-              <span className="dot">.</span>
+              {useCase.title.replace(/\?$/, "")}
+              <span className="dot">{useCase.title.endsWith("?") ? "?" : "."}</span>
             </h1>
             <p className="lead mt-8 max-w-[58ch]">{detail.lead}</p>
             <LastUpdated path={`/use-cases/${useCase.slug}`} />

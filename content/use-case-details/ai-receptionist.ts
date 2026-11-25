@@ -396,4 +396,133 @@ export const AI_RECEPTIONIST_DETAILS: Record<string, UseCaseDetail> = {
       },
     ],
   },
+
+  "ai-receptionist-vs-answering-service-vs-voicemail": {
+    seoTitle: "AI Receptionist vs Answering Service | Hiroshi Murakami",
+    seoDescription:
+      "Voicemail, an answering service, an in-house person or an AI receptionist: a fair comparison for small businesses, and when AI is a poor fit.",
+    lead: "Voicemail fits a small business with few calls that can wait, an answering service fits callers who need a live person, an in-house person fits calls that need judgement or a familiar voice, and an AI receptionist fits frequent, routine calls that arrive after hours or at the same time. Many businesses do best with a mix. This page compares the four for owners in Los Angeles and elsewhere, as categories rather than named products. I set up AI receptionists, so the cases where AI is a poor fit are listed too.",
+    keyFacts: [
+      "An AI receptionist for a small business suits frequent, routine calls that arrive after hours or several at a time.",
+      "A live answering service suits callers who need a human voice when the business itself cannot pick up.",
+      "Voicemail is a reasonable choice when calls are few and a reply the next working day is soon enough.",
+      "An AI receptionist is a poor fit as the first voice for callers in distress or calls that need professional judgement.",
+    ],
+    stepsHeading: "The four options compared, side by side",
+    problem: [
+      "Picture a small home services company in Los Angeles. The owner is on a job, one person covers the office, and the phone rings in bursts: first thing in the morning, at lunch and just after closing. Some callers want opening hours, some want a visit, and a few have a real problem that cannot wait.",
+      "The owner has been told to hire someone, to use an answering service, and to let AI pick up. Each suggestion is right for somebody. What makes the choice hard is that the calls are not all the same kind, and nobody has counted them.",
+    ],
+    usualTools: [
+      "Most comparisons start from a product and work backwards to the problem. They set the best version of one option against the worst version of another, and they compare monthly prices without asking what each call needs.",
+      "A fair comparison starts with your own calls: when they arrive, how many overlap, how many are routine, and what it costs you when one goes wrong. The answer can differ between lunchtime, the evening and the weekend.",
+    ],
+    steps: [
+      {
+        title: "After-hours coverage",
+        text: "Voicemail: always on, but it only records. Answering service: people pick up during the hours you pay for, often including nights. In-house person: working hours, unless you staff more shifts. AI receptionist: can cover evenings and weekends with its own rules, as long as somebody is named for urgent calls.",
+      },
+      {
+        title: "Peak call times",
+        text: "Voicemail: takes every overlapping call, though some callers hang up. Answering service: shares a team between clients, so ask about waiting times at busy hours. In-house person: one call at a time, with others on hold. AI receptionist: can take several calls at once, within the limits of its phone setup.",
+      },
+      {
+        title: "Consistency",
+        text: "Voicemail: the same greeting each time, and no answers. Answering service: follows your script, with some variation between agents. In-house person: learns the business deeply, but varies with workload and absence. AI receptionist: works from the same approved answers on each call, yet can still mishear or answer wrongly, so transcripts need reading.",
+      },
+      {
+        title: "Personal touch",
+        text: "Voicemail: none, apart from your own recorded voice. Answering service: a human who can hear worry or anger, but may not know your customers. In-house person: the strongest, because regular callers are recognised. AI receptionist: polite and patient, but not a relationship, and some callers simply prefer a person.",
+      },
+      {
+        title: "Booking into a calendar",
+        text: "Voicemail: no booking, someone calls back. Answering service: varies, from taking a request to booking in a system you share. In-house person: books directly and can judge exceptions. AI receptionist: can book where your calendar has a suitable connection and clear rules, and otherwise takes a request for a person to confirm.",
+      },
+      {
+        title: "Disclosure and call data",
+        text: "Voicemail: callers know they are being recorded. Answering service: ask how agents introduce themselves and whether calls are recorded. In-house person: the simplest case, unless you record. AI receptionist: callers should be told at the start that they are speaking to AI, and about any recording. Rules vary by state, so check with a lawyer. This is not legal advice.",
+      },
+      {
+        title: "What drives the cost",
+        text: "Voicemail: very little money, plus call-back time and callers who do not leave a message. Answering service: call volume or minutes, hours covered and how much the script asks for. In-house person: wages, training, cover for absence and the other work they do. AI receptionist: setup, call minutes, connections to your tools, and the time to review calls and update answers.",
+      },
+      {
+        title: "Choose voicemail, a service or a person when",
+        text: "Choose voicemail if calls are few and can wait, with a greeting that says when you call back. Choose an answering service if callers expect a human out of hours, or if calls are urgent and need a person to listen. Choose an in-house person if most calls need judgement, the caller is often standing in front of you too, or relationships bring in the work.",
+      },
+      {
+        title: "Choose AI with human handover when",
+        text: "Choose an AI receptionist if many calls are routine, they overlap or arrive after closing, the answers can be written down, and a person can take what it passes on. AI is a poor fit if callers are often distressed, if calls need clinical, legal or emergency judgement, if answers change daily, if volume is too low to repay the setup, or if nobody will read the transcripts.",
+      },
+    ],
+    outcomes: [
+      "The choice follows your own mix of calls rather than a sales pitch.",
+      "Each part of the day can have the option that suits it.",
+      "Calls that need a person are named before any system is set up.",
+      "You compare the whole cost, including review and call-backs, rather than the monthly fee.",
+      "A decision not to use AI counts as a useful result.",
+    ],
+    requirements: [
+      "Two ordinary weeks of call times, with missed and overlapping calls marked",
+      "A rough sort of calls into routine, booking and needs a person",
+      "A list of calls that must reach a human straight away",
+      "The calendar you use and who may change it",
+      "The name of the person who calls back, reviews and keeps answers up to date",
+    ],
+    humanInTheLoop:
+      "Whichever option answers, a person remains responsible for what callers are told. With AI, that means a clear route to a human, a named person for urgent calls, and transcripts read closely at first and sampled after that. Start with overflow or after-hours calls, so the team keeps the rest.",
+    privacy:
+      "Each option other than your own staff can put caller details in the hands of an outside company. Ask an answering service and an AI provider the same things: what is recorded, where it is kept, who can open it, how long it stays and how it is deleted. Keep health, payment and legal details out of messages unless they are needed.",
+    example: {
+      title: "A worked example: sorting one month of calls",
+      intro:
+        "The figures below are assumptions chosen to show the reasoning. They are not a client result, a price or a measurement of any service.",
+      assumptions: [
+        { label: "Calls in a month", value: "200" },
+        { label: "Answered by the office", value: "130" },
+        { label: "Not answered", value: "70: 30 while the line was busy and 40 after closing" },
+        { label: "What the 70 were about", value: "35 routine questions, 20 booking requests and 15 that need a person" },
+      ],
+      steps: [
+        "Keep the in-house person for the 130 calls that already go well.",
+        "With voicemail, all 70 depend on the caller leaving a message and on someone calling back.",
+        "With an answering service, a person can take the 70, and how many are finished on the call depends on the script and calendar access.",
+        "With an AI receptionist, the 55 routine and booking calls are candidates, and the other 15 need a handover or a prompt call-back.",
+      ],
+      result:
+        "In this example AI as overflow is worth a test, because 55 of the 70 unanswered calls are routine or bookings, with a person on call for the other 15. If the mix were reversed, with 55 calls needing a person, an answering service or another team member would be the better first step. If only 5 calls were missed, a better voicemail greeting may be enough.",
+    },
+    faqs: [
+      {
+        question: "Is an AI receptionist better than an answering service?",
+        answer:
+          "It depends on the calls. An AI receptionist suits routine questions and bookings, especially when several callers ring at once. An answering service suits callers who need a human to listen. Some businesses use AI first and hand over to a person.",
+      },
+      {
+        question: "What is the best AI receptionist for a small business?",
+        answer:
+          "There is no single best one. The right choice handles your own past calls correctly, says when it does not know, tells callers it is AI and passes them to a person with context. The buyer checklist on this site shows how to test that.",
+      },
+      {
+        question: "When is voicemail good enough?",
+        answer:
+          "When calls are few, rarely urgent and come mostly from people who know you. Say in the greeting when you will call back, keep to it, and give urgent callers another route.",
+      },
+      {
+        question: "Can I combine an AI receptionist with people?",
+        answer:
+          "Yes, and it is often the sensible setup. Your team answers first, AI takes overflow and evenings, and anything sensitive goes to a person or an answering service.",
+      },
+      {
+        question: "When should a business not use an AI receptionist?",
+        answer:
+          "When callers are often distressed, when calls need emergency, clinical or legal judgement, when the answers cannot be written down, or when nobody has time to review calls. A person should answer those first.",
+      },
+      {
+        question: "Do you set up AI receptionists in Los Angeles?",
+        answer:
+          "Yes, remote-first, for businesses in Los Angeles and elsewhere. The free AI audit on a video call looks at your calls first, and it can conclude that one of the other options suits you better.",
+      },
+    ],
+  },
 };

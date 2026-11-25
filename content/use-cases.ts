@@ -124,6 +124,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "bank-reconciliation-for-a-10-person-firm",
       "ai-transaction-matching-for-quickbooks",
       "ai-reconciliation-tool-evaluation-checklist",
+      "ai-vs-rules-vs-manual-bank-reconciliation",
     ],
   },
   {
@@ -156,6 +157,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
     locations: ["los-angeles", "long-beach", "torrance", "glendale"],
     seeAlso: [
       "ai-reconciliation-tool-evaluation-checklist",
+      "ai-vs-rules-vs-manual-bank-reconciliation",
       "automated-bank-reconciliation",
       "ai-expense-categorization",
     ],
@@ -172,6 +174,21 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "automated-bank-reconciliation",
       "ai-transaction-matching-for-quickbooks",
       "bank-reconciliation-for-a-10-person-firm",
+      "ai-vs-rules-vs-manual-bank-reconciliation",
+    ],
+  },
+  {
+    slug: "ai-vs-rules-vs-manual-bank-reconciliation",
+    service: "ai-accounting",
+    title: "AI, rules or manual: which bank reconciliation approach fits?",
+    summary:
+      "A fair comparison of spreadsheet matching, accounting software rules and AI matching with human review, with a guide to when each fits and when not to use AI.",
+    relatedService: "custom-crm-and-workflows",
+    locations: ["los-angeles", "pasadena", "torrance", "beverly-hills"],
+    seeAlso: [
+      "automated-bank-reconciliation",
+      "ai-reconciliation-tool-evaluation-checklist",
+      "ai-transaction-matching-for-quickbooks",
     ],
   },
   {
@@ -265,7 +282,18 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "after-hours-calls",
       "appointment-booking-and-rescheduling",
       "ai-receptionist-for-accounting-firms",
+      "ai-receptionist-vs-answering-service-vs-voicemail",
     ],
+  },
+  {
+    slug: "ai-receptionist-vs-answering-service-vs-voicemail",
+    service: "ai-receptionist",
+    title: "AI receptionist, answering service or voicemail: what fits a small business?",
+    summary:
+      "Voicemail, a live answering service, an in-house person and an AI receptionist compared on coverage, booking, personal touch and cost drivers, including when AI is a poor fit.",
+    relatedService: "custom-voice-agents",
+    locations: ["los-angeles", "inglewood", "santa-monica", "glendale"],
+    seeAlso: ["ai-receptionist-buyer-checklist", "after-hours-calls"],
   },
 
   // Custom Voice Agents

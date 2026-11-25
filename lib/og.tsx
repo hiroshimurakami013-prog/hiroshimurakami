@@ -25,7 +25,9 @@ export async function renderOgImage({
   subtitle: string;
 }) {
   const [display, text, symbol] = await assets;
-  const words = title.split(" ");
+  // A title that asks a question ends in an ember question mark instead.
+  const end = title.endsWith("?") ? "?" : ".";
+  const words = title.replace(/\?$/, "").split(" ");
 
   return new ImageResponse(
     (
@@ -97,7 +99,7 @@ export async function renderOgImage({
               >
                 {word}
                 {i === words.length - 1 ? (
-                  <span style={{ color: "#ff6b4a" }}>.</span>
+                  <span style={{ color: "#ff6b4a" }}>{end}</span>
                 ) : null}
               </span>
             ))}

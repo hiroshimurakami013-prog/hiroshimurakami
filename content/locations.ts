@@ -35,8 +35,8 @@ export type LocationSlug =
 export type CityPoint = {
   title: string;
   text: string;
-  /** One optional internal link, shown under the text. */
-  link?: { href: string; label: string };
+  /** Optional internal links, shown under the text. */
+  links?: { href: string; label: string }[];
 };
 
 /**
@@ -138,7 +138,7 @@ export function cityCopy(detail: LocationDetail): string[] {
       s.kind === "prose"
         ? [s.heading, ...s.paragraphs]
         : s.kind === "points"
-          ? [s.heading, s.intro ?? "", ...s.points.flatMap((p) => [p.title, p.text, p.link?.label ?? ""])]
+          ? [s.heading, s.intro ?? "", ...s.points.flatMap((p) => [p.title, p.text, ...(p.links ?? []).map((l) => l.label)])]
           : [s.heading, ...s.paragraphs, s.asideHeading, ...s.aside],
     ),
     ...Object.values(detail.serviceNotes),

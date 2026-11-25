@@ -61,6 +61,26 @@ export const PASADENA: LocationDetail = {
         "The part that matters most here is the handover. When a caller needs a person, the AI passes them on with a written summary, so the patient does not have to repeat themselves and the staff member starts with context. The AI does not give clinical advice, and sensitive details are kept out of summaries unless they are needed.",
       ],
     },
+    {
+      kind: "points",
+      heading: "What does AI consulting in Pasadena involve?",
+      intro:
+        "AI consulting for a Pasadena firm or practice involves choosing one task worth handing over, building it on your own sources, and agreeing who checks it. All of it happens remotely.",
+      points: [
+        {
+          title: "What the first call covers",
+          text: "The free 30 minute video call looks at which questions and tasks keep returning to your senior people or front desk, which software and documents are involved, and what must never be left to AI. If nothing is worth building yet, you hear that.",
+        },
+        {
+          title: "What gets built first",
+          text: "One narrow piece, with a result your team can verify. For a design or engineering firm that may be a search over its own standards and templates. For an accounting practice it may be one client's reconciliation, and for a clinic, calls at the busiest hour.",
+        },
+        {
+          title: "How it is reviewed",
+          text: "Before launch, the people who know the subject mark sample answers as right, wrong or unclear, in shared online sessions. Afterwards a named reviewer keeps approving what leaves the firm, and more is added only once that reviewer is satisfied.",
+        },
+      ],
+    },
   ],
   serviceOrder: [
     "ai-agents",

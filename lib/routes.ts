@@ -21,6 +21,7 @@ const FIRST_VERSION = "2026-10-17";
 const GROWTH_BATCH = "2026-11-22";
 const GROWTH_BATCH_2 = "2026-11-23";
 const GROWTH_BATCH_3 = "2026-11-24";
+const GROWTH_BATCH_4 = "2026-11-25";
 const growthPages = new Set([
   "/use-cases/missed-calls-at-the-front-desk",
   "/use-cases/ai-receptionist-for-accounting-firms",
@@ -45,14 +46,26 @@ const growthPages3 = new Set([
   "/use-cases/ai-receptionist-for-accounting-firms",
   "/locations/los-angeles",
 ]);
+const growthPages4 = new Set([
+  "/use-cases/ai-vs-rules-vs-manual-bank-reconciliation",
+  "/use-cases/ai-receptionist-vs-answering-service-vs-voicemail",
+  "/use-cases/automated-bank-reconciliation",
+  "/use-cases/ai-reconciliation-tool-evaluation-checklist",
+  "/use-cases/ai-transaction-matching-for-quickbooks",
+  "/use-cases/ai-receptionist-buyer-checklist",
+  "/locations/los-angeles",
+  "/locations/pasadena",
+]);
 const contentDate = (path: string) =>
-  growthPages3.has(path)
-    ? GROWTH_BATCH_3
-    : growthPages2.has(path)
-      ? GROWTH_BATCH_2
-      : growthPages.has(path)
-        ? GROWTH_BATCH
-        : FIRST_VERSION;
+  growthPages4.has(path)
+    ? GROWTH_BATCH_4
+    : growthPages3.has(path)
+      ? GROWTH_BATCH_3
+      : growthPages2.has(path)
+        ? GROWTH_BATCH_2
+        : growthPages.has(path)
+          ? GROWTH_BATCH
+          : FIRST_VERSION;
 const dated = (path: string): SiteRoute => ({
   path,
   lastModified: contentDate(path),

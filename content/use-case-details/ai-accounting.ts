@@ -516,6 +516,125 @@ export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
     ],
   },
 
+  "ai-vs-rules-vs-manual-bank-reconciliation": {
+    seoTitle: "AI vs Rules vs Manual Bank Reconciliation | Hiroshi Murakami",
+    seoDescription:
+      "Manual, rules or AI in bank reconciliation: a fair comparison of setup, messy lines, split payments, review and cost drivers, and when not to use AI.",
+    lead: "Manual bank reconciliation fits a small number of varied transactions, rules fit payments that repeat in the same form, and AI matching with human review fits a steady volume of messy, split or bundled lines that rules cannot place. Most businesses should use rules first, and add AI only if what is left still takes real time. This page compares the three approaches, not named products. I build AI matching, so it also says when not to use it.",
+    keyFacts: [
+      "Rules are usually the first thing to try when bank transactions repeat in the same form.",
+      "AI bank reconciliation earns its place on messy descriptions, split payments and bundled payouts that rules cannot place.",
+      "Manual bank reconciliation is a sound choice when a business has few transactions and one careful person.",
+      "Transaction matching using AI still needs a person to review proposals, because a confident match can be wrong.",
+    ],
+    stepsHeading: "The three approaches compared",
+    problem: [
+      "Imagine a small distributor with a bank account, two cards and an online payment processor. Rent, software and fuel look the same each month. Customer transfers arrive with half a name, or pay two invoices and part of a third. Processor payouts land net of fees.",
+      "The bookkeeper ticks lines off in a spreadsheet, the accounting software offers rules, and the owner keeps hearing about AI in bank reconciliation. Choosing one for everything leads to trouble: rules stretched over lines they do not fit, AI paid to recognise the rent, or a person typing what software could place safely.",
+    ],
+    usualTools: [
+      "Advice on reconciliation often treats the three as steps on a ladder, with AI at the top. They are better seen as tools for different lines. A fixed rent payment gains nothing from AI, while a payout with fees taken off can defeat a simple rule.",
+      "A headline match rate does not settle it either. The useful questions are how many of your lines are awkward, how long they take today, what a wrong match would cost you, and who will check the result.",
+    ],
+    steps: [
+      {
+        title: "Manual matching in a spreadsheet",
+        text: "Setup effort: low, an export and a template. Messy descriptions: handled well by someone who knows the business. Partial and split payments: possible, but slow. Explainability: as good as the notes the person leaves. Review burden: a second person should check it, because the preparer sees what they expect. Cost drivers: hours per line, double entry and dependence on one person.",
+      },
+      {
+        title: "Rules in the accounting software",
+        text: "Setup effort: modest, one rule per pattern, then upkeep. Messy descriptions: weak when the wording changes. Partial and split payments: limited, although some software can apply a fixed split. Explainability: the strongest, since the rule can be read. Review burden: light while rules are narrow, but a broad rule can repeat one mistake many times. Cost drivers: writing and maintaining rules, and the lines left over.",
+      },
+      {
+        title: "AI matching with human review",
+        text: "Setup effort: the highest, with connections, past matches and a test on a closed month. Messy descriptions: its main strength, because several signals are weighed together. Partial and split payments: can propose combinations and break up payouts when the detail is available. Explainability: varies, so ask for a reason with each match. Review burden: constant but smaller per line, and it includes looking for confident mistakes. Cost drivers: setup, usage, connections, review time and fixing errors.",
+      },
+      {
+        title: "Choose manual when",
+        text: "You have few lines a month, most need personal knowledge, or the books are being cleaned up and the history cannot be trusted yet. It is also the right answer for one-off and unusual transactions inside any other setup.",
+      },
+      {
+        title: "Choose rules when",
+        text: "The same payees and payers return with stable wording and the treatment does not change. Keep each rule narrow, read the list on a regular rhythm, and delete those that no longer fit. If this clears nearly everything, stop here.",
+      },
+      {
+        title: "Choose AI with review when",
+        text: "Rules are in place and a steady pile of awkward lines remains: changing descriptions, combined transfers, part payments or payouts net of fees. You also need reasonably clean history, source documents to match against, and a person with time to approve.",
+      },
+      {
+        title: "Do not use AI when",
+        text: "Volume is low, rules already clear the work, source records are missing, or nobody will review the proposals. Avoid it as well where you cannot see a reason for a match, or where your terms with clients or banks do not allow the data to be shared. AI will not repair a chart of accounts that nobody agrees on.",
+      },
+      {
+        title: "Combine them in order",
+        text: "Let narrow rules take the fixed patterns, send what is left to AI for proposals, and give a person the approvals and the odd cases. Try the order on a month you closed by hand, so each wrong match can be seen.",
+      },
+    ],
+    outcomes: [
+      "Each kind of line goes to the simplest approach that handles it.",
+      "You know whether AI adds enough over well kept rules to be worth its cost.",
+      "Review time is planned rather than discovered later.",
+      "Your accountant can see how a match was made, whichever approach made it.",
+    ],
+    requirements: [
+      "A typical month of bank, card and payout lines, sorted by kind",
+      "A list of the rules you have and when each was last checked",
+      "The time spent on matching now, even as a rough note",
+      "One closed month you trust, to test against",
+      "A named person to approve matches",
+    ],
+    humanInTheLoop:
+      "All three approaches need a person. Manual work needs a second look, rules need an owner, and AI proposals need approval. Start AI with nothing recorded automatically, check a sample of the matches that look certain, and go back to rules or hand matching for any kind of line it keeps getting wrong.",
+    privacy:
+      "A spreadsheet can leak as easily as a system, so limit who has the file. Rules usually keep the data inside your accounting software. AI matching may send it to another company, so ask where it goes, whether it trains models and how it is deleted. Use read-only access first, and never share bank logins.",
+    example: {
+      title: "A worked example: 300 lines, three approaches",
+      intro:
+        "The figures below are assumptions chosen to show how to compare. They are not a client result or a measurement of any product.",
+      assumptions: [
+        { label: "Lines in a month", value: "300: 180 fixed patterns, 80 messy one to one and 40 split or bundled" },
+        { label: "Time by hand", value: "1.5 minutes a simple or messy line and 4 minutes a split line" },
+        { label: "Rules", value: "Place the 180 fixed lines, with 15 minutes of checks and 30 minutes of upkeep" },
+        { label: "AI after rules", value: "Proposes 70 of the messy lines and 20 of the split lines correctly" },
+        { label: "Review of AI proposals", value: "15 seconds a messy line, 1 minute a split line and 30 minutes of sample checks" },
+      ],
+      steps: [
+        "Manual: 260 lines at 1.5 minutes and 40 at 4 minutes is 550 minutes, about 9.2 hours.",
+        "Rules, with the rest by hand: 45 minutes for rules, 120 for messy lines and 160 for split lines is 325 minutes, about 5.4 hours.",
+        "Rules, then AI with review: 45 minutes for rules, 67.5 to review proposals and 95 for the 30 lines left to a person is 207.5 minutes, about 3.5 hours.",
+      ],
+      result:
+        "In this example rules save about 3.8 hours and AI then saves about 2 more, before its running cost and setup. That may or may not be worth it. With 5 split lines instead of 40, the case for AI would be weaker, and with several hundred it would be stronger. The example also assumes that the proposals are right: wrong matches would add checking time.",
+    },
+    faqs: [
+      {
+        question: "Should I use AI or rules for bank reconciliation?",
+        answer:
+          "Use rules first for payments that repeat in the same form. Add AI in bank reconciliation if many lines remain with changing descriptions, split payments or bundled payouts, and a person can review the proposals.",
+      },
+      {
+        question: "Is AI bank reconciliation more accurate than manual matching?",
+        answer:
+          "Not automatically. People make slips when they are tired, and AI can propose a confident wrong match. Accuracy depends on your records, the kind of line and the review, so compare both with a month you already closed.",
+      },
+      {
+        question: "How does transaction matching using AI differ from rules?",
+        answer:
+          "A rule applies a fixed condition, such as a payee name. AI weighs several signals, such as amount, date, reference and past decisions, and proposes a match. Rules are easier to explain, and AI copes better with variation.",
+      },
+      {
+        question: "When should I not use AI for bank reconciliation?",
+        answer:
+          "When you have few transactions, when rules already clear nearly all of them, when the source records are missing, or when nobody will review the matches. In those cases AI adds cost without removing much work.",
+      },
+      {
+        question: "Can I use all three together?",
+        answer:
+          "Yes. A common order is rules for fixed patterns, AI proposals for the lines that remain, and a person for approvals and unusual cases. The free AI audit can help you see which part is worth changing, if any.",
+      },
+    ],
+  },
+
   "ai-accounts-payable-invoice-capture": {
     seoTitle: "AI Accounts Payable Invoice Capture | Hiroshi Murakami",
     seoDescription:

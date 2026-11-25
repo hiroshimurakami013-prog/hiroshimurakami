@@ -2,6 +2,21 @@
 
 What was changed for organic growth, when, and why. Newest first. Use it to compare Search Console data before and after each batch.
 
+## 2026-11-25: comparison pages for AI citation
+
+Why: the brief for this batch cites an arXiv GEO study (https://arxiv.org/abs/2606.20065) in which "best-of" and comparison pages take about 21 percent of AI search citations. The paper could not be opened in this session, so the figure is unverified and appears nowhere on the site.
+
+- **Two new pages** (34 use cases), comparing approaches rather than named vendors, with no prices or statistics:
+  - `/use-cases/ai-vs-rules-vs-manual-bank-reconciliation`: spreadsheet, rules or AI with review, including when not to use AI. Targets "ai in bank reconciliation", "ai bank reconciliation" and "transaction matching using ai".
+  - `/use-cases/ai-receptionist-vs-answering-service-vs-voicemail`: voicemail, answering service, in-house person or AI receptionist, including when AI is a poor fit. Targets "ai receptionist los angeles" and "ai receptionist for small business".
+  - Both have key facts, a worked example labelled as assumptions and a FAQ. The template has no table, so the comparison is the structured steps list. Both reuse existing scene images.
+- **Links**: `seeAlso` both ways with the two reconciliation pages, the QuickBooks page and both buyer checklists (the AI receptionist and reconciliation ones). Los Angeles links the receptionist comparison from "Calls that nobody picks up": the optional `link` on a city point became `links`. Lists on the service pages, hub, `/llms.txt` and `/llms-full.txt` are generated.
+- **Pasadena**: new section "What does AI consulting in Pasadena involve?". Key facts unchanged.
+- **Template**: a use case title that ends in a question mark shows it as the ember dot, instead of "?.", on the page and in its Open Graph image (`lib/og.tsx`).
+- **Dates**: the two new pages, the four linking use cases, Los Angeles and Pasadena take 2026-11-25 (`GROWTH_BATCH_4`). Service pages and `/use-cases` keep their dates, because only their generated lists changed.
+- **Watch**: impressions and position for the target queries and "ai consulting pasadena", and which of these pages AI search cites.
+- Indexing logic was not touched.
+
 ## 2026-11-24: AI receptionist buyer checklist
 
 One page and a few internal links, as Google's November 2026 core update finishes. No new schema types.
