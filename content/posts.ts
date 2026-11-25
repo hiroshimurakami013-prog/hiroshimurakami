@@ -92,6 +92,129 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "blue-j-deloitte-canada-ai-tax-research",
+    title: "AI tax research: Blue J and Deloitte Canada sign a multi-year deal.",
+    seoTitle: "AI Tax Research: Blue J and Deloitte Canada Deal",
+    description:
+      "Blue J and Deloitte Canada signed a multi-year AI tax research deal for 1,500+ professionals. See what to ask your own accountant about AI.",
+    author: "Hiroshi Murakami",
+    service: "ai-accounting",
+    datePublished: "2026-11-25",
+    dateModified: "2026-11-25",
+    lead: "AI tax research is moving into the big advisory firms. On 19 November 2026, Blue J announced a multi-year enterprise agreement with Deloitte Canada. It puts AI-powered tax research in front of more than 1,500 tax and legal professionals. If you use an accountant, this is a good moment to ask how they use AI, and how it fits with [AI accounting](/services/ai-accounting) in your own business.",
+    glance: [
+      "Blue J and Deloitte Canada signed a multi-year deal for AI tax research across Canada, covering more than 1,500 tax and legal professionals.",
+      "The stated aim is faster, verifiable research and more time for advisory work, while keeping accuracy and defensibility.",
+      "Blue J also raised a US$176 million Series E days earlier. The professional still keeps responsibility for the advice.",
+    ],
+    sections: [
+      {
+        id: "what-the-ai-tax-research-deal-covers",
+        title: "What the AI tax research deal covers",
+        paragraphs: [
+          "Blue J announced the agreement from Toronto on 19 November 2026. It delivers AI-powered tax research across Canada to Deloitte Canada's team of more than 1,500 tax and legal professionals. Blue J says its research product is used by more than 6,500 organizations worldwide. That figure is the company's own claim.",
+          "Select Deloitte Canada proprietary research content is integrated into the practitioner experience on the Blue J platform. It excludes client-specific information. A Model Context Protocol (MCP) integration also connects Blue J into Deloitte's own practitioner environment. It sits alongside tailored agentic workflows and more than 150 Deloitte-built codified skills and sub-agents, available to all Deloitte tax practitioners.",
+          "Deloitte Canada first chose Blue J for its AI capabilities and its curated library of authoritative tax sources.",
+        ],
+      },
+      {
+        id: "accuracy-and-defensibility",
+        title: "Accuracy and defensibility come first",
+        paragraphs: [
+          "The stated aim is faster, verifiable research support, consistent quality, and more time for higher-value advisory work, \"while maintaining the highest standards of accuracy and defensibility\".",
+          "Stephen Lopes, Deloitte Canada's tax technology commercialization leader, said: \"we are deliberate in how we adopt AI, particularly in high-stakes areas like tax, where accuracy and defensibility are paramount\". Blue J CEO Benjamin Alarie said: \"Tax is complex, global, and high-stakes. Professionals need clarity they can stand behind.\"",
+        ],
+      },
+      {
+        id: "blue-j-funding",
+        title: "Blue J's US$176 million raise",
+        paragraphs: [
+          "The deal came days after Blue J's US$176 million Series E in November 2026, led by JMI Equity. The Goodwin release is dated 18 November 2026, and LawNext, BetaKit and Accounting Today covered it.",
+          "CPA Practice Advisor reports, as a company claim, that annual recurring revenue grew 165% in the 15 months after the 2025 Series D. The team doubled in a year and is expected to pass 200 employees by year end.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the sources.",
+        "You will probably never use Blue J yourself. But the firms advising you are moving to AI research tools that cite authoritative sources, and that is the right way to do it. AI does the legwork. The professional keeps responsibility.",
+        "It fits a wider pattern. See our posts on [KPMG's AI audit](/blog/kpmg-clara-intelligence-ai-audit) and on [AI controls and accounting firm insurance](/blog/ai-controls-accounting-firm-insurance-premiums). Firms are adopting AI, and the careful ones keep a person in charge.",
+        "So ask your accountant four plain questions. Which AI do you use? Are answers checked against the sources? Where is my data processed? Does the time saved show up in my bill or in better advice? A good accountant will have clear answers.",
+      ],
+    },
+    forYou: [
+      "Owners: ask which AI your accountant uses, and whether answers are verified against sources.",
+      "Owners: ask where your data is processed, and whether time saved shows up in your bill or advice. Tidy books help too, such as regular [bank reconciliation](/use-cases/automated-bank-reconciliation).",
+      "Accountants: AI research does the legwork. You keep responsibility for the answer.",
+    ],
+    source: {
+      publisher: "Blue J, with CPA Practice Advisor and LawNext",
+      title: "Blue J and Deloitte Canada Expand Strategic Collaboration",
+      note: "Blue J announcement, Toronto, 19 November 2026, CPA Practice Advisor, 20 November 2026, and LawNext on the US$176 million Series E.",
+      links: [
+        {
+          href: "https://www.bluej.com/blog/blue-j-deloitte-canada-expand-strategic-collaboration",
+          label: "Read the Blue J announcement",
+        },
+        {
+          href: "https://www.cpapracticeadvisor.com/2026/11/20/blue-j-and-deloitte-canada-expand-collaboration/194422/",
+          label: "Read the CPA Practice Advisor report",
+        },
+        {
+          href: "https://www.lawnext.com/2026/11/tax-research-platform-blue-j-raises-176m-to-expand-its-agentic-ai-and-reach-new-markets.html",
+          label: "Read the LawNext funding report",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/kpmg-clara-intelligence-ai-audit",
+        label: "KPMG's AI audit",
+        text: "A post: agents that check every transaction in selected areas.",
+      },
+      {
+        href: "/blog/ai-controls-accounting-firm-insurance-premiums",
+        label: "AI controls and accounting firm insurance",
+        text: "A post: why your accountant's AI controls matter.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Want to use AI in your books with a person in charge?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at where AI helps with your accounting, and who reviews the results. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/blue-j-deloitte-canada-ai-tax-research-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A tax professional reviewing a tax code printout beside a glowing ember AI assistant in a dark office",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "accuracy-and-defensibility",
+        image: {
+          src: "/images/blog/blue-j-deloitte-canada-ai-tax-research-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "An accountant and a small business owner checking sourced tax research on a laptop",
+          caption: "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "kpmg-clara-intelligence-ai-audit",
     title: "AI audit: KPMG's agents now check every transaction in some areas.",
     seoTitle: "AI Audit: KPMG Clara Intelligence Explained",

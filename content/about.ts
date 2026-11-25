@@ -6,8 +6,8 @@
 // Figures stay as supplied and are attributed, never presented as audited or
 // as client case studies. No degrees, certifications, client names or offices.
 //
-// TODO (owner): education can be added here and on the page once the owner
-// supplies it. Do not guess it.
+// Owner decision (2026-11-24): the about page skips education details entirely.
+// Do not add them.
 
 import { PROCESS_STEPS } from "./services.ts";
 

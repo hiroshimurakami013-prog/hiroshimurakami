@@ -19,8 +19,7 @@ import SiteFooter from "../components/site-footer";
 import SiteHeader from "../components/site-header";
 import Words, { order } from "../components/words";
 
-// TODO (owner): education can be added to this page once the owner supplies
-// it. Nothing is guessed until then.
+// Owner decision (2026-11-24): this page skips education details. Do not add them.
 
 export const metadata: Metadata = pageMetadata({
   title: ABOUT.seoTitle,
