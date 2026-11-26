@@ -92,6 +92,125 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "do-accountants-check-ai-output",
+    title: "Do accountants check AI output? 97% of firms review at least some.",
+    seoTitle: "Do Accountants Check AI Output? What the Survey Shows",
+    description:
+      "Do accountants check AI output? 97% of firms using AI review at least some of it, but other surveys show checks are patchy. What to ask yours.",
+    author: "Hiroshi Murakami",
+    service: "ai-accounting",
+    datePublished: "2026-11-26",
+    dateModified: "2026-11-26",
+    lead: "Do accountants check AI output? Mostly, yes. Wolters Kluwer's Future Ready Accountant report says 97% of firms using AI have people review at least some AI-generated work. The word to watch is \"some\". If your accountant uses [AI accounting](/services/ai-accounting) tools, it is fair to ask what gets reviewed, and by whom.",
+    glance: [
+      "97% of firms using AI have people review at least some AI work, in a Wolters Kluwer survey of 2,600+ accounting professionals worldwide.",
+      "Other surveys suggest checking is patchy. Capterra found 48% check all AI output and 39% review only some of the time.",
+      "Good firms design their checks: sources, sampling and sign-off on tax and client-facing work.",
+    ],
+    sections: [
+      {
+        id: "do-accountants-check-ai-output-survey",
+        title: "Do accountants check AI output? What the survey found",
+        paragraphs: [
+          "Wolters Kluwer Tax & Accounting published its third Future Ready Accountant report, based on 2,600+ accounting professionals worldwide. Accounting Today reports that 97% of firms using AI have people review at least some AI-generated work.",
+          "Policy is less settled. 36% of firms have a written firm-wide AI policy. Another 44% give general AI guidance without a formal policy. That is about 80% with some policy or guidance. 40% of owners and directors report a written policy, against 30% of staff.",
+          "Among firms with a policy or guidance, 57% require professional review of all AI-generated technical outputs. 40% require review of high-risk or client-facing outputs.",
+        ],
+      },
+      {
+        id: "where-ai-review-is-patchy",
+        title: "Where AI review is patchy",
+        paragraphs: [
+          "Accounting Today also cites other surveys. Rightworks found that 39% of firms using AI say outputs require review often or always. The most common safeguard, at 61%, is verifying output against original sources such as IRS publications and client records. Capterra (May) found 48% of accounting professionals check all AI output for errors, and 39% review only some of the time. Financial Cents (September) found 5% use AI for routine work and spot-check it, while 23% have AI draft and review closely.",
+          "Workiva found 84% of finance, audit and sustainability executives are confident in AI accuracy even without human review. Yet 26% said internal audits found AI errors that reached external audiences or the board. One AI Lab for Accountants report describes a professional who presented an AI summary that labeled a client line item \"vinegar\". The client sells no vinegar.",
+        ],
+      },
+      {
+        id: "what-good-ai-accounting-review-looks-like",
+        title: "What good AI accounting review looks like",
+        paragraphs: [
+          "Wolters Kluwer CEO Jason Marx says firms check most the work that needs professional judgment. An AI-prepared tax return gets reviewed. Filing the same return generally does not. He says agentic tax prep can flag risk areas but still needs professional judgment, and he does not see a check-the-box mentality.",
+          "Former PCAOB member Christina Ho, speaking on a MindBridge webcast, said: \"Assurance over AI output is the gap.\" She argued humans should design the checks, such as models that say they don't know, sampling and system connections, rather than re-check thousands of items by hand. And \"human in the loop\" must be active, not just an approve button.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the sources.",
+        "I do not read these numbers as accountants being careless. Most check, and the process is a work in progress. Reviewing every output is not realistic,. What matters is the design: where the answer comes from, how a sample is checked, and who signs off on tax and client-facing work.",
+        "It matches what we saw in our posts on [accounting firms and AI policies](/blog/accounting-firms-ai-adoption-no-policy) and on [AI controls and insurance](/blog/ai-controls-accounting-firm-insurance-premiums).",
+        "So ask your accountant three plain questions. What AI output gets reviewed? By whom? How are mistakes caught? A good firm will have a clear answer.",
+      ],
+    },
+    forYou: [
+      "Owners: ask your accountant what AI output is reviewed, by whom, and how mistakes are caught.",
+      "Owners: tidy books make checks easier. Regular [bank reconciliation](/use-cases/automated-bank-reconciliation) gives your accountant a source to check against.",
+      "Accountants: write your AI policy down. Only 36% of firms have a written firm-wide policy.",
+    ],
+    source: {
+      publisher: "Accounting Today and CPA Practice Advisor",
+      title: "97% of firms that use AI have people check at least some outputs",
+      note: "Accounting Today, November 2026, and CPA Practice Advisor on Wolters Kluwer's Future Ready Accountant report, 18 November 2026.",
+      links: [
+        {
+          href: "https://www.accountingtoday.com/news/97-of-firms-that-use-ai-have-people-check-at-least-some-outputs",
+          label: "Read the Accounting Today report",
+        },
+        {
+          href: "https://www.cpapracticeadvisor.com/2026/11/18/wolters-kluwers-future-ready-accountant-report-redesigning-work-around-ai-is-the-next-competitive-advantage/194162/",
+          label: "Read the CPA Practice Advisor report",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/accounting-firms-ai-adoption-no-policy",
+        label: "Accounting firms and AI policies",
+        text: "A post: how many firms use AI without a written policy.",
+      },
+      {
+        href: "/blog/ai-controls-accounting-firm-insurance-premiums",
+        label: "AI controls and accounting firm insurance",
+        text: "A post: why your accountant's AI controls matter.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Want AI in your books with a clear review step?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at where AI helps with your accounting, and who checks the results. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/do-accountants-check-ai-output-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "An accountant reviewing a printed report line by line with a pen at night, a faint ember glow from the laptop beside the paper.",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "where-ai-review-is-patchy",
+        image: {
+          src: "/images/blog/do-accountants-check-ai-output-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "Two colleagues comparing an AI-prepared report with the original invoices at a desk under a lamp.",
+          caption: "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "blue-j-deloitte-canada-ai-tax-research",
     title: "AI tax research: Blue J and Deloitte Canada sign a multi-year deal.",
     seoTitle: "AI Tax Research: Blue J and Deloitte Canada Deal",
