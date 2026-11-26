@@ -74,6 +74,12 @@ export const PASADENA: LocationDetail = {
         {
           title: "What gets built first",
           text: "One narrow piece, with a result your team can verify. For a design or engineering firm that may be a search over its own standards and templates. For an accounting practice it may be one client's reconciliation, and for a clinic, calls at the busiest hour.",
+          links: [
+            {
+              href: "/use-cases/first-ai-automation-projects-small-business-los-angeles",
+              label: "First AI automation projects ranked by effort and payback",
+            },
+          ],
         },
         {
           title: "How it is reviewed",

@@ -55,6 +55,12 @@ export const LOS_ANGELES: LocationDetail = {
         {
           title: "Tools that do not talk",
           text: "A booking app, a spreadsheet, an accounting package and a group chat. Custom workflows connect them so a job moves from enquiry to invoice without anyone retyping it.",
+          links: [
+            {
+              href: "/use-cases/first-ai-automation-projects-small-business-los-angeles",
+              label: "Five first AI automation projects, ranked by effort",
+            },
+          ],
         },
         {
           title: "Books that are always behind",

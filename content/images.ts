@@ -112,6 +112,11 @@ export const USE_CASE_IMAGES: Record<string, SceneImage> = {
     "use-cases/after-hours-calls-closed-shop",
     "A closed shop at night where a phone on the counter is answered by an AI voice",
   ),
+  // Reuses the connecting tools scene: the page ends with connecting tools.
+  "first-ai-automation-projects-small-business-los-angeles": img(
+    "use-cases/connecting-disconnected-tools",
+    "Floating islands, each holding a different tool, joined by bridges of light so data flows between them",
+  ),
   // Reuses the AI Receptionist service scene.
   "ai-receptionist-buyer-checklist": img(
     "services/ai-receptionist-phone-answering-call",

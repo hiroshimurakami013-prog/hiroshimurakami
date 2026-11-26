@@ -46,6 +46,11 @@ export type UseCaseDetail = {
   seoDescription: string;
   /** The lead paragraph under the H1. */
   lead: string;
+  /**
+   * Optional "what it can and cannot handle" list, shown straight after the
+   * lead so the first block answers the page's question with its limits.
+   */
+  scope?: { heading: string; can: string[]; cannot: string[] };
   /** Optional "The short version": three or four self-contained sentences. */
   keyFacts?: string[];
   /** Optional heading for the steps, when they are not how the AI works. */
@@ -258,7 +263,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
   {
     slug: "ai-receptionist-for-accounting-firms",
     service: "ai-receptionist",
-    title: "An AI receptionist for accounting firms in tax season",
+    title: "An AI receptionist for accountants and accounting firms",
     summary:
       "Document drop-offs, appointment requests and \"did you get my forms?\" calls answered and logged, while accountants stay in their meetings. No tax advice from the AI.",
     relatedService: "ai-accounting",
@@ -366,6 +371,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
     relatedService: "ai-lead-qualification",
     locations: ["los-angeles", "torrance", "long-beach", "glendale"],
     highlight: true,
+    seeAlso: ["first-ai-automation-projects-small-business-los-angeles"],
   },
   {
     slug: "overdue-invoice-reminders",
@@ -435,6 +441,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "Forms, calendar, CRM, invoicing and messaging are connected, so a customer is entered once and every tool stays up to date.",
     relatedService: "ai-agents",
     locations: ["long-beach", "torrance", "glendale", "los-angeles"],
+    seeAlso: ["first-ai-automation-projects-small-business-los-angeles"],
   },
   {
     slug: "automated-handoffs",
@@ -444,6 +451,20 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "When a lead is won or a job is finished, the next step starts on its own: scheduling, invoicing or a follow-up, with the right person notified.",
     relatedService: "ai-follow-ups",
     locations: ["burbank", "pasadena", "inglewood", "long-beach"],
+  },
+  {
+    slug: "first-ai-automation-projects-small-business-los-angeles",
+    service: "custom-crm-and-workflows",
+    title: "AI automation for a small business in Los Angeles: five first projects ranked by effort",
+    summary:
+      "Follow-ups, lead replies, an AI receptionist, receipt capture and connected tools, ranked from least to most setup effort, with assumed ranges and when to wait.",
+    relatedService: "ai-follow-ups",
+    locations: ["los-angeles", "pasadena", "glendale", "burbank"],
+    seeAlso: [
+      "connecting-disconnected-tools",
+      "unanswered-quote-follow-ups",
+      "ai-receptionist-vs-answering-service-vs-voicemail",
+    ],
   },
 
   // AI Customer Support Assistants

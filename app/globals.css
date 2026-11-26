@@ -2541,6 +2541,38 @@ main:focus {
   color: var(--tide);
 }
 
+.uc-scope {
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  max-width: 68ch;
+}
+.uc-scope h2 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.uc-scope-grid {
+  display: grid;
+  gap: 1.5rem 2.5rem;
+  margin-top: 1rem;
+}
+@media (min-width: 720px) {
+  .uc-scope-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.uc-scope h3 {
+  font-weight: 600;
+  color: var(--text);
+}
+.uc-scope .check-list {
+  margin-top: 0.75rem;
+  gap: 0.6rem;
+}
+.uc-scope-cannot svg {
+  color: var(--ember);
+}
+
 .uc-jump {
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
 }

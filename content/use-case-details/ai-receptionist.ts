@@ -169,10 +169,25 @@ export const AI_RECEPTIONIST_DETAILS: Record<string, UseCaseDetail> = {
   },
 
   "ai-receptionist-for-accounting-firms": {
-    seoTitle: "AI Receptionist for Accounting Firms | Hiroshi Murakami",
+    seoTitle: "AI Receptionist for Accountants | Hiroshi Murakami",
     seoDescription:
-      "An AI receptionist for CPA and bookkeeping firms: tax season calls answered, documents and appointments handled, and no tax advice from the AI.",
-    lead: "An AI receptionist for an accounting firm answers the calls your team cannot take, especially in tax season, handles routine requests such as appointment booking, document drop-off and \"did you receive my forms?\", and passes everything else to the right accountant with a written summary. It does not give tax advice: anything that needs professional judgement goes to a person.",
+      "What an AI receptionist does for accountants and CPA firms: answers calls, books consultations, routes urgent calls, takes messages. No tax advice.",
+    lead: "An AI receptionist for accountants answers the firm's phone when the team cannot, especially in tax season. It handles routine calls such as booking a consultation, document drop-off and \"did you receive my forms?\", takes a message for everything else and passes it to the right accountant with a written summary. It never gives tax advice.",
+    scope: {
+      heading: "What it can and cannot handle",
+      can: [
+        "Answer calls, including overflow and after-hours calls",
+        "Capture the caller's name, number and reason for calling",
+        "Book consultations into the right accountant's calendar",
+        "Route urgent calls, such as a notice with a deadline, to a person",
+        "Take messages and deliver them as written summaries",
+      ],
+      cannot: [
+        "Give tax or accounting advice: those questions go to an accountant",
+        "Access client files or your portal, unless you choose to set that up",
+        "Replace the accountant: professional judgement stays with your team",
+      ],
+    },
     problem: [
       "Picture a CPA or bookkeeping firm with eight people. For most of the year the phone is manageable. Then tax season arrives, and the same few people who prepare returns are also expected to answer a phone that rings all day. Clients ask whether their documents arrived, when their return will be ready, where to drop off paperwork and whether they can book a meeting. New callers ask whether the firm is taking clients.",
       "Every one of those calls interrupts focused work, and many go to voicemail because the accountant is with a client. Voicemails pile up, clients call again, and the firm's busiest weeks become its most stressful. Hiring seasonal front desk help is possible, but training someone for a few months each year is hard, and good temporary staff are not easy to find.",

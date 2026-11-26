@@ -2,6 +2,17 @@
 
 What was changed for organic growth, when, and why. Newest first. Use it to compare Search Console data before and after each batch.
 
+## 2026-11-26: answer-first accountants page and five first projects
+
+Why: Search Console (7 days) shows "ai receptionist for accountants" at 5 impressions, position 43, on `/use-cases/ai-receptionist-for-accounting-firms`, "ai automation pasadena" (13, pos 71) and "ai consulting pasadena" (19, pos 59) on `/locations/pasadena`, and "ai automation for small business los angeles" (3, pos 81) on `/locations/los-angeles`.
+
+- **`/use-cases/ai-receptionist-for-accounting-firms`**: H1, title ("AI Receptionist for Accountants | Hiroshi Murakami") and description now match the query. The lead is a 56 word direct answer, followed by a new "What it can and cannot handle" list (optional `scope` on a use case, `app/components/scope-list.tsx`). The rest of the page and its facts are unchanged.
+- **New page** (35 use cases): `/use-cases/first-ai-automation-projects-small-business-los-angeles`, five first projects ranked from least to most effort (follow-ups, lead replies, AI receptionist, receipt capture, connecting tools), with assumed effort ranges, payback in words, key facts, an assumption-labelled worked example and six FAQs. Categories only, no vendors. Parent service Custom CRM and Workflow Automation, related AI Follow-Ups. Reuses the connecting tools scene image.
+- **Links to it**: the "Tools that do not talk" card on `/locations/los-angeles`, the "What gets built first" card on `/locations/pasadena`, `seeAlso` on `connecting-disconnected-tools` and `unanswered-quote-follow-ups`, and the generated lists on `/services/custom-crm-and-workflows`, `/use-cases`, `/llms.txt` and `/llms-full.txt`.
+- **Dates**: only the two pages above take 2026-11-26 (`GROWTH_BATCH_5`). The pages that only gained a link keep their dates.
+- **Watch**: position for "ai receptionist for accountants" and "ai automation for small business los angeles", and impressions for the new page.
+- No new JSON-LD types. Indexing logic was not touched.
+
 ## 2026-11-25: comparison pages for AI citation
 
 Why: the brief for this batch cites an arXiv GEO study (https://arxiv.org/abs/2606.20065) in which "best-of" and comparison pages take about 21 percent of AI search citations. The paper could not be opened in this session, so the figure is unverified and appears nowhere on the site.

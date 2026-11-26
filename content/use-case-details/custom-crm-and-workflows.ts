@@ -166,4 +166,120 @@ export const CUSTOM_CRM_AND_WORKFLOWS_DETAILS: Record<string, UseCaseDetail> = {
     privacy:
       "Handover notes stay inside your own tools and are visible only to the people involved. Nothing is used to train public AI models.",
   },
+
+  // Growth batch 5. A ranking of first projects by effort and payback. The
+  // effort ranges and the worked example are assumptions, labelled as such
+  // on the page, never client results. Categories only, no vendors.
+  "first-ai-automation-projects-small-business-los-angeles": {
+    seoTitle: "5 AI Automation Projects for Small Business in Los Angeles",
+    seoDescription:
+      "Five first AI automation projects for a small Los Angeles business, ranked by effort and payback, with assumed effort ranges and when to wait.",
+    lead: "The five first AI automation projects for a small business in Los Angeles, from least to most effort, are: follow-ups for quotes and overdue invoices, instant replies to web leads, an AI receptionist for overflow calls, receipt and invoice capture for the books, and connecting the tools you use. Start with the easiest one that removes your most expensive bottleneck.",
+    keyFacts: [
+      "Automated follow-ups for quotes and overdue invoices are usually the lowest-effort first AI automation project for a small business.",
+      "Connecting several disconnected tools is usually the highest-effort first project, because it touches the most systems.",
+      "The best first AI automation project removes the most expensive bottleneck, not the most impressive one.",
+      "The effort ranges on this page are assumptions for illustration, not measured client results.",
+    ],
+    stepsHeading: "Five first projects, ranked from least to most effort",
+    problem: [
+      "Picture the owner of a six person business in Los Angeles: a repair company, a studio or a small agency. They have heard that AI can answer the phone, reply to leads, chase invoices and keep the books. All of it sounds useful, and none of it says where to begin.",
+      "So the owner either does nothing, or buys the biggest platform on offer and spends two months setting it up while the phone keeps ringing. Both are expensive. The first leaves the same hours lost every week, and the second spends the team's patience on a project before anything has earned trust.",
+    ],
+    usualTools: [
+      "Lists of AI tools rank products by features, not by how much work they take to set up in your business or how soon they pay back. A demo shows the best case on a tidy example, with none of your own data, exceptions or staff.",
+      "Asking which project is best misses the point. A better question is which bottleneck costs the most today, and which fix for it needs the least setup and the least access to your systems.",
+    ],
+    steps: [
+      {
+        title: "1. Follow-ups for quotes and overdue invoices",
+        text: "Assumed effort: low, about one to two weeks of part-time setup, mostly writing the messages and the rules for when they stop. Payback tends to show early when quotes or invoices often go unanswered, because the work behind them is already done. Watch for: a message that goes out after the customer has replied or paid, so the stop rules come first.",
+      },
+      {
+        title: "2. Instant replies to web form and message leads",
+        text: "Assumed effort: low to medium, about two weeks, for approved answers, a few qualifying questions and a booking link. Payback is clearest when leads arrive while you are on a job and a competitor is one search away. Watch for: replies that quote prices or dates you never approved, so those become a message for a person.",
+      },
+      {
+        title: "3. An AI receptionist for overflow and after-hours calls",
+        text: "Assumed effort: medium, about two to four weeks, including a test on 20 past calls before real callers depend on it. Payback depends on how many missed calls are routine questions or bookings. Watch for: disclosure, recording rules and the handover, since callers who need a person must reach one with context.",
+      },
+      {
+        title: "4. Receipt and invoice capture for the books",
+        text: "Assumed effort: medium, about three to four weeks, depending on how your accounting software connects and how consistent your past coding is. Payback is strongest for owners who do the books at night. Watch for: anything posting without review, so a person approves entries and paying stays a person's decision.",
+      },
+      {
+        title: "5. Connecting the tools you already use",
+        text: "Assumed effort: high, about four to eight weeks, depending on how many tools are involved and whether they offer official connections. The payback can be the largest over time when the same customer is retyped into several apps, but it is the slowest to arrive. Watch for: automating a messy process, so map it first and start with one handoff.",
+      },
+    ],
+    outcomes: [
+      "The first project is chosen from your own bottlenecks rather than a feature list.",
+      "Low-effort projects come first, so the team sees something work before larger changes.",
+      "Each project starts with the least access to your systems that will do the job.",
+      "Larger projects such as connecting tools wait until the earlier ones show where data is retyped most.",
+      "Deciding to wait, or to do nothing yet, counts as a useful result.",
+    ],
+    requirements: [
+      "A rough count for two ordinary weeks: missed calls, unanswered quotes, late invoices and hours on the books",
+      "A list of the tools you use today and who looks after each one",
+      "Approved wording for prices, hours and policies, and what must always go to a person",
+      "One person with time to review the first weeks of each project",
+    ],
+    humanInTheLoop:
+      "Every project keeps a person in charge of what matters. Follow-ups and lead replies use approved wording, the receptionist hands calls to a person, book entries wait for approval and payments stay with your team. Each new project starts small, is checked closely for the first weeks and grows only once it has earned trust.",
+    privacy:
+      "Each project collects only the details it needs and keeps them in your own tools where possible. Ask any provider, including me, what is stored, where, who can open it, how long it is kept and how it is deleted. Customer data is not used to train public AI models.",
+    example: {
+      title: "A worked example: ordering two first projects",
+      intro:
+        "The figures below are assumptions chosen to show the reasoning. They are not a client result, a quote or a promise of any outcome.",
+      assumptions: [
+        { label: "Business", value: "An assumed six person home repair company in Los Angeles" },
+        { label: "Quotes", value: "An assumed 15 quotes a month, 6 of them never answered" },
+        { label: "Missed calls", value: "An assumed 25 a week, about half routine questions or bookings" },
+        { label: "Books", value: "An assumed 4 hours a week of the owner's time on receipts and coding" },
+        { label: "Setup effort", value: "The assumed ranges above: one to two weeks for follow-ups, two to four for the receptionist" },
+      ],
+      steps: [
+        "Start with quote follow-ups: the lowest effort, and the 6 silent quotes a month are jobs already priced.",
+        "Test an AI receptionist next on 20 past calls, because about 12 missed calls a week are routine or bookings.",
+        "Leave receipt capture for the third month, and use the savings calculator on this site for a rough range first.",
+        "Hold the tool connection project until the first three show where data is retyped most.",
+      ],
+      result:
+        "In this example, if follow-ups brought back even 1 of the 6 silent quotes a month, the first project would likely repay its small setup; that is an assumption to test, not a promise. The receptionist may matter more over time, but it needs more setup and review, so it goes second. Few calls and a pile of receipts would reverse the order.",
+    },
+    faqs: [
+      {
+        question: "What is the easiest AI automation for a small business to start with?",
+        answer:
+          "For many small businesses it is automated follow-ups for quotes and overdue invoices. The messages are short, the rules are simple and nothing needs deep access to your systems. It is only the right start if unanswered quotes or late payments actually cost you.",
+      },
+      {
+        question: "How long does a first AI automation project take?",
+        answer:
+          "The ranges on this page are assumptions: about one to two weeks for follow-ups, up to four to eight weeks for connecting several tools. Your own timing depends on your tools, your data and how much review you want, which the free AI audit looks at before anything is promised.",
+      },
+      {
+        question: "How do I choose which project comes first?",
+        answer:
+          "Count two ordinary weeks of missed calls, unanswered quotes, late invoices and hours on the books. Pick the bottleneck that costs the most, then the lowest-effort project that addresses it.",
+      },
+      {
+        question: "Do I need new software to start with AI automation?",
+        answer:
+          "Usually not. Most first projects work with the phone number, calendar, inbox and accounting software you already have. If a tool cannot connect safely, that is said plainly before anything is built.",
+      },
+      {
+        question: "When is AI automation not worth it yet?",
+        answer:
+          "When the volume is too low to repay the setup, when answers change every day, or when nobody has time to review the first weeks. In those cases a better process, a template or a part-time person may be the better first step.",
+      },
+      {
+        question: "Do you work with small businesses across Los Angeles?",
+        answer:
+          "Yes. I serve businesses in Los Angeles and across Los Angeles County, remote-first, with the audit, setup and check-ins held over video calls and messages. There is no office to visit.",
+      },
+    ],
+  },
 };
