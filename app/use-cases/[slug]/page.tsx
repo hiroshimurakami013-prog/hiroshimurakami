@@ -140,6 +140,12 @@ export default async function UseCasePage({
             </h1>
             <p className="lead mt-8 max-w-[58ch]">{detail.lead}</p>
             <ScopeList scope={detail.scope} />
+            {detail.notice ? (
+              <p className="uc-disclaimer uc-notice">
+                <Info size={18} weight="light" aria-hidden="true" />
+                <strong>{detail.notice}</strong>
+              </p>
+            ) : null}
             <LastUpdated path={`/use-cases/${useCase.slug}`} />
             <p className="uc-disclaimer">
               <Info size={18} weight="light" aria-hidden="true" />

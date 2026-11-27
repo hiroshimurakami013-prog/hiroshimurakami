@@ -96,6 +96,11 @@ export const USE_CASE_IMAGES: Record<string, SceneImage> = {
     "use-cases/month-end-reporting-clean-dashboard",
     "Scattered paperwork resolving into a clean dashboard of charts at month end",
   ),
+  // Reuses the receipt capture scene: the cleanup ends with receipts archived.
+  "ai-year-end-bookkeeping-cleanup-checklist": img(
+    "use-cases/invoice-receipt-capture-scan",
+    "Paper receipts scanned by a beam of light and turned into neat, sorted digital records",
+  ),
   "ai-expense-categorization": img(
     "use-cases/invoice-receipt-capture-scan",
     "Paper receipts scanned by a beam of light and turned into neat, sorted digital records",

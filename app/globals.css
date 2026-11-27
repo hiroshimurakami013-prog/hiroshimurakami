@@ -2505,6 +2505,12 @@ main:focus {
   line-height: 1.6;
   color: var(--text-3);
 }
+.uc-notice {
+  color: var(--text-2);
+}
+.uc-notice strong {
+  font-weight: 500;
+}
 .uc-disclaimer svg {
   flex: none;
   margin-top: 0.2rem;

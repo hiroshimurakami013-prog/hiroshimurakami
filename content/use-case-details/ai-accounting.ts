@@ -822,6 +822,137 @@ export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
     ],
   },
 
+  "ai-year-end-bookkeeping-cleanup-checklist": {
+    seoTitle: "AI Year-End Bookkeeping Cleanup Checklist | Hiroshi Murakami",
+    seoDescription:
+      "A year-end bookkeeping cleanup checklist for small business: what AI does in December and January, what a person decides, and what to give your accountant.",
+    lead: "A year-end bookkeeping cleanup is the work a small business does in December and January so the books are complete before the tax preparer sees them: clear uncategorized and duplicate lines, reconcile every account to the last day of the year, collect missing forms and receipts, and list open questions. AI does the sorting and matching, and people decide.",
+    notice:
+      "General information only, not tax or accounting advice. Requirements, deadlines and thresholds depend on your business and change over time, so confirm current deadlines and what applies to you with your accountant or the IRS before you act.",
+    keyFacts: [
+      "A year-end bookkeeping cleanup happens once a year, after the last month-end close and before the books go to the tax preparer.",
+      "Every bank, card and loan account should be reconciled through the last day of the year, so each balance agrees with the year-end statement.",
+      "AI can suggest categories, flag duplicates, match bank lines, read receipts and invoices, and draft a list of missing documents.",
+      "A person decides every tax-sensitive item, such as write-offs, fixed assets, owner spending and which vendors need forms, together with the accountant.",
+    ],
+    stepsHeading: "The year-end checklist, step by step",
+    problem: [
+      "Picture an owner of a small service business in early January. The monthly bookkeeping mostly happened, but not always. There are a few hundred bank lines still marked uncategorized, a card that was never reconciled after the summer, and a folder of receipt photos on a phone. Then the tax preparer's questionnaire arrives.",
+      "The questions are simple to ask and slow to answer. Which of these vendors are contractors, and do you have their forms? Is this laptop an expense or equipment? Why does the loan balance not match the lender's statement? Was this card charge personal? Each answer means digging through a year of email, and some of it needs a vendor or customer to reply first.",
+      "If the cleanup waits until the accountant asks, it competes with their busiest weeks and with the owner's own January. Work that could have been spread over December ends up rushed, and questions go back and forth for weeks.",
+    ],
+    usualTools: [
+      "A month-end close checks the recurring items of one month. It does not usually ask whether every contractor has a form on file, whether owner spending is coded as business expense, or whether a purchase in March should have been recorded as an asset. Those are year-end questions, and they only come up once.",
+      "Accounting software reports show balances, not what is missing. No report lists the W-9 you never collected or the receipt nobody kept. A cleanup bookkeeper can do it well, but is often hard to book at the start of the year, and still has to start by finding the open items.",
+    ],
+    steps: [
+      {
+        title: "Clear uncategorized and duplicate transactions",
+        text: "Start in December. AI suggests an account for each uncategorized line from how you coded similar spending before, and flags likely duplicates, such as the same amount and payee on close dates or a bank feed line entered by hand as well. A person confirms the categories and decides which duplicate to remove. Nothing is deleted automatically.",
+      },
+      {
+        title: "Reconcile every bank, card and loan account through the last day of the year",
+        text: "In January, once the December statements arrive, AI matches bank and card lines to entries and lists what is left open. For loans, it reads the lender's statement and proposes the split between principal and interest. A person approves the matches, investigates every difference, and checks that each closing balance agrees with the statement for the last day of the year.",
+      },
+      {
+        title: "Check vendor payment totals and collect missing W-9s early",
+        text: "AI totals what you paid each vendor during the year, lists those who look like contractors and have no W-9 on file, and drafts a polite request for each. Send the requests in December, not when the forms are due. Which vendors need a year-end form, and what counts toward it, is for your accountant to decide, so confirm the current rules with them or the IRS.",
+      },
+      {
+        title: "Chase unpaid customer invoices and review write-offs",
+        text: "AI lists open invoices by age, drafts reminders for the overdue ones, and flags invoices that may already be paid because a matching deposit was never applied. A person decides who to chase. Which old balances to write off, and whether a write-off has any tax effect, depends on how your books are kept, so decide that with your accountant.",
+      },
+      {
+        title: "Check payroll and sales tax liabilities against the books",
+        text: "AI compares the payroll liability accounts with your payroll provider's year-end reports, and the sales tax payable account with the returns you filed and your sales tax report, and lists each difference. A person explains the differences. Any correction to a filing goes through your payroll provider or accountant.",
+      },
+      {
+        title: "Review fixed asset purchases",
+        text: "AI flags larger purchases coded as ordinary expenses, such as equipment, computers, furniture or vehicles, and attaches the invoice to each. Your accountant decides whether each one is recorded as an asset or an expense and how it is treated for tax. The AI only finds the candidates.",
+      },
+      {
+        title: "Find owner draws and personal spending coded as business expense",
+        text: "AI flags spending that looks personal, and transfers to the owner that were coded as expenses or wages. The owner confirms which items are personal. The accountant decides how to reclassify them, because the right account depends on how the business is set up.",
+      },
+      {
+        title: "Archive receipts and supporting documents",
+        text: "AI reads receipts and invoices from email and phone photos, extracts the supplier, date and amount, attaches each one to its transaction, and lists the transactions that still have no document. A person decides which gaps matter and asks the accountant how long records should be kept.",
+      },
+      {
+        title: "Produce a clean package for the accountant",
+        text: "AI drafts the package: the reconciliations, a trial balance, open invoice and bill lists, vendor payment totals, and a missing-documents request list with one line per open item. The owner reviews it, answers what they can, and sends it. The accountant makes the adjustments and prepares the return.",
+      },
+    ],
+    outcomes: [
+      "The accountant receives one complete package instead of a stream of answers.",
+      "Missing contractor forms are requested in December, while there is time to collect them.",
+      "Duplicates, personal spending and miscoded assets are found before the accountant has to ask.",
+      "Every account balance agrees with a year-end statement.",
+      "The open questions are written down, each with the transaction attached.",
+    ],
+    requirements: [
+      "Access to your accounting software, bank and card feeds, and loan statements",
+      "The December statements for every bank, card and loan account",
+      "Your payroll provider's year-end reports and the sales tax returns you filed",
+      "Wherever receipts and invoices live today: email, a phone folder or a shoebox",
+      "Your accountant's own year-end questionnaire or list, if they send one",
+    ],
+    humanInTheLoop:
+      "Every suggestion is a draft until a person approves it. The owner confirms categories and personal spending, the bookkeeper approves matches and removes duplicates, and the accountant decides write-offs, fixed assets, reclassifications and which vendors need forms. The AI does not file anything, send anything to a tax authority or change a closed period.",
+    privacy:
+      "W-9s contain taxpayer identification numbers, so store them with access limited to the owner, bookkeeper and accountant, and keep those numbers out of notes, summaries and emails drafted by AI. Financial data stays in your accounting software and a private workspace, and it is not used to train public AI models. Never share bank logins.",
+    example: {
+      title: "A worked example: a six person service business",
+      intro:
+        "The figures below are assumptions chosen to show how the checklist plays out. They are not a client result or a measurement of any product.",
+      assumptions: [
+        { label: "Business", value: "An assumed six person service business, books kept by the owner with a part-time bookkeeper" },
+        { label: "Uncategorized lines at year end", value: "An assumed 180" },
+        { label: "Possible duplicates flagged", value: "An assumed 14" },
+        { label: "Vendors paid in the year", value: "An assumed 60, of which 9 look like contractors with no W-9 on file" },
+        { label: "Open customer invoices over 90 days", value: "An assumed 7" },
+        { label: "Time per uncategorized line", value: "An assumed 2 minutes by hand, or 20 seconds to review an AI suggestion" },
+      ],
+      steps: [
+        "December: AI suggests categories for the 180 lines, and the owner reviews them in about 1 hour instead of about 6.",
+        "The bookkeeper checks the 14 flagged pairs: 5 are real duplicates and are removed, 9 are genuine repeat payments.",
+        "AI drafts W-9 requests to the 9 vendors, and the accountant confirms which of them actually need a form.",
+        "Of the 7 old invoices, the owner chases 4 and lists 3 for the accountant to review as possible write-offs.",
+        "January: AI matches the December statement lines, and the bookkeeper resolves 11 exceptions and ties every balance to its statement.",
+        "AI drafts the package and a list of 6 open questions, and the owner sends it.",
+      ],
+      result:
+        "In this example, categorizing alone drops from about 6 hours (180 lines at 2 minutes) to about 1 hour (180 lines at 20 seconds), saving about 5 hours. The larger gain is timing: forms are requested in December, and the accountant gets one package with a short question list. Your own volumes will differ.",
+    },
+    faqs: [
+      {
+        question: "What should a year-end bookkeeping cleanup checklist include?",
+        answer:
+          "Clear uncategorized and duplicate transactions, reconcile every bank, card and loan account through the last day of the year, check vendor payment totals and collect missing W-9s, review unpaid invoices, tie out payroll and sales tax, review fixed assets and owner spending, archive receipts, and send a clean package to your accountant.",
+      },
+      {
+        question: "How is a year-end cleanup different from a month-end close?",
+        answer:
+          "A month-end close repeats every month and checks recurring items. A year-end cleanup looks at the whole year once, before the tax return: contractor forms, owner spending, fixed assets, write-offs and balances that must agree with year-end statements. A good monthly close makes the year-end cleanup much shorter.",
+      },
+      {
+        question: "Can AI do my year-end bookkeeping cleanup on its own?",
+        answer:
+          "No. AI can suggest categories, flag duplicates, match bank lines, read receipts and draft request lists. Decisions with tax effect, such as write-offs, fixed assets, reclassifying owner spending and which vendors need forms, belong to you and your accountant.",
+      },
+      {
+        question: "When should I start, and what are the deadlines?",
+        answer:
+          "Start in December with categories, duplicates, open invoices and W-9 requests, and finish the reconciliations in January once the statements arrive. This page does not list deadlines, because they depend on the form, your business and the year. Confirm current deadlines with your accountant or the IRS.",
+      },
+      {
+        question: "Is it safe to use AI with W-9s and financial records?",
+        answer:
+          "It can be, with care. Use a tool or workspace that does not train public models on your data, limit access to the people who need it, keep taxpayer identification numbers out of AI summaries, and never share bank logins. Ask any vendor in writing where the data is stored and how it is deleted.",
+      },
+    ],
+  },
+
   "ai-expense-categorization": {
     seoTitle: "AI Expense Categorization | Hiroshi Murakami",
     seoDescription:

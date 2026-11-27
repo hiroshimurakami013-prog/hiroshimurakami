@@ -32,6 +32,12 @@ export const PASADENA: LocationDetail = {
         {
           title: "People sign off on what matters",
           text: "Reconciliations are prepared by AI and approved by a person. Client advice, clinical questions and anything with legal weight always go to a professional. The AI drafts and sorts, it does not decide.",
+          links: [
+            {
+              href: "/use-cases/ai-year-end-bookkeeping-cleanup-checklist",
+              label: "Getting the books ready for your tax preparer",
+            },
+          ],
         },
         {
           title: "Everything leaves a trail",

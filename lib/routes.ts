@@ -23,6 +23,7 @@ const GROWTH_BATCH_2 = "2026-11-23";
 const GROWTH_BATCH_3 = "2026-11-24";
 const GROWTH_BATCH_4 = "2026-11-25";
 const GROWTH_BATCH_5 = "2026-11-26";
+const GROWTH_BATCH_6 = "2026-11-27";
 const growthPages = new Set([
   "/use-cases/missed-calls-at-the-front-desk",
   "/use-cases/ai-receptionist-for-accounting-firms",
@@ -63,18 +64,25 @@ const growthPages5 = new Set([
   "/use-cases/ai-receptionist-for-accounting-firms",
   "/use-cases/first-ai-automation-projects-small-business-los-angeles",
 ]);
+// Batch 6 dates only the new page. The pages that only gained a link keep
+// their dates. The KPMG post's date comes from its own dateModified below.
+const growthPages6 = new Set([
+  "/use-cases/ai-year-end-bookkeeping-cleanup-checklist",
+]);
 const contentDate = (path: string) =>
-  growthPages5.has(path)
-    ? GROWTH_BATCH_5
-    : growthPages4.has(path)
-      ? GROWTH_BATCH_4
-      : growthPages3.has(path)
-        ? GROWTH_BATCH_3
-        : growthPages2.has(path)
-          ? GROWTH_BATCH_2
-          : growthPages.has(path)
-            ? GROWTH_BATCH
-            : FIRST_VERSION;
+  growthPages6.has(path)
+    ? GROWTH_BATCH_6
+    : growthPages5.has(path)
+      ? GROWTH_BATCH_5
+      : growthPages4.has(path)
+        ? GROWTH_BATCH_4
+        : growthPages3.has(path)
+          ? GROWTH_BATCH_3
+          : growthPages2.has(path)
+            ? GROWTH_BATCH_2
+            : growthPages.has(path)
+              ? GROWTH_BATCH
+              : FIRST_VERSION;
 const dated = (path: string): SiteRoute => ({
   path,
   lastModified: contentDate(path),

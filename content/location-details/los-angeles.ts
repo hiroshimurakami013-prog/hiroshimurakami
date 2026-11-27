@@ -65,6 +65,12 @@ export const LOS_ANGELES: LocationDetail = {
         {
           title: "Books that are always behind",
           text: "Owners who do their own bookkeeping at night, or wait weeks for an accountant to catch up, start with AI accounting: receipts and invoices captured as they arrive, coded and ready for review.",
+          links: [
+            {
+              href: "/use-cases/ai-year-end-bookkeeping-cleanup-checklist",
+              label: "Year-end bookkeeping cleanup checklist",
+            },
+          ],
         },
       ],
     },

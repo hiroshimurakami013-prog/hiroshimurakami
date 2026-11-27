@@ -51,6 +51,11 @@ export type UseCaseDetail = {
    * lead so the first block answers the page's question with its limits.
    */
   scope?: { heading: string; can: string[]; cannot: string[] };
+  /**
+   * Optional prominent notice under the lead, for example that the page is
+   * general information and not tax or accounting advice.
+   */
+  notice?: string;
   /** Optional "The short version": three or four self-contained sentences. */
   keyFacts?: string[];
   /** Optional heading for the steps, when they are not how the AI works. */
@@ -130,6 +135,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "ai-transaction-matching-for-quickbooks",
       "ai-reconciliation-tool-evaluation-checklist",
       "ai-vs-rules-vs-manual-bank-reconciliation",
+      "ai-year-end-bookkeeping-cleanup-checklist",
     ],
   },
   {
@@ -214,7 +220,26 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "On the first working day, AI checks every item on the close list, sends each open question to the right person and drafts the notes for review.",
     relatedService: "custom-crm-and-workflows",
     locations: ["pasadena", "culver-city", "santa-monica", "los-angeles"],
-    seeAlso: ["faster-month-end-reporting", "bank-reconciliation-for-a-10-person-firm"],
+    seeAlso: [
+      "faster-month-end-reporting",
+      "bank-reconciliation-for-a-10-person-firm",
+      "ai-year-end-bookkeeping-cleanup-checklist",
+    ],
+  },
+  {
+    slug: "ai-year-end-bookkeeping-cleanup-checklist",
+    service: "ai-accounting",
+    title: "AI year-end bookkeeping cleanup checklist for small business",
+    summary:
+      "What to clean up in December and January before the books go to the tax preparer, where AI helps and where a person decides. General information, not tax advice.",
+    relatedService: "ai-follow-ups",
+    locations: ["los-angeles", "pasadena", "glendale", "long-beach"],
+    seeAlso: [
+      "ai-month-end-close-checklist",
+      "automated-bank-reconciliation",
+      "ai-expense-categorization",
+      "invoice-and-receipt-capture",
+    ],
   },
   {
     slug: "ai-expense-categorization",

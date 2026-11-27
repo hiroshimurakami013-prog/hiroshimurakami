@@ -2,6 +2,18 @@
 
 What was changed for organic growth, when, and why. Newest first. Use it to compare Search Console data before and after each batch.
 
+## 2026-11-27: KPMG post quick answers and a year-end cleanup checklist
+
+Why: Search Console (7 days) shows `/blog/kpmg-clara-intelligence-ai-audit` at position 13.6 with 5 impressions and the query "kpmg ai audit" at position 48, "ai invoice capture" at position 79 and an AI expense categorization style page at position 46. The growth log TODO from 2026-11-26 asked for a seasonal year-end checklist with a distinct angle.
+
+- **`/blog/kpmg-clara-intelligence-ai-audit`**: a "Quick answers" FAQ with four questions (what KCi is and what KPMG announced on 17 November 2026, whether it checks every transaction, who is responsible, how an owner can prepare). Each answer is 40 to 60 words, answers in its first sentence and uses only facts already in the post and the KPMG source; the preparation answer is labelled as my opinion. `dateModified` 2026-11-27, which `lib/routes.ts` reads for the sitemap. The post body is unchanged.
+- **New page** (36 use cases): `/use-cases/ai-year-end-bookkeeping-cleanup-checklist`, "AI year-end bookkeeping cleanup checklist for small business". Nine year-end steps for December and January before the books go to the tax preparer (uncategorized and duplicate lines, reconciling bank, card and loan accounts through the last day of the year, vendor totals and W-9s, unpaid invoices and write-offs, payroll and sales tax liabilities, fixed assets, owner spending, receipts, the package for the accountant), each saying where AI helps and where a person decides. Distinct from the month-end close checklist: it covers once-a-year items. A 58 word answer-first lead, key facts, an assumption-labelled worked example, five FAQs, human review and privacy notes (W-9s hold taxpayer identification numbers). No deadlines or dollar thresholds: the page tells readers to confirm them with their accountant or the IRS. Parent service AI Accounting, related AI Follow-Ups. Reuses the receipt capture scene image.
+- **Template**: optional `notice` on a use case, shown under the lead as a prominent line. The new page uses it for "General information only, not tax or accounting advice".
+- **Links to it**: `seeAlso` on `ai-month-end-close-checklist` and `automated-bank-reconciliation`, the "Books that are always behind" card on `/locations/los-angeles`, the "People sign off on what matters" card on `/locations/pasadena`, and the generated lists on `/services/ai-accounting`, `/use-cases`, `/llms.txt` and `/llms-full.txt`.
+- **Dates**: only the new page takes 2026-11-27 (`GROWTH_BATCH_6`), plus the KPMG post through its `dateModified`. Pages that only gained a link keep their dates.
+- **Watch**: position for "kpmg ai audit" and clicks on the KPMG post, impressions for the new page on year-end cleanup queries through December and January.
+- No new JSON-LD types (the FAQs use the existing FAQPage builder). Indexing logic was not touched.
+
 ## 2026-11-26: answer-first accountants page and five first projects
 
 Why: Search Console (7 days) shows "ai receptionist for accountants" at 5 impressions, position 43, on `/use-cases/ai-receptionist-for-accounting-firms`, "ai automation pasadena" (13, pos 71) and "ai consulting pasadena" (19, pos 59) on `/locations/pasadena`, and "ai automation for small business los angeles" (3, pos 81) on `/locations/los-angeles`.

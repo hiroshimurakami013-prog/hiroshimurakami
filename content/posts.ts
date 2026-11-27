@@ -470,7 +470,7 @@ export const POSTS: Post[] = [
     author: "Hiroshi Murakami",
     service: "ai-accounting",
     datePublished: "2026-11-24",
-    dateModified: "2026-11-24",
+    dateModified: "2026-11-27",
     lead: "An AI audit is no longer a pilot idea. On 17 November 2026, KPMG announced the U.S. rollout of KPMG Clara intelligence (KCi), which it calls an \"AI-enabled, human-assured audit\". Its agents analyze 100% of transactions in selected audit areas. Here is what AI in audit could mean if your accountant or auditor works this way.",
     glance: [
       "KPMG built AI agents into its audit platform. Auditors keep responsibility for review and final judgment.",
@@ -559,6 +559,29 @@ export const POSTS: Post[] = [
         href: "/blog",
         label: "All posts",
         text: "Every post on the blog, newest first.",
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "What is KPMG Clara intelligence (KCi), and what did KPMG announce on 17 November 2026?",
+        answer:
+          "KPMG Clara intelligence (KCi) is KPMG's AI-enabled, human-assured audit, built on its KPMG Clara smart audit platform. On 17 November 2026, KPMG announced its U.S. rollout. It puts specialized AI agents directly into auditor workflows, where they handle routine tasks and first-pass documentation, while auditors direct, supervise and review the work.",
+      },
+      {
+        question: "Does the KPMG AI audit check every transaction?",
+        answer:
+          "No. KCi analyzes 100% of transactions only in selected audit areas, not across whole audits. In those areas, automated data pipelines identify outliers, trends and anomalies for auditors to investigate. KPMG says this has shortened timelines on some engagements by up to three and a half weeks and cut manual document retrieval for clients.",
+      },
+      {
+        question: "Who is responsible for an AI audit with KCi, the AI or the auditors?",
+        answer:
+          "The auditors are responsible, not the AI. KPMG calls KCi a human-assured audit: auditors keep responsibility for review and final judgment, and they evaluate the AI's results. Traceability lets teams inspect data sources and independently corroborate findings before they enter the system of record. As KPMG's Christian Peo put it, auditor judgment cannot be automated.",
+      },
+      {
+        question: "How should a business owner prepare if their auditor uses AI?",
+        answer:
+          "In my opinion, keep your books reconciled and coded correctly all year. When every transaction in an area is checked rather than a sample, outliers will be found. Reconcile bank and card accounts regularly, code transactions consistently and keep support documents easy to find. This is my view, not a finding of KPMG or Accounting Today.",
       },
     ],
     cta: {
