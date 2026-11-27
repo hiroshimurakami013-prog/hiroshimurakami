@@ -92,6 +92,134 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "ai-costs-accounting-software-pricing",
+    title: "AI costs and accounting software pricing: what to watch.",
+    seoTitle: "AI Costs and Accounting Software Pricing: What to Watch",
+    description:
+      "AI costs accounting software pricing: vendors say they won't pass compute costs on, but one expert expects higher subscriptions. What to check.",
+    author: "Hiroshi Murakami",
+    service: "ai-accounting",
+    datePublished: "2026-11-27",
+    dateModified: "2026-11-27",
+    lead: "Will AI costs change your accounting software pricing? Nobody knows yet. Accounting Today reports that accounting tech vendors are paying far more for AI than a year ago, but say they do not plan to pass compute costs on to customers. One expert still expects small firms to see higher subscription bills. If you use [AI accounting](/services/ai-accounting) tools, here is what is known and what to check.",
+    glance: [
+      "Accounting tech vendors report dramatically higher AI costs than last year, but say they do not plan to pass compute costs on to customers.",
+      "An AI Lab for Accountants founder expects smaller firms to see higher monthly subscription costs on regular software that now has AI features.",
+      "Check renewal terms, ask if AI is bundled or an add-on, and ask if any pricing is usage based.",
+    ],
+    sections: [
+      {
+        id: "ai-costs-accounting-software-pricing-what-vendors-say",
+        title: "AI costs and accounting software pricing: what vendors say",
+        paragraphs: [
+          "Accounting Today's Chris Gaetano reports that accounting tech companies are seeing dramatically higher AI costs than last year, like many heavy users of AI.",
+          "None are letting this blunt their AI plans. Leaders consistently say the extra productivity makes the price worth it, because the technology has materially improved productivity and lowered costs in other areas.",
+          "Vendors also said they do not plan to pass compute costs onto customers. They said their own AI spend is not a factor when setting the price of their offerings or the pace of their roadmap.",
+          "Looking ahead, developers are pushing full speed ahead. They expect eventual commoditization to drive baseline compute costs down toward zero. That is what vendors anticipate, not a certainty.",
+        ],
+      },
+      {
+        id: "what-firms-are-seeing",
+        title: "What firms are seeing",
+        paragraphs: [
+          "An earlier piece in the same Accounting Today series says AI spending at accounting firms has risen dramatically compared with last year. The shift is primarily, but not completely, explained by many model providers moving from subscription-based to consumption-based pricing.",
+          "Philip Comerford, CFO of PKF O'Connor Davies, put it this way: \"It would be like if Netflix charged you for binging based on how many minutes you watched.\"",
+          "A second piece says AI costs have spiked throughout the economy and accounting firms are no exception. The issue is especially acute for large firms with significant AI investments, but some tech-forward small firms are also feeling the pinch. Rebecca Driscoll, Founder of AI Lab for Accountants, said \"smaller firms will experience increased monthly subscription costs on their regular software that now has AI features.\"",
+        ],
+      },
+      {
+        id: "two-messages-one-open-question",
+        title: "Two messages, one open question",
+        paragraphs: [
+          "These two messages do not match. Vendors say they will not pass costs on. An expert expects small firms to pay more for software with AI features. Nobody knows yet how it plays out.",
+          "One more note. The vendor article is only partly public, so this post uses only its opening points.",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the sources.",
+        "I would not panic, and I would not relax. A vendor's plan today is not a price promise for your next renewal. Treat this as a reason to look at your bills, not to worry about them.",
+        "If a tool saves real time, a modest price rise may still be a good deal. If it saves little, know that before you renew.",
+        "Cost is not the only question. AI output still needs a person reviewing it. See our post on whether [accountants check AI output](/blog/do-accountants-check-ai-output).",
+      ],
+    },
+    forYou: [
+      "Owners: read your renewal terms. Note the price, the notice period and any wording on price changes.",
+      "Ask your vendor whether AI features are bundled in your plan or an add-on.",
+      "Ask whether any pricing is usage based, where the bill grows with how much you use.",
+      "Keep a short list of alternatives, so a price rise is a choice and not a trap.",
+      "Keep a person reviewing AI output, for example in [expense categorization](/use-cases/ai-expense-categorization).",
+      "Accountants: write down how you handle AI, as our post on [firms and AI policies](/blog/accounting-firms-ai-adoption-no-policy) suggests.",
+    ],
+    source: {
+      publisher: "Accounting Today",
+      title: "Tokenomics: Vendors trade rising AI costs for productivity",
+      note: "Accounting Today, by Chris Gaetano, 23 November 2026 (updated 24 November). Also from the same Tokenomics series: \"Tech-forward small firms see higher AI bills, but controls keep costs down\" (13 November 2026) and \"Firms see surging AI costs compared to last year\" (2 November 2026). The vendor article is only partly public, so only its published summary and opening are used here.",
+      links: [
+        {
+          href: "https://www.accountingtoday.com/news/tokenomics-vendors-trade-rising-ai-costs-for-productivity",
+          label: "Read the Accounting Today report on vendors",
+        },
+        {
+          href: "https://www.accountingtoday.com/news/tokenomics-tech-forward-small-firms-see-higher-ai-bills-but-controls-keep-costs-down",
+          label: "Read the report on small firms",
+        },
+        {
+          href: "https://www.accountingtoday.com/news/tokenomics-firms-see-surging-ai-costs-compared-to-last-year",
+          label: "Read the report on surging AI costs",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/do-accountants-check-ai-output",
+        label: "Do accountants check AI output?",
+        text: "A post: what a survey shows about reviewing AI work.",
+      },
+      {
+        href: "/blog/accounting-firms-ai-adoption-no-policy",
+        label: "Accounting firms and AI policies",
+        text: "A post: how many firms use AI without a written policy.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Want to know what AI would really cost you?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at where AI helps with your accounting, and what it would cost. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/ai-costs-accounting-software-pricing-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "An accountant reviewing a long monthly software bill on a laptop in a dim office at night, lit by a warm ember glow.",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "what-firms-are-seeing",
+        image: {
+          src: "/images/blog/ai-costs-accounting-software-pricing-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "Two colleagues comparing printed subscription statements and a calculator under a desk lamp at night.",
+          caption: "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "do-accountants-check-ai-output",
     title: "Do accountants check AI output? 97% of firms review at least some.",
     seoTitle: "Do Accountants Check AI Output? What the Survey Shows",
