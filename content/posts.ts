@@ -92,6 +92,130 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "ai-agents-spending-money-trust-human-approval",
+    title: "AI agents, human approval and bookkeeping: why people want a copilot.",
+    seoTitle: "AI Agents, Human Approval and Bookkeeping Trust",
+    description:
+      "AI agents human approval bookkeeping: only 8% would let AI make high-value purchases. Why a copilot beats an autopilot for your books.",
+    author: "Hiroshi Murakami",
+    service: "ai-accounting",
+    datePublished: "2026-11-28",
+    dateModified: "2026-11-28",
+    lead: "AI agents can now buy things and open accounts for people. But most people do not want them acting alone. Accounting Today reports that only 8% would let AI make high-value purchases. The lesson for AI agents, human approval and bookkeeping is simple: let AI prepare the work, and let a person approve it. Here is what the data says, and what it means for your [AI accounting](/services/ai-accounting) tools.",
+    glance: [
+      "Only 8% of consumers would be happy with AI making high-value purchases for them, and 19% would allow smaller ones.",
+      "Only 11% want AI to complete a financial application on their behalf, while 65% welcome AI help if they keep control of decisions.",
+      "The data is European consumer data, not bookkeeping data. The pattern still points one way: copilot, not autopilot.",
+    ],
+    sections: [
+      {
+        id: "what-consumers-told-signicat",
+        title: "What consumers told Signicat",
+        paragraphs: [
+          "Accounting Today's Chris Gaetano reports that AI can buy things for you, but most people are not ready to let it.",
+          "The main data comes from Signicat, a UK based digital identity provider. Its report \"The Battle to Onboard 2026: The AI Reality Check\" surveyed consumers and financial providers across Europe. About 4,050 consumers in nine European markets, who had applied for a financial product in the past year, took part. This is European data, not US data.",
+          "65% of consumers welcome AI assistance with financial applications, as long as they keep control of decisions. Only 11% want AI to complete the application on their behalf.",
+          "Only 14% are comfortable with AI opening a financial product for them. Meanwhile 79% of providers are prepared for AI initiated applications. Emma Bauer, Signicat's CPO, framed it this way: \"Today consumers want a copilot, not an autopilot.\"",
+        ],
+      },
+      {
+        id: "trust-depends-on-the-risk",
+        title: "Trust depends on the risk",
+        paragraphs: [
+          "Only 8% would be happy with AI making high-value purchases on their behalf. 19% would let AI make smaller purchases.",
+          "Only 15% would trust AI to use their digital identity to verify who they are to the bank. Only 14% would trust AI to sign contracts for them to open an account.",
+          "Accounting Today cites NMI research. It found a 200% rise in consumers using AI as the first step in shopping. But just 11% have used it to complete a transaction. Only 10% would give AI full control over a purchase, and 45% would not trust AI to make purchases on their behalf at all.",
+        ],
+      },
+      {
+        id: "ai-agents-human-approval-bookkeeping-what-the-data-covers",
+        title: "AI agents, human approval and bookkeeping: what the data covers",
+        paragraphs: [
+          "These are consumer surveys about shopping and financial applications. They do not measure AI inside accounting software.",
+          "One business poll points the same way. Accounting Today cites a Linnworks poll of e-commerce retailers. 57% would trust AI to generate demand forecasts, but only 36% would trust it to make purchasing decisions.",
+          "The Signicat report adds a warning, quoted by Accounting Today: \"We cannot assume that digitally advanced markets will be the easiest to bring into an agentic AI future.\"",
+        ],
+      },
+    ],
+    take: {
+      id: "my-take",
+      title: "My take",
+      paragraphs: [
+        "This part is my opinion, not a finding of the sources.",
+        "The same trust gap applies to AI in your books. The AI that wins is the one that prepares the work and then waits. It categorises, matches and drafts the payment. A person approves.",
+        "Human approval is a feature, not a flaw. It is also what accountants already do. See our post on whether [accountants check AI output](/blog/do-accountants-check-ai-output).",
+        "Start small. The survey shows trust rises when the stakes are lower. Matching bank lines is gentler than paying bills, so [bank reconciliation](/use-cases/automated-bank-reconciliation) is a good place to begin.",
+      ],
+    },
+    forYou: [
+      "Let AI draft and queue. You approve anything that moves money.",
+      "Start with small, low-risk tasks, like categorising expenses or matching bank lines.",
+      "Keep an audit trail of what AI suggested and who approved it.",
+      "For bills, try [AI invoice capture for accounts payable](/use-cases/ai-accounts-payable-invoice-capture), with a person releasing every payment.",
+      "Accountants: tell clients which steps AI prepares and which steps a person signs off.",
+    ],
+    source: {
+      publisher: "Accounting Today and Signicat",
+      title: "AI can buy things for you, but most aren't ready to let it",
+      note: "Accounting Today, by Chris Gaetano, 25 November 2026. Also the Signicat press release on FinancialIT, \"Financial Providers Are Ready for Agentic AI Onboarding, but Consumers Aren't\" (27 October 2026), about the Signicat report \"The Battle to Onboard 2026: The AI Reality Check\". The Signicat data is from Europe.",
+      links: [
+        {
+          href: "https://www.accountingtoday.com/news/ai-can-buy-things-for-you-but-most-aren-t-ready-to-let-it",
+          label: "Read the Accounting Today report",
+        },
+        {
+          href: "https://www.financialit.net/news/artificial-intelligence/financial-providers-are-ready-agentic-ai-onboarding-consumers-arent",
+          label: "Read the Signicat press release",
+        },
+      ],
+    },
+    related: [
+      {
+        href: "/services/ai-accounting",
+        label: "AI Accounting",
+        text: "Invoice capture, bookkeeping, bank reconciliation and reporting, with a person reviewing the results.",
+      },
+      {
+        href: "/blog/do-accountants-check-ai-output",
+        label: "Do accountants check AI output?",
+        text: "A post: what a survey shows about reviewing AI work.",
+      },
+      {
+        href: "/blog/ai-costs-accounting-software-pricing",
+        label: "AI costs and accounting software pricing",
+        text: "A post: what vendors say and what to check at renewal.",
+      },
+      {
+        href: "/blog",
+        label: "All posts",
+        text: "Every post on the blog, newest first.",
+      },
+    ],
+    cta: {
+      title: "Want AI that prepares the work and waits for you?",
+      text: "Book a free 30 minute call or send me a message on Instagram. We can look at which parts of your books AI could draft, and where you stay in control. No obligation.",
+    },
+    images: {
+      hero: {
+        src: "/images/blog/ai-agents-spending-money-trust-human-approval-hero.webp",
+        width: 1600,
+        height: 900,
+        alt: "A woman accountant approves a payment on a tablet at night while a translucent ember-orange AI assistant waits beside her holding a stack of invoices",
+        caption: "An AI-generated image of the idea, not a photo of real people.",
+      },
+      inline: {
+        afterSectionId: "trust-depends-on-the-risk",
+        image: {
+          src: "/images/blog/ai-agents-spending-money-trust-human-approval-review.webp",
+          width: 1600,
+          height: 900,
+          alt: "A small business owner in an apron reviews a printed purchase list, pen hovering over the signature line, as an ember light trace runs from a laptop to the paper",
+          caption: "An AI-generated image of the idea, not a photo of real people.",
+        },
+      },
+    },
+  },
+  {
     slug: "ai-costs-accounting-software-pricing",
     title: "AI costs and accounting software pricing: what to watch.",
     seoTitle: "AI Costs and Accounting Software Pricing: What to Watch",
