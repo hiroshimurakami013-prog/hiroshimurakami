@@ -69,20 +69,30 @@ const growthPages5 = new Set([
 const growthPages6 = new Set([
   "/use-cases/ai-year-end-bookkeeping-cleanup-checklist",
 ]);
+// Batch 7 dates only the new page. The pages that only gained a link keep
+// their dates. The three posts that gained "Quick answers" (Thomson Reuters
+// CoCounsel, ChatGPT for Accounting, Blue J and Deloitte Canada) take
+// 2026-11-28 from their own dateModified below.
+const GROWTH_BATCH_7 = "2026-11-28";
+const growthPages7 = new Set([
+  "/use-cases/ai-payment-processor-payout-reconciliation",
+]);
 const contentDate = (path: string) =>
-  growthPages6.has(path)
-    ? GROWTH_BATCH_6
-    : growthPages5.has(path)
-      ? GROWTH_BATCH_5
-      : growthPages4.has(path)
-        ? GROWTH_BATCH_4
-        : growthPages3.has(path)
-          ? GROWTH_BATCH_3
-          : growthPages2.has(path)
-            ? GROWTH_BATCH_2
-            : growthPages.has(path)
-              ? GROWTH_BATCH
-              : FIRST_VERSION;
+  growthPages7.has(path)
+    ? GROWTH_BATCH_7
+    : growthPages6.has(path)
+      ? GROWTH_BATCH_6
+      : growthPages5.has(path)
+        ? GROWTH_BATCH_5
+        : growthPages4.has(path)
+          ? GROWTH_BATCH_4
+          : growthPages3.has(path)
+            ? GROWTH_BATCH_3
+            : growthPages2.has(path)
+              ? GROWTH_BATCH_2
+              : growthPages.has(path)
+                ? GROWTH_BATCH
+                : FIRST_VERSION;
 const dated = (path: string): SiteRoute => ({
   path,
   lastModified: contentDate(path),

@@ -136,6 +136,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "ai-reconciliation-tool-evaluation-checklist",
       "ai-vs-rules-vs-manual-bank-reconciliation",
       "ai-year-end-bookkeeping-cleanup-checklist",
+      "ai-payment-processor-payout-reconciliation",
     ],
   },
   {
@@ -200,6 +201,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "automated-bank-reconciliation",
       "ai-reconciliation-tool-evaluation-checklist",
       "ai-transaction-matching-for-quickbooks",
+      "ai-payment-processor-payout-reconciliation",
     ],
   },
   {
@@ -224,6 +226,7 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "faster-month-end-reporting",
       "bank-reconciliation-for-a-10-person-firm",
       "ai-year-end-bookkeeping-cleanup-checklist",
+      "ai-payment-processor-payout-reconciliation",
     ],
   },
   {
@@ -239,6 +242,21 @@ const CARDS: Omit<UseCase, "detail">[] = [
       "automated-bank-reconciliation",
       "ai-expense-categorization",
       "invoice-and-receipt-capture",
+    ],
+  },
+  {
+    slug: "ai-payment-processor-payout-reconciliation",
+    service: "ai-accounting",
+    title: "Reconcile card processor payouts with AI",
+    summary:
+      "Why the bank deposit from your card processor never equals the sales report, how to reconcile each payout step by step, and where AI helps and a person decides.",
+    relatedService: "custom-crm-and-workflows",
+    locations: ["los-angeles", "pasadena", "santa-monica", "long-beach"],
+    seeAlso: [
+      "automated-bank-reconciliation",
+      "ai-vs-rules-vs-manual-bank-reconciliation",
+      "ai-transaction-matching-for-quickbooks",
+      "ai-month-end-close-checklist",
     ],
   },
   {

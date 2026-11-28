@@ -37,6 +37,10 @@ export const PASADENA: LocationDetail = {
               href: "/use-cases/ai-year-end-bookkeeping-cleanup-checklist",
               label: "Getting the books ready for your tax preparer",
             },
+            {
+              href: "/use-cases/ai-payment-processor-payout-reconciliation",
+              label: "Reconciling card processor payouts",
+            },
           ],
         },
         {

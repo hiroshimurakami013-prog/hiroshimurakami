@@ -953,6 +953,138 @@ export const AI_ACCOUNTING_DETAILS: Record<string, UseCaseDetail> = {
     ],
   },
 
+  "ai-payment-processor-payout-reconciliation": {
+    seoTitle: "Reconcile Card Processor Payouts with AI | Hiroshi Murakami",
+    seoDescription:
+      "Why a bank deposit does not match the sales report: batched payouts, fees, refunds, disputes and timing. Payout reconciliation step by step, with AI.",
+    lead: "A bank deposit from your card processor rarely equals the sales report, because the processor batches one or more days of sales into a single payout, takes its fees out first, and subtracts refunds, chargebacks and disputes. Tips and sales tax sit inside the gross. Payout reconciliation means matching each payout to one deposit, then splitting it into those parts.",
+    notice:
+      "General information only, not tax or accounting advice. How fees, tips, refunds, disputes and sales tax are recorded depends on your business and your accounting setup, so confirm the treatment with your accountant before you change how payouts are posted.",
+    scope: {
+      heading: "Where AI helps and where a person decides",
+      can: [
+        "Match each processor payout to its bank deposit, even when the deposit lands days later",
+        "Split each payout into gross sales, fees, refunds and other adjustments from the payout report",
+        "Flag payouts with unusual adjustments, such as a dispute hold or a fee that looks out of line",
+        "Draft the exceptions list, with the payout and the bank line attached to each item",
+      ],
+      cannot: [
+        "Decide whether to contest a dispute or chargeback: the owner decides",
+        "Write off an amount or accept a difference: a person approves that",
+        "Settle anything unusual, such as a missing payout or a reversed deposit",
+        "Post the final entries without review: a person approves every posting",
+      ],
+    },
+    keyFacts: [
+      "A card processor payout is a net amount: gross card sales minus processing fees, refunds, chargebacks and any amounts held for disputes.",
+      "One bank deposit often covers more than one day of sales, and weekend and holiday sales usually arrive together on a later business day.",
+      "The processor's payout report, not the sales report, is the document that explains each deposit line by line.",
+      "AI can match payouts to deposits and split out fees, refunds and adjustments, while a person decides on disputes, write-offs and the final posting.",
+    ],
+    stepsHeading: "How to reconcile card processor payouts, step by step",
+    problem: [
+      "Picture a cafe, salon or small shop that takes most of its sales by card. The point of sale report says Saturday brought in a certain amount. The bank shows a deposit from the card processor on Tuesday that is smaller, and it does not obviously belong to Saturday at all. The owner asks why the bank deposit does not match the sales report, and the honest answer is that the two measure different things.",
+      "The sales report counts what customers paid at the counter, including tips and the sales tax you collected. The deposit is what the processor sends after its own sums. It batches sales into a payout, often one a day but sometimes several days together. It nets out its processing fees before paying you. It subtracts refunds you gave, chargebacks customers filed and amounts it holds while a dispute is open. Fridays, weekends and holidays shift the timing, so a deposit can arrive one or more business days after the sales it covers.",
+      "If the payout is booked as a single sales figure, revenue is understated, fees disappear from the expense lines, refunds are hidden and a held dispute looks like missing money. Over a month the differences pile up, and the bank account stops agreeing with the books.",
+    ],
+    usualTools: [
+      "Bank feed rules in accounting software usually match a deposit to one income line by payee name. That works when one deposit equals one sale. A payout is a bundle, so a simple rule either books the net amount as sales or leaves the line for someone to split by hand.",
+      "Some processors and accounting software offer a connection that brings the payout detail across, and it is worth using where it exists. It does not always cover refunds, disputes and manual adjustments cleanly, and someone still has to check that each payout landed and was split the right way.",
+    ],
+    steps: [
+      {
+        title: "Export the processor payout report",
+        text: "From your card processor's dashboard, export the payout report for the period, not the sales report. It should list each payout with its date, the transactions inside it, the gross amount, fees, refunds, chargebacks and other adjustments. AI can read the export and line it up with the bank statement. A person checks that the export covers the full period, including the first and last few days.",
+      },
+      {
+        title: "Match each payout to one bank deposit",
+        text: "Each payout should land as one deposit in the bank, a day or more after the sales it covers. AI matches them by net amount and a date window, so a Friday to Sunday payout that arrives on Tuesday is still found. Where two payouts have the same amount, it uses the payout reference or asks. A person approves the matches.",
+      },
+      {
+        title: "Split each payout into gross sales, fees, refunds and adjustments",
+        text: "Using the payout report, AI breaks each deposit into its parts: gross card sales, processing fees, refunds, chargebacks, dispute holds and any other adjustments, so the parts add up exactly to the net deposit. Where the gross includes tips and sales tax collected, it shows them separately using your sales report. If the parts do not add up, the payout goes on the exceptions list.",
+      },
+      {
+        title: "Post fees as an expense and sales as revenue",
+        text: "The deposit is recorded with the gross sales as revenue and the processing fees as an expense, rather than one net sales figure. Refunds, tips and sales tax collected go to the accounts your accountant has set up for them. AI drafts the entry for each payout. A person reviews the draft and approves it before anything is posted.",
+      },
+      {
+        title: "Investigate unmatched payouts and deposits",
+        text: "AI lists every payout with no deposit, every processor deposit with no payout, and every payout with an unusual adjustment, such as a chargeback, a dispute hold, a reserve or a fee that looks out of line with past payouts. It drafts a short note for each. A person looks into each one with the processor's dashboard and decides what happens next.",
+      },
+      {
+        title: "Decide on disputes, write-offs and anything unusual",
+        text: "Whether to contest a chargeback, whether a small difference can be written off and how to treat a reversed or missing payout are decisions for the owner, with the bookkeeper or accountant. The AI keeps the evidence together and tracks each open item until it is settled. It does not decide or contact the processor on its own.",
+      },
+    ],
+    outcomes: [
+      "Every processor deposit is explained by one payout, line by line.",
+      "Revenue shows gross sales, and processing fees show up as an expense you can see.",
+      "Refunds, chargebacks and disputes are visible instead of hidden in a net figure.",
+      "Timing gaps across days and weekends stop looking like missing money.",
+      "The person reviewing works from a short exceptions list, not the whole statement.",
+    ],
+    requirements: [
+      "Read-only access to your card processor's dashboard or its payout report exports",
+      "Your bank feed or statements for the same period",
+      "Your sales report from the point of sale, for tips and sales tax collected",
+      "The accounts your accountant wants used for fees, refunds, tips and sales tax",
+      "A named person to approve matches and postings",
+    ],
+    humanInTheLoop:
+      "AI proposes the matches, the splits and the exceptions list, and nothing is posted until a person approves it. Disputes, chargebacks, write-offs, reversed or missing payouts and anything unusual are decided by the owner with the bookkeeper or accountant. Check a sample of the payouts the AI marked as clean, especially in the first months.",
+    privacy:
+      "Payout reports can include customer names and the last digits of card numbers, so limit who can see them and keep card details out of notes and summaries drafted by AI. Use read-only access to the processor and the bank, never share logins, and ask any vendor where the data is stored, whether it trains models and how it is deleted.",
+    example: {
+      title: "A worked example: one weekend payout",
+      intro:
+        "The figures below are made-up assumptions chosen to show the arithmetic. They are not a client result, and the fee is not the rate of any real card processor.",
+      assumptions: [
+        { label: "Card sales, Friday to Sunday", value: "An assumed $2,400.00 gross on the sales report, including $180.00 sales tax collected and $120.00 card tips" },
+        { label: "Processing fees", value: "An assumed $69.60, taken out of the payout" },
+        { label: "Refund given on Saturday", value: "An assumed $85.00" },
+        { label: "Dispute hold", value: "An assumed $50.00 held for a customer dispute on an earlier sale" },
+        { label: "Net payout", value: "$2,195.40, deposited in the bank on Tuesday" },
+      ],
+      steps: [
+        "AI matches the $2,195.40 Tuesday deposit to the Friday to Sunday payout, two business days after the last sale.",
+        "It splits the payout: $2,400.00 gross sales less $69.60 fees, $85.00 refund and $50.00 dispute hold, which equals $2,195.40.",
+        "It separates the gross into $2,100.00 of sales, $180.00 of sales tax collected and $120.00 of tips, using the sales report.",
+        "It drafts the entry with the fees as an expense and flags the $50.00 dispute hold for a person.",
+        "The owner reviews the dispute and decides whether to contest it. The bookkeeper approves the entry.",
+      ],
+      result:
+        "In this example the sales report says $2,400.00 and the bank says $2,195.40, and both are right. The $204.60 difference is $69.60 of fees, an $85.00 refund and a $50.00 dispute hold. Once each payout is split this way, the bank account agrees with the books and the only open item is the dispute.",
+    },
+    faqs: [
+      {
+        question: "Why does my bank deposit not match my sales report?",
+        answer:
+          "Because the card processor pays you a net amount. It batches sales into payouts, takes its fees out first, and subtracts refunds, chargebacks and dispute holds. Deposits can also arrive days after the sales, especially after weekends. The sales report also includes tips and sales tax collected, so the two figures rarely agree.",
+      },
+      {
+        question: "What is payout reconciliation?",
+        answer:
+          "Payout reconciliation means matching each payout from your card processor to one deposit in the bank, then splitting it into gross sales, fees, refunds, chargebacks and other adjustments. The parts should add up exactly to the deposit. Anything that does not match or add up goes on an exceptions list for a person to investigate.",
+      },
+      {
+        question: "Should I record card sales gross or net of processing fees?",
+        answer:
+          "A common approach is to record gross sales as revenue and the processing fees as a separate expense, rather than the net deposit as sales, so both figures stay visible. This page is general information, not accounting advice, so confirm the accounts and treatment for your business, including tips and sales tax, with your accountant.",
+      },
+      {
+        question: "Can AI reconcile card processor payouts on its own?",
+        answer:
+          "No. AI can match payouts to deposits despite date shifts, split each payout into its parts, flag unusual adjustments and draft the exceptions list. A person still approves the matches and the entries, and decides on disputes, chargebacks, write-offs and anything unusual. Start with nothing posted automatically and check a sample.",
+      },
+      {
+        question: "What if a payout never arrives in the bank?",
+        answer:
+          "Check the processor's dashboard first. The payout may still be pending, may have been combined with another day, or may be held for a dispute or reserve. If it shows as paid but no deposit appears, contact the processor and your bank. AI can list missing payouts, but a person follows them up.",
+      },
+    ],
+  },
+
   "ai-expense-categorization": {
     seoTitle: "AI Expense Categorization | Hiroshi Murakami",
     seoDescription:

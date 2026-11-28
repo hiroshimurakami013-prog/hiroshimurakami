@@ -70,6 +70,10 @@ export const LOS_ANGELES: LocationDetail = {
               href: "/use-cases/ai-year-end-bookkeeping-cleanup-checklist",
               label: "Year-end bookkeeping cleanup checklist",
             },
+            {
+              href: "/use-cases/ai-payment-processor-payout-reconciliation",
+              label: "Why card deposits never match the sales report",
+            },
           ],
         },
       ],

@@ -101,6 +101,11 @@ export const USE_CASE_IMAGES: Record<string, SceneImage> = {
     "use-cases/invoice-receipt-capture-scan",
     "Paper receipts scanned by a beam of light and turned into neat, sorted digital records",
   ),
+  // Reuses the reconciliation scene: each payout is matched to one bank line.
+  "ai-payment-processor-payout-reconciliation": img(
+    "use-cases/bank-reconciliation-matching-rows",
+    "Bank and ledger rows matched pair by pair with threads of light, one row left for review",
+  ),
   "ai-expense-categorization": img(
     "use-cases/invoice-receipt-capture-scan",
     "Paper receipts scanned by a beam of light and turned into neat, sorted digital records",

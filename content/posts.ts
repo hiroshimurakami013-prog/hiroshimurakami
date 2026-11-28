@@ -471,7 +471,7 @@ export const POSTS: Post[] = [
     author: "Hiroshi Murakami",
     service: "ai-accounting",
     datePublished: "2026-11-25",
-    dateModified: "2026-11-25",
+    dateModified: "2026-11-28",
     lead: "AI tax research is moving into the big advisory firms. On 19 November 2026, Blue J announced a multi-year enterprise agreement with Deloitte Canada. It puts AI-powered tax research in front of more than 1,500 tax and legal professionals. If you use an accountant, this is a good moment to ask how they use AI, and how it fits with [AI accounting](/services/ai-accounting) in your own business.",
     glance: [
       "Blue J and Deloitte Canada signed a multi-year deal for AI tax research across Canada, covering more than 1,500 tax and legal professionals.",
@@ -559,6 +559,28 @@ export const POSTS: Post[] = [
         href: "/blog",
         label: "All posts",
         text: "Every post on the blog, newest first.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is Blue J, and what does it do?",
+        answer:
+          "Blue J is an AI-powered tax research platform for tax and legal professionals. The company says its research product is used by more than 6,500 organizations worldwide, a figure that is its own claim. In November 2026, Blue J raised a US$176 million Series E led by JMI Equity and signed a multi-year deal with Deloitte Canada.",
+      },
+      {
+        question: "What did Blue J and Deloitte Canada agree on AI tax research?",
+        answer:
+          "On 19 November 2026, Blue J announced a multi-year enterprise agreement that delivers AI-powered tax research across Canada to more than 1,500 Deloitte Canada tax and legal professionals. Select Deloitte proprietary research content, excluding client-specific information, is integrated on the Blue J platform, and a Model Context Protocol (MCP) integration connects Blue J to Deloitte's practitioner environment.",
+      },
+      {
+        question: "Why did Deloitte Canada choose Blue J for AI tax research?",
+        answer:
+          "Deloitte Canada first chose Blue J for its AI capabilities and its curated library of authoritative tax sources. The stated aim of the deal is faster, verifiable research, consistent quality and more time for advisory work, while keeping the highest standards of accuracy and defensibility. The professional still keeps responsibility for the advice.",
+      },
+      {
+        question: "What should I ask my accountant about AI tax research?",
+        answer:
+          "In my opinion, ask four plain questions. Which AI do you use? Are answers checked against the sources? Where is my data processed? Does the time saved show up in my bill or in better advice? A good accountant will have clear answers. This is my view, not a finding of Blue J, Deloitte or the reports.",
       },
     ],
     cta: {
@@ -741,7 +763,7 @@ export const POSTS: Post[] = [
     author: "Hiroshi Murakami",
     service: "ai-accounting",
     datePublished: "2026-11-23",
-    dateModified: "2026-11-23",
+    dateModified: "2026-11-28",
     lead: "AI tax compliance is moving from year-end clean-up to checking each invoice as it happens. On 17 November 2026, at its Synergy conference in Las Vegas, Thomson Reuters announced it is bringing CoCounsel agentic AI to tax and transactional compliance. This is a vendor announcement, and the new workflows are designed, not yet released. Here is what it means for a small business.",
     glance: [
       "Thomson Reuters expanded CoCounsel across tax and transactional compliance. The review, the sign-off and the judgment stay with professionals.",
@@ -826,6 +848,29 @@ export const POSTS: Post[] = [
         href: "/blog",
         label: "All posts",
         text: "Every post on the blog, newest first.",
+      },
+    ],
+    faqs: [
+      {
+        question:
+          "What is Thomson Reuters CoCounsel for tax, and how does it use AI for tax research?",
+        answer:
+          "CoCounsel is Thomson Reuters' agentic AI, and on 17 November 2026 the company announced it is bringing CoCounsel to its tax and compliance products. For direct tax, the new workflow is designed to prepare quarter-end workpapers with the research beside each calculation. The AI works from authoritative sources and shows its steps, and each figure is traceable to its source.",
+      },
+      {
+        question: "When will the CoCounsel agentic tax compliance workflows be available?",
+        answer:
+          "The new agentic workflows for direct tax and transactional compliance begin to roll out in 2027. When Thomson Reuters announced them at its Synergy conference in Las Vegas on 17 November 2026, they were designed, not yet released. ONESOURCE Indirect Compliance has already launched, and Thomson Reuters claims it cuts routine reporting time by up to 65%.",
+      },
+      {
+        question: "How does AI invoice checking work in CoCounsel transactional compliance?",
+        answer:
+          "The workflows are designed to check each customer, vendor and product as it is set up, and every invoice before it reaches the tax authority. They join indirect tax, e-invoicing through the Pagero network and global trade into one view of each transaction, then prefill the return for review. A professional approves the return before anything is filed.",
+      },
+      {
+        question: "What can a small business learn from AI tax compliance tools like CoCounsel?",
+        answer:
+          "In my opinion, a small business can borrow the idea, even though these tools target corporate tax teams first. Check every invoice as it is created, fix mistakes at the source, hand a person a short list of exceptions and let that person sign. This is my view, not a finding of Thomson Reuters.",
       },
     ],
     cta: {
@@ -1120,7 +1165,7 @@ export const POSTS: Post[] = [
     author: "Hiroshi Murakami",
     service: "ai-accounting",
     datePublished: "2026-11-20",
-    dateModified: "2026-11-20",
+    dateModified: "2026-11-28",
     lead: "OpenAI launched ChatGPT for Accounting on 18 November 2026. It is a free Accounting plugin, plus partner plugins for QuickBooks, Xero, NetSuite and more. It prepares drafts, and a person approves every change. Here is what it does, and what to do with it.",
     glance: [
       "ChatGPT for Accounting combines a free Accounting plugin from OpenAI with partner plugins for QuickBooks Online, Xero, Oracle NetSuite, BILL, FreshBooks, Rillet and Campfire.",
@@ -1232,6 +1277,28 @@ export const POSTS: Post[] = [
         href: "/blog",
         label: "All posts",
         text: "Every post on the blog, newest first.",
+      },
+    ],
+    faqs: [
+      {
+        question: "What is ChatGPT for Accounting?",
+        answer:
+          "ChatGPT for Accounting is a free Accounting plugin from OpenAI, launched on 18 November 2026, plus partner plugins for QuickBooks Online, Xero, Oracle NetSuite, BILL, FreshBooks, Rillet and Campfire. It drafts entries from invoices and receipts, suggests account classifications, reconciles bank lines and prepares month-end reports. A person approves every change.",
+      },
+      {
+        question: "Does ChatGPT for Accounting change my books without my approval?",
+        answer:
+          "No. It prepares drafts, and a person approves every change. OpenAI says \"You make the final call.\" Users check records, calculations and suggested classifications before approving. OpenAI's help page says to compare proposed entries with the original invoices, and, if an entry status is unclear, to check the accounting app before retrying, to avoid creating a duplicate entry.",
+      },
+      {
+        question: "Is ChatGPT for Accounting reliable enough to close the books?",
+        answer:
+          "Not on its own, according to outside benchmarks. i-scoop.eu reports that single tasks often work, but close work is not reliable every time. On the APEX-Accounting benchmark from Mercor with Ramp, the best model solves 21.5% of tasks at least once in eight attempts, and only 2.6% every time.",
+      },
+      {
+        question: "How should a small business use ChatGPT for Accounting?",
+        answer:
+          "In my opinion, use it for the first pass, not the last word. Let AI draft invoice entries, match bank lines and prepare the month-end report, then have a person check each one against the original document. Keep the ledger clean first, because tidy categories make better drafts. This is my view, not OpenAI's.",
       },
     ],
     cta: {
